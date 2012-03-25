@@ -1,0 +1,7 @@
+RewriteEngine on
+#当路径不存在任何以之匹配的目录和文件，就进行转向!
+
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^.*(\.html|.xml|\.css|\.js|\.gif|\.png|\.jpg|\.swf|\.jpeg|\.doc|\.rar|\.ico)$
+RewriteRule ^(.*)$ index.php/$1

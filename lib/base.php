@@ -1,0 +1,87 @@
+<?php
+class DOBase
+{
+	public static $_mark;
+	private static $vars = array();
+	
+	public function __construct()
+	{
+		$this->mark( get_class($this) );
+		
+		if(version_compare(phpversion(),'5.0.0','<') && method_exists($this,'__destruct'))
+		{
+			register_shutdown_function(array($this,'__destruct'));
+		}
+	}
+	public function mark( $class )
+	{
+		if(!self::$_mark[ $class ])
+		{
+			self::$_mark[ $class ] = DOFactory::get('time');
+		}
+	}
+	
+	public function profile()
+	{
+		foreach( self::$_mark as $k=>$v)
+		{
+			self::$_mark[$k] = factory::get('time') - $v;
+		}
+		//print_r( self::$_mark );
+	}
+	
+	public function set($p,$v)
+	{
+		self::$vars[$p] = $v;
+	}
+	
+	public function get( $p ,$object='')
+	{
+		if(!is_object( $object ))
+		{
+			$object = $this;
+		}
+		return self::$vars[$p] ? self::$vars[$p] : false;	
+	}
+	
+	/**
+	 * read command 
+	 *
+	 * @param unknown_type $command
+	 */
+	function command( $command )
+	{
+		$cmd = preg_match_all('#(-[a-z]+)(?:\s+([^\s]*)|$)#is',$command,$match);
+
+		foreach( $match[1] as $k=>$v )
+		{
+			$fn = preg_replace('#^-+#','_',$v);
+			$pa = $match[2][$k];
+			$this->$fn( $pa );
+		}
+	}
+	/**
+	 * run command
+	 *
+	 * @param string $command
+	 * @param array $args
+	 */
+	function run( $command ,$args = array() )
+	{
+		parent::command( $command );
+		/**
+		 * call handler.
+		 */
+		call_user_func_array(array($this,$this->handler),$args);
+	}
+	/**
+	 * gen id
+	 *
+	 * @return unknown
+	 */
+	function genId()
+	{
+		return md5( uniqid( rand(),true ) );
+	}
+}
+?>

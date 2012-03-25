@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head base='<?php echo DOUri::getRoot();?>'>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo DO_CHARSET;?>" />
+	<title>后台管理登录</title>	
+	<script type='text/javascript' src='<?php echo DOUri::getRoot();?>/data/js/common/loader.js'>
+		@load Ext; 
+		@load Valid;
+		@load Theme[backend/default];
+	</script>
+</head>
+<body class="login_body">
+    <div id="login_wrapper">
+		<div id="login_header"></div>
+    	<div id="login_container">
+			<span class="login_title">后台管理系统</span>
+			<form name="adminForm" id="adminForm" method="post" action=" " onsubmit="return DO.formPost()">
+			<ul class="login_content">
+				<li>用户：<input tabindex="1" class="login_input required" type="text" name="user" id="user"/></li>
+				<li>密码：<input tabindex="2" class="login_input required" type="password" name="pass" id="pass"/></li>
+				<li><input type="submit" class="login_button" value="登录"/>&nbsp;<input type="reset" class="login_button" value="重置"/><input type="hidden" name="task" value="login"/></li>
+			</ul>
+			</form>
+		</div>
+		<div id="login_footer">
+			版权所有 &copy; 2010 Dothing
+		</div>
+	</div>
+</body>
+</html>
