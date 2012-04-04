@@ -37,7 +37,12 @@ class DOLoader
 		}
 		return false;
 	}
-
+	function Autoload($class)
+	{
+		include_once FRAMEWORK_ROOT.DS
+			    .'lib'.DS
+			    .str_replace('_',DS,$class).".php";
+	}
 	/**
 	 * multiple require.
 	 *

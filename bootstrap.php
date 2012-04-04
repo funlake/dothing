@@ -1,15 +1,16 @@
 <?php
-#define( 'DS'	, DIRECTORY_SEPARATOR );
+define( 'DS'	, DIRECTORY_SEPARATOR );
 
-define('DOROOT'	,realpath( dirname(__FILE__) ) );
+define('FRAMEWORK_ROOT' ,realpath( dirname(__FILE__) ) );
 
-include DOROOT.DS.'conf'.DS.'config.php';
+include FRAMEWORK_ROOT.DS.'conf'.DS.'config.php';
 
-include DOROOT.DS.'lib'.DS.'dothing'.DS.'class.loader.php';
+include FRAMEWORK_ROOT.DS.'lib'.DS.'dothing'.DS.'class.loader.php';
+/** Set autoload **/
+spl_autoload_register(array('DOLoader','Autoload'));
 //mvc
+/*
 DOLoader::import('lib.base'
-/*			  ,'lib.database.database'
-			  */
 			  ,'lib.Uri'
 			  ,'lib.Router'
 			  ,'lib.session.session' 
@@ -20,4 +21,5 @@ DOLoader::import('lib.base'
 			  ,'mvc.model'
 			  ,'mvc.view'
 );
+*/
 ?>

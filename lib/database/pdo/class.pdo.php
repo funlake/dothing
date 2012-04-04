@@ -184,7 +184,7 @@ class DOPdo extends DODatabase implements DORecord
     {
        if($this->debug) 
        {
-					echo getType($msg) == 'string' ? "<hr noshade size=0 color=#C0C0C0>".$msg."<hr noshade size=0 color=#C0C0C0><br>" : '';
+	echo getType($msg) == 'string' ? "<hr noshade size=0 color=#C0C0C0>".$msg."<hr noshade size=0 color=#C0C0C0><br>" : '';
 					if($error) exit( "<hr noshade size=0 color=#C0C0C0><span style='color:red'>".$error."</span><hr noshade size=0 color=#C0C0C0><br>" );
        }
     }
