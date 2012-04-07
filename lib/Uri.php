@@ -1,22 +1,24 @@
 <?php
-class DOUri extends DOBase
+class DOUri
 {
 	public $project;
-	public $controller;
-	public $action;
-	public $params = array();
-	function DOUri()
+	private static $module	   = 'welcome';
+	private static $controller = 'index';
+	private static $action     = 'index';
+	private static $params = array();
+	private function DOUri(){}
+	
+	/**
+	 * Url parse 
+	 */
+	public static function Parse()
 	{
-		parent::__construct();
-		/**	
-		if(DO_SEO)
-		{
-			$this->parsePathInfo();	
+		if( DO_SEO )
+		{/** Parsing path info if we use customized url**/
+			return self::ParsePathInfo();
 		}
-		else
-		{	
-			$this->parseUrl();
-		}**/
+		/** Normal url parsing**/
+		return self::ParseNormal();
 	}
 	/**
 	 * path info parsing
@@ -24,47 +26,47 @@ class DOUri extends DOBase
 	 */
 	function ParsePathInfo()
 	{
-		$pinfo 	= self::getPathInfo();
+		$pinfo 	= self::GetPathInfo();
 		$pinfo 	= ltrim($pinfo,'/');
 		$ps    	= explode('/',$pinfo);
-		$params	= array_slice(self::SafeValue( $ps ),3);
-
-		$module	  	= $ps[0];
-		$controller 	= $ps[1] ? $ps[1] : 'index';
-		$action     	= $ps[2] ? $ps[2] : 'index';
-		
-		return compact('module','controller','action','params');
+		self::$params	= array_slice(self::SafeValue( $ps ),3);
+		self::$module	  		= $ps[0];
+		self::$controller 		= $ps[1] ? $ps[1] : 'index';
+		self::$action     		= $ps[2] ? $ps[2] : 'index';
+		return true;
+		//return compact('module','controller','action','params');
 	}
 	public function ParseNormal()
 	{
-		/** Prevent user parse same key as DOC_CKEY we configured **/
+		/** Prevent user parse same key as DOC_CKEY we configured *
 		$parsed = false;
 		/** Get pramse from either POST or GET **/
-		foreach( $_REQUEST as $key=>$val)
+		foreach( $_GET as $key=>$val)
 		{
 			if( $key == DO_CKEY && !$parsed )
 			{
-				list($module,$controller,$action) = explode('-',$val);
-				if($controller == '') $controller = 'index';
-				if($action     == '') $action	  = 'index';
+				list(self::$module,$controller,$action) = explode('-',$val);
+				if($controller == '') self::$controller = 'index';
+				if($action     == '') self::$action	  = 'index';
 				$parsed = true;
 			}
 			else
 			{
-				$params[ $key ] = self::SafeValue( $val );
+				self::$params[ $key ] = self::SafeValue( $val );
 			}
 		}
-		return compact('module','controller','action','params');
+		return true;
+		//return compact('module','controller','action','params');
 	}	
 
 	public function SafeValue( $value )
 	{
-		$filter = & DOFactory::get( 'class',array('filter') );
+		$filter = DOFactory::GetFilter();
 		return $filter->process( $value );
 	}
-	function getPathInfo()
+	function GetPathInfo()
 	{
-		$dirname = str_replace(self::getScheme().'://'.self::getHost(),'',self::getRoot());
+		$dirname = str_replace(self::GetScheme().'://'.self::GetHost(),'',self::GetRoot());
 		if($_SERVER['PATH_INFO'])
 		{
 			$pinfo = $_SERVER['PATH_INFO'];
@@ -96,14 +98,14 @@ class DOUri extends DOBase
 	 *
 	 * @return unknown
 	 */
-	function getRoot()
+	function GetRoot()
 	{
 		static $root;
 		if(!$root)
 		{
-			$protocol = self::getScheme();
+			$protocol = self::GetScheme();
 			
-			$host     = self::getHost();
+			$host     = self::GetHost();
 			
 			if(DO_SEO) 
 			{
@@ -128,7 +130,7 @@ class DOUri extends DOBase
 
 		return $root;
 	}
-	public static function getScheme( )
+	public static function GetScheme( )
 	{
 		if(isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && strtolower( $_SERVER['HTTPS'] ) != 'off')
 		{
@@ -139,11 +141,11 @@ class DOUri extends DOBase
 		return $http;
 	}
 	
-	public static function getHost()
+	public static function GetHost()
 	{
 		return $_SERVER['HTTP_HOST'];
 	}
-	public static function getPort()
+	public static function GetPort()
 	{
 		return $_SERVER['SERVER_PORT'];
 	}
@@ -152,18 +154,18 @@ class DOUri extends DOBase
 	 *
 	 * @return unknown
 	 */
-	function getModule()
+	function GetModule()
 	{
-		return $this->module ? $this->module : 'index';
+		return self::$module;
 	}
 	/**
 	 * get controllers name
 	 *
 	 * @return unknown
 	 */
-	function getController()
+	function GetController()
 	{
-		return $this->controller ? $this->controller : 'index';
+		return self::$controller;
 	}
 	
 	/**
@@ -171,21 +173,21 @@ class DOUri extends DOBase
 	 *
 	 * @return unknown
 	 */
-	function getAction()
+	function GetAction()
 	{
-		return $this->action ? $this->action : 'index';	
+		return self::$action;	
 	}
 	/**
 	 * get params
 	 *
 	 * @return unknown
 	 */
-	function getParams()
+	function GetParams()
 	{
-		return $this->params ? $this->params : array();
+		return self::$params;
 	}
 	
-	function redirect($url,$msg='')
+	function Redirect($url,$msg='')
 	{
 		if(headers_sent())
 		{
@@ -195,12 +197,12 @@ class DOUri extends DOBase
 			header('Location:'.$url);
 	}
 	/**
-	 * format seo url.
+	 * Format seo url.
 	 *
 	 * @param unknown_type $url
 	 * @return unknown
 	 */
-	function format( $url )
+	function Format( $url )
 	{
 		if(DO_SEO)
 		{
@@ -246,13 +248,13 @@ class DOUri extends DOBase
 		{
 			$link = '?'.DO_CKEY.'='.$module.'_'.$controller.'_'.$action.($params ? '&'.$params : '');
 
-			return self::realUrl($link);
+			return self::RealUrl($link);
 		}
 		else 
 		{
 			$link = '?'.DO_CKEY.'='.$module.'_'.$controller.'_'.$action.($params ? '&'.$params : '');
 
-			return self::realUrl($link);
+			return self::RealUrl($link);
 			//DORouter::;
 		}
 	}
@@ -263,16 +265,16 @@ class DOUri extends DOBase
 	 * @param unknown_type $query
 	 * @return unknown
 	 */
-	function realUrl( $query )
+	function RealUrl( $query )
 	{
-		$query = self::format($query);
+		$query = self::Format($query);
 		
 		//echo $url;exit;
 		if(strpos($query,'admin') !== 0 && (parent::get('backend') == 'admin') )
 		{
 			$query = 'admin/'.$query;
 		}
-		return self::getRoot()."/".$query;
+		return self::GetRoot()."/".$query;
 	}
 	/**
 	 * handle _GET params in path info url.
@@ -283,7 +285,7 @@ class DOUri extends DOBase
 	 * @param string $key
 	 * @param string $value
 	 */
-	function setParams( $key,$value)
+	function SetParams( $key,$value)
 	{
 		$filter = & DOFactory::get( 'class',array('filter') );
 		//filter
@@ -311,7 +313,7 @@ class DOUri extends DOBase
 		}
 	}
 	
-	function setParam($v)
+	function SetParam($v)
 	{
 		$this->params[] = $v;
 	}

@@ -9,12 +9,13 @@ class DOFactory extends DOBase
 	public static $crateEveryTime = array('time'=>true);
 	
 	public static $_load = array();
+	
 	/**
-	 * getter
+	 * 
 	 *
 	 * @return initObj
 	 */
-	public function & get( $tool ,$params = array() )
+/* 	public function & Get( $tool ,$params = array() )
 	{
 		static $tools;
 		
@@ -30,7 +31,7 @@ class DOFactory extends DOBase
 			$tools[$p] 		= & call_user_func_array(array(__CLASS__,"_create{$t}"),$params);
 		}
 		return $tools[$p];
-	}
+	} */
 	/**
 	 * Create Single Table Handler 
 	 *
@@ -38,14 +39,11 @@ class DOFactory extends DOBase
 	 * @param String $key
 	 * @return object
 	 */
-	function &_createTable( $table , $key = '' , $db= '')
+	function GetTable( $table , $key = '' , $db= '')
 	{
 		static $tables = array();
-		if(!class_exists('DODatabase') || !class_exists('DOTable') )
-		{
-			DOLoader::import('lib.database.database');
-			DOLoader::import('lib.database.table');
-		}
+		DOLoader::Import('lib.database.database');
+		DOLoader::Import('lib.database.table');
 		if( !is_object(self::$_load['tables'][$table] ) )
 		{
 			self::$_load['tables'][$table]  = new DOTable( $table,$key,$db);
@@ -53,13 +51,10 @@ class DOFactory extends DOBase
 		return self::$_load['tables'][$table] ;
 	}
 
-	function &_createPage( )
+	function GetPaginate( )
 	{
 		$params = func_get_args();
-		if(!class_exists('DOPaginateWS'))
-		{
-			DOLoader::import('lib.paginate.workshop');
-		}
+		DOLoader::Import('lib.paginate.workshop');
 		self::$_load['page'] = new DOPaginateWS( $params[0] );
 		@array_shift( $params );
 		return self::$_load['page']->GetEngine( $params );
@@ -69,12 +64,9 @@ class DOFactory extends DOBase
 	 *
 	 * @return object
 	 */
-	function &_createDBO( )
+	function GetDatabase( )
 	{
-		if(!class_exists('DODatabaseWS'))
-		{
-			DOLoader::import('lib.database.workshop');
-		}
+		DOLoader::Import('lib.database.workshop');
 		$params = func_get_args();
 		//init 
 		self::$_load['dbo'] = new DODatabaseWS( DO_DBDRIVE ,$params);
@@ -86,12 +78,9 @@ class DOFactory extends DOBase
 	 *
 	 * @return object
 	 */
-	function &_createSession( )
+	function GetSession( )
 	{
-		if(!class_exists('DOSession'))
-		{
-			DOLoader::import('lib.session.session');
-		}
+		DOLoader::Import('lib.session.session');
 		$params = func_get_args();
 		self::$_load['session'] = new DOSession( $params[0] );
 		return self::$_load['session']->getEngine();
@@ -101,55 +90,48 @@ class DOFactory extends DOBase
 	 *
 	 * @return unknown
 	 */
-	function &_createTime()
+	function GetTime()
 	{
 		$time = explode(' ',microtime() );
 		
 		return $time[0] + $time[1];
 	}
 	/**
-	 * create class
-	 *
-	 * @return unknown
+	 * Get http request filter
 	 */
-	function &_createClass( )
+	public function GetFilter()
 	{
-		static $classes = array();
-		$args 			= func_get_args();
-		$class          = $args[0];
-		if( ! $classes[$class]  )
+		if(!self::$_load['filter'])
 		{
-			DOLoader::load_class($class);
-			@array_shift( $args );
-			$class           = 'DO'.ucwords($class);
-			$classes[$class] = new $class( $args );
+			DOLoader::Import('lib.dothing.filter');
+			self::$_load['filter'] = new DOFilter();
 		}
-		return $classes[$class];
+		return self::$_load['filter'];
 	}
 	/**
 	 * create component classes interface
 	 *
 	 * @return unknown
 	 */
-	function &_createCom()
+	function GetTool()
 	{
-		static $com = array();
+		static $tools = array();
 		$args 			= func_get_args();
 		$class          = $args[0];
-		if( ! $com[$class]  )
+		if( ! $tools[$class]  )
 		{
-			$cn 		= explode('_',$class,2);
+			$cn 		= explode('.',$class,2);
 			if(!$cn[1]) $cn[1] = $cn[0];
-			DOLoader::import('lib.'.$cn[0].'.'.$cn[1] );
+			DOLoader::Import('lib.'.$cn[0].'.'.$cn[1] );
 			@array_shift( $args );
 			$component 	= 'DO'.ucwords($cn[1]);
 			$ref		= new ReflectionClass( $component );
-			$com[$class] 	= call_user_func(array($ref,'newInstanceArgs'),$args);
+			$tools[$class] 	= call_user_func(array($ref,'newInstanceArgs'),$args);
 		}
-		return $com[$class];
+		return $tools[$class];
 	}
 	
-	function &_createExtjs()
+/* 	function GetExtjs()
 	{
 		static $ext = array();
 		$args 			= func_get_args();
@@ -158,12 +140,12 @@ class DOFactory extends DOBase
 		{
 			$cn 		= explode('_',$class,2);
 			if(!$cn[1]) $cn[1] = $cn[0];
-			DOLoader::import('include.extjs.'.$cn[1]);
+			DOLoader::Import('include.extjs.'.$cn[1]);
 			@array_shift( $args );
 			$component 	= 'DOExt'.ucwords($cn[1]);
 			$ext[$class] = new $component( $args );
 		}
 		return $ext[$class];
-	}
+	} */
 }
 ?>

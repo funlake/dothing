@@ -5,7 +5,57 @@ class DOHook extends DOBase
 	public static $env 	= array();
 	public $hookRoot;
 	private static $pls 	= array();
-	public function Hook()
+	/** After dispatch to a specific controller
+	*** we can invoke events registered in controller class.
+	**/
+	public function TriggerEvent()
+	{
+		$args 	= func_get_args();
+		if(!DORouter::$module) return;
+		foreach( $args as $events)
+		{
+			foreach($events as $event=>$params)
+			{
+				
+				/**Do we have registered this event for all action?**/
+				$onEvent = 'On'.ucwords($event);
+				$CTR	 = 'DO'.ucwords(DORouter::$controller);
+				if(method_exists($CTR,$onEvent))
+				{
+					call_user_func_array(array(
+						$CTR,$onEvent
+					), $params);
+				}
+				/**Do we have registered this event for specific action?**/
+				$onEvent = 'On'.ucwords($event)."_".DORouter::$action;
+				if(method_exists($CTR,$onEvent))
+				{
+					call_user_func_array(array(
+						$CTR,$onEvent
+					), $params);					
+				}
+			}
+
+		}
+	}
+	public function TriggerPlugin($type,$func,$params)
+	{
+		$type = strtolower($type);
+		if(!self::$pls[$type])
+		{
+			$path = PLGBASE.DS.'plg_'.$type.'.php';
+			if(!file_exists($filename)) include $path;
+			else
+			{
+				return ;
+			}
+			$plgClass = 'Plg'.ucwords($type);
+			self::$pls[$type] = new $plgClass();
+		}
+		$func = 'On'.ucwords($func);
+		return call_user_func_array(array(self::$pls[$type],$func),$params);
+	}
+	public function TriggerPluginx()
 	{
 		$args 	= func_get_args();
 		$type	= $args[0];
@@ -28,7 +78,7 @@ class DOHook extends DOBase
 		       ? call_user_func_array(array(self::$pls[$type],$func),$param)
 		       : null;
 	}	
-	public function on()
+	public function On()
 	{
 		$args 		= func_get_args();
 		$type 		= $args[0];
@@ -61,7 +111,7 @@ class DOHook extends DOBase
 		}
 	}
 	
-	function invoke( $path , $method , Array $args)
+	function Invoke( $path , $method , Array $args)
 	{
 		$k = md5( $path );
 		$n = basename( $path,'.php');
@@ -87,7 +137,7 @@ class DOHook extends DOBase
 	 * @param array $args
 	 * @param unknown_type $ordering
 	 */
-	function stepByStep( $paths , $method, Array $args ,$ordering = '')
+	function StepByStep( $paths , $method, Array $args ,$ordering = '')
 	{
 		if( !$paths ) return ; 
 		foreach( $paths as $v)
@@ -104,7 +154,7 @@ class DOHook extends DOBase
 		}
 	}
 	
-	function fetchHooks( $folder , $type ,$arguments )
+	function FetchHooks( $folder , $type ,$arguments )
 	{
 		if($folder == '') return;
 		foreach(glob($folder.DS.'*.*') as $v)
@@ -122,12 +172,12 @@ class DOHook extends DOBase
 		$this->stepByStep( $paths , $type , $arguments , $hookOrdering);
 	}
 	
-	function getPath( )
+	function GetPath( )
 	{
 		return parent::get('hookpath');
 	}
 	
-	function loadHookView( $hook )
+	function LoadHookView( $hook )
 	{
 		$file = self::getPath().DS.'view'.DS.$hook;
 		

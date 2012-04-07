@@ -2,7 +2,7 @@
 
 class DORequest extends DOBase
 {
-	public $serverVars = array('_get','_post','_request','_env','_server','_files','_cookie','_session');
+	public static $serverVars = array('_get','_post','_request','_env','_server','_files','_cookie','_session');
 	public static $requestVar = array('_post','_get','_cookie');
 	public static $params;
 	
@@ -10,135 +10,101 @@ class DORequest extends DOBase
 	#
 	#[Warning] Do not call twice in a same process(page)!!!
 	#
-	function clean()
+	function Clean()
 	{
-		$DO_GET    	= $this->filter($_GET);
-		$DO_POST   	= $this->filter($_POST);
-		$DO_REQUEST	= $this->filter($_REQUEST);
-		$DO_ENV     = $_ENV;
-		$DO_SERVER  = $_SERVER;
+		$DO_GET    	= $_GET;
+		$DO_POST   	= $_POST;
 		$DO_FILES   = $_FILES;
 		$DO_COOKIE  = $_COOKIE;
-		$DO_SESSION = $_SESSION;
+		/** Strip any unsafe variables**/ 
 		foreach( $GLOBALS as $k=>$v)
 		{
 			if($k != 'GLOBALS') unset( $GLOBALS[$k] );
 		}
-		$_REQUEST	= $this->filter($this->stripVar($DO_REQUEST));
-		$_GET		= $this->filter($this->stripVar($DO_GET));
-		$_POST		= $this->filter($this->stripVar($DO_POST));
-		$_COOKIE	= $this->filter($this->stripVar($DO_COOKIE));
-		$_FILES		= $this->stripVar($DO_FILES);
-		$_ENV 		= $this->stripVar($DO_ENV);
-		$_SERVER 	= $this->stripVar($DO_SERVER);
-		$_SESSION   = $this->filter($this->stripVar($DO_SESSION));
+		$_GET		= $this->filter($this->StripVar($DO_GET));
+		$_POST		= $this->filter($this->StripVar($DO_POST));
+		$_COOKIE	= $this->filter($this->StripVar($DO_COOKIE));
+		$_FILES		= $this->StripVar($DO_FILES);
 	}
 	/**
 	 * strip dangerous request variables
 	 *
 	 * @param unknown_type $sv
 	 */
-	function stripVar( $sv )
+	public static function StripVar( $sv )
 	{
 		foreach( (array)$sv as $k=>$v)
 		{
 			$key = strtolower( $k );
-			if(in_array( $key,$this->serverVars))
+			if(in_array( $key,self::$serverVars))
 			{
 				unset( $sv[$k] );
 			}
 			elseif(is_array( $v ) )
 			{
-				$this->stripVar( $sv[$k] );
+				self::StripVar( $sv[$k] );
 			}
 		}
 		return $sv;
 	}
-	
-	//should use ubb in frontend.
-	function stripXss( &$sv )
+	/**
+	 * Filter use requested variables,we dont trust any inputs from any visitor.
+	 * @param unknown_type $sv
+	 */
+	function Filter( &$sv )
 	{
-			//....
-	}
-	
-	function filter( &$sv )
-	{
-		//return htmlspecialchars( $sv ,ENT_QUOTES);
-		$DOFilter = & DOFactory::get('class',array('filter'));
-		foreach( (array)$sv as $k=>$v)
+		$Filter = DOFactory::GetFilter();
+		foreach( (array)$sv as $k=>$v )
 		{
 			if(!preg_match('#^DOEditor__#i',$k))
 			{
-				$sv[$k] = @$DOFilter->process( $sv[$k] );
+				$sv[$k] = $Filter->process( $sv[$k] );
 			}
 			else 
 			{
-				$sv[$k] = @$DOFilter->encode( $sv[$k] );
+				$sv[$k] = $Filter->encode( $sv[$k] );
 			}
 		}
 		return $sv;
 	}
 	
-	function get( $gvar='',$var='')
+	function Get( $var='',$gvar='get',$type='')
 	{
 		//1 get value from gvar(get,post,cookie....)
-		if( $gvar )
-		{
-			switch ($gvar )
-			{
-				case 'get':
-					$gloablVar = $_GET;
-				break;
-				
-				case 'post':
-					$gloablVar = $_POST;
-				break;
-				
-				case 'request':
-					$gloablVar = $_REQUEST;
-				break;
-				
-				case 'server':
-					$gloablVar = $_SERVER;
-				break;
-				
-				case 'env':
-					$gloablVar = $_ENV;
-				break;
-				
-				case 'cookie':
-					$gloablVar = $_COOKIE;
-				break;
-				
-				case 'session':
-					$gloablVar = $_SESSION;
-				break;
-				
-				case 'files':
-					$gloablVar = $_FILES;	
-				break;
-				
-				default:
-					
-				break;
-			}
-			if( $var )
-			{
-				return $gloablVar[$var];
-			}
-			else 
-			{
-				return $gloablVar;
-			}
-		}
-	}
-	
-	function safeSql( $val )
-	{
-		$DOFilter = & DOFactory::get('class',array('filter'));
+		$GV = ${'_'.strtoupper($var)};
 		
-		return $DOFilter->safeSql( $val );
+		if( !empty($var) )
+		{
+			if($type) $type = strtolower($type);
+			/** Return specify type we want **/
+			return call_user_func(array(self,"To".ucwords($type)),$GV[$var]);
+		}
+		else 
+		{
+			/** Return all if we don't set the first param**/
+			return $GV;
+		}
+		
 	}
 	
+	public static function ToInt( $var )
+	{
+		return (int)$var;
+	}
+	
+	public static function ToFloat($var)
+	{
+		return (float)$var;
+	}
+	
+	public static function ToString( $var )
+	{
+		return (string)$var;
+	}
+	
+	public static function ToArray( $var )
+	{
+		return (array)$var;
+	}
 }
 ?>

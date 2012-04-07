@@ -1,25 +1,19 @@
 <?php
-define( 'DS'	, DIRECTORY_SEPARATOR );
-
+!defined('DS') && define( 'DS'	, DIRECTORY_SEPARATOR );
+/** Framework directory **/
 define('FRAMEWORK_ROOT' ,realpath( dirname(__FILE__) ) );
-
-include FRAMEWORK_ROOT.DS.'conf'.DS.'config.php';
-
-include FRAMEWORK_ROOT.DS.'lib'.DS.'dothing'.DS.'class.loader.php';
-/** Set autoload **/
-spl_autoload_register(array('DOLoader','Autoload'));
-//mvc
-/*
-DOLoader::import('lib.base'
-			  ,'lib.Uri'
-			  ,'lib.Router'
-			  ,'lib.session.session' 
-			  ,'lib.Hook'
-			  ,'lib.cache.cache'
-			  ,'lib.Factory'
+/** Load loader first **/
+include FRAMEWORK_ROOT.DS.'lib'.DS.'Loader.php';
+/** Set autoload ,So those lib class can use directly**/
+spl_autoload_register(array('DOLoader','AutoLoad'));
+/** Preprare for url parse **/
+DOLoader::Import('lib.http.request');
+/* DOLoader::Import(
+			   'lib.http.request'
+			  ,'lib.http.response'
 			  ,'mvc.controller'
 			  ,'mvc.model'
 			  ,'mvc.view'
 );
-*/
+ */
 ?>

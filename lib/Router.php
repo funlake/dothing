@@ -10,30 +10,23 @@ class DORouter extends DOBase
 	static $params      = '';
 	static $format      = array();
 	static $mvcHash 	= array(
-		 ':proj'	=> '#[a-z]+#i'
-		,':module'	=>'#[a-z]+#i'	
-		,':controller'		=>'#[a-z]+#i'
-		,':action'	=>'#[a-z]+#i'	
+		 ':module'		=>'#[a-z]+#i'	
+		,':controller'	=>'#[a-z]+#i'
+		,':action'		=>'#[a-z]+#i'	
 	);
 	static $queryPath      = array();
 	
-	function DORouter()
-	{
-		parent::__construct();
-		
-		$this->uri = & DOFactory::get('class',array('uri'));
-	}
+	function DORouter(){}
 	function Dispatch( $admin='')
 	{
-
-
+		self::Prepare();
+		DOLoader::Import('mvc.controller');
 		#self::hasMap($this->uri->getPathInfo());
-
-
 		#$_404Page  = $this->page_404();
 		$appPath = implode('.',array(
-			APPBASE,MOD,CTR
+			APPBASE,self::$module,self::$controller
 		));
+
 		if( ! ($CTR = DOController::loadController( $appPath )) )
 		{
 			return;
@@ -44,26 +37,20 @@ class DORouter extends DOBase
 
 		//whether controller class exist
 		
-		$method = ACT.'Action';
+		$method = self::$action.'Action';
 		//action not exist
-		if( @method_exists($CTR,$method) )
+		if( method_exists($CTR,$method) )
 		{
-			return call_user_func_array(array($CTR,$method),(array)json_decode(GPC));
+			ob_start();
+			call_user_func_array(array($CTR,$method),self::$params);
+			DOTemplate::SetParam('module', ob_get_contents());
+			ob_end_clean();
 		}
 		else 
 		{
+			throw new Exception("Route fail!");
 			//DOUri::redirect($_404Page);
 		}
-	}
-	
-	function setAdmin( )
-	{
-		$this->set('backend','admin');
-		return $this->isAdmin();
-	}
-	function isAdmin( )
-	{
-		return parent::get('backend');
 	}
 	
 	function page_404( )
@@ -104,16 +91,17 @@ class DORouter extends DOBase
 		}
 	}
 	/**
-	 * get mvc from customized router.
+	 * Maybe we has customize route?
 	 *
 	 * @param unknown_type $pathinfo
 	 */
-	function hasMap( $pathinfo  )
+	function Prepare()
 	{
-		self::$module	  	= $this->uri->getModule();
-		self::$controller 	= $this->uri->getController();
-		self::$action     		= $this->uri->getAction();
-		self::$params	 	= $this->uri->getParams();
+		$pathinfo			= DOUri::GetPathInfo();
+		self::$module	  	= DOUri::GetModule();
+		self::$controller 	= DOUri::GetController();
+		self::$action     	= DOUri::GetAction();
+		self::$params	 	= DOUri::GetParams();
 
 		if(DO_CUSTOMIZED_ROUTE)
 		{
@@ -158,7 +146,7 @@ class DORouter extends DOBase
 						//set $_GET
 						if(!is_numeric($mk))
 						{
-							$this->uri->setParams($mk,$mv);
+							DOUri::SetParams($mk,$mv);
  						}
  						else $pas[] = $mv;
 					}
@@ -175,9 +163,8 @@ class DORouter extends DOBase
 			}
 			if( $myroute = self::$maps[$pathinfo.'/*'])
 			{
-				self::$proj		= $myroute['P'];
 				self::$module  		= $myroute['M'];
-				self::$controller   	= $myroute['C'];
+				self::$controller   = $myroute['C'];
 				self::$action  		= $myroute['A'];
 			}
 			self::$queryPath[serialize(
@@ -186,11 +173,6 @@ class DORouter extends DOBase
 				)
 			)] = $v;
 		}
-	}
-	//seo route
-	public function _( $seolink )
-	{
-		return DOUri::getRoot().'/'.$seolink;
 	}
 }
 ?>
