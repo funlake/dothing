@@ -20,13 +20,14 @@ class DORouter extends DOBase
 	function Dispatch( $admin='')
 	{
 		self::Prepare();
-		DOLoader::Import('mvc.controller');
-		#self::hasMap($this->uri->getPathInfo());
-		#$_404Page  = $this->page_404();
+		
+		#self::hasMap(DOUri::GetPathInfo());
+		/** Trigger beforeroute event and see what we want to do**/
+		DOHook::TriggerPlugin('system','prepareRoute',array());
 		$appPath = implode('.',array(
 			APPBASE,self::$module,self::$controller
 		));
-
+		DOLoader::Import('mvc.controller');
 		if( ! ($CTR = DOController::loadController( $appPath )) )
 		{
 			return;
@@ -51,6 +52,7 @@ class DORouter extends DOBase
 			throw new Exception("Route fail!");
 			//DOUri::redirect($_404Page);
 		}
+		DOHook::TriggerPlugin('system','afterRoute',array());
 	}
 	
 	function page_404( )

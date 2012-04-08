@@ -25,6 +25,7 @@ class DOResponse
 		}
 		else header(ucwords($option).":".$value);
 	}
+	
 	public function SetBody( $body )
 	{
 		$this->httpBody = $body;
@@ -73,11 +74,11 @@ class DOResponse
 				)
 			);
 			/** Get template and prepare to display**/
-			$httpbody = DOTemplate::LoadTemplate($this->GetTemplate());
+			$this->SetBody(DOTemplate::LoadTemplate($this->GetTemplate()));
 			/** Do we have any plugin to format this responses?**/
-			$params   = array($httpbody);
-			$httpbody = DOHook::TriggerPlugin('system','prepareDocument',$params);
-			echo $httpbody;
+			$params   = array($this);
+			DOHook::TriggerPlugin('system','prepareDocument',$params);
+			echo $this->GetBody();
 	}
 }
 ?>

@@ -16,7 +16,7 @@ class DOLoader
 	 *
 	 * @return true if loaded successfully,or false.
 	 */
-	function  Import()
+	function Import()
 	{
 		$args  	= func_get_args();
 		if($args[0] == '') return;

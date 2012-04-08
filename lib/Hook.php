@@ -40,20 +40,36 @@ class DOHook extends DOBase
 	}
 	public function TriggerPlugin($type,$func,$params)
 	{
+		static $configs = array();
 		$type = strtolower($type);
-		if(!self::$pls[$type])
+		/** 
+		*** Get configuiration of specific type of plugin 
+		*** we may set kind of plugins calling order that file
+		**/
+		if(!$configs[$type])
 		{
-			$path = PLGBASE.DS.'plg_'.$type.'.php';
-			if(!file_exists($filename)) include $path;
-			else
-			{
-				return ;
-			}
-			$plgClass = 'Plg'.ucwords($type);
-			self::$pls[$type] = new $plgClass();
+			$configs[$type] = include PLGBASE.$type.DS.'config.php';
 		}
-		$func = 'On'.ucwords($func);
-		return call_user_func_array(array(self::$pls[$type],$func),$params);
+		foreach( $configs[$type] as $plugin => $p)
+		{
+			$plgFile = PLGBASE.$type.DS.$plugin.'.php';
+			if(!self::$pls[$plgFile])
+			{
+				if(file_exists($plgFile)) include $plgFile;
+				else
+				{
+					continue ;
+				}
+				$plgClass = 'Plg'.ucwords($type);
+				$ref		= new ReflectionClass( $plgClass );
+				self::$pls[$plgFile] = call_user_func(array($ref,'newInstanceArgs'),$p);
+			}
+			$func = 'On'.ucwords($func);
+			if(method_exists(self::$pls[$plgFile],$func))
+			{
+				call_user_func_array(array(self::$pls[$plgFile],$func),$params);
+			}
+		}
 	}
 	public function TriggerPluginx()
 	{

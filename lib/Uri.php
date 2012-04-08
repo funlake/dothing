@@ -29,7 +29,7 @@ class DOUri
 		$pinfo 	= self::GetPathInfo();
 		$pinfo 	= ltrim($pinfo,'/');
 		$ps    	= explode('/',$pinfo);
-		self::$params	= array_slice(self::SafeValue( $ps ),3);
+		self::$params			= array_slice(self::SafeValue( $ps ),3);
 		self::$module	  		= $ps[0];
 		self::$controller 		= $ps[1] ? $ps[1] : 'index';
 		self::$action     		= $ps[2] ? $ps[2] : 'index';
@@ -38,7 +38,7 @@ class DOUri
 	}
 	public function ParseNormal()
 	{
-		/** Prevent user parse same key as DOC_CKEY we configured *
+		/** Prevent user parse same key as DOC_CKEY we configured */
 		$parsed = false;
 		/** Get pramse from either POST or GET **/
 		foreach( $_GET as $key=>$val)
