@@ -1,11 +1,10 @@
 <html>
 <head>
-	<title><?php DOTheme::Hook('title');?></title>
-	<?php DOTheme::Hook('script'); ?>
+	<title><?php DOTemplate::_('title');?></title>
 </head>
 <body>
-	<div><?php DOTheme::Hook('blocks','banner');?></div>
-	<div><?php DOTheme::Hook('modules');?></div>
-	<div><?php DOTheme::Hook('blocks','footer');?></div>
+	<div><?php DOTemplate::_('blocks','banner');?></div>
+	<div><?php DOTemplate::_('module');?></div>
+	<div><?php DOTemplate::_('blocks','footer');?></div>
 </body>
 </html>

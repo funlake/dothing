@@ -4,13 +4,12 @@
  *
  */
 //database
-define('DO_DBDRIVE','mysql');#if use want mysqli,set it to mysql_mysqli
-define('DO_DATABASE','docms');
-define('DO_DBHOST','localhost');
+define('DO_DBDRIVE','mysql');
+define('DO_DATABASE','test');
+define('DO_DBHOST','127.0.0.1');
 define('DO_DBUSER','root');
 define('DO_DBPASS','123456');
 define('DO_TABLEPRE','');
-define('DO_PDO',true);
 define('DO_DEBUG',false);
 define('DO_SQLPCONNECT',false);
 //identify
@@ -31,5 +30,7 @@ define('DO_FILECACHE',false);
 define('DO_SESSHANDLER','files');
 //ciphter
 define('DO_SITECIPHER',md5('justdoit'));
+//template
+define('DO_TEMPLATE','default');
 ?>
 

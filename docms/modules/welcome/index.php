@@ -1,19 +1,24 @@
 <?php
 class DOIndex extends DOController
 {
+	public function OnSetHeader()
+	{
+		DOTemplate::SetTitle('Hello world');
+		//echo 222;
+	}
 	public function indexAction()
 	{
-		$db             = & DOFactory::get('dbo');
+		$db             = & DOFactory::GetDatabase();
 		echo $db->From('#__users','u','u.*')
-                   ->LeftJoin('#__role'
+                   	->LeftJoin('#__role'
                           ,'r'
                           ,array('r.role_id'=>'u.role_id')
                           ,'r.role_name'
                      )
                   // ->Select('u.*')
-                   ->Groupby('r.role_id')
-                   ->Orderby('u.user_id','asc')
-                   ->Read();
+                   	->Groupby('r.role_id')
+                   	->Orderby('u.user_id','asc')
+                   	->Read();
 		
 		$db->Clean();
 		echo "<br/>";
