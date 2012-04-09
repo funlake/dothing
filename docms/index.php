@@ -4,8 +4,9 @@ ini_set('display_errors',true);
 define( 'DS'		, DIRECTORY_SEPARATOR );
 define('SYSTEM_NAME'	,'docms');
 define('SYSTEM_ROOT'	,realpath(dirname(__FILE__)));
-define('APPBASE'	,'modules');
-define('PLGBASE'	,SYSTEM_ROOT.'/plugins/');
+define('APPBASE'	,SYSTEM_ROOT.DS.'modules');
+define('PLGBASE'	,SYSTEM_ROOT.DS.'plugins');
+define('EVTBASE'	,SYSTEM_ROOT.DS.'events');
 /** Where we put templates and related files**/
 define('TEMPLATEROOT'	,SYSTEM_ROOT.DS.'templates');
 define('IMAGEDIR'	,TEMPLATEROOT.DS.'images');

@@ -16,11 +16,11 @@ class DOTemplate
 	
 	public static function LoadTemplate( $template )
 	{
-			ob_start();
-			include TEMPLATEROOT.DS.$template.DS.'index.php';
-			$content = ob_get_contents();
-			ob_end_clean();
-			return $content;
+		ob_start();
+		include TEMPLATEROOT.DS.$template.DS.'index.php';
+		$content = ob_get_contents();
+		ob_end_clean();
+		return $content;
 	}
 	/**Core function,use to set hook all elements we want to display in template**/
 	public static function _()
@@ -35,6 +35,22 @@ class DOTemplate
 	}
 	public static function GetBlocks( $pos )
 	{
+		$pos = strtolower( $pos );
+ 		DOHook::TriggerEvent(
+			array(
+				'beforeRenderBlock'.ucwords($pos) => array(self::$params)
+			)
+		);
+		/** Display blocks according to related position **/
+		ob_start();	
+		DOBlocks::Show($pos);
+		$blockContent = ob_get_contents();
+ 		ob_end_clean();
+		DOHook::TriggerEvent(
+			array(
+				'afterRenderBlock'.ucwords($pos) => array($blockContent)
+			)
+		);
 		return self::$params['blocks'][$pos];
 	}
 	

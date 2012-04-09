@@ -19,7 +19,8 @@ class DOHook extends DOBase
 				
 				/**Do we have registered this event for all action?**/
 				$onEvent = 'On'.ucwords($event);
-				$CTR	 = 'DO'.ucwords(DORouter::$controller);
+				/**Event would always call after controller loaded**/
+				$CTR	 = DOController::GetControllerEvent();
 				if(method_exists($CTR,$onEvent))
 				{
 					call_user_func_array(array(
@@ -27,7 +28,7 @@ class DOHook extends DOBase
 					), $params);
 				}
 				/**Do we have registered this event for specific action?**/
-				$onEvent = 'On'.ucwords($event)."_".DORouter::$action;
+				$onEvent = 'On'.ucwords($event).ucwords(DORouter::$action);
 				if(method_exists($CTR,$onEvent))
 				{
 					call_user_func_array(array(
@@ -48,11 +49,12 @@ class DOHook extends DOBase
 		**/
 		if(!$configs[$type])
 		{
-			$configs[$type] = include PLGBASE.$type.DS.'config.php';
+			$configs[$type] = include PLGBASE.DS.$type.DS.'config.php';
 		}
+		
 		foreach( $configs[$type] as $plugin => $p)
 		{
-			$plgFile = PLGBASE.$type.DS.$plugin.'.php';
+			$plgFile = PLGBASE.DS.$type.DS.$plugin.'.php';
 			if(!self::$pls[$plgFile])
 			{
 				if(file_exists($plgFile)) include $plgFile;

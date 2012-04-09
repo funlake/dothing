@@ -24,28 +24,31 @@ class DORouter extends DOBase
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger beforeroute event and see what we want to do**/
 		DOHook::TriggerPlugin('system','prepareRoute',array());
-		$appPath = implode('.',array(
-			APPBASE,self::$module,self::$controller
-		));
+		/**Initiate controller object **/
 		DOLoader::Import('mvc.controller');
-		if( ! ($CTR = DOController::loadController( $appPath )) )
+		if( ! ($CTR = DOController::GetController()) )
 		{
 			return;
-			//echo $_404Page;exit;
-			//DOUri::redirect($_404Page);
 		}
-			
-
-		//whether controller class exist
-		
+		//Whether controller class exist
 		$method = self::$action.'Action';
-		//action not exist
+		//Action not exist
 		if( method_exists($CTR,$method) )
 		{
+ 			DOHook::TriggerEvent(
+				array(
+				    'beforeRequest' => array(self::$params)
+				)
+			);
 			ob_start();
 			call_user_func_array(array($CTR,$method),self::$params);
-			DOTemplate::SetParam('module', ob_get_contents());
+			DOTemplate::SetParam('module', $content = ob_get_contents());
 			ob_end_clean();
+ 			DOHook::TriggerEvent(
+				array(
+				    'afterRequest' => array($content)
+				)
+			);
 		}
 		else 
 		{

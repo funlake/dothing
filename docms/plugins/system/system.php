@@ -5,15 +5,20 @@ class PlgSystem
 	{
 		$this->params = $params;
 	}
+	
+	public function OnPrepareRoute()
+	{
+		/**Check permission here?*/
+	}
+	
+	public function OnAfterRoute()
+	{
+	}
+	
 	public function OnPrepareDocument($response)
 	{
 		$response->SetBody($response->GetBody());	
 		return true;
 	}
-	public function OnPrepareRoute()
-	{
-		/**Check permission here?*/
-	}
 }
-
 ?>

@@ -6,6 +6,10 @@ class DOIndex extends DOController
 		DOTemplate::SetTitle('Hello world');
 		//echo 222;
 	}
+	public function OnSetTemplate($response)
+	{
+		//$response->SetTemplate("default2");
+	}	
 	public function indexAction()
 	{
 		$db             = & DOFactory::GetDatabase();

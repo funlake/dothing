@@ -1,7 +1,8 @@
 <?php
 class DOController extends DOBase
 {
-	
+	private static $controller 	= null;
+	private static $controllerEvent = null;
 	function DOController()
 	{
 
@@ -22,34 +23,52 @@ class DOController extends DOBase
 		//print_r($_POST);
 	}
 	
-	function _init($backend='')
+	function _init($backend=''){}
+	function GetController( $appPath =  '' )
 	{
-		//pass variables
-		$this->uri		  = & DOFactory::get('class',array('uri'));
-
-		$this->module	  = $this->uri->getModule();
-		$this->controller = $this->uri->getController();
-		$this->action     = $this->uri->getAction();
-		$this->params	  = $this->uri->getParams();
-		//echo $this->controller."|".$this->action."|";
-		//$this->appPath    = implode('.',array(DO_PROJECTPATH,$this->project,'app',$this->controller));
-		$this->appPath    = implode('.',array('app',$this->module));
-
-		if($backend) $this->appPath = $backend.".".$this->appPath;
-		
-	}
-	function loadController( $controller)
-	{
-		$f  		= str_replace('.',DS,$controller);
-		#get controller name
-		list(,,$ctr) 	= explode('.',$controller);			
-		$fs = SYSTEM_ROOT.DS.$f.'.php';
-		if( file_exists($fs) )
+		if( !self::$controller )
 		{
-			include $fs;
-			return 'DO'.ucwords($ctr);
+			if( self::LoadController() )
+			{
+				$ctrClass = 'DO'.ucwords(DORouter::$controller);
+				self::$controller = new $ctrClass();
+			}
+		}
+		return self::$controller;
+	}
+	function GetControllerEvent()
+	{
+		if( !self::$controllerEvent )
+		{
+			if( self::LoadControllerEvent() )
+			{
+				$ctrClass = 'DO'.ucwords(DORouter::$controller).'Event';
+				self::$controllerEvent = new $ctrClass();
+			}
+		}
+		return self::$controllerEvent;
+					
+	}
+	function LoadController()
+	{
+		$path  = APPBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
+		if(file_exists( $path ))
+		{
+			include $path;
+			return true;
 		}
 		return false;
+	}
+	function LoadControllerEvent()
+	{
+		$path  = EVTBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
+		if(file_exists( $path ))
+		{
+			include $path;
+			return true;
+		}
+		return false;
+		
 	}
 	/**
 	 * load view
@@ -169,7 +188,7 @@ class DOController extends DOBase
 	}	
 	function __destruct()
 	{
-		DOSession::end();
+		#DOSession::end();
 	}
 }
 ?>

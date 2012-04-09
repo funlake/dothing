@@ -16,7 +16,7 @@ class DOResponse
 	{
 		if(!!$headers) array_walk($headers,array(self,'SetHeader'));
 	}
-	public function SetHeader($value,$option)
+	public function SetHeader($option,$value)
 	{	
 		if ('status' == strtolower($option))
 		{
@@ -52,9 +52,9 @@ class DOResponse
 		 JResponse::setHeader( 'Pragma', 'no-cache' );
 		 */
 		$headerArray = !$t ? array('Expires'		=> 'Mon, 1 Jan 2001 00:00:00 GMT'
-								  ,'Last-Modified'	=> gmdate("D, d M Y H:i:s").' GMT'
-								  ,'Cache-Control'  => 'Max-age=0,must-revalidate,no-cache,post-check=0,pre-check=0'
-								  ,'Pragma'			=> 'no-cache'
+					  ,'Last-Modified'	=> gmdate("D, d M Y H:i:s").' GMT'
+					  ,'Cache-Control'  	=> 'Max-age=0,must-revalidate,no-cache,post-check=0,pre-check=0'
+					  ,'Pragma'		=> 'no-cache'
 		): array();
 		$this->SetHeaders( $headerArray );
 	}
@@ -69,8 +69,8 @@ class DOResponse
  			/**Binding some event registered in specific controller**/
  			DOHook::TriggerEvent(
 				array(
-					'setHeader'		=> array()
-				   ,'setTemplate'	=> array()
+				    'setHeader'		=> array($this)
+				   ,'setTemplate'	=> array($this)
 				)
 			);
 			/** Get template and prepare to display**/
