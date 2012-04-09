@@ -45,7 +45,9 @@ class DOTemplate
 		ob_start();	
 		DOBlocks::Show($pos);
 		$blockContent = ob_get_contents();
- 		ob_end_clean();
+ 		self::$params["blocks"][$pos] .= $blockContent;
+		ob_end_clean();
+ 		
 		DOHook::TriggerEvent(
 			array(
 				'afterRenderBlock'.ucwords($pos) => array($blockContent)

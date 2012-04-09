@@ -31,11 +31,14 @@ class DOBlocks
 		}
 		//Fetch blocks by position
 		$blocks = self::Fetch( $pos );
-		
 		//Get current page
 		$pages   = DOBlocksHelper::GetBlocksIndex();
+
 		//Display blocks with it's specific layout according to current page.
-		foreach( $pages as $page) self::Invoke( explode(',',$blocks[$page]) );
+		foreach( $pages as $page) 
+		{
+			$blocks[$page] && self::Invoke( explode(',',$blocks[$page]) );
+		}
 		return ;	
 	}
 	public function Invoke( $block )
@@ -88,8 +91,8 @@ class DOBlocksHelper
 	{	
 		return array(
 			DORouter::$module."/".DORouter::$controller."/".DORouter::$action
-		       ,DORouter::$module."/".DORouter::$controller."/*"
-		       ,"*"
+		   ,DORouter::$module."/".DORouter::$controller."/*"
+		   ,"*"
 		); 
 	}
 }

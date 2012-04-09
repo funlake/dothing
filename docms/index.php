@@ -7,6 +7,7 @@ define('SYSTEM_ROOT'	,realpath(dirname(__FILE__)));
 define('APPBASE'	,SYSTEM_ROOT.DS.'modules');
 define('PLGBASE'	,SYSTEM_ROOT.DS.'plugins');
 define('EVTBASE'	,SYSTEM_ROOT.DS.'events');
+define('BLKBASE'	,SYSTEM_ROOT.DS.'blocks');
 /** Where we put templates and related files**/
 define('TEMPLATEROOT'	,SYSTEM_ROOT.DS.'templates');
 define('IMAGEDIR'	,TEMPLATEROOT.DS.'images');
