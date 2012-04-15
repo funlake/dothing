@@ -17,16 +17,16 @@ class DOSession extends DOBase
 		
 		parent::__construct();
 	
-		if( self::checkEngine( $drive ))
+		if( self::CheckEngine( $drive ))
 		{
-			self::loadEngine( );
+			self::LoadEngine( );
 		}
 	}
 	
-	function checkEngine( $drive )
+	function CheckEngine( $drive )
 	{
 
-		DOLoader::import('lib.session.'.$drive.'.sess_'.$drive); 
+		DOLoader::Import('lib.session.'.$drive.'.sess_'.$drive); 
 		
 		if( class_exists(self::$sessionHandler) )
 		{
@@ -35,7 +35,7 @@ class DOSession extends DOBase
 		return false;
 	}
 	
-	function loadEngine( )
+	function LoadEngine( )
 	{
 		$handler = self::$sessionHandler;
 		$drive	 = self::$drive;			
@@ -56,7 +56,7 @@ class DOSession extends DOBase
 	 * session start
 	 *
 	 */
-	function start()
+	function Start()
 	{
 		if( !headers_sent() )
 		{
@@ -65,8 +65,8 @@ class DOSession extends DOBase
 			//session id
 			if( ini_get('session.use_trans_sid') )
 			{
-				$request = & DOFactory::get( 'com',array('http_request') );
-				if( $sid = $request->get( 'get',session_name() ))
+				$request = & DOFactory::GetTool('http.request');
+				if( $sid = $request->Get(session_name() ))
 				{
 					session_id( $sid );
 				}
@@ -84,11 +84,11 @@ class DOSession extends DOBase
 	 *
 	 * @return unknown
 	 */
-	function end()
+	function End()
 	{
 		return session_write_close();
 	}
-	function getEngine()
+	function GetEngine()
 	{
 		return $this;
 	}
@@ -99,12 +99,12 @@ class DOSession extends DOBase
 	 * @param unknown_type $val
 	 * @return unknown
 	 */
-	function set( $var , $val)
+	function Set( $var , $val)
 	{
 		$_SESSION[ $var ]  = $val;
 		return $val;
 	}
-	function get( $var )
+	function Get( $var )
 	{
 		return $_SESSION[ $var ];
 	}
@@ -113,7 +113,7 @@ class DOSession extends DOBase
 	 *
 	 * @param string $var
 	 */
-	function clean( $var='')
+	function Clean( $var='')
 	{
 		if(!$var)
 		{
@@ -126,7 +126,7 @@ class DOSession extends DOBase
 		}
 	}
 
-	function setSavePath()
+	function SetSavePath()
 	{
 		$drive 		= self::$drive;
 		$savePath	= self::$savePath[$drive];
@@ -135,7 +135,7 @@ class DOSession extends DOBase
 			case 'file':
 				if(!is_dir( $savePath ))
 				{
-					$fileHandler = & DOFactory::get('com',array('file'));
+					$fileHandler = & DOFactory::GetTool('file');
 					$fileHandler->makeDir($savePath);
 				}
 			break;

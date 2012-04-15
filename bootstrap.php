@@ -18,5 +18,6 @@ define('CACHEROOT',SYSTEM_ROOT.DS.'data'.DS.'cache');
 /** Load loader first **/
 include FRAMEWORK_ROOT.DS.'lib'.DS.'Loader.php';
 /** Set autoload ,So those lib class can use directly**/
-spl_autoload_register(array('DOLoader','AutoLoad'));
+spl_autoload_register(array('DOLoader','AutoLoadException'));
+spl_autoload_register(array('DOLoader','AutoLoadLib'));
 ?>

@@ -18,7 +18,7 @@ class DOPdo extends DODatabase implements DORecord
 		//set dsn
 		call_user_func(array($this,'set'.ucwords(DO_DBDRIVE).'Dsn'));
 		//connect
-		$this->connect();
+		$this->Connect();
 	}
 	
 	function SetNames()
@@ -33,8 +33,14 @@ class DOPdo extends DODatabase implements DORecord
 	}
 	function Connect()
 	{
-		$this->connFlag = new PDO( $this->dsn,$this->dbUserName,$this->dbPassWord,$this->opt);
-
+		try
+		{
+			$this->connFlag = new PDO( $this->dsn,$this->dbUserName,$this->dbPassWord,$this->opt);
+		}
+		catch( Exception $e)
+		{
+			throw new DbException('Can not connect to database',100,$e);	
+		}
 		$this->SetNames();
 	}
 	

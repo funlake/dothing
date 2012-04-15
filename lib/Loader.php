@@ -5,11 +5,21 @@
 class DOLoader
 {
 	private static $loaded = array();
-	public static function AutoLoad($class)
+	public static function AutoLoadLib($class)
 	{
-		include_once FRAMEWORK_ROOT.DS.''
+		if(!preg_match('#Exception$#',$class))
+		{
+			@include_once FRAMEWORK_ROOT.DS
 			    .'lib'.DS
 			    .str_replace('_',DS,preg_replace('#^DO#','',$class)).".php";
+		}
+	}
+	
+	public static function AutoLoadException($exception)
+	{
+		@include_once FRAMEWORK_ROOT.DS
+				.'lib'.DS
+				.'exception'.DS.$exception.'.php';
 	}
 	/**
 	 * multiple files load.
