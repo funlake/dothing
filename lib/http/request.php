@@ -21,9 +21,9 @@ class DORequest extends DOBase
 		{
 			if($k != 'GLOBALS') unset( $GLOBALS[$k] );
 		}
-		$_GET		= $this->filter($this->StripVar($DO_GET));
-		$_POST		= $this->filter($this->StripVar($DO_POST));
-		$_COOKIE	= $this->filter($this->StripVar($DO_COOKIE));
+		$_GET		= $this->StripVar($DO_GET);
+		$_POST		= $this->StripVar($DO_POST);
+		$_COOKIE	= $this->StripVar($DO_COOKIE);
 		$_FILES		= $this->StripVar($DO_FILES);
 	}
 	/**

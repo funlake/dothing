@@ -16,7 +16,6 @@ class DOHook extends DOBase
 		{
 			foreach($events as $event=>$params)
 			{
-				
 				/**Do we have registered this event for all action?**/
 				$onEvent = 'On'.ucwords($event);
 				/**Event would always call after controller loaded**/
