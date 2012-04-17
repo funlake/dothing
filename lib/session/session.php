@@ -55,7 +55,6 @@ class DOSession
 	 */
 	function Start()
 	{
-		print_r(debug_backtrace());
 		if( !headers_sent() )
 		{	
 			//session name 

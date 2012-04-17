@@ -50,7 +50,9 @@ class DOFactory extends DOBase
 		}
 		return self::$_load['tables'][$table] ;
 	}
-
+	/**
+	***Get pagenate handler
+	***/
 	function GetPaginate( )
 	{
 		$params = func_get_args();
@@ -81,9 +83,8 @@ class DOFactory extends DOBase
 	function GetSession( )
 	{
 		DOLoader::Import('lib.session.session');
-		$params = func_get_args();
-		self::$_load['session'] = new DOSession( $params[0] );
-		return self::$_load['session']->getEngine();
+		self::$_load['session'] = new DOSession();
+		return self::$_load['session']->GetEngine();
 	}
 	/**
 	 * microtime
