@@ -60,8 +60,9 @@ class DOUri
 
 	public function SafeValue( $value )
 	{
-		$filter = DOFactory::GetFilter();
-		return $filter->process( $value );
+		return $value;
+		//$filter = DOFactory::GetFilter();
+		//return $filter->process( $value );
 	}
 	function GetPathInfo()
 	{

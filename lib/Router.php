@@ -17,7 +17,7 @@ class DORouter extends DOBase
 	static $queryPath      = array();
 	
 	function DORouter(){}
-	function Dispatch( $admin='')
+	function Dispatch()
 	{
 		self::Prepare();
 		#self::hasMap(DOUri::GetPathInfo());
@@ -101,7 +101,7 @@ class DORouter extends DOBase
 	 */
 	function Prepare()
 	{
-		$pathinfo			= DOUri::GetPathInfo();
+		$pathinfo		= DOUri::GetPathInfo();
 		self::$module	  	= DOUri::GetModule();
 		self::$controller 	= DOUri::GetController();
 		self::$action     	= DOUri::GetAction();

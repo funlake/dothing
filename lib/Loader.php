@@ -5,6 +5,7 @@
 class DOLoader
 {
 	private static $loaded = array();
+<<<<<<< HEAD
 	/**
 	 * Load lib class
 	 * @param string $class //class name
@@ -12,8 +13,23 @@ class DOLoader
 	public static function AutoLoadLib($class)
 	{
 		@include_once FRAMEWORK_ROOT.DS.''
+=======
+	public static function AutoLoadLib($class)
+	{
+		if(!preg_match('#Exception$#',$class))
+		{
+			@include_once FRAMEWORK_ROOT.DS
+>>>>>>> 210e8fa2ec129c52655dc14c9dea66ba20b4ea41
 			    .'lib'.DS
 			    .str_replace('_',DS,preg_replace('#^DO#','',$class)).".php";
+		}
+	}
+	
+	public static function AutoLoadException($exception)
+	{
+		@include_once FRAMEWORK_ROOT.DS
+				.'lib'.DS
+				.'exception'.DS.$exception.'.php';
 	}
 	/**
 	 * Load exception class

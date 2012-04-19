@@ -45,8 +45,14 @@ class DOPdo extends DODatabase implements DORecord
 	}
 	function Connect()
 	{
-		$this->connFlag = new PDO( $this->dsn,$this->dbUserName,$this->dbPassWord,$this->opt);
-
+		try
+		{
+			$this->connFlag = new PDO( $this->dsn,$this->dbUserName,$this->dbPassWord,$this->opt);
+		}
+		catch( Exception $e)
+		{
+			throw new DbException('Can not connect to database',100,$e);	
+		}
 		$this->SetNames();
 	}
 	
