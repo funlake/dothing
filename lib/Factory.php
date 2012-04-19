@@ -81,8 +81,7 @@ class DOFactory extends DOBase
 	function GetSession( )
 	{
 		DOLoader::Import('lib.session.session');
-		$params = func_get_args();
-		self::$_load['session'] = new DOSession( $params[0] );
+		self::$_load['session'] = new DOSession( );
 		return self::$_load['session']->getEngine();
 	}
 	/**

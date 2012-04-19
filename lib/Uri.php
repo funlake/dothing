@@ -47,7 +47,7 @@ class DOUri
 			{
 				list(self::$module,$controller,$action) = explode('-',$val);
 				if($controller == '') self::$controller = 'index';
-				if($action     == '') self::$action	  = 'index';
+				if($action     == '') self::$action	    = 'index';
 				$parsed = true;
 			}
 			else

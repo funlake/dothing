@@ -1,5 +1,5 @@
 <?php
-class DOController extends DOBase
+class DOController
 {
 	private static $controller 	= null;
 	private static $controllerEvent = null;
@@ -17,9 +17,9 @@ class DOController extends DOBase
 		
 		//filter
 		
-		DOFactory::get('com',array('http_request'));
-		$_POST = DORequest::filter( $_POST );
-		$_GET  = DORequest::filter( $_GET );
+		//DOFactory::get('com',array('http_request'));
+		//$_POST = DORequest::filter( $_POST );
+		//$_GET  = DORequest::filter( $_GET );
 		//print_r($_POST);
 	}
 	

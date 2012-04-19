@@ -7,12 +7,12 @@ class DOSession extends DOBase
 	public static $drive;
 	
 	private static $savePath = array(
-		'file' 		=> '/var/www/dothing/data/sess'
+		'file' 		=> ''
 	   ,'memcache'	=> 'tcp://127.0.0.1:11211'
 	);
 	function DOSession( $drive ,$params=array())
 	{
-		self::$drive		  = $drive;
+		self::$drive		  = DO_SESSHANDLER;
 		self::$sessionHandler = 'DOSession_'.$drive;
 		
 		parent::__construct();
@@ -39,9 +39,9 @@ class DOSession extends DOBase
 	{
 		$handler = self::$sessionHandler;
 		$drive	 = self::$drive;			
-		ini_set('session.save_handler',$drive);	
-		if( $drive == 'mysql')
+		if( $drive != 'file')
 		{
+			ini_set('session.save_handler',$drive);
 			session_set_save_handler(
 				array($handler,"open")
 			   ,array($handler,"close")
@@ -130,21 +130,24 @@ class DOSession extends DOBase
 	{
 		$drive 		= self::$drive;
 		$savePath	= self::$savePath[$drive];
-		switch($drive)
+		if(!empty($savePath))
 		{
-			case 'file':
-				if(!is_dir( $savePath ))
-				{
-					$fileHandler = & DOFactory::GetTool('file');
-					$fileHandler->makeDir($savePath);
-				}
-			break;
-
-			case 'memcache':
-						
-			break;
+			switch($drive)
+			{
+				case 'file':
+					if(!is_dir( $savePath ))
+					{
+						$fileHandler = & DOFactory::GetTool('file');
+						$fileHandler->makeDir($savePath);
+					}
+				break;
+	
+				case 'memcache':
+							
+				break;
+			}
+			session_save_path( $savePath );
 		}
-		session_save_path( $savePath );
 	}
 }
 ?>
