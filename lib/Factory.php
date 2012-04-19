@@ -1,6 +1,6 @@
 <?php
 /**
- * factory 
+ * Classes Factory 
  *
  */
 class DOFactory extends DOBase

@@ -12,19 +12,21 @@ class DORequest extends DOBase
 	#
 	function Clean()
 	{
-		$DO_GET    	= $_GET;
-		$DO_POST   	= $_POST;
-		$DO_FILES   = $_FILES;
-		$DO_COOKIE  = $_COOKIE;
+		$DO_GET    		= $_GET;
+		$DO_POST   		= $_POST;
+		$DO_REQUEST   		= $_REQUEST;
+		$DO_FILES   		= $_FILES;
+		$DO_COOKIE  		= $_COOKIE;
 		/** Strip any unsafe variables**/ 
 		foreach( $GLOBALS as $k=>$v)
 		{
 			if($k != 'GLOBALS') unset( $GLOBALS[$k] );
 		}
-		$_GET		= $this->filter($this->StripVar($DO_GET));
-		$_POST		= $this->filter($this->StripVar($DO_POST));
-		$_COOKIE	= $this->filter($this->StripVar($DO_COOKIE));
-		$_FILES		= $this->StripVar($DO_FILES);
+		$_GET			= self::StripVar($DO_GET);
+		$_POST			= self::StripVar($DO_POST);
+		$_REQUEST		= self::StripVar($DO_REQUEST);
+		$_COOKIE		= self::StripVar($DO_COOKIE);
+		$_FILES			= self::StripVar($DO_FILES);
 	}
 	/**
 	 * strip dangerous request variables
@@ -51,21 +53,10 @@ class DORequest extends DOBase
 	 * Filter use requested variables,we dont trust any inputs from any visitor.
 	 * @param unknown_type $sv
 	 */
-	function Filter( &$sv )
+	static function Filter( &$sv )
 	{
-		$Filter = DOFactory::GetFilter();
-		foreach( (array)$sv as $k=>$v )
-		{
-			if(!preg_match('#^DOEditor__#i',$k))
-			{
-				$sv[$k] = $Filter->process( $sv[$k] );
-			}
-			else 
-			{
-				$sv[$k] = $Filter->encode( $sv[$k] );
-			}
-		}
-		return $sv;
+		$filter = DOFactory::GetFilter();
+		return array_map(array($filter,'process'),$sv);
 	}
 	
 	function Get( $var='',$gvar='get',$type='')

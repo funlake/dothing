@@ -5,7 +5,6 @@ class DOController extends DOBase
 	private static $controllerEvent = null;
 	function DOController()
 	{
-
 		parent::__construct();
 
 		$this->_init(parent::get('backend'));
@@ -17,14 +16,14 @@ class DOController extends DOBase
 		
 		//filter
 		
-		DOFactory::get('com',array('http_request'));
-		$_POST = DORequest::filter( $_POST );
-		$_GET  = DORequest::filter( $_GET );
+		//DOFactory::get('com',array('http_request'));
+		//$_POST = DORequest::filter( $_POST );
+		//$_GET  = DORequest::filter( $_GET );
 		//print_r($_POST);
 	}
 	
 	function _init($backend=''){}
-	function GetController( $appPath =  '' )
+	function GetController()
 	{
 		if( !self::$controller )
 		{
@@ -49,7 +48,7 @@ class DOController extends DOBase
 		return self::$controllerEvent;
 					
 	}
-	function LoadController()
+	function LoadController( )
 	{
 		$path  = APPBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
 		if(file_exists( $path ))

@@ -17,7 +17,7 @@ class DOBase
 	{
 		if(!self::$_mark[ $class ])
 		{
-			self::$_mark[ $class ] = DOFactory::get('time');
+			self::$_mark[ $class ] = DOFactory::Get('time');
 		}
 	}
 	
@@ -25,7 +25,7 @@ class DOBase
 	{
 		foreach( self::$_mark as $k=>$v)
 		{
-			self::$_mark[$k] = factory::get('time') - $v;
+			self::$_mark[$k] = DOFactory::Get('time') - $v;
 		}
 		//print_r( self::$_mark );
 	}
@@ -68,7 +68,7 @@ class DOBase
 	 */
 	function Run( $command ,$args = array() )
 	{
-		parent::command( $command );
+		parent::Command( $command );
 		/**
 		 * call handler.
 		 */

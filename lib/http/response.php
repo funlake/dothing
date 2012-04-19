@@ -51,10 +51,10 @@ class DOResponse
 		 JResponse::setHeader( 'Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0', false );
 		 JResponse::setHeader( 'Pragma', 'no-cache' );
 		 */
-		$headerArray = !$t ? array('Expires'		=> 'Mon, 1 Jan 2001 00:00:00 GMT'
-					  ,'Last-Modified'	=> gmdate("D, d M Y H:i:s").' GMT'
+		$headerArray = !$t ? array('Expires'=> 'Mon, 1 Jan 2001 00:00:00 GMT'
+					  ,'Last-Modified'		=> gmdate("D, d M Y H:i:s").' GMT'
 					  ,'Cache-Control'  	=> 'Max-age=0,must-revalidate,no-cache,post-check=0,pre-check=0'
-					  ,'Pragma'		=> 'no-cache'
+					  ,'Pragma'				=> 'no-cache'
 		): array();
 		$this->SetHeaders( $headerArray );
 	}

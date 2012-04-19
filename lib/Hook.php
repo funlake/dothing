@@ -1,12 +1,19 @@
 <?php
+/**
+ * Event & Plugin hooker
+ * @author lake
+ *
+ */
 class DOHook extends DOBase 
 {
 	static $container 	= array();
 	public static $env 	= array();
 	public $hookRoot;
 	private static $pls 	= array();
-	/** After dispatch to a specific controller
-	*** we can invoke events registered in controller class.
+	/**
+	*** Controller level event.
+	*** After dispatch to a specific controller
+	*** we can invoke events registered in controller.
 	**/
 	public function TriggerEvent()
 	{
@@ -16,7 +23,6 @@ class DOHook extends DOBase
 		{
 			foreach($events as $event=>$params)
 			{
-				
 				/**Do we have registered this event for all action?**/
 				$onEvent = 'On'.ucwords($event);
 				/**Event would always call after controller loaded**/
@@ -39,6 +45,12 @@ class DOHook extends DOBase
 
 		}
 	}
+	/**
+	 * System level event,we call plugin.
+	 * @param string $type //system or user
+	 * @param string $func //method
+	 * @param string $params //params
+	 */
 	public function TriggerPlugin($type,$func,$params)
 	{
 		static $configs = array();

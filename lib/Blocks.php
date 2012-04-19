@@ -41,6 +41,9 @@ class DOBlocks
 		}
 		return ;	
 	}
+	/**
+	*** Invoke a function for display single block
+	***/
 	public function Invoke( $block )
 	{
 		foreach((array)$block as $key=>$block)
@@ -59,6 +62,9 @@ class DOBlocks
 		}
 		return true;	
 	}
+	/**
+	*** Import a block
+	***/
 	public function Import( $block )
 	{
 		if(!self::$blocks[$block])
