@@ -1,6 +1,6 @@
 <?php
-DOLoader::import('lib.database.database');
-DOLoader::import('lib.database.record');
+DOLoader::Import('lib.database.database');
+DOLoader::Import('lib.database.record');
 class DOPdo extends DODatabase implements DORecord
 {
 	public $types = array(
@@ -16,9 +16,9 @@ class DOPdo extends DODatabase implements DORecord
 		$this->dbName		=	$db		;
 		$this->debug		=	DO_DEBUG;
 		//set dsn
-		call_user_func(array($this,'set'.ucwords(DO_DBDRIVE).'Dsn'));
+		call_user_func(array($this,'Set'.ucwords(DO_DBDRIVE).'Dsn'));
 		//connect
-		$this->connect();
+		$this->Connect();
 	}
 	
 	function SetNames()
@@ -27,9 +27,21 @@ class DOPdo extends DODatabase implements DORecord
 		if(version_compare(phpversion(),'5.2.8','<'))
 		{
 			//not really good .
-			$this->query("SET NAMES '{$charset}'");
+			$this->query("SET NAMES {$charset}");
+		}
+		else
+		{
+			//good but need new version of php
+			$this->SetOptions(array(
+				PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$charset}"
+			));
 		}
 		return true;
+	}
+	
+	function SetOptions( $options )
+	{
+		$this->opt = $options;
 	}
 	function Connect()
 	{
@@ -86,18 +98,18 @@ class DOPdo extends DODatabase implements DORecord
 	{
 		$syntax         	= $this->GetSyntax();
 		$rSql           	= $syntax->formatSql( $sql );
-		$resource 		= $this->connFlag->prepare( $rSql );
-		$this->bindValue($params, $resource);
+		$resource 			= $this->connFlag->prepare( $rSql );
+		$this->BindValue($params, $resource);
 		$resource->execute();
-		$rs			= $resource->fetchAll(PDO::FETCH_OBJ);
+		$rs					= $resource->fetchAll(PDO::FETCH_OBJ);
 
-		$debug			= $resource->errorInfo();
+		$debug				= $resource->errorInfo();
 		$this->insert_id   	= $this->connFlag->lastInsertId();
 		$this->affect_row  	= $resource->rowCount();
 		$this->debug ? $this->showError( $rSql , $debug[2] ) : '';
 		
 		$R = new stdClass();
-		$R->data 		= $this->data 		= $rs;
+		$R->data 			= $this->data 		= $rs;
 		$R->insert_id		= $this->insert_id;
 		$R->affect_row  	= $this->affect_row;
 		return $R;
@@ -106,7 +118,7 @@ class DOPdo extends DODatabase implements DORecord
 	/**
 	* For Create/Update/Delete operation.
 	*/
-	public function Commit()
+	public function Execute()
 	{
 		return $this->Query($this->GetQuery(),$this->GetParams())
 			    ->insert_id;
@@ -117,7 +129,7 @@ class DOPdo extends DODatabase implements DORecord
 	}
 	public function GetParams()
 	{
-		return $this->getSyntax()->params;
+		return $this->getSyntax()->values;
 	}
 	public function GetAll()
 	{
@@ -159,7 +171,7 @@ class DOPdo extends DODatabase implements DORecord
 	 * @param array $params
 	 * @param pdostatementobj $resource
 	 */
-    function bindValue( $params ,$resource )
+    function BindValue( $params ,$resource )
     {
         if( $params == null || !is_object($resource) ) return;
         foreach((array)$params as $k=>$v)
@@ -192,10 +204,15 @@ class DOPdo extends DODatabase implements DORecord
 
 class DOPdo_Mysql extends DOPdo
 {
-	function setMysqlDsn()
+	function SetMysqlDsn()
 	{
 		$this->dsn = 'mysql:host='.$this->dbHost.';dbname='.$this->dbName;
 		#$this->opt = array(PDO::ATTR_PERSISTENT => DO_SQLPCONNECT);
+	}
+	
+	function SetOptions( array $options )
+	{
+		
 	}
 }
 ?>

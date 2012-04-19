@@ -11,7 +11,7 @@ class DOTable
 	{
 		if( !is_object( $db ) )
 		{
-			$db = & DOFactory::get('DBO');
+			$db = DOFactory::GetDatabase();
 		}
 		$this->_db 	= $db;
 		$this->_tb 	= $tableName;
@@ -27,30 +27,75 @@ class DOTable
 		//query
 		return $this->_db->query( $sql );
 	}
-	/** get one */
-	function getOne($field,$condition='')
+	/** Get one field according to conditions */
+	function GetOne($field,array $condition = null)
 	{
-		$rs = $this->select($field,$condition);
-		return  $rs->data[0][$field];
+		$db = $this->_db;
+		$db->Clean();
+		$db->From( $this->_tb)
+		   ->Select($field)
+		   ->Where($condition)
+		   ->Read();
+		return $db->GetOne($field);
 	}
-	/** get row */
-	function getRow($field,$condition='')
+	/** Get row according to conditions */
+	function GetRow(array $condition = null)
 	{
-		$rs = $this->select($field,$condition);
-		return  $rs->data[0];
+		$db = $this->_db;
+		$db->Clean();
+		$db->From( $this->_tb)
+		   ->Select('*')
+		   ->Where($condition)
+		   ->Read();
+		return $db->GetRow();
 	}
-	
+	/** Get col in all rows we fetch according to conditions */
+	function GetCol($fields,array $condition = null)
+	{
+		$db = $this->_db;
+		$db->Clean();
+		$db->From( $this->_tb)
+		->Select($fields)
+		->Where($condition)
+		->Read();
+		return $db->GetCol();
+	}
+	/** Single table update **/
+	function Update(array $uparray,array $condition = null)
+	{
+		foreach($uparray as $k=>$v)
+		{
+			$sets[$k] = '?';
+			$vals[]   = $v;
+		}
+		$vals += array_slice(func_get_args(),1);
+		$db = $this->_db;
+		$db->Clean();
+		$db->From($this->_tb)
+		->Set($sets)
+		->Where($condition);
+		$db = call_user_func_array(array($db,'Values'), $vals);
+		$db->Update();
+		/** Can not use $db direcitly here,quite strange**/
+		return $this->_db->Execute();
+	}
 	/** 
 	 * get totals row from table
 	 *
 	 * @param $condition //searching's condition
 	 * @return total's num 
 	 **/
-	 function totalRow($condition='')
+	 function TotalRows(array $condition = null)
 	{
-		$t = $this->select("COUNT(".($this->_key ? $this->_key : '*').") as totalrows",$condition);
-		return  $t->data[0]['totalrows'] ;
-		
+	//	$t = $this->select("COUNT(".($this->_key ? $this->_key : '*').") as totalrows",$condition);
+	//	return  $t->data[0]['totalrows'] ;
+		$db = $this->_db;
+		$db->Clean();
+		echo $db->From($this->_tb)
+		->Select("COUNT(".($this->_key ? $this->_key : '*').") as totalrows")
+		->Where($condition)
+		->Read();
+		return $db->GetOne('totalrows');
 	}
 }
 ?>
