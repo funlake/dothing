@@ -1,29 +1,10 @@
 <?php
-class DOController extends DOBase
+class DOController
 {
 	private static $controller 		= null;
 	private static $controllerEvent = null;
 	private static $models			= array();
-	function DOController()
-	{
-		parent::__construct();
-
-		$this->_init(parent::get('backend'));
-		//set app root
-		$this->set('cpath' ,SYSTEM_ROOT		.	DS
-						   .(parent::get('backend') ? parent::get('backend').DS : '')
-						   .'app'	.	DS
-						   .$this->module);
-		
-		//filter
-		
-		//DOFactory::get('com',array('http_request'));
-		//$_POST = DORequest::filter( $_POST );
-		//$_GET  = DORequest::filter( $_GET );
-		//print_r($_POST);
-	}
-	
-	function _init($backend=''){}
+	function DOController(){}
 	function GetController()
 	{
 		if( !self::$controller )
@@ -110,23 +91,23 @@ class DOController extends DOBase
 		}
 		return self::$models[$model];
 	}
-	function listAction()
+	function ListAction()
 	{
 		
 	}
-	function addAction()
+	function AddAction()
 	{
 		
 	}
-	function editAction()
+	function EditAction()
 	{
 		
 	}
-	function deleteAction()
+	function DeleteAction()
 	{
 		
 	}
-	function saveAction()
+	function SaveAction()
 	{
 		$_POST = filter::process( $_POST );
 		
@@ -143,31 +124,25 @@ class DOController extends DOBase
 	 * @param Array $params
 	 * @return 
 	 */
-	function get($method,$params = array())
+	function Get( $method )
 	{
-		if(!$this->model)
+		$model 	= DORouter::$controller;
+		$model	= strtolower($model);
+		if(!self::$models[$model])
 		{
 			//set model
-			$this->model 	 = $this->loadModel();
+			self::$models[$model] 	 = self::GetModel();
 		}
-		$m = "get".ucwords($method);
-		if(method_exists($this->model,$m))
+		$m = "Get".ucwords(strtolower($method));
+		if(method_exists(self::$models[$model],$m))
 		{
-			return call_user_func_array(array($this->model,$m),$params);
+			$args = func_get_args();
+			array_unshift($args);
+			return call_user_func_array(array(self::$models[$model],$m),$args);
 		}
 		return false;
 	}
 	
-	function getPath( $path )
-	{
-		return parent::get('cpath') . DS . $path;
-	}
-
-	function initExtJs()
-	{
-		$this->dataHandler = & DOFactory::get('extjs',array('data'));
-		$this->extWidget   = & DOFactory::get('extjs',array('widget'));
-	}	
 	function __destruct()
 	{
 		#DOSession::end();
