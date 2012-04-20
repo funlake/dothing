@@ -54,7 +54,7 @@ class DOFile
 		}
 		return true;
 	}
-	public function exist( $root,$file='' )
+	public function Exist( $root,$file='' )
 	{
 		$path =  $file == '' ? $root : $root.DS.$file;
 

@@ -1,5 +1,5 @@
 <?php
-class DOSession extends DOBase 
+class DOSession
 {
 	private static $engine;
 	
@@ -10,16 +10,14 @@ class DOSession extends DOBase
 		'file' 		=> ''
 	   ,'memcache'	=> 'tcp://127.0.0.1:11211'
 	);
-	function DOSession( $drive ,$params=array())
+	function DOSession( )
 	{
 		self::$drive		  = DO_SESSHANDLER;
 		self::$sessionHandler = 'DOSession_'.$drive;
-		
-		parent::__construct();
 	
 		if( self::CheckEngine( $drive ))
 		{
-			self::LoadEngine( );
+			self::LoadEngine();
 		}
 	}
 	
@@ -59,25 +57,25 @@ class DOSession extends DOBase
 	function Start()
 	{
 		if( !headers_sent() )
-		{
+		{	
 			//session name 
 			session_name( md5(SYSTEM_NAME) );
 			//session id
 			if( ini_get('session.use_trans_sid') )
 			{
+				$sid 	 = 0;
 				$request = & DOFactory::GetTool('http.request');
-				if( $sid = $request->Get(session_name() ))
+				if( $sid == $request->Get(session_name()))
 				{
 					session_id( $sid );
 				}
 			}
 			//session path
-			self::setSavePath();
+			self::SetSavePath();
 			//ini_set('session.cookie_lifetime',...)';
 			session_set_cookie_params( 0 );
 			session_start();
 		}
-		
 	}
 	/**
 	 * write close
@@ -119,6 +117,7 @@ class DOSession extends DOBase
 		{
 			session_unset();
 			session_destroy();
+			setcookie(session_name(),null,time()-3600);
 		}
 		else 
 		{
@@ -149,5 +148,8 @@ class DOSession extends DOBase
 			session_save_path( $savePath );
 		}
 	}
+	
+	public function GetName(){return md5(SYSTEM_NAME);}
+	public function GetId(){return session_id();}
 }
 ?>

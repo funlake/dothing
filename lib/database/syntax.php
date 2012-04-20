@@ -28,7 +28,7 @@ class DOSyntax
 		return '`'.$field.'`';
 	}	
 	/** replace table prefix,trim */
-	function formatSql( $sql )
+	function FormatSql( $sql )
 	{
 		return preg_replace(
 			array('~(?<=\s)(`)?(?(1)#__(\w+)`|#__(\w+))(?=\s+|$)~is','#^\s+|\s+$#')
@@ -55,14 +55,14 @@ class DOSyntax
 			case 1 : 
 				foreach((array)$args[0] as $k=>$v)
 				{
-					$this->sets[$this->Quote($k)] = $v;	
-					$this->Params[]    		= $v;
+					$this->sets[$this->Quote($k)] 		= $v;	
+					//$this->Params[]    					= $v;
 				}
 			break;
 
 			case 2:
 				$this->sets[ $this->Quote($args[0]) ]   = $args[1];	
-				$this->Params[]		   		  = $args[1];
+				//$this->Params[]		   		  			= $args[1];
 			break;
 		}
 		return $this;
@@ -84,25 +84,31 @@ class DOSyntax
 				foreach((array)$args[0] as $k=>$v)
 				{
 					$this->where[ $k ] = $v;	
-					$this->Params[]    = $v;
+					//$this->Params[]    = $v;
 				}
 			break;
 
 			case 2:
 				$this->where[ $args[0] ]   = $args[1];	
-				$this->Params[]		   = $args[1];
+				//$this->Params[]		   	   = $args[1];
 			break;
 		}
 		return $this;
 	}
+	/** Alias of method 'Values'**/
 	public function Params()
 	{
-		$this->params = array();
+		call_user_func_array(array($this,'Values'),func_get_args());
+	}
+	public function Values()
+	{
+		$this->values = array();
 		foreach(func_get_args() as $value) 
 		{
-			if(!is_array($value)) $value = array($value);
-			$this->params += $value;
+			//if(!is_array($value)) $value = array($value);
+			$this->values[] = $value;
 		}
+		
 		return $this;
 	}
 	public function Clean()
@@ -184,7 +190,7 @@ class DOSyntax
 		}
 		return $this;
 	}
-	private function getField()
+	private function GetField()
 	{
 		$get = array();
 		foreach( (array)$this->fields as $field=>$as)
@@ -193,7 +199,7 @@ class DOSyntax
 		}
 		return implode(',',$get);
 	}	
-	private function getWhere()
+	private function GetWhere()
 	{
 		$wheres = array();
 		foreach((array)$this->where as $k=>$v)
@@ -206,7 +212,7 @@ class DOSyntax
 		}
 		return '';
 	}
-	private function getGroupby()
+	private function GetGroupby()
 	{
 		$groupby = '';
 		if( !!$this->groupby)
@@ -222,7 +228,7 @@ class DOSyntax
 		return $groupby;
 		
 	}
-	private function getOrderby()
+	private function GetOrderby()
 	{
 		$orderby = '';
 		if( !!$this->orderby ) 
@@ -237,7 +243,7 @@ class DOSyntax
 		}
 		return $orderby;
 	}
-	private function getSets()
+	private function GetSets()
 	{
 		foreach($this->sets as $field=>$value)
 		{
@@ -246,7 +252,7 @@ class DOSyntax
 		}
 		return implode(',',$set);
 	}
-	private function getLimit()
+	private function GetLimit()
 	{
 		if(!!$this->limit)
 		{
@@ -254,7 +260,7 @@ class DOSyntax
 		}
 
 	}
-	private function getJoiner()
+	private function GetJoiner()
 	{
 		$joins = array();
 		foreach((array)$this->join as $k=>$v)
@@ -275,24 +281,24 @@ class DOSyntax
 	{
 		$query   = array('SELECT');
 		$get     = $joins = $wheres = array();
-		$joins   = $this->getJoiner();
+		$joins   = $this->GetJoiner();
 		//fields
-		$query[] = $this->getField();
+		$query[] = $this->GetField();
 		//tables
 		$query[] = 'FROM '.$this->coreTable.' '.$this->coreTableAs;
 		//joined tables
 		$query[] = $joins;
 		//conditions
-		$query[] = $this->getWhere();		
+		$query[] = $this->GetWhere();		
 		//group by
-		$query[] = $this->getGroupby();
+		$query[] = $this->GetGroupby();
 		//order by
-		$query[] = $this->getOrderby();		
+		$query[] = $this->GetOrderby();		
 		//limit
-		$query[] = $this->getLimit();		
+		$query[] = $this->GetLimit();		
 		$this->sqlQuery = implode("\n",$query);
 
-		return $this->formatSql(implode("\n",$query));
+		return $this->FormatSql(implode("\n",$query));
 	}
 
 	public function Create( $type = 'INSERT')
@@ -300,11 +306,10 @@ class DOSyntax
 		$query 		= array($type.' INTO');	
 		$query[]	= $this->coreTable;
 		$query[]	= 'SET';
-		$query[]       	= $this->getSets();
-		$query[]	= $this->getWhere();
+		$query[]    = $this->GetSets();
+		$query[]	= $this->GetWhere();
 		$this->sqlQuery	= implode("\n",$query);
-		
-		return $this->formatSql( $this->sqlQuery );
+		return $this->FormatSql( $this->sqlQuery );
 	}
 	public function Replace()
 	{
@@ -314,53 +319,53 @@ class DOSyntax
 	{
 		$query 		= array('UPDATE');
 		//set joined tables
-		$joins		= $this->getJoiner();	
+		$joins		= $this->GetJoiner();	
 		//fields	
-		$query[]	= $this->getField();
+		$query[]	= $this->GetField();
 		//core table
-		$query[]	= 'FROM ' . $this->coreTable.' '.$this->coreTableAs;
+		$query[]	= ' ' . $this->coreTable.' '.$this->coreTableAs;
 		//joined tables
-		$query[]        = $joins;
+		$query[]   	= $joins;
 		//set values
 		$query[]	= 'SET';
-		$query[]        = $this->getSets();
+		$query[]    = $this->GetSets();
 		//conditions
-		$query[] = $this->getWhere();		
+		$query[] 	= $this->GetWhere();		
 		//group by
-		$query[] = $this->getGroupby();
+		$query[] 	= $this->GetGroupby();
 		//order by
-		$query[] = $this->getOrderby();		
+		$query[] 	= $this->GetOrderby();		
 		//limit
-		$query[] = $this->getLimit();		
+		$query[] 	= $this->GetLimit();		
 
 		$this->sqlQuery	= implode("\n",$query);
 		
-		return $this->formatSql( $this->sqlQuery );
+		return $this->FormatSql( $this->sqlQuery );
 	}
 
 	public function Delete()
 	{
 		$query 	 = array('DELETE');
 		//joined tables	
-		$joins   = $this->getJoiner();
+		$joins   = $this->GetJoiner();
 		//multiple table delete?
-		$query[] = $this->getField();
+		$query[] = $this->GetField();
 		//core table
 		$query[] = 'FROM ' . $this->coreTable.' '.$this->coreTableAs;
 		
 		$query[] = $joins;
 		//conditions
-		$query[] = $this->getWhere();
+		$query[] = $this->GetWhere();
 		//group by
-		$query[] = $this->getGroupby();
+		$query[] = $this->GetGroupby();
 		//order by
-		$query[] = $this->getOrderby();
+		$query[] = $this->GetOrderby();
 		//limit
-		$query[] = $this->getLimit();
+		$query[] = $this->GetLimit();
 
 		$this->sqlQuery	= implode("\n",$query);
 		
-		return $this->formatSql( $this->sqlQuery );
+		return $this->FormatSql( $this->sqlQuery );
 	}
 }
 /**
@@ -380,7 +385,7 @@ class MysqlSyntax extends DOSyntax
 	 * @param unknown_type $keyid
 	 * @return unknown
 	 */
-	function quickLimit( $table,$fileds,$condition,$start,$limit,$keyid)
+	function QuickLimit( $table,$fileds,$condition,$start,$limit,$keyid)
 	{
 		//model
 /*		select module_id,module_pid,module_name from module m 

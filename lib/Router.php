@@ -20,7 +20,6 @@ class DORouter extends DOBase
 	function Dispatch()
 	{
 		self::Prepare();
-		
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger beforeroute event and see what we want to do**/
 		DOHook::TriggerPlugin('system','prepareRoute',array());
@@ -32,9 +31,11 @@ class DORouter extends DOBase
 		}
 		//Whether controller class exist
 		$method = self::$action.'Action';
-		//Action not exist
+		//Action exist
 		if( method_exists($CTR,$method) )
 		{
+			echo 333;
+			
  			DOHook::TriggerEvent(
 				array(
 				    'beforeRequest' => array(self::$params)
@@ -73,7 +74,7 @@ class DORouter extends DOBase
 		//uniqe parames
 		$u = array_merge($p,$params);
 		//generate url string
-		$_404Page = DOUri::buildQuery('error','error','index',$u);
+		$_404Page = DOUri::BuildQuery('error','error','index',$u);
 		
 		return $_404Page;
 	}
@@ -128,7 +129,7 @@ class DORouter extends DOBase
 				{
 					self::$proj 		= $v['P'];
 					self::$module  		= $v['M'];
-					self::$controller   	= $v['C'];
+					self::$controller   = $v['C'];
 					self::$action  		= $v['A'];
 					
 					@array_shift($matches);

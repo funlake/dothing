@@ -5,21 +5,31 @@
 class DOLoader
 {
 	private static $loaded = array();
+	/**
+	 * Load lib class
+	 * @param string $class //class name
+	 */
 	public static function AutoLoadLib($class)
 	{
-		if(!preg_match('#Exception$#',$class))
+		if(!preg_match('#(?<!Do)Exception$#i',$class))
 		{
 			@include_once FRAMEWORK_ROOT.DS
 			    .'lib'.DS
 			    .str_replace('_',DS,preg_replace('#^DO#','',$class)).".php";
 		}
 	}
-	
+	/**
+	 * Load exception class
+	 * @param string $exception //class name
+	 */
 	public static function AutoLoadException($exception)
 	{
-		@include_once FRAMEWORK_ROOT.DS
-				.'lib'.DS
-				.'exception'.DS.$exception.'.php';
+		if(preg_match('#exception$#i',$exception))
+		{
+			include_once FRAMEWORK_ROOT.DS.''
+			.'lib'.DS
+			.'exception'.DS.strtolower($exception).'.php';
+		}
 	}
 	/**
 	 * multiple files load.
@@ -52,7 +62,5 @@ class DOLoader
 		}
 		return true;
 	}
-	
-	
 }
 ?>

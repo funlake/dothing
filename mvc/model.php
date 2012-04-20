@@ -1,14 +1,14 @@
 <?php
-class DOModel extends DOBase
+class DOModel
 {
 	public static  $_tbl = array();
 	public static  $_mod = array();
-	public $name = '';
-	function DOModel()
+	private $name = '';
+	private $pk	 = '';
+	function __construct()
 	{
-		parent::__construct();
 	}
-	function & initTable()
+	function Init()
 	{
 		$tables = func_get_args();
 		
@@ -18,7 +18,7 @@ class DOModel extends DOBase
 			{
 				if(!self::$_tbl[$v[0]])
 				{
-					self::$_tbl[$v[0]] = & DOFactory::get('table',array($v[0],$v[1],$v[2] ) );
+					self::$_tbl[$v[0]] = DOFactory::GetTable($v[0],$v[1],$v[2]);
 				}
 			}
 		}
@@ -26,11 +26,11 @@ class DOModel extends DOBase
 		
 	}
 	
-	function table( $tb,$key='')
+	function GetTable( $tb,$key='')
 	{
 		if(!self::$_tbl[ $tb ])
 		{
-			self::$_tbl[ $tb ] = & DOFactory::get('table',array($tb,$key) );
+			self::$_tbl[ $tb ] = DOFactory::GetTable($tb,$key,null);
 		}
 		return self::$_tbl[ $tb ];
 	}
@@ -42,30 +42,25 @@ class DOModel extends DOBase
 	 * @param unknown_type $model
 	 * @param unknown_type $backend
 	 */
-	function load( $module,$model='',$backend=true )
+	function Load( $model )
 	{
-		if($backend)
-		{
-			$pre = "admin.";
-		}
-		$model = $model ? $model : $module;
-		if( !self::$_mod[$backend.$module.$model] )
-		{
-			if( DOLoader::import($pre.'app.'.$module.'.model.'.$model) )
-			{
-				$ms	= "DOModel_".$model;
-				self::$_mod[$backend.$module.$model] = new $ms();
-			}
-		}
-		return self::$_mod[$backend.$module.$model];
+		return DOController::GetModel( $model );
 	}
-	function create( $items)
+	function Create( array $insArray )
 	{
-		return self::table($this->name)->insert($items);
+		if(empty($this->name))
+		{
+			throw DOException("Please set the name attribute to be a valid table name");
+		}
+		return self::Table($this->name)->Insert($insArray);
 	}
-	function update( $items , $condition = '')
+	function Update( array $uparray , array $condition = null)
 	{
-		return self::table($this->name)->update($items,$condition);
+		if(empty($this->name))
+		{
+			throw DOException("Please set the name attribute to be a valid table name");
+		}
+		return self::Table($this->name)->Update($items,$condition);
 	}	
 }
 ?>

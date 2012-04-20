@@ -1,8 +1,9 @@
 <?php
 class DOController
 {
-	private static $controller 	= null;
+	private static $controller 		= null;
 	private static $controllerEvent = null;
+<<<<<<< HEAD
 	function DOController()
 	{
 
@@ -25,6 +26,11 @@ class DOController
 	
 	function _init($backend=''){}
 	function GetController( $appPath =  '' )
+=======
+	private static $models			= array();
+	function DOController(){}
+	function GetController()
+>>>>>>> a9a0336ad99783614ac5871fcaddcf378951a496
 	{
 		if( !self::$controller )
 		{
@@ -49,7 +55,7 @@ class DOController
 		return self::$controllerEvent;
 					
 	}
-	function LoadController()
+	function LoadController( )
 	{
 		$path  = APPBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
 		if(file_exists( $path ))
@@ -74,77 +80,59 @@ class DOController
 	 * load view
 	 *
 	 */
-	function loadView( $view = '')
+	function Display( $view = 'default')
 	{
-		//header("content-type:text/html;charset=utf-8");
-		if( !$view )
-		{
-			$view   	= preg_replace('#Action$#i','',$this->action);
-		}
-		$viewPath = $this->appPath.'.view.'.$view;
-		#echo 222;
-		//loader::import('app.view.'.$controller.'.'.$view);
-		$hook = & DOFactory::get('class',array('hook'));
-		#$hook->on('beforeview',$this->module,$this->controller,$this->action);
-		ob_start();
-		DOLoader::import($viewPath);
-		$mainContent = ob_get_contents();
-		ob_end_clean();
-		#echo $mainContent;
-		$hook->on('afterview',$this->module,$this->controller,$this->action,array('main'=>$mainContent));
+		$action   	= preg_replace('#Action$#i','',DORouter::$action);
+		$layout     = APPBASE.DS.DORouter::$module.DS.'view'.DS.$action.DS.$view.'.php';
+		@include_once $layout;
 	}
 	/**
 	 * load model object
 	 *
 	 * @return unknown
 	 */
-	function loadModel( $model = '')
+	function GetModel( $model = '')
 	{
-		if(!$model) $model = $this->controller;
-		
-		if( $this->checkIfGotModel( $model ))
+		if(!$model) $model = DORouter::$controller;
+		$model	= strtolower($model);
+		if(!self::$models[$model])
 		{
-			DOLoader::import($this->appPath.'.model.'.$model);
-			$model = "DOModel_{$model}";
-			if( class_exists( $model ))
+			//Model path
+			$path = APPBASE.DS.DORouter::$module
+					. DS
+					. 'model'
+					. DS
+					. $model.'.php' ;
+			if( file_exists( $path ))
 			{
-				return new $model();
+				include_once $path;
+				$model = "DOModel".ucwords($model);
+				if( class_exists( $model ))
+				{
+					self::$models[$model] = new $model();
+				}
 			}
+			else self::$models[$model] = null;
 		}
+		return self::$models[$model];
 	}
-	/**
-	 * check if got modle
-	 *
-	 */
-	function checkIfGotModel( $model )
-	{
-		$fileHandler = & DOFactory::get('com',array('file'));
-		
-		$f = str_replace('.',DS,$this->appPath) 
-			. DS 
-			. 'model' 
-			. DS 
-			. $this->controller.'.php' ;
-
-		return $fileHandler->exist( SYSTEM_ROOT,$f );
-	}
-	function listAction()
+	function ListAction()
 	{
 		
 	}
-	function addAction()
+	function AddAction()
 	{
 		
 	}
-	function editAction()
+	function EditAction()
 	{
 		
 	}
-	function deleteAction()
+	function DeleteAction()
 	{
 		
 	}
-	function saveAction()
+	function SaveAction()
 	{
 		$_POST = filter::process( $_POST );
 		
@@ -161,31 +149,25 @@ class DOController
 	 * @param Array $params
 	 * @return 
 	 */
-	function get($method,$params = array())
+	function Get( $method )
 	{
-		if(!$this->model)
+		$model 	= DORouter::$controller;
+		$model	= strtolower($model);
+		if(!self::$models[$model])
 		{
 			//set model
-			$this->model 	 = $this->loadModel();
+			self::$models[$model] 	 = self::GetModel();
 		}
-		$m = "get".ucwords($method);
-		if(method_exists($this->model,$m))
+		$m = "Get".ucwords(strtolower($method));
+		if(method_exists(self::$models[$model],$m))
 		{
-			return call_user_func_array(array($this->model,$m),$params);
+			$args = func_get_args();
+			array_unshift($args);
+			return call_user_func_array(array(self::$models[$model],$m),$args);
 		}
 		return false;
 	}
 	
-	function getPath( $path )
-	{
-		return parent::get('cpath') . DS . $path;
-	}
-
-	function initExtJs()
-	{
-		$this->dataHandler = & DOFactory::get('extjs',array('data'));
-		$this->extWidget   = & DOFactory::get('extjs',array('widget'));
-	}	
 	function __destruct()
 	{
 		#DOSession::end();

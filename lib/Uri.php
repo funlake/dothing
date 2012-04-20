@@ -30,11 +30,10 @@ class DOUri
 		$pinfo 	= ltrim($pinfo,'/');
 		$ps    	= explode('/',$pinfo);
 		self::$params			= array_slice(self::SafeValue( $ps ),3);
-		self::$module	  		= $ps[0];
-		self::$controller 		= $ps[1] ? $ps[1] : 'index';
-		self::$action     		= $ps[2] ? $ps[2] : 'index';
+		self::$module	  		= $ps[0] ? $ps[0] : self::$module;
+		self::$controller 		= $ps[1] ? $ps[1] : self::$controller;
+		self::$action     		= $ps[2] ? $ps[2] : self::$action;
 		return true;
-		//return compact('module','controller','action','params');
 	}
 	public function ParseNormal()
 	{
@@ -55,8 +54,8 @@ class DOUri
 				self::$params[ $key ] = self::SafeValue( $val );
 			}
 		}
+		if(!$parsed) throw new UriException("Did not find param '".DO_CKEY."' in uri",'000');
 		return true;
-		//return compact('module','controller','action','params');
 	}	
 
 	public function SafeValue( $value )
@@ -239,7 +238,7 @@ class DOUri
 	 * @param string $params
 	 * @return string
 	 */
-	function buildQuery($module,$controller,$action,$params='')
+	function BuildQuery($module,$controller,$action,$params='')
 	{
 		if(is_array($params))
 		{
