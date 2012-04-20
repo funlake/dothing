@@ -77,7 +77,7 @@ class DOController extends DOBase
 	function Display( $view = 'default')
 	{
 		$action   	= preg_replace('#Action$#i','',DORouter::$action);
-		$layout     = APPBASE.DS.DORouter::$module.DS.'layout'.DS.$action.DS.$view.'.php';
+		$layout     = APPBASE.DS.DORouter::$module.DS.'view'.DS.$action.DS.$view.'.php';
 		@include_once $layout;
 	}
 	/**
