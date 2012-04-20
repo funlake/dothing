@@ -77,6 +77,24 @@ class DOTable
 		$db = call_user_func_array(array($db,'Values'), $vals);
 		$db->Update();
 		/** Can not use $db direcitly here,quite strange**/
+		return $this->_db->Execute()->affect_rows;
+	}
+	
+	/** Single table update **/
+	function Create(array $insarray )
+	{
+		foreach($insarray as $k=>$v)
+		{
+			$sets[$k] = '?';
+			$vals[]   = $v;
+		}
+		$vals += array_slice(func_get_args(),1);
+		$db = $this->_db;
+		$db->Clean();
+		$db->From($this->_tb)->Set($sets);
+		$db = call_user_func_array(array($db,'Values'), $vals);
+		$db->Create();
+		/** Can not use $db direcitly here,quite strange**/
 		return $this->_db->Execute();
 	}
 	/** 

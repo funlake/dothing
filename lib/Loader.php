@@ -11,7 +11,7 @@ class DOLoader
 	 */
 	public static function AutoLoadLib($class)
 	{
-		if(!preg_match('#Exception$#',$class))
+		if(!preg_match('#(?<!Do)Exception$#i',$class))
 		{
 			@include_once FRAMEWORK_ROOT.DS
 			    .'lib'.DS

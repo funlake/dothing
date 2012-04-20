@@ -27,7 +27,7 @@ class DOPdo extends DODatabase implements DORecord
 		if(version_compare(phpversion(),'5.2.8','<'))
 		{
 			//not really good .
-			$this->query("SET NAMES {$charset}");
+			$this->Query("SET NAMES {$charset}");
 		}
 		else
 		{
@@ -71,16 +71,20 @@ class DOPdo extends DODatabase implements DORecord
 		{
 			return $this->MakeSql($fn,$args,$syntax);
 		}
+		else 
+		{
+			throw new DOException("Didn't find method <b>".get_class($syntax)."::{$fn}</b>", 300);
+		}
 	}
 	/**
 	 * get syntax obj
 	 *
 	 * @return syntax object
 	 */
-    	function GetSyntax( )
+    function GetSyntax( )
    	{
         	return DODatabaseWS::GetSyntax();
-    	}
+    }
 	/**
 	 * makeSql
 	 *
@@ -126,16 +130,17 @@ class DOPdo extends DODatabase implements DORecord
 	*/
 	public function Execute()
 	{
-		return $this->Query($this->GetQuery(),$this->GetParams())
-			    ->insert_id;
+		echo $this->GetQuery();
+		return $this->Query($this->GetQuery(),$this->GetParams());
+			   		//->insert_id;
 	}	
 	public function GetQuery()
 	{
-		return $this->getSyntax()->sqlQuery;
+		return $this->GetSyntax()->sqlQuery;
 	}
 	public function GetParams()
 	{
-		return $this->getSyntax()->values;
+		return $this->GetSyntax()->values;
 	}
 	public function GetAll()
 	{

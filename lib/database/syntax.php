@@ -309,8 +309,7 @@ class DOSyntax
 		$query[]    = $this->GetSets();
 		$query[]	= $this->GetWhere();
 		$this->sqlQuery	= implode("\n",$query);
-		
-		return $this->formatSql( $this->sqlQuery );
+		return $this->FormatSql( $this->sqlQuery );
 	}
 	public function Replace()
 	{

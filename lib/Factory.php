@@ -86,6 +86,15 @@ class DOFactory extends DOBase
 		self::$_load['session'] = new DOSession();
 		return self::$_load['session']->GetEngine();
 	}
+	
+	/**
+	 * Get php mailer
+	 * @return mailer Object
+	 */
+	function GetMailer()
+	{
+		return self::GetTool('phpmailer');
+	}
 	/**
 	 * microtime
 	 *
