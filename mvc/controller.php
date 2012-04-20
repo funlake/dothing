@@ -1,8 +1,9 @@
 <?php
 class DOController extends DOBase
 {
-	private static $controller 	= null;
+	private static $controller 		= null;
 	private static $controllerEvent = null;
+	private static $models			= array();
 	function DOController()
 	{
 		parent::__construct();
@@ -73,59 +74,41 @@ class DOController extends DOBase
 	 * load view
 	 *
 	 */
-	function loadView( $view = '')
+	function Display( $view = 'default')
 	{
-		//header("content-type:text/html;charset=utf-8");
-		if( !$view )
-		{
-			$view   	= preg_replace('#Action$#i','',$this->action);
-		}
-		$viewPath = $this->appPath.'.view.'.$view;
-		#echo 222;
-		//loader::import('app.view.'.$controller.'.'.$view);
-		$hook = & DOFactory::get('class',array('hook'));
-		#$hook->on('beforeview',$this->module,$this->controller,$this->action);
-		ob_start();
-		DOLoader::import($viewPath);
-		$mainContent = ob_get_contents();
-		ob_end_clean();
-		#echo $mainContent;
-		$hook->on('afterview',$this->module,$this->controller,$this->action,array('main'=>$mainContent));
+		$action   	= preg_replace('#Action$#i','',DORouter::$action);
+		$layout     = APPBASE.DS.DORouter::$module.DS.'layout'.DS.$action.DS.$view.'.php';
+		@include_once $layout;
 	}
 	/**
 	 * load model object
 	 *
 	 * @return unknown
 	 */
-	function loadModel( $model = '')
+	function GetModel( $model = '')
 	{
-		if(!$model) $model = $this->controller;
-		
-		if( $this->checkIfGotModel( $model ))
+		if(!$model) $model = DORouter::$controller;
+		$model	= strtolower($model);
+		if(!self::$models[$model])
 		{
-			DOLoader::import($this->appPath.'.model.'.$model);
-			$model = "DOModel_{$model}";
-			if( class_exists( $model ))
+			//Model path
+			$path = APPBASE.DS.DORouter::$module
+					. DS
+					. 'model'
+					. DS
+					. $model.'.php' ;
+			if( file_exists( $path ))
 			{
-				return new $model();
+				include_once $path;
+				$model = "DOModel".ucwords($model);
+				if( class_exists( $model ))
+				{
+					self::$models[$model] = new $model();
+				}
 			}
+			else self::$models[$model] = null;
 		}
-	}
-	/**
-	 * check if got modle
-	 *
-	 */
-	function checkIfGotModel( $model )
-	{
-		$fileHandler = & DOFactory::get('com',array('file'));
-		
-		$f = str_replace('.',DS,$this->appPath) 
-			. DS 
-			. 'model' 
-			. DS 
-			. $this->controller.'.php' ;
-
-		return $fileHandler->exist( SYSTEM_ROOT,$f );
+		return self::$models[$model];
 	}
 	function listAction()
 	{

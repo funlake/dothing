@@ -14,18 +14,10 @@ class DOSession
 	{
 		self::$drive		  = DO_SESSHANDLER;
 		self::$sessionHandler = 'DOSession_'.$drive;
-<<<<<<< HEAD
-		if( self::CheckEngine( $drive ))
-		{
-			self::LoadEngine();
-=======
-		
-		parent::__construct();
 	
 		if( self::CheckEngine( $drive ))
 		{
-			self::LoadEngine( );
->>>>>>> 210e8fa2ec129c52655dc14c9dea66ba20b4ea41
+			self::LoadEngine();
 		}
 	}
 	
@@ -71,12 +63,9 @@ class DOSession
 			//session id
 			if( ini_get('session.use_trans_sid') )
 			{
+				$sid 	 = 0;
 				$request = & DOFactory::GetTool('http.request');
-<<<<<<< HEAD
-				if( $sid = $request->Get(session_name()))
-=======
-				if( $sid = $request->Get(session_name() ))
->>>>>>> 210e8fa2ec129c52655dc14c9dea66ba20b4ea41
+				if( $sid == $request->Get(session_name()))
 				{
 					session_id( $sid );
 				}
@@ -87,7 +76,6 @@ class DOSession
 			session_set_cookie_params( 0 );
 			session_start();
 		}
-		
 	}
 	/**
 	 * write close
@@ -143,7 +131,6 @@ class DOSession
 		$savePath	= self::$savePath[$drive];
 		if(!empty($savePath))
 		{
-<<<<<<< HEAD
 			switch($drive)
 			{
 				case 'file':
@@ -159,19 +146,6 @@ class DOSession
 				break;
 			}
 			session_save_path( $savePath );
-=======
-			case 'file':
-				if(!is_dir( $savePath ))
-				{
-					$fileHandler = & DOFactory::GetTool('file');
-					$fileHandler->makeDir($savePath);
-				}
-			break;
-
-			case 'memcache':
-						
-			break;
->>>>>>> 210e8fa2ec129c52655dc14c9dea66ba20b4ea41
 		}
 	}
 	

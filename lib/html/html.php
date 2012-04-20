@@ -1,7 +1,7 @@
 <?php
 class DOHtml
 {	
-	function load( $pos,$args = array() )
+	function Load( $pos,$args = array() )
 	{
 		if(method_exists(array(self,$pos)))
 		{
@@ -13,30 +13,30 @@ class DOHtml
 		}
 	}
 	
-	function head()
+	function Nead()
 	{
 
 	}
-	function title()
+	function Title()
 	{
 		
 	}
 	
-	function footer()
+	function Footer()
 	{
 		
 	}
-	function w3c()
+	function W3c()
 	{
 		
 	}
 	//navigation
-	function nav($total,$rowPerPage,$page = 1)
+	function Nav($total,$rowPerPage,$page = 1)
 	{
 		//include pager template
 		
 	}
-	function addTag($tag,$attributes,$innerValue='',$endTag=1)
+	function AddTag($tag,$attributes,$innerValue='',$endTag=1)
 	{
 
 		$dom[] = "<".$tag ;
@@ -54,19 +54,19 @@ class DOHtml
 		}
 		return implode(' ',$dom);
 	}
-	
-	function select($name, $list, $init='', $selected='',$attribute='class="selects"')
+	/** Select List **/
+	function SelectList($name, $list, $init='', $selected='',$attribute='class="selects"')
 	{
 		$output  = '';
-		$output .= "<select name=\"{$name}\" id=\"{$name}\" {$attribute}>";
+		$output .= "<select name='{$name}' id='{$name}' {$attribute}>";
 		if (is_array($init))
 		{
 			$k = key($init);
-			$output .= "<option value=\"$k\">{$init[$k]}</option>";
+			$output .= "<option value='{$k}'>{$init[$k]}</option>";
 		}
 		foreach((array)$list as $k => $v)
 		{
-			$output .= "<option value=\"{$k}\"";
+			$output .= "<option value='{$k}'";
 			$output .= $k == $selected ? ' selected' : '';
 			$output .= ">{$v}</option>";
 		}
@@ -75,21 +75,34 @@ class DOHtml
 		return $output;
 		
 	}
-	
-	function chks()
+	/** CheckBox list **/
+	function CheckBoxList($name,array $list = null ,array $attrArray = null,$selected = '')
 	{
-		
-	}
-	function radio($name, $list, $attribute='', $selected='')
-	{
-		$output  = '';
-		foreach((array)$list as $k => $v)
+		$output = array();
+		foreach($attrArray as $key=>$value)
 		{
-			$output .= "<input type=\"radio\" name=\"{$name}\" id=\"{$name}\" {$attribute} value=\"{$k}\"";
-			$output .= $k == $selected ? ' checked' : '';
-			$output .= "/>{$v}";
+			$attr[] = $key."='".addslashes($value)."'";
 		}
-		return $output;
+		if(!!$attr) $attrs = implode(" ".$attr);
+		$checked[$selected] = 'checked';
+		foreach($list as $val=>$text)
+		{
+			$output[] = "<input type='checkbox' 
+								name='{$name}' 
+								id='{$name}_{$val}' 
+								value='{$val}' 
+								{$checked[$val]} 
+								{$attrs}
+						/>".$text;
+		}
+		return implode('',$output);
+	}
+	/** Radio list **/
+	function RadioList($name,array $list = null ,array $attrArray = null,$selected = '')
+	{
+		return preg_replace("#type='checkbox'#i","type='radio'"
+			  		,call_user_func_array(array(self,"CheckBoxList"),func_get_args())
+		);
 	}
 }
 ?>

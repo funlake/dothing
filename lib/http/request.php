@@ -22,18 +22,11 @@ class DORequest extends DOBase
 		{
 			if($k != 'GLOBALS') unset( $GLOBALS[$k] );
 		}
-<<<<<<< HEAD
 		$_GET			= self::StripVar($DO_GET);
 		$_POST			= self::StripVar($DO_POST);
 		$_REQUEST		= self::StripVar($DO_REQUEST);
 		$_COOKIE		= self::StripVar($DO_COOKIE);
 		$_FILES			= self::StripVar($DO_FILES);
-=======
-		$_GET		= $this->StripVar($DO_GET);
-		$_POST		= $this->StripVar($DO_POST);
-		$_COOKIE	= $this->StripVar($DO_COOKIE);
-		$_FILES		= $this->StripVar($DO_FILES);
->>>>>>> 210e8fa2ec129c52655dc14c9dea66ba20b4ea41
 	}
 	/**
 	 * strip dangerous request variables
