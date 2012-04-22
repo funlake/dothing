@@ -30,7 +30,9 @@ class DOCacheMemcache extends DOCache
 			self::$MI->addServer('127.0.0.1',11211);
 		}
 	}
-	
+	/**
+	 * @see DOCache::Set()
+	 */
 	public function Set($var,$content = '')
 	{
 		/**
@@ -54,7 +56,9 @@ class DOCacheMemcache extends DOCache
 		}
 	 	return self::$MI->setMulti($sets,0);
 	}
-	
+	/**
+	 * @see DOCache::Get()
+	 */
 	public function Get($var)
 	{
 		/** Prepare for what datatype we return later **/

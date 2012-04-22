@@ -17,7 +17,10 @@ class DOCache
 	public function GetTime($object){}
 	public function SetTime($object,$time){}
 	public function IfExpire($object){}
-	public function GetCache($type,$name){}
+	public function GetCache($name,$type)
+	{
+		return $this->Get($name.".".$type);
+	}
 	public function Save( $type , $name){}
 }
 
