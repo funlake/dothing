@@ -16,11 +16,6 @@ class DOIndex extends DOController
 	}
 	public function indexAction()
 	{
-		$session	= DOFactory::GetSession();
-		$session->Set('num',$session->Get('num')+1);
-		echo $session->Get('num');
-		$session->End();
-		//$session->Clean();
 		$db             = & DOFactory::GetDatabase();
 		echo $db->From('#__users','u','u.*')
                    	->LeftJoin('#__role'
@@ -76,10 +71,53 @@ class DOIndex extends DOController
 		{
 			print_r($e->_getMessage());
 		}
-		$mailer = DOFactory::GetMailer();
-		$mailer->SendMail('lake@apmedia.is','lake','funlake@163.com','funlake'
-				,'test','<b>helloword</b>');
 		$this->Display();
+	}
+
+	public function mailAction()
+	{		
+		$mailer = DOFactory::GetMailer();
+		$mailer->SendMail('lake@apmedia.is','Dothing','funlake@163.com','funlake'
+				,'From dothing','<b>你好世界!</b>');
+	}
+	public function sessionAction()
+	{
+		$session	= DOFactory::GetSession();
+		$session->Set('num',$session->Get('num')+1);
+		echo $session->Get('num');
+		$session->End();
+		//$session->Clean();
+	}
+	public function cacheAction()
+	{
+		$cache 		= DOFactory::GetCache();
+		$cache->Set('lake','Save yet?');
+		print_r($cache->Get('lake'));
+		
+		$cache->Set('lake2.module','tt');
+		print_r($cache->Get('lake2.module'));
+	}
+	
+	public function modelAction()
+	{
+		$_POST['user_name'] = 'testlsake';
+		$_POST['user_pass'] = md5('123456');
+		$_POST['state']		= 1;
+		
+		$model 	= DOFactory::GetModel('user');
+		$ins 	= $model->Create();
+		if( $ins->insert_id )
+		{
+			echo "insert done! insert id : {$ins->insert_id}";
+		}
+		else
+		{
+			echo "insert fail!";
+		}
+		
+		$_POST['user_id']	= 1;
+		
+		$model->Update();
 	}
 }
 

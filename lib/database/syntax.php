@@ -103,10 +103,13 @@ class DOSyntax
 	public function Values()
 	{
 		$this->values = array();
-		foreach(func_get_args() as $value) 
+		foreach(func_get_args() as $values) 
 		{
-			//if(!is_array($value)) $value = array($value);
-			$this->values[] = $value;
+			if(!is_array($values)) $values = array($values);
+			foreach ($values as $value)
+			{
+				$this->values[] = $value;
+			}
 		}
 		
 		return $this;

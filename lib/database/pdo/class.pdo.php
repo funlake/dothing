@@ -130,7 +130,6 @@ class DOPdo extends DODatabase implements DORecord
 	*/
 	public function Execute()
 	{
-		echo $this->GetQuery();
 		return $this->Query($this->GetQuery(),$this->GetParams());
 			   		//->insert_id;
 	}	

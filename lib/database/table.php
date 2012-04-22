@@ -68,7 +68,10 @@ class DOTable
 			$sets[$k] = '?';
 			$vals[]   = $v;
 		}
-		$vals += array_slice(func_get_args(),1);
+		foreach(array_slice(func_get_args(),2) as $val)
+		{
+			$vals[] = $val;
+		}
 		$db = $this->_db;
 		$db->Clean();
 		$db->From($this->_tb)

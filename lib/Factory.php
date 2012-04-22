@@ -41,7 +41,6 @@ class DOFactory extends DOBase
 	 */
 	function GetTable( $table , $key = '' , $db= '')
 	{
-		static $tables = array();
 		DOLoader::Import('lib.database.database');
 		DOLoader::Import('lib.database.table');
 		if( !is_object(self::$_load['tables'][$table] ) )
@@ -49,6 +48,26 @@ class DOFactory extends DOBase
 			self::$_load['tables'][$table]  = new DOTable( $table,$key,$db);
 		}
 		return self::$_load['tables'][$table] ;
+	}
+	/**
+	 * Get model
+	 * @param string $table
+	 */
+	public function GetModel($table)
+	{
+		static $modelLoaded = false;
+		if(!$modelLoaded)
+		{
+			DOLoader::Import('mvc.model');
+			$modelLoaded = true;
+		}
+		if(!self::$_load['models'][$table])
+		{
+			include MODELBASE.DS.$table.'.php';
+			$modelClass = 'DOModel'.ucwords(strtolower($table));
+			self::$_load['models'][$table] = new $modelClass();
+		}
+		return self::$_load['models'][$table];
 	}
 	/**
 	***Get pagenate handler

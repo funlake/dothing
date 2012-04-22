@@ -16,6 +16,10 @@ define('CSSDIR'         ,TEMPLATEROOT.DS.'css'     );
 define('FILEROOT'		,SYSTEM_ROOT.DS.'data'.DS.'files' );
 /** Where we put cachees files **/
 define('CACHEROOT'		,SYSTEM_ROOT.DS.'data'.DS.'cache');
+/** Where we put tables files **/
+define('TABLEBASE'		,SYSTEM_ROOT.DS.'tables');
+/** Where we put models files **/
+define('MODELBASE'		,SYSTEM_ROOT.DS.'models');
 /** Load loader first **/
 include FRAMEWORK_ROOT.DS.'lib'.DS.'Loader.php';
 /** Set autoload ,So those lib class can use directly**/
