@@ -3,34 +3,9 @@ class DOController
 {
 	private static $controller 		= null;
 	private static $controllerEvent = null;
-<<<<<<< HEAD
-	function DOController()
-	{
-
-		parent::__construct();
-
-		$this->_init(parent::get('backend'));
-		//set app root
-		$this->set('cpath' ,SYSTEM_ROOT		.	DS
-						   .(parent::get('backend') ? parent::get('backend').DS : '')
-						   .'app'	.	DS
-						   .$this->module);
-		
-		//filter
-		
-		//DOFactory::get('com',array('http_request'));
-		//$_POST = DORequest::filter( $_POST );
-		//$_GET  = DORequest::filter( $_GET );
-		//print_r($_POST);
-	}
-	
-	function _init($backend=''){}
-	function GetController( $appPath =  '' )
-=======
 	private static $models			= array();
 	function DOController(){}
 	function GetController()
->>>>>>> a9a0336ad99783614ac5871fcaddcf378951a496
 	{
 		if( !self::$controller )
 		{

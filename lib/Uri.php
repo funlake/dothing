@@ -45,8 +45,8 @@ class DOUri
 			if( $key == DO_CKEY && !$parsed )
 			{
 				list(self::$module,$controller,$action) = explode('-',$val);
-				if($controller == '') self::$controller = 'index';
-				if($action     == '') self::$action	    = 'index';
+				if($controller != '') self::$controller = $controller;
+				if($action     != '') self::$action	    = $action;
 				$parsed = true;
 			}
 			else

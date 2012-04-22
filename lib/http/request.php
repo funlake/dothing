@@ -14,9 +14,9 @@ class DORequest extends DOBase
 	{
 		$DO_GET    		= $_GET;
 		$DO_POST   		= $_POST;
-		$DO_REQUEST   		= $_REQUEST;
-		$DO_FILES   		= $_FILES;
-		$DO_COOKIE  		= $_COOKIE;
+		$DO_REQUEST   	= $_REQUEST;
+		$DO_FILES   	= $_FILES;
+		$DO_COOKIE  	= $_COOKIE;
 		/** Strip any unsafe variables**/ 
 		foreach( $GLOBALS as $k=>$v)
 		{
@@ -59,11 +59,10 @@ class DORequest extends DOBase
 		return array_map(array($filter,'process'),$sv);
 	}
 	
-	function Get( $var='',$gvar='get',$type='')
+	function Get( $var='',$gvar='get',$type='string')
 	{
 		//1 get value from gvar(get,post,cookie....)
-		$GV = ${'_'.strtoupper($var)};
-		
+		$GV = $GLOBALS['_'.strtoupper($gvar)];
 		if( !empty($var) )
 		{
 			if($type) $type = strtolower($type);

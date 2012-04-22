@@ -97,6 +97,20 @@ class DOTable
 		/** Can not use $db direcitly here,quite strange**/
 		return $this->_db->Execute();
 	}
+	
+	/** Single table delete function **/
+	function Delete( array $condition = null)
+	{
+		$args = func_get_args();
+		array_unshift($args);
+		$db = $this->_db;
+		$db->Clean();
+		$db->From($this->_tb)
+		->Where($condition)
+		->Values($args)
+		->Delete();
+		return $db->Execute();
+	}
 	/** 
 	 * get totals row from table
 	 *
@@ -104,9 +118,7 @@ class DOTable
 	 * @return total's num 
 	 **/
 	 function TotalRows(array $condition = null)
-	{
-	//	$t = $this->select("COUNT(".($this->_key ? $this->_key : '*').") as totalrows",$condition);
-	//	return  $t->data[0]['totalrows'] ;
+	 {
 		$db = $this->_db;
 		$db->Clean();
 		echo $db->From($this->_tb)
@@ -114,6 +126,6 @@ class DOTable
 		->Where($condition)
 		->Read();
 		return $db->GetOne('totalrows');
-	}
+	 }
 }
 ?>

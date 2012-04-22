@@ -57,7 +57,10 @@ class DOFactory extends DOBase
 	{
 		$params = func_get_args();
 		DOLoader::Import('lib.paginate.workshop');
-		self::$_load['page'] = new DOPaginateWS( $params[0] );
+		if(!self::$_load['page'])
+		{
+			self::$_load['page'] = new DOPaginateWS( $params[0] );
+		}
 		@array_shift( $params );
 		return self::$_load['page']->GetEngine( $params );
 	}
@@ -71,8 +74,12 @@ class DOFactory extends DOBase
 		DOLoader::Import('lib.database.workshop');
 		$params = func_get_args();
 		//init 
-		self::$_load['dbo'] = new DODatabaseWS( DO_DBDRIVE ,$params);
-		return self::$_load['dbo']->GetEngine();
+		$key = 'pdo'.serialize( $params );
+		if(!self::$_load[$key])
+		{
+			self::$_load[$key] = new DODatabaseWS( DO_DBDRIVE ,$params);
+		}
+		return self::$_load[$key]->GetEngine();
 	}
 	
 	 /**
@@ -82,8 +89,11 @@ class DOFactory extends DOBase
 	 */
 	function GetSession( )
 	{
-		DOLoader::Import('lib.session.session');
-		self::$_load['session'] = new DOSession();
+		DOLoader::Import('lib.session.workshop');
+		if(!self::$_load['session'])
+		{
+			self::$_load['session'] = new DOSessionWS();
+		}
 		return self::$_load['session']->GetEngine();
 	}
 	
@@ -94,6 +104,18 @@ class DOFactory extends DOBase
 	function GetMailer()
 	{
 		return self::GetTool('phpmailer');
+	}
+	/**
+	 * Get cache handler
+	 */
+	function GetCache()
+	{
+		DOLoader::Import('lib.cache.workshop');
+		if(!self::$_load['cache'])
+		{
+			self::$_load['cache'] = new DOCacheWS();
+		}
+		return self::$_load['cache']->GetEngine();
 	}
 	/**
 	 * microtime

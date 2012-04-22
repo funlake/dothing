@@ -8,28 +8,27 @@ class DOFile
 		self::makeDir( $target );*/
 	}
 	
-	public function copyDir( $source,$target )
+	public function CopyDir( $source,$target )
 	{
-		if(!is_dir( $target )) self::makeDir( $target );
+		if(!is_dir( $target )) self::MakeDir( $target );
 		foreach(glob($source.DS."*") as $v)
 		{
 			$t = $target.substr($v,strlen($source));
 
 			if( is_dir( $v ) )
 			{
-				self::makeDir(  $t );
-				self::copyDir( $v,$target );
+				self::MakeDirv(  $t );
+				self::CopyDir( $v,$target );
 			}
 			else 
 			{
-				self::makeDir(  substr($t,0,strripos( $t ,DS)) );
-				$this->copyFile( $v,$t );	
+				self::MakeDir(  substr($t,0,strripos( $t ,DS)) );
+				$this->CopyFile( $v,$t );	
 			}
 		}
 		
 	}
-	
-	public function copyFile($source,$target)
+	public function CopyFile($source,$target)
 	{
 		if(is_dir( $target ))
 		{
@@ -38,8 +37,12 @@ class DOFile
 		else copy($source,$target);
 	}
 	
-	public function makeDir($path)
+	public function MakeDir($path)
 	{
+		if(version_compare(PHP_VERSION,'5.0.5','>'))
+		{
+			return @mkdir($path,0777,true);
+		}
 		$dirs = preg_split('#\\\\+|/+#',$path);
 		$r	  = $dirs[0];
 		for($i=1,$j=count($dirs);$i<$j;$i++)
@@ -50,19 +53,22 @@ class DOFile
 			{
 				mkdir( $r );
 			}
-			chmod( $r ,0777 );
+			@chmod( $r ,0777 );
 		}
 		return true;
+	}
+	
+	public function MakeFile($path)
+	{
+		$dir = preg_replace('#/'.basename($path).'$#','',$path);
+		self::MakeDir($dir);
+		return touch($path);
 	}
 	public function Exist( $root,$file='' )
 	{
 		$path =  $file == '' ? $root : $root.DS.$file;
 
 		return file_exists( $path );
-	}
-	public function run( $command , $args = array())
-	{
-		parent::command( $command );
 	}
 
 }

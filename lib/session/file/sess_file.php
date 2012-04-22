@@ -1,5 +1,5 @@
 <?php
-class DOSession_file
+class DOSessionFile
 {
 	public function __construct(){}
 	
