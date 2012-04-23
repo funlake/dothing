@@ -10,6 +10,8 @@ class DOModelUser extends DOModel
 	public $deletekey = array(
 		'user_id'	=> '=?'
 	);
+
+	public $error_msg  = '';
 	public function __construct()
 	{
 		/** Parse fields **/
@@ -20,9 +22,34 @@ class DOModelUser extends DOModel
 		parent::__construct();
 	}	
 	/** Md5 serialize **/	
-	public function __adjust_user_pass($value)
+	public function create_adjust_user_pass($value)
 	{
 		return md5($value);
+	}
+	/** Keep unique user name **/
+	public function create_validate_user_name($value)
+	{
+		if(0 !== ($id = $this->GetOne('user_id',array('user_name'=>'=?'),$value)))
+		{
+			$this->error_msg = DOLang::Get('Do not allow multiple users!');
+			return false;
+		}
+		return true;
+	}
+	public function create_pre_validate( $posts )
+	{
+		$flag = true;
+		if(empty($posts['user_name']))
+		{
+			$this->error_msg = DOLang::Get('Empty user name');
+			$flag 		 = false;
+		}
+		if(empty($posts['user_pass']))
+		{
+			$this->error_msg .= ' '.DOLang::Get('Empty user pass');
+			$flag 		 = false;
+		}
+		return $flag;
 	}
 }
 

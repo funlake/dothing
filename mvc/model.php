@@ -3,10 +3,9 @@ class DOModel
 {
 	public static  $_tbl 	= array();
 	public static  $_mod 	= array();
-	private $name 			= '';
-	private $pk	 			= '';
 	private $binds 		 	= array();
 	private $cdts		    = array();
+	static $curdErrors 		= array();
 	function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
@@ -32,15 +31,12 @@ class DOModel
 	{
 		return strtolower(preg_replace('#^DOModel#','',get_class($this)));
 	}
-	function GetTable( $tb,$key='')
+	/** Go directly to table handler **/
+	function __call($name,array $args = null)
 	{
-		if(!self::$_tbl[ $tb ])
-		{
-			self::$_tbl[ $tb ] = DOFactory::GetTable($tb,$key,null);
-		}
-		return self::$_tbl[ $tb ];
+		$myDb	= DOFactory::GetTable($this->GetName(),$this->pk);
+		return call_user_func_array(array($myDb,$name),$args);
 	}
-	
 	/**
 	 * Enter description here...
 	 *
@@ -59,13 +55,14 @@ class DOModel
 	 */
 	function Create( array $insArray = null)
 	{
+		$this->action = 'create';
 		if(empty($this->name))
 		{
 			throw DOException("Please set the name attribute to be a valid table name",200);
 		}
 		if( false !== $this->Bind( $insArray ) )
 		{
-			return self::GetTable($this->name)->Create( $this->binds );
+			return DOFactory::GetTable($this->name)->Create( $this->binds );
 		}
 		else
 		{
@@ -78,7 +75,7 @@ class DOModel
 	 */
 	function Delete(array $cdtarray = null)
 	{
-		
+		$this->action = 'delete';
 	}
 	
 	/**
@@ -87,6 +84,7 @@ class DOModel
 	 */
 	function Update( array $uparray = null )
 	{
+		$this->action = 'update';
 		if(empty($this->name))
 		{
 			throw DOException("Please set the name attribute to be a valid table name");
@@ -122,6 +120,15 @@ class DOModel
 			$posts = $request->Get(null,'post');
 		}
 		$this->binds = $this->cdts = null;
+		/** Global validate **/
+		if(method_exists($this,$this->action.'_pre_validate'))
+		{
+			$checked = 	call_user_func_array(
+				array($this,$this->action.'_pre_validate')
+			   ,array($posts)
+			);	
+			if(!$checked) return false;
+		}
 		foreach( $posts as $field=>$value)
 		{
 			/** Do we have mapping for fields ?**/
@@ -136,30 +143,30 @@ class DOModel
 			{//primary key
 			 //index key
 			 //normal field
-			 	/** Is it for update ? **/
+				/** Validate **/
+				if(method_exists($this,$this->action.'_validate_'.$field))
+				{
+					$checked = call_user_func_array(
+								array($this,$this->action.'_validate_'.$field)
+							   ,array($value,$posts)
+					);
+					if(!$checked) return false;	
+				}
+				/** Adjust field's value **/
+				if(method_exists($this,$this->action.'_adjust_'.$field))
+				{
+					$value = call_user_func_array(
+								array($this,$this->action.'_adjust_'.$field)
+							   ,array($value,$posts)
+					);	
+				}
+				/** Is it for update ? **/
 				if( $this->updatekey[$field] )
 				{
 					foreach(explode(',',$value) as $cdt)
 					{
 						$this->cdts[] = $cdt;
 					}
-				}
-				/** Validate **/
-				if($this->validate[$field])
-				{
-					if(!preg_match($this->validate[$field],$value))
-					{
-						//throw new Exception("Field [{$field}] validate fail");
-						return false;
-					}
-				}
-				/** Adjust field's value **/
-				if(method_exists($this,'__adjust_'.$field))
-				{
-					$value = call_user_func_array(
-								array($this,'__adjust_'.$field)
-							   ,array($value)
-					);	
 				}
 				$this->binds[$field] = $value;
 			}

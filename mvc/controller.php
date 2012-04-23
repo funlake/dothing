@@ -61,7 +61,7 @@ class DOController
 	{
 		if(!!$posts && false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
 		{
-			if(!$posts['__token'] != DOBase::GetToken())
+			if($posts['__token'] != DOBase::GetToken())
 			{
 				DOUri::Redirect($posts['__redirect'],DOLang::Get(
 						'Unvalid token'
@@ -77,14 +77,14 @@ class DOController
 					{
 						$flag	= 0;
 						$msg 	= DOLang::Get(
-							$modelObj->CreateMsgSuccess,'Record added fail!'
-						);
+							$modelObj->CreateMsgFail,'Record added fail!'
+						).'{'.$modelObj->error_msg.'}';
 					}
 					else
 					{
 						$flag	= 1;
 						$msg	= DOLang::Get(
-							$modelObj->CreateMsgFail,'Record added success!'
+							$modelObj->CreateMsgSuccess,'Record added success!'
 						);
 					}
 				break;
@@ -94,7 +94,25 @@ class DOController
 							$modelObj->UpdateMsgSuccess,'Record added success!'
 						);
 				break;
+				
+				case 'Delete':
+					if(!$ins->affect_rows)
+					{
+						$flag	= 0;
+						$msg 	= DOLang::Get(
+								$modelObj->DeleteMsgFail,'Record deleted fail!'
+						).'{'.$modelObj->error_msg.'}';
+					}	
+					else 
+					{
+						$flag	= 1;
+						$msg 	= DOLang::Get(
+								$modelObj->DeleteMsgSuccess,'Record deleted success!'
+						);
+					}
+				break;
 			}
+			/** Is it an ajax request? **/
 			if($posts['__ajax'])
 			{
 				$json = DOFactory::GetTool('json');
