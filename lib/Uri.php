@@ -29,7 +29,12 @@ class DOUri
 		$pinfo 	= self::GetPathInfo();
 		$pinfo 	= ltrim($pinfo,'/');
 		$ps    	= explode('/',$pinfo);
-		self::$params			= array_slice(self::SafeValue( $ps ),3);
+		$param  = array_slice(self::SafeValue( $ps ),3);
+		if(!empty($param[0]))
+		{
+			parse_str($param[0],$params);
+			self::$params		=  $_GET = $params;
+		}
 		self::$module	  		= $ps[0] ? $ps[0] : self::$module;
 		self::$controller 		= $ps[1] ? $ps[1] : self::$controller;
 		self::$action     		= $ps[2] ? $ps[2] : self::$action;
@@ -111,11 +116,11 @@ class DOUri
 			{
 				$info 	  = $_SERVER['REQUEST_URI'] ? $_SERVER['REQUEST_URI'] : $_SERVER['REDIRECT_URL'];
 				$info	  = preg_replace('#\?.*$#','',$info);//remove any unSEO params string
-	            		/**
+	            /**
 				**path_info sometimes would lack of the first path..
 				**(when path was http://project/index.php/index)
-	            		**/
-				$mca	  = str_replace('%2F','/',urlencode($_SERVER['PATH_INFO']));
+	            **/
+				$mca	  = str_replace('%2F','/',$_SERVER['PATH_INFO']);
 				$info 	  = preg_replace('#'.preg_quote($mca).'$#','',$info);
 				$info     = preg_replace('#/index$#','',$info);
 			}
@@ -206,28 +211,8 @@ class DOUri
 	{
 		if(DO_SEO)
 		{
-			$url = ltrim($url,'?');
-			$url = preg_replace('#(?<=&)\w+\=([^&]*)#i','$1',$url);
-			$url = preg_replace('#&(?!amp;)|=#','/',$url);
-			$url = preg_replace('#\b'.DO_CKEY.'/([^/]+)#ie','str_replace("_","/","$1");',$url);
-/*			//parse_str($url,$outUrl);
-			print_r($url);
-			$ck = $ul  = '';
-			
-			foreach($outUrl as $k=>$v)
-			{
-				if($k == DO_CKEY)
-				{
-					$ck = str_replace('_','/',$v);
-				}
-				else 
-				{
-					$ul .= '/'.$k.'/'.$v;
-				}
-			}
-			$url = $ck.$ul;*/
+			$url = preg_replace('#\?'.DO_CKEY.'=([^&]+&?)#ie','strtr("$1","-&","//");',$url);
 		}
-		
 		return $url;
 	}
 	/**
@@ -244,19 +229,10 @@ class DOUri
 		{
 			$params = str_replace('&amp;','&',http_build_query($params));
 		}
-		if(!DO_CUSTOMIZED_ROUTE)
-		{
-			$link = '?'.DO_CKEY.'='.$module.'_'.$controller.'_'.$action.($params ? '&'.$params : '');
 
-			return self::RealUrl($link);
-		}
-		else 
-		{
-			$link = '?'.DO_CKEY.'='.$module.'_'.$controller.'_'.$action.($params ? '&'.$params : '');
+		$link = '?'.DO_CKEY.'='.$module.'-'.$controller.'-'.$action.($params ? '&'.$params : '');
 
-			return self::RealUrl($link);
-			//DORouter::;
-		}
+		return self::RealUrl($link);
 	}
 	
 	/**
@@ -268,12 +244,6 @@ class DOUri
 	function RealUrl( $query )
 	{
 		$query = self::Format($query);
-		
-		//echo $url;exit;
-		if(strpos($query,'admin') !== 0 && (parent::get('backend') == 'admin') )
-		{
-			$query = 'admin/'.$query;
-		}
 		return self::GetRoot()."/".$query;
 	}
 	/**
