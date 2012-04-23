@@ -120,15 +120,21 @@ class DOTable
 	 * @param $condition //searching's condition
 	 * @return total's num 
 	 **/
-	 function TotalRows(array $condition = null)
+	 function GetTotal(array $condition = null)
 	 {
+	 	foreach(array_slice(func_get_args(),1) as $val)
+	 	{
+	 		$vals[] = $val;
+	 	}
+	 	print_r(func_get_args());
 		$db = $this->_db;
 		$db->Clean();
-		echo $db->From($this->_tb)
+		$db->From($this->_tb)
 		->Select("COUNT(".($this->_key ? $this->_key : '*').") as totalrows")
-		->Where($condition)
-		->Read();
-		return $db->GetOne('totalrows');
+		->Where($condition);
+		$db = call_user_func_array(array($db,'Values'),$vals);
+		$db->Read();
+		return $this->_db->GetOne('totalrows');
 	 }
 }
 ?>
