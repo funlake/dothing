@@ -32,7 +32,7 @@ define('DO_SESSHANDLER','file');
 #define('DO_CACHEHANDLER','memcache');
 define('DO_CACHEHANDLER','file');
 //ciphter
-define('DO_SITECIPHER',md5('justdoit'));
+define('DO_SITECIPHER',md5('ap$$^&~vote*system@2012'));
 //template
 define('DO_TEMPLATE','default');
 //mailer

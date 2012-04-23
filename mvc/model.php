@@ -61,7 +61,7 @@ class DOModel
 	{
 		if(empty($this->name))
 		{
-			throw DOException("Please set the name attribute to be a valid table name");
+			throw DOException("Please set the name attribute to be a valid table name",200);
 		}
 		if( false !== $this->Bind() )
 		{

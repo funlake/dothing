@@ -14,7 +14,7 @@ class DOException extends Exception
 		$this->PushMsg($message,(int)$code);
 		if(version_compare(PHP_VERSION,'5.3.0','<'))
 		{
-			$this->_previous = $pervious;
+			$this->_previous = $previous;
 			return parent::__construct($message,(int)$code);	
 		}	
 		return parent::__construct($message,(int)$code,$previous);

@@ -49,7 +49,7 @@ class DOPdo extends DODatabase implements DORecord
 		{
 			$this->connFlag = new PDO( $this->dsn,$this->dbUserName,$this->dbPassWord,$this->opt);
 		}
-		catch( Exception $e)
+		catch( DOException $e)
 		{
 			throw new DbException('Can not connect to database',100,$e);	
 		}
