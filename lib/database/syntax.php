@@ -3,7 +3,7 @@
 class DOSyntax
 {
 	const tableFileSep = '___';
-	private $asset = array('join'		,'joinField'	,'fields'
+	private $asset = array('join'	,'joinField'	,'fields'
 			      ,'orderby'	,'groupby'	,'where'
 			      ,'limit'		,'coreTable'	,'coreTableAs'
 			      ,'sqlQuery'	,'params'	,'sets');
@@ -103,10 +103,13 @@ class DOSyntax
 	public function Values()
 	{
 		$this->values = array();
-		foreach(func_get_args() as $value) 
+		foreach(func_get_args() as $values) 
 		{
-			//if(!is_array($value)) $value = array($value);
-			$this->values[] = $value;
+			if(!is_array($values)) $values = array($values);
+			foreach ($values as $value)
+			{
+				$this->values[] = $value;
+			}
 		}
 		
 		return $this;
@@ -132,9 +135,7 @@ class DOSyntax
 		{
 			foreach((array)$joinField as $k=>$v)
 			{
-				$this->join[$table]['join'][] = $k
-								.' = '
-								.$v;
+				$this->join[$table]['join'][] = $k.' = '.$v;
 			}
 		}
 		else $this->join[$table]['join'][] = $joinField;

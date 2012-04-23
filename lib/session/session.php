@@ -1,54 +1,13 @@
 <?php
 class DOSession
-{
-	private static $engine;
-	
-	public static $sessionHandler;
-	public static $drive;
-	
+{	
 	private static $savePath = array(
-		'file' 		=> '/var/www/dothing/data/sess'
+		'file' 		=> ''
 	   ,'memcache'	=> 'tcp://127.0.0.1:11211'
 	);
-	function DOSession( )
+	function DOSession($drive)
 	{
-		self::$drive		  = DO_SESSHANDLER;
-		self::$sessionHandler = 'DOSession_'.$drive;
-	
-		if( self::CheckEngine( $drive ))
-		{
-			self::LoadEngine();
-		}
-	}
-	
-	function CheckEngine( $drive )
-	{
-
-		DOLoader::Import('lib.session.'.$drive.'.sess_'.$drive); 
-		
-		if( class_exists(self::$sessionHandler) )
-		{
-			return true;
-		}
-		return false;
-	}
-	
-	function LoadEngine( )
-	{
-		$handler = self::$sessionHandler;
-		$drive	 = self::$drive;			
-		if( $drive != 'file')
-		{
-			ini_set('session.save_handler',$drive);
-			session_set_save_handler(
-				array($handler,"open")
-			   ,array($handler,"close")
-			   ,array($handler,"read")
-			   ,array($handler,"write")
-			   ,array($handler,"destroy")
-			   ,array($handler,"gc")
-			);
-		}
+		$this->drive = $drive;
 	}
 	/**
 	 * session start
@@ -85,10 +44,6 @@ class DOSession
 	function End()
 	{
 		return session_write_close();
-	}
-	function GetEngine()
-	{
-		return $this;
 	}
 	/**
 	 * set session value
@@ -127,7 +82,7 @@ class DOSession
 
 	function SetSavePath()
 	{
-		$drive 		= self::$drive;
+		$drive 		= $this->drive;
 		$savePath	= self::$savePath[$drive];
 		if(!empty($savePath))
 		{

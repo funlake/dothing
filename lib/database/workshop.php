@@ -5,10 +5,9 @@
 class DODatabaseWS
 {
 	private static $engine;
-        private static $syntax;	
+    private static $syntax;	
 	function DODatabaseWS( $drive ,$params=array())
 	{
-
 		if( self::checkEngine( 'pdo' ))
 		{
 			self::loadEngine( 'pdo_'.$drive , $params);

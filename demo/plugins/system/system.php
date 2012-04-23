@@ -9,7 +9,8 @@ class PlgSystem
 	public function OnPrepareRoute()
 	{
 		$session = DOFactory::GetSession();
-		if($_COOKIE[$session->GetName()])
+		$request = DOFactory::GetTool('http.request');
+		if($request->Get($session->GetName(),'cookie'))
 		{
 			$session->Start();
 		}

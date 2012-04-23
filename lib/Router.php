@@ -101,12 +101,11 @@ class DORouter extends DOBase
 	 */
 	function Prepare()
 	{
-		$pathinfo		= DOUri::GetPathInfo();
+		$pathinfo			= DOUri::GetPathInfo();
 		self::$module	  	= DOUri::GetModule();
 		self::$controller 	= DOUri::GetController();
 		self::$action     	= DOUri::GetAction();
 		self::$params	 	= DOUri::GetParams();
-
 		if(DO_CUSTOMIZED_ROUTE)
 		{
 			
