@@ -116,7 +116,6 @@ class DOModel
 	
 	function Bind( array $posts = null )
 	{
-		
 		if(!$posts)
 		{
 			$request = DOFactory::GetTool('http.request');
@@ -150,7 +149,7 @@ class DOModel
 				{
 					if(!preg_match($this->validate[$field],$value))
 					{
-						throw new Exception("Field [{$field}] validate fail");
+						//throw new Exception("Field [{$field}] validate fail");
 						return false;
 					}
 				}

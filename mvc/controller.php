@@ -17,7 +17,7 @@ class DOController
 			else
 			{//curd automate
 				self::AutoCurd(DORouter::$controller,DORouter::$action,$_POST);
-				return false;
+				exit();
 			}
 		}
 		return self::$controller;
@@ -75,30 +75,36 @@ class DOController
 				case 'Create':
 					if(!$ins->insert_id)
 					{
-						DOUri::Redirect($posts['__redirect'],DOLang::Get(
-									    $modelObj->CreateMsgSuccess,'Record added fail!'
-								),1
+						$flag	= 0;
+						$msg 	= DOLang::Get(
+							$modelObj->CreateMsgSuccess,'Record added fail!'
 						);
-						return false;
 					}
 					else
 					{
-						DOUri::Redirect($posts['__redirect'],DOLang::Get(
-										$modelObj->CreateMsgFail,'Record added success!'
-								),0
+						$flag	= 1;
+						$msg	= DOLang::Get(
+							$modelObj->CreateMsgFail,'Record added success!'
 						);
-						return true;
 					}
 				break;
 
 				case 'Update':
-					DOUri::Redirect($posts['__redirect'],DOLang::Get(
-									$modelObj->UpdateMsgSuccess,'Record added success!'
-							),1
-					);
-					return true;
+						$msg	= DOLang::Get(
+							$modelObj->UpdateMsgSuccess,'Record added success!'
+						);
 				break;
 			}
+			if($posts['__ajax'])
+			{
+				$json = DOFactory::GetTool('json');
+				/** Response json data **/
+				exit($json->encode(
+					array('flag'=>$flag,'msg'=>$msg)		
+				));
+			}
+			/** Or redirect **/
+			DOUri::Redirect($posts['__redirect'],$msg,$flag);
 		}	
 		else
 		{
