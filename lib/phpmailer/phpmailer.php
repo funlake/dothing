@@ -409,7 +409,6 @@ class Phpmailer {
         //$result = false;
         //break;
     }
-
     return $result;
   }
 
@@ -1802,7 +1801,6 @@ class DOPhpmailer extends Phpmailer
 			$flag = false;
 		}
 		return $flag;
-	
 	}
 }
 ?>

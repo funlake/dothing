@@ -135,7 +135,7 @@ class DORouter extends DOBase
 					//set $_GET params
 					foreach( $matches as $mk=>$mv)
 					{
-						if($ignoreNextLoop) {$ignoreNextLoop = false ; continue;}
+						if(!!$ignoreNextLoop) {$ignoreNextLoop = false ; continue;}
 						//match mvc string in url
 						if(self::$mvcHash[':'.$mk])
 						{
@@ -143,7 +143,7 @@ class DORouter extends DOBase
 							$ignoreNextLoop = true;
 						}
 						//params format
-						if($kf = self::$format[$k][$mk])
+						if(null != ($kf = self::$format[$k][$mk]))
 						{
 							$mv = sprintf($kf,$mv);
 						}
