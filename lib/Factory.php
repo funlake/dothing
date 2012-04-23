@@ -3,7 +3,7 @@
  * Classes Factory 
  *
  */
-class DOFactory extends DOBase
+class DOFactory
 {
 	
 	public static $crateEveryTime = array('time'=>true);
@@ -43,7 +43,7 @@ class DOFactory extends DOBase
 	{
 		DOLoader::Import('lib.database.database');
 		DOLoader::Import('lib.database.table');
-		$table = preg_replace('~^'.DO_TABLEPRE.'~i', '', $table);
+		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		if( !is_object(self::$_load['tables'][$table] ) )
 		{
 			self::$_load['tables'][$table]  = new DOTable( $table,$key,$db);
@@ -62,7 +62,7 @@ class DOFactory extends DOBase
 			DOLoader::Import('mvc.model');
 			$modelLoaded = true;
 		}
-		$table = preg_replace('~^'.DO_TABLEPRE.'~i', '', $table);
+		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		//echo $table;
 		if(!self::$_load['models'][$table])
 		{

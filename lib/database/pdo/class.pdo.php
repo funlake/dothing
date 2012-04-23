@@ -146,7 +146,7 @@ class DOPdo extends DODatabase implements DORecord
 		return $this->Query($this->GetQuery(),$this->GetParams())
 			   ->data;	
 	}
-	public function GetOne($field='')
+	public function GetOne($field)
 	{
 		$rs = @$this->Query($this->GetQuery(),$this->GetParams())
 			    ->data[0];
