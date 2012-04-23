@@ -79,7 +79,7 @@ class DOHtml
 	function CheckBoxList($name,array $list = null ,array $attrArray = null,$selected = '')
 	{
 		$output = array();
-		foreach($attrArray as $key=>$value)
+		foreach((array)$attrArray as $key=>$value)
 		{
 			$attr[] = $key."='".addslashes($value)."'";
 		}

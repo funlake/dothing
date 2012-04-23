@@ -106,9 +106,8 @@ class DORouter extends DOBase
 		self::$controller 	= DOUri::GetController();
 		self::$action     	= DOUri::GetAction();
 		self::$params	 	= DOUri::GetParams();
-		if(DO_CUSTOMIZED_ROUTE)
+		if(DO_SEO)
 		{
-			
 			foreach((array)self::$maps as $k=>$v)
 			{
 				$rule = preg_replace(

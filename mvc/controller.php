@@ -14,6 +14,11 @@ class DOController
 				$ctrClass = 'DO'.ucwords(DORouter::$controller);
 				self::$controller = new $ctrClass();
 			}
+			else
+			{//curd automate
+				self::AutoCurd(DORouter::$controller,DORouter::$action,$_POST);
+				return false;
+			}
 		}
 		return self::$controller;
 	}
@@ -51,15 +56,80 @@ class DOController
 		return false;
 		
 	}
+	/** Auto curd handler **/
+	public function AutoCurd($action,$model,array $posts = null)
+	{
+		if(!!$posts && false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
+		{
+			if(!$posts['__token'] != DOBase::GetToken())
+			{
+				DOUri::Redirect($posts['__redirect'],DOLang::Get(
+						'Unvalid token'
+					),0
+				);
+			}
+			$action = ucwords(strtolower($action));
+			$ins    = $modelObj->$action($posts);
+			switch($action)
+			{
+				case 'Create':
+					if(!$ins->insert_id)
+					{
+						DOUri::Redirect($posts['__redirect'],DOLang::Get(
+									    $modelObj->CreateMsgSuccess,'Record added fail!'
+								),1
+						);
+						return false;
+					}
+					else
+					{
+						DOUri::Redirect($posts['__redirect'],DOLang::Get(
+										$modelObj->CreateMsgFail,'Record added success!'
+								),0
+						);
+						return true;
+					}
+				break;
+
+				case 'Update':
+					DOUri::Redirect($posts['__redirect'],DOLang::Get(
+									$modelObj->UpdateMsgSuccess,'Record added success!'
+							),1
+					);
+					return true;
+				break;
+			}
+		}	
+		else
+		{
+			$request = DOFactory::GetTool('http.request');
+			$msg	 = $request->Get('__DOMSG','cookie');
+			if(!empty($msg))
+			{
+				echo $msg;
+				setcookie('__DOMSG'		,'',time()-180);
+				setcookie('__DOMSG_TYPE','',time()-180);
+			}	
+		}
+		return false;
+	}
 	/**
 	 * load view
 	 *
 	 */
-	function Display( $view = 'default')
+	function Display( $view = 'default',array $variables = null)
 	{
 		$action   	= preg_replace('#Action$#i','',DORouter::$action);
-		$layout     = APPBASE.DS.DORouter::$module.DS.'view'.DS.$action.DS.$view.'.php';
-		@include_once $layout;
+		if(empty($view))
+		{//when $view set as null,we would include tpl file which name as action.
+			$view = $action;
+		}
+		if(!!$variables)
+		{//what variables we want to pass to tpl 
+			extract($variables);
+		}
+		$layout     = APPBASE.DS.DORouter::$module.DS.'view'.DS.DORouter::$controller.DS.$view.'.php';
+		include_once $layout;
 	}
 	/**
 	 * load model object
@@ -90,32 +160,6 @@ class DOController
 			else self::$models[$model] = null;
 		}
 		return self::$models[$model];
-	}
-	function ListAction()
-	{
-		
-	}
-	function AddAction()
-	{
-		
-	}
-	function EditAction()
-	{
-		
-	}
-	function DeleteAction()
-	{
-		
-	}
-	function SaveAction()
-	{
-		$_POST = filter::process( $_POST );
-		
-		switch( $_POST['task'] )
-		{
-			case 'add':
-			break;
-		}
 	}
 	/**
 	 * call model's method which function name's prefixs were 'get'

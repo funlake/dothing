@@ -192,14 +192,19 @@ class DOUri
 		return self::$params;
 	}
 	
-	function Redirect($url,$msg='')
+	function Redirect($url,$msg='',$type=0)
 	{
+		setcookie("__DOMSG",$msg,time()+20);
+		setcookie("__DOMSG_TYPE",$type,time()+20);
 		if(headers_sent())
 		{
 			echo "<script type='text/javascript'>location.href='{$url}';</script>";
 		}
 		else
-			header('Location:'.$url);
+		{
+			$response = DOFactory::GetTool('http.response');
+			$response->SetHeader('Location',$url);
+		}
 	}
 	/**
 	 * Format seo url.

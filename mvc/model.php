@@ -57,13 +57,13 @@ class DOModel
 	 * Single table data insert
 	 * @param array $insArray
 	 */
-	function Create()
+	function Create( array $insArray = null)
 	{
 		if(empty($this->name))
 		{
 			throw DOException("Please set the name attribute to be a valid table name",200);
 		}
-		if( false !== $this->Bind() )
+		if( false !== $this->Bind( $insArray ) )
 		{
 			return self::GetTable($this->name)->Create( $this->binds );
 		}
@@ -74,16 +74,24 @@ class DOModel
 	}
 	
 	/**
+	 * Delete table data;
+	 */
+	function Delete(array $cdtarray = null)
+	{
+		
+	}
+	
+	/**
 	 * Single table data update
 	 * @param array $insArray
 	 */
-	function Update( )
+	function Update( array $uparray = null )
 	{
 		if(empty($this->name))
 		{
 			throw DOException("Please set the name attribute to be a valid table name");
 		}
-		if( false !== $this->Bind() )
+		if( false !== $this->Bind($uparray) )
 		{
 			foreach(array_keys($this->updatekey) as $upkey)
 			{
@@ -106,11 +114,16 @@ class DOModel
 		
 	}
 	
-	function Bind()
+	function Bind( array $posts = null )
 	{
-		$request = DOFactory::GetTool('http.request');
+		
+		if(!$posts)
+		{
+			$request = DOFactory::GetTool('http.request');
+			$posts = $request->Get(null,'post');
+		}
 		$this->binds = $this->cdts = null;
-		foreach($request->Get(null,'post') as $field=>$value)
+		foreach( $posts as $field=>$value)
 		{
 			/** Do we have mapping for fields ?**/
 			if($this->maps[$field])
@@ -142,10 +155,10 @@ class DOModel
 					}
 				}
 				/** Adjust field's value **/
-				if(method_exists($this,'_adjust_'.$field))
+				if(method_exists($this,'__adjust_'.$field))
 				{
 					$value = call_user_func_array(
-								array($this,'_adjust_'.$field)
+								array($this,'__adjust_'.$field)
 							   ,array($value)
 					);	
 				}

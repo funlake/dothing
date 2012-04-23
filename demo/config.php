@@ -7,11 +7,11 @@
 date_default_timezone_set('Etc/GMT');
 //database
 define('DO_DBDRIVE','mysql');
-define('DO_DATABASE','demo');
+define('DO_DATABASE','docms');
 define('DO_DBHOST','127.0.0.1');
 define('DO_DBUSER','root');
 define('DO_DBPASS','123456');
-define('DO_TABLEPRE','');
+define('DO_TABLEPRE','#__');
 define('DO_DEBUG',false);
 define('DO_SQLPCONNECT',false);
 //identify
@@ -24,15 +24,13 @@ define('DO_SEO',false);
 define('DO_CHARSET','utf-8');
 //brower cache or not
 define('DO_BROWERCACHE',false);
-//file cache or not
-define('DO_FILECACHE',false);
 //sessio handler
 define('DO_SESSHANDLER','file');
 //cache handler
 #define('DO_CACHEHANDLER','memcache');
 define('DO_CACHEHANDLER','file');
 //ciphter
-define('DO_SITECIPHER',md5('ap$$^&~vote*system@2012'));
+define('DO_SITECIPHER',md5('justdoit'));
 //template
 define('DO_TEMPLATE','default');
 //mailer

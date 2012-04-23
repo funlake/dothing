@@ -99,4 +99,20 @@ function DOUnicode2Utf8($hex)
                 break;
         endswitch;
 }
+/**
+ * Strip slash
+ */
+
+function DOStripslashes(&$item)
+{
+	if (is_array($item))
+	{
+		array_walk($item, 'DOStripslashes');
+	}
+	else
+	{
+		$item = stripslashes($item);
+	}
+	return $item;
+}
 ?>

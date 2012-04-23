@@ -43,6 +43,7 @@ class DOFactory extends DOBase
 	{
 		DOLoader::Import('lib.database.database');
 		DOLoader::Import('lib.database.table');
+		$table = preg_replace('~^'.DO_TABLEPRE.'~i', '', $table);
 		if( !is_object(self::$_load['tables'][$table] ) )
 		{
 			self::$_load['tables'][$table]  = new DOTable( $table,$key,$db);
@@ -61,8 +62,11 @@ class DOFactory extends DOBase
 			DOLoader::Import('mvc.model');
 			$modelLoaded = true;
 		}
+		$table = preg_replace('~^'.DO_TABLEPRE.'~i', '', $table);
+		//echo $table;
 		if(!self::$_load['models'][$table])
 		{
+			if(!file_exists(MODELBASE.DS.$table.'.php')) return false;
 			include MODELBASE.DS.$table.'.php';
 			$modelClass = 'DOModel'.ucwords(strtolower($table));
 			self::$_load['models'][$table] = new $modelClass();

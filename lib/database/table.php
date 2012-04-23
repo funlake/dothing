@@ -2,10 +2,12 @@
 
 class DOTable
 {
-	var $_db;
-	var $_tb;
-	var $_key;
-	var $returnType = 1;
+	/** Database instance **/
+	public $_db;
+	/** Table name **/
+	public $_tb;
+	/** Primary key **/
+	public $_key;
 	
 	function DOTable($tableName,$key='',$db)
 	{
@@ -18,7 +20,7 @@ class DOTable
 		$this->_key	= $key;
 	}
 	
-	function __call( $fn , $args )
+/* 	function __call( $fn , $args )
 	{
 		//add table handler
 		array_unshift( $args , $this->_tb);
@@ -26,40 +28,68 @@ class DOTable
 		$sql = call_user_func_array( array($this->_db,$fn) , $args );
 		//query
 		return $this->_db->query( $sql );
-	}
+	} */
 	/** Get one field according to conditions */
 	function GetOne($field,array $condition = null)
 	{
+		$vals = array();
+		foreach(array_slice(func_get_args(),2) as $val)
+		{
+			$vals[] = $val;
+		}
 		$db = $this->_db;
 		$db->Clean();
 		$db->From( $this->_tb)
 		   ->Select($field)
-		   ->Where($condition)
-		   ->Read();
-		return $db->GetOne($field);
+		   ->Where($condition);
+		$db = call_user_func_array(array($db,'Values'), $vals);
+		$db->Read();
+		return $this->_db->GetOne($field);
 	}
 	/** Get row according to conditions */
 	function GetRow(array $condition = null)
 	{
+		$vals = array();
+		foreach(array_slice(func_get_args(),1) as $val)
+		{
+			$vals[] = $val;
+		}
 		$db = $this->_db;
 		$db->Clean();
 		$db->From( $this->_tb)
 		   ->Select('*')
-		   ->Where($condition)
-		   ->Read();
-		return $db->GetRow();
+		   ->Where($condition);
+		$db = call_user_func_array(array($db,'Values'), $vals);
+		$db->Read();
+		return $this->_db->GetRow();
 	}
+	
 	/** Get col in all rows we fetch according to conditions */
 	function GetCol($fields,array $condition = null)
 	{
+		$vals = array();
+		foreach(array_slice(func_get_args(),2) as $val)
+		{
+			$vals[] = $val;
+		}
 		$db = $this->_db;
 		$db->Clean();
 		$db->From( $this->_tb)
 		->Select($fields)
-		->Where($condition)
-		->Read();
-		return $db->GetCol();
+		->Where($condition);
+		$db = call_user_func_array(array($db,'Values'), $vals);
+		$db->Read();
+		return $this->_db->GetCol($fields);
 	}
+	
+	/** Get all short way calling **/
+	function GetAll(array $condition = null)
+	{
+		$args = func_get_args();
+		array_unshift($args,'*');
+		return call_user_func_array(array($this,"GetCol"),$args);
+	}
+	
 	/** Single table update **/
 	function Update(array $uparray,array $condition = null)
 	{
@@ -117,7 +147,7 @@ class DOTable
 	/** 
 	 * get totals row from table
 	 *
-	 * @param $condition //searching's condition
+	 * @param $condition //conditions for searching
 	 * @return total's num 
 	 **/
 	 function GetTotal(array $condition = null)
@@ -126,7 +156,6 @@ class DOTable
 	 	{
 	 		$vals[] = $val;
 	 	}
-	 	print_r(func_get_args());
 		$db = $this->_db;
 		$db->Clean();
 		$db->From($this->_tb)

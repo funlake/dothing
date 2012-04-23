@@ -160,11 +160,12 @@ class DOPdo extends DODatabase implements DORecord
 		
 	}
 
-	public function GetCol()
+	public function GetCol($fields)
 	{
 		$rs 		= $this->GetAll();
 		$rt 		= array();
-		$fields		= func_get_args();
+		if($fields === '*') return $rs;
+		$fields		= explode(',',$fields);
 		foreach($rs as $k=>$record)
 		{
 			$rt[$k] = new stdClass();

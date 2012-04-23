@@ -6,7 +6,7 @@ class DOBase
 	
 	public function __construct()
 	{
-		$this->mark( get_class($this) );
+		$this->Mark( get_class($this) );
 		
 		if(version_compare(phpversion(),'5.0.0','<') && method_exists($this,'__destruct'))
 		{
@@ -27,9 +27,32 @@ class DOBase
 		{
 			self::$_mark[$k] = DOFactory::Get('time') - $v;
 		}
-		//print_r( self::$_mark );
 	}
-	
+	/**
+	 * Set Token
+	 */
+	public function SetToken()
+	{
+		$tokens = self::GenToken();
+		setcookie('__token',$tokens,time()+60);
+		return $tokens;
+	}
+	/**
+	 * Get token
+	 */
+	public function GetToken()
+	{
+		return $_COOKIE['__token'];
+	}
+	/**
+	 * Gen token
+	 *
+	 * @return string
+	 */
+	function GenToken()
+	{
+		return md5(DO_SITECIPHER.uniqid( rand(),true ) );
+	}
 	public function Set($p,$v)
 	{
 		self::$vars[$p] = $v;
@@ -74,15 +97,7 @@ class DOBase
 		 */
 		call_user_func_array(array($this,$this->handler),$args);
 	}
-	/**
-	 * gen id
-	 *
-	 * @return unknown
-	 */
-	function GenId()
-	{
-		return md5( uniqid( rand(),true ) );
-	}
+
 	
 	public function Alia($alia,$class)
 	{

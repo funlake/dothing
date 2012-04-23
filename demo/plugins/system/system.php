@@ -10,10 +10,15 @@ class PlgSystem
 	{
 		$session = DOFactory::GetSession();
 		$request = DOFactory::GetTool('http.request');
+		/** Auto start session **/
 		if($request->Get($session->GetName(),'cookie'))
 		{
 			$session->Start();
 		}
+		/** Strip slash since we using pdo **/
+		$_GET 		= DOStripslashes($_GET);
+		$_POST  	= DOStripslashes($_POST);
+		$_COOKIE  	= DOStripslashes($_COOKIE);
 		/**Check permission here?*/
 	}
 	
@@ -23,7 +28,7 @@ class PlgSystem
 	
 	public function OnPrepareDocument($response)
 	{
-		$response->SetBody($response->GetBody());	
+		//$response->SetBody($response->GetBody());	
 		return true;
 	}
 }

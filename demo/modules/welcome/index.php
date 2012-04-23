@@ -52,7 +52,7 @@ class DOIndex extends DOController
 		$db->Clean();
 		echo $db->From('#__category')->Select('count(*) as amount')->Read();
 		$tb = DOFactory::GetTable('#__user');
-		echo $tb->TotalRows();
+		//echo $tb->TotalRows();
 		echo $tb->Update(
 			array('user_name'=>'lakesss')
 		       ,array('user_id'=>'=?')
@@ -71,6 +71,8 @@ class DOIndex extends DOController
 		{
 			print_r($e->_getMessage());
 		}
+
+		echo $tb->GetTotal(array('user_id'=>'>?'),1);
 		$this->Display();
 	}
 
@@ -118,6 +120,29 @@ class DOIndex extends DOController
 		$_POST['user_id']	= 1;
 		
 		$model->Update();
+	}
+	public function listAction()
+	{
+		$tb = DOFactory::GetTable('#__user');
+		print_r($tb->GetRow(array('user_id'=>'=?'),1));		
+		print_r($tb->GetOne('user_name',array('user_id'=>'=?'),1));		
+	}
+	public function urlAction($user_id=null,$user_name=null)
+	{
+		echo DOUri::BuildQuery('a','b','c','a=b&c=d&e=f');
+	}
+
+	public function encryptAction()
+	{
+		$encrypt = DOFactory::GetTool('encrypt');
+		echo "encrypt:".($e = $encrypt->CbcEncrypt('1,1234567890'));
+		echo "<br/>";
+		echo "decrypt:".$encrypt->CbcDecrypt($e);		
+	}
+
+	public function adduserAction()
+	{
+		$this->Display(null);
 	}
 }
 
