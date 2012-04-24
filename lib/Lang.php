@@ -1,12 +1,11 @@
 <?php 
 class DOLang 
 {
-	private static $loadGlobal = false;
-	private static $moudleLang = array();
-	private static $ctrLang = array();
+	private static $loadGlobal 	= false;
+	private static $moudleLang 	= array();
+	private static $ctrLang 	= array();
 	public static function Get($text)
 	{
-		return $text;
 		/** Module language text **/
 		$moduleLang = self::GetModuleLang();
 		if(isset($moduleLang[$text])) return $moduleLang[$text];
@@ -17,7 +16,7 @@ class DOLang
 		return $text;
 		
 	}	
-	
+	/** Module level language **/
 	public static function GetModuleLang()
 	{
 		/** Load global language file **/
@@ -28,11 +27,10 @@ class DOLang
 			{
 				self::$moudleLang = include $globalLangFile;
 			}
-			self::$moudleLang = true;
 		}
 		return self::$moudleLang;
 	}
-	
+	/** Controller level language **/
 	public static function GetControllerLang()
 	{
 		/** Load global language file **/
@@ -48,6 +46,7 @@ class DOLang
 		}
 		return self::$ctrLang[DORouter::$controller];
 	}
+	/** Get language code **/
 	public static function GetLangCode()
 	{
 		if(!defined('DO_LANG'))

@@ -27,7 +27,7 @@ class DOSyntax
 	{
 		return '`'.$field.'`';
 	}	
-	/** replace table prefix,trim */
+	/** Replace table prefix,trim */
 	function FormatSql( $sql )
 	{
 		$sql = preg_replace(
@@ -37,7 +37,7 @@ class DOSyntax
 		);
 		return $sql;
 	}
-	
+	/** What field we want to fetch **/
 	public function Select( $fields )
 	{
 		if(is_string($fiendls)) $fields = explode(',',$fields);
@@ -48,7 +48,7 @@ class DOSyntax
 		}
 		return $this;
 	}
-
+	/** Add or modify what field in update/replace/insert sql **/
 	public function Set( )
 	{
 		$args = func_get_args();
@@ -70,6 +70,7 @@ class DOSyntax
 		return $this;
 
 	}
+	/** What table we need to handle **/
 	public function From( $tables,$as = '',$fields='')
 	{
 		$this->coreTable 	= $this->Quote($tables); 
@@ -77,6 +78,7 @@ class DOSyntax
 		!empty($fields) && $this->Select( $fields );
 		return $this;
 	}
+	/** Set where **/
 	public function Where( )
 	{
 		$args = func_get_args();
@@ -102,6 +104,7 @@ class DOSyntax
 	{
 		call_user_func_array(array($this,'Values'),func_get_args());
 	}
+	/** Params for prepare sql **/
 	public function Values()
 	{
 		$this->values = array();
@@ -116,6 +119,7 @@ class DOSyntax
 		
 		return $this;
 	}
+	/** Clean all used containers **/
 	public function Clean()
 	{
 		foreach($this->asset as $asset)
@@ -125,13 +129,13 @@ class DOSyntax
 		return $this;
 	}
 	/**
-	 * join query
+	 * sql join query
 	 *
-	 * @param unknown_type $table
+	 * @param string $table
 	 * @param array $joinField // what fields need to be connected to core table
 	 * @param string|array $fetchField //what field need to be fetch 
 	 */
-	private function joinField( $table , $as,$joinField , $fetchField='')
+	private function JoinField( $table , $as,$joinField , $fetchField='')
 	{
 		if(is_array($joinField))
 		{
@@ -148,23 +152,25 @@ class DOSyntax
 	}
 	function LeftJoin($table,$as,$joinField, $fetchField=''){
 		$this->join[$table]['type'] = 'left join';
-		$this->joinField( $table , $as,$joinField , $fetchField);
+		$this->JoinField( $table , $as,$joinField , $fetchField);
 		return $this;
 	}
 	function InnerJoin($table,$as,$joinField, $fetchField=''){
 		$this->join[$table]['type'] = 'inner join';
-		$this->joinField( $table , $as,$joinField , $fetchField);
+		$this->JoinField( $table , $as,$joinField , $fetchField);
 		return $this;
 	}
 	function RightJoin($table,$as,$joinField, $fetchField){
 		$this->join[$table]['type'] = 'right join';
-		$this->joinField( $table , $as,$joinField, $fetchField );
+		$this->JoinField( $table , $as,$joinField, $fetchField );
 		return $this;
 	}
+	/** Set limit **/
 	function Limit($s,$e){
 		$this->limit = array($s,$e);
 		return $this;
 	}
+	/** Set order by **/
 	function Orderby()
 	{
 		$args = func_get_args();
@@ -184,7 +190,7 @@ class DOSyntax
 		}
 		return $this;
 	}
-
+	/** Set Group by **/
 	function Groupby( )
 	{
 		foreach(func_get_args() as $k=>$v)
@@ -193,6 +199,9 @@ class DOSyntax
 		}
 		return $this;
 	}
+	/**
+	 * Get fetched fields
+	 */
 	private function GetField()
 	{
 		$get = array();
@@ -202,6 +211,9 @@ class DOSyntax
 		}
 		return implode(',',$get);
 	}	
+	/**
+	 * Get conditions
+	 */
 	private function GetWhere()
 	{
 		$wheres = array();
@@ -215,6 +227,9 @@ class DOSyntax
 		}
 		return '';
 	}
+	/**
+	 * Get Group by params
+	 */
 	private function GetGroupby()
 	{
 		$groupby = '';
@@ -231,6 +246,9 @@ class DOSyntax
 		return $groupby;
 		
 	}
+	/**
+	 * Get Order by params
+	 */
 	private function GetOrderby()
 	{
 		$orderby = '';
@@ -246,6 +264,9 @@ class DOSyntax
 		}
 		return $orderby;
 	}
+	/**
+	 * Get Update/Replace/Insert sets
+	 */
 	private function GetSets()
 	{
 		foreach($this->sets as $field=>$value)
@@ -255,6 +276,9 @@ class DOSyntax
 		}
 		return implode(',',$set);
 	}
+	/**
+	 * Get limit params;
+	 */
 	private function GetLimit()
 	{
 		if(!!$this->limit)
@@ -263,6 +287,9 @@ class DOSyntax
 		}
 
 	}
+	/**
+	 * Get all joiner tables
+	 */
 	private function GetJoiner()
 	{
 		$joins = array();
@@ -276,9 +303,16 @@ class DOSyntax
 		}
 		return implode("\n",$joins);	
 	}
-
 	/**
-	*Generate 'SELECT' statements
+	 * Set query directly
+	 * @param sring $rawSql
+	 */
+	public function SetQuery( $rawSql )
+	{
+		$this->sqlQuery = $this->FormatSql($rawSql);
+	}
+	/**
+	*Packed select sql;
 	*/	
 	public function Read()
 	{
@@ -303,7 +337,7 @@ class DOSyntax
 
 		return $this->FormatSql(implode("\n",$query));
 	}
-
+	/** Packed insert sql **/
 	public function Create( $type = 'INSERT')
 	{
 		$query 		= array($type.' INTO');	
@@ -314,10 +348,12 @@ class DOSyntax
 		$this->sqlQuery	= implode("\n",$query);
 		return $this->FormatSql( $this->sqlQuery );
 	}
+	/** Packed replace sql **/
 	public function Replace()
 	{
 		return $this->Create('REPLACE');
 	}
+	/** Packed update sql **/
 	public function Update()
 	{
 		$query 		= array('UPDATE');
@@ -345,7 +381,7 @@ class DOSyntax
 		
 		return $this->FormatSql( $this->sqlQuery );
 	}
-
+	/** Packed delete sql **/
 	public function Delete()
 	{
 		$query 	 = array('DELETE');

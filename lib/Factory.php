@@ -179,8 +179,8 @@ class DOFactory
 			if(!$cn[1]) $cn[1] = $cn[0];
 			DOLoader::Import('lib.'.$cn[0].'.'.$cn[1] );
 			@array_shift( $args );
-			$component 	= 'DO'.ucwords($cn[1]);
-			$ref		= new ReflectionClass( $component );
+			$component 		= 'DO'.ucwords($cn[1]);
+			$ref			= new ReflectionClass( $component );
 			$tools[$class] 	= call_user_func(array($ref,'newInstanceArgs'),$args);
 		}
 		return $tools[$class];

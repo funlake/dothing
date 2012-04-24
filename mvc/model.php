@@ -5,7 +5,7 @@ class DOModel
 	public static  $_mod 	= array();
 	private $binds 		 	= array();
 	private $cdts		    = array();
-	static $curdErrors 		= array();
+	static  $curdErrors 	= array();
 	function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
@@ -62,7 +62,7 @@ class DOModel
 		{
 			throw DOException("Please set the name attribute to be a valid table name",200);
 		}
-		if( false !== $this->Bind( $insArray ) )
+		if( false != $this->Bind( $insArray ) )
 		{
 			return DOFactory::GetTable($this->name)->Create( $this->binds );
 		}
@@ -91,7 +91,7 @@ class DOModel
 		{
 			throw DOException("Please set the name attribute to be a valid table name");
 		}
-		if( false !== $this->Bind($uparray) )
+		if( false != $this->Bind($uparray) )
 		{
 			foreach(array_keys($this->updatekey) as $upkey)
 			{
@@ -131,6 +131,7 @@ class DOModel
 			);	
 			if(!$checked) return false;
 		}
+		$falseFlag = array(1);
 		foreach( $posts as $field=>$value)
 		{
 			/** Do we have mapping for fields ?**/
@@ -152,7 +153,11 @@ class DOModel
 								array($this,$this->action.'_validate_'.$field)
 							   ,array($value,$posts)
 					);
-					if(!$checked) return false;	
+					if(!$checked)
+					{
+						$falseFlag[] = $checked + 0;
+						continue;
+					}
 				}
 				/** Adjust field's value **/
 				if(method_exists($this,$this->action.'_adjust_'.$field))
@@ -177,7 +182,7 @@ class DOModel
 				continue;
 			}
 		}
-		return true;
+		return array_product($falseFlag);
 	}
 }
 ?>

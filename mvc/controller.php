@@ -76,7 +76,8 @@ class DOController
 					if(!$ins->insert_id)
 					{
 						$flag	= 0;
-						$msg 	= DOLang::Get($modelObj->CreateMsgFail).'{'.$modelObj->error_msg.'}';
+						$msg 	= DOLang::Get($modelObj->CreateMsgFail);
+						$detail	= $modelObj->error_msg;
 					}
 					else
 					{
@@ -93,7 +94,8 @@ class DOController
 					if(!$ins->affect_rows)
 					{
 						$flag	= 0;
-						$msg 	= DOLang::Get($modelObj->DeleteMsgFail).'{'.$modelObj->error_msg.'}';
+						$msg 	= DOLang::Get($modelObj->DeleteMsgFail);
+						$detail	= $modelObj->error_msg;
 					}	
 					else 
 					{
@@ -108,7 +110,7 @@ class DOController
 				$json = DOFactory::GetTool('json');
 				/** Response json data **/
 				exit($json->encode(
-					array('flag'=>$flag,'msg'=>$msg)		
+					array('flag'=>$flag,'msg'=>$msg,'errors'=>$detail)		
 				));
 			}
 			/** Or redirect **/
