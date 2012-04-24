@@ -16,9 +16,12 @@ class PlgSystem
 			$session->Start();
 		}
 		/** Strip slash since we using pdo **/
-		$_GET 		= DOStripslashes($_GET);
-		$_POST  	= DOStripslashes($_POST);
-		$_COOKIE  	= DOStripslashes($_COOKIE);
+		if(get_magic_quotes_gpc())
+		{
+			$_GET 		= DOStripslashes($_GET);
+			$_POST  	= DOStripslashes($_POST);
+			$_COOKIE  	= DOStripslashes($_COOKIE);
+		}
 		/**Check permission here?*/
 	}
 	
