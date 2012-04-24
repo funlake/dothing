@@ -111,9 +111,10 @@ class DOController
 			{
 				$json = DOFactory::GetTool('json');
 				/** Response json data **/
-				exit($json->encode(
+				echo $json->encode(
 					array('flag'=>$flag,'msg'=>$msg,'detail'=>$detail)		
-				));
+				);
+				exit();
 			}
 			/** Or redirect **/
 			DOUri::Redirect($posts['__redirect'],$msg,$flag);
