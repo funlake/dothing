@@ -182,6 +182,17 @@ class DOModel
 				continue;
 			}
 		}
+		if(!!$this->binds)
+		{
+			foreach($this->fields[0] as $key=>$default)
+			{
+				$rawKey = trim($key,'#@');
+				if(!isset($this->binds[$rawKey]))
+				{
+					$this->binds[$rawKey] = $default;
+				}
+			}
+		}
 		return array_product($falseFlag);
 	}
 }

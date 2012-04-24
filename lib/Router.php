@@ -51,7 +51,9 @@ class DORouter extends DOBase
 		}
 		else 
 		{
-			throw new Exception("Route fail!");
+			//throw new Exception("Route fail!");
+			echo "404!";
+			exit();
 			//DOUri::redirect($_404Page);
 		}
 		DOHook::TriggerPlugin('system','afterRoute',array());
