@@ -29,7 +29,9 @@ class DOModel
 	}
 	function GetName()
 	{
-		return strtolower(preg_replace('#^DOModel#','',get_class($this)));
+		return empty($this->name) 
+			 ? strtolower(preg_replace('#^DOModel#','',get_class($this)))
+		     : $this->name;
 	}
 	/** Go directly to table handler **/
 	function __call($name,array $args = null)

@@ -1,13 +1,9 @@
 <?php 
 class DOLang 
 {
-	public static function Get($text,$default)
+	public static function Get($text,$lang = 'EN_us',$module = 'global')
 	{
-		if(!empty($text))
-		{
-			return $text;
-		}
-		return $default;
+		return $text;
 	}	
 }
 ?>

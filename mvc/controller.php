@@ -76,39 +76,29 @@ class DOController
 					if(!$ins->insert_id)
 					{
 						$flag	= 0;
-						$msg 	= DOLang::Get(
-							$modelObj->CreateMsgFail,'Record added fail!'
-						).'{'.$modelObj->error_msg.'}';
+						$msg 	= DOLang::Get($modelObj->CreateMsgFail).'{'.$modelObj->error_msg.'}';
 					}
 					else
 					{
 						$flag	= 1;
-						$msg	= DOLang::Get(
-							$modelObj->CreateMsgSuccess,'Record added success!'
-						);
+						$msg	= DOLang::Get($modelObj->CreateMsgSuccess);
 					}
 				break;
 
 				case 'Update':
-						$msg	= DOLang::Get(
-							$modelObj->UpdateMsgSuccess,'Record added success!'
-						);
+						$msg	= DOLang::Get($modelObj->UpdateMsgSuccess);
 				break;
 				
 				case 'Delete':
 					if(!$ins->affect_rows)
 					{
 						$flag	= 0;
-						$msg 	= DOLang::Get(
-								$modelObj->DeleteMsgFail,'Record deleted fail!'
-						).'{'.$modelObj->error_msg.'}';
+						$msg 	= DOLang::Get($modelObj->DeleteMsgFail).'{'.$modelObj->error_msg.'}';
 					}	
 					else 
 					{
 						$flag	= 1;
-						$msg 	= DOLang::Get(
-								$modelObj->DeleteMsgSuccess,'Record deleted success!'
-						);
+						$msg 	= DOLang::Get($modelObj->DeleteMsgSuccess);
 					}
 				break;
 			}

@@ -35,7 +35,6 @@ class DOSyntax
 		   ,array('`'.DO_TABLEPRE.'\2\3`','')
 		   ,$sql
 		);
-		echo $sql."<br/>";
 		return $sql;
 	}
 	
