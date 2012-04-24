@@ -83,11 +83,13 @@ class DOController
 					{
 						$flag	= 1;
 						$msg	= DOLang::Get($modelObj->CreateMsgSuccess);
+						$detail	= $modelObj->info_msg;
 					}
 				break;
 
 				case 'Update':
 						$msg	= DOLang::Get($modelObj->UpdateMsgSuccess);
+						$detail	= $modelObj->info_msg;
 				break;
 				
 				case 'Delete':
@@ -110,7 +112,7 @@ class DOController
 				$json = DOFactory::GetTool('json');
 				/** Response json data **/
 				exit($json->encode(
-					array('flag'=>$flag,'msg'=>$msg,'errors'=>$detail)		
+					array('flag'=>$flag,'msg'=>$msg,'detail'=>$detail)		
 				));
 			}
 			/** Or redirect **/
