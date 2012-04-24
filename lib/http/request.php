@@ -17,6 +17,7 @@ class DORequest extends DOBase
 		$DO_REQUEST   	= $_REQUEST;
 		$DO_FILES   	= $_FILES;
 		$DO_COOKIE  	= $_COOKIE;
+		$DO_SERVER	    = $_SERVER;
 		/** Strip any unsafe variables**/ 
 		foreach( $GLOBALS as $k=>$v)
 		{
@@ -27,6 +28,7 @@ class DORequest extends DOBase
 		$_REQUEST		= self::StripVar($DO_REQUEST);
 		$_COOKIE		= self::StripVar($DO_COOKIE);
 		$_FILES			= self::StripVar($DO_FILES);
+		$_SERVER		= self::StripVar($DO_SERVER);
 	}
 	/**
 	 * strip dangerous request variables

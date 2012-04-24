@@ -27,7 +27,7 @@ class DOTemplate
 	{
 		$args 	= func_get_args();
 		$type	= strtolower(array_shift($args));
-		echo call_user_func_array(array(self,'GET'.ucwords($type)),$args);
+		echo call_user_func_array(array(self,'Get'.ucwords($type)),$args);
 	}
 	public static function SetTitle( $title )
 	{

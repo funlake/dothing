@@ -24,7 +24,8 @@ class DOBlocks
 		**	2.Fetch blocks by $pos
 		**	3.Display blocks one by one according to ordering
 		**/	
-		if($cache = self::GetCache( $pos ))
+		$cache = self::GetCache($pos);
+		if(!empty($cache))
 		{
 			include $cache;
 			return;
