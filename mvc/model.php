@@ -132,8 +132,20 @@ class DOModel
 			if(!$checked) return false;
 		}
 		$falseFlag = array(1);
+		/** Filter **/
+		$filter    = DOFactory::GetFilter();
 		foreach( $posts as $field=>$value)
 		{
+			if(strpos($field,'__editor') === 0)
+			{
+				/**Editor dont need to strip html tag**/
+				$value = $filter->decode($value);
+			}
+			else 
+			{
+				/**Other values should not including html tags **/
+				$value = $filter->process($value);
+			}
 			/** Do we have mapping for fields ?**/
 			if($this->maps[$field])
 			{
@@ -184,6 +196,7 @@ class DOModel
 		}
 		if(!!$this->binds)
 		{
+			/** Merge mapper **/
 			foreach($this->fields[0] as $key=>$default)
 			{
 				$rawKey = trim($key,'#@');

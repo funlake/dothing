@@ -15,7 +15,7 @@ defined('DO_ACCESS') OR exit('Do not allow visit directly!');
  * @email: dan@rootcube.com
  * @license: GNU General Public License (GPL)
  */
-class DOFilter extends DOBase
+class DOFilter
 {
 	var $tagsArray; // default = empty array
 	var $attrArray; // default = empty array
@@ -40,7 +40,6 @@ class DOFilter extends DOBase
 	 */
 	function DOFilter($tagsArray = array (), $attrArray = array (), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
 	{
-		parent::__construct();
 		/*
 		 * Make sure user defined arrays are in lowercase
 		 */
