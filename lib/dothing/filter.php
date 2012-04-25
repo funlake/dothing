@@ -462,14 +462,13 @@ class DOFilter
 	{
 		// utf8-decode
 		//$enctype = explode(";",$_SERVER['CONTENT_TYPE']);
-
 		//if(!($enctype && $enctype[0] == "multipart/form-data")){
 			// url decode
-			$source = html_entity_decode($source, ENT_QUOTES, "utf-8");
-			// convert decimal
-			$source = preg_replace('/&#(\d+);/me', "chr(\\1)", $source); // decimal notation
-			// convert hex
-			$source = preg_replace('/&#x([a-f0-9]+);/mei', "chr(0x\\1)", $source); // hex notation
+		$source = html_entity_decode($source,ENT_QUOTES,DO_CHARSET);
+		// convert decimal
+		$source = preg_replace('/&#(\d+);/me', "chr(\\1)", $source); // decimal notation
+		// convert hex
+		$source = preg_replace('/&#x([a-f0-9]+);/mei', "chr(0x\\1)", $source); // hex notation
 			//$source = utf8_decode($source);
 		//}
 		return $source;

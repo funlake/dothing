@@ -117,7 +117,7 @@ class DOController
 				exit();
 			}
 			/** Or redirect **/
-			DOUri::Redirect($posts['__redirect'],$msg,$flag);
+			if(!empty($posts['__redirect'])) DOUri::Redirect($posts['__redirect'],$msg,$flag);
 		}	
 		else
 		{

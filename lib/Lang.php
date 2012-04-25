@@ -8,10 +8,11 @@ class DOLang
 	{
 		/** Module language text **/
 		$moduleLang = self::GetModuleLang();
-		if(isset($moduleLang[$text])) return $moduleLang[$text];
+		$textkey	= preg_replace(array('#\s+#','#[[:punct:]]#'),array('_',''),$text);
+		if(isset($moduleLang[$textkey])) return $moduleLang[$textkey];
 		/** Controller language text **/
 		$ctrlLang	= self::GetControllerLang();
-		if(isset($ctrlLang[$text])) return $ctrlLang[$text];
+		if(isset($ctrlLang[$textkey])) return $ctrlLang[$textkey];
 		
 		return $text;
 		

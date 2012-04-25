@@ -44,6 +44,11 @@ class DOUri
 	{
 		/** Prevent user parse same key as DOC_CKEY we configured */
 		$parsed = false;
+		/** Set default module **/
+		if(!$_GET)
+		{
+			$parsed = true;
+		}
 		/** Get pramse from either POST or GET **/
 		foreach( $_GET as $key=>$val)
 		{
@@ -59,7 +64,10 @@ class DOUri
 				self::$params[ $key ] = self::SafeValue( $val );
 			}
 		}
-		if(!$parsed) throw new UriException("Did not find param '".DO_CKEY."' in uri",'000');
+		if(!$parsed) 
+		{
+			throw new UriException("Did not find param '".DO_CKEY."' in uri",'000');
+		}
 		return true;
 	}	
 
@@ -235,7 +243,9 @@ class DOUri
 			$params = str_replace('&amp;','&',http_build_query($params));
 		}
 
-		$link = '?'.DO_CKEY.'='.$module.'-'.$controller.'-'.$action.($params ? '&'.$params : '');
+		$link = '?'.DO_CKEY.'='.$module
+				.($controller ? '-'.$controller : '')
+				.($action ? '-'.$action.($params ? '&'.$params : '') : '');
 
 		return self::RealUrl($link);
 	}

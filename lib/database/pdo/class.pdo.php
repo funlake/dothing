@@ -23,7 +23,11 @@ class DOPdo extends DODatabase implements DORecord
 	
 	function SetNames()
 	{
-		$charset = str_replace('-','',DO_CHARSET);
+		$charset = DO_CHARSET;
+		if(DO_CHARSET == 'utf-8')
+		{
+			$charset = str_replace('-','',DO_CHARSET);
+		}
 		if(version_compare(phpversion(),'5.2.8','<'))
 		{
 			//not really good .
@@ -32,9 +36,10 @@ class DOPdo extends DODatabase implements DORecord
 		else
 		{
 			//good but need new version of php
-			$this->SetOptions(array(
+/* 			$this->SetOptions(array(
 				PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$charset}"
-			));
+			)); */
+			$this->Query("SET NAMES {$charset}");
 		}
 		return true;
 	}
