@@ -19,13 +19,14 @@ class DOLang
 	/** Module level language **/
 	public static function GetModuleLang()
 	{
+		$lang = array();
 		/** Load global language file **/
 		if(!self::$moudleLang)
 		{
-			$globalLangFile = SYSTEM_ROOT.DS.'languages'.DS.self::GetLangCode().DS.DORouter::$module.'.php';
+			$globalLangFile = SYSTEM_ROOT.DS.'languages'.DS.self::GetLangCode().DS.DORouter::$module.'.ini';
 			if(file_exists($globalLangFile))
 			{
-				self::$moudleLang = include $globalLangFile;
+				self::$moudleLang = parse_ini_file($globalLangFile);
 			}
 		}
 		return self::$moudleLang;
@@ -33,15 +34,16 @@ class DOLang
 	/** Controller level language **/
 	public static function GetControllerLang()
 	{
+		$lang = array();
 		/** Load global language file **/
 		if(!self::$ctrLang[DORouter::$controller])
 		{
 			$ctrLangFile = SYSTEM_ROOT.DS.'languages'
 							  .DS.self::GetLangCode().DS
-							  .DORouter::$module.'.'.DORouter::$controller.'.php';
+							  .DORouter::$module.'.'.DORouter::$controller.'.ini';
 			if(file_exists($ctrLangFile))
 			{
-				self::$ctrLang[DORouter::$controller] = include $ctrLangFile;
+				self::$ctrLang[DORouter::$controller] = parse_ini_file($ctrLangFile);
 			}
 		}
 		return self::$ctrLang[DORouter::$controller];

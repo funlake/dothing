@@ -151,9 +151,9 @@ class DOModel
 			{
 				$field = $this->maps[$field];
 			}
-			if( $this->fields[0]['@'.$field] 
-			  ||$this->fields[0]['#'.$field]
-			  ||$this->fields[0][$field]
+			if(isset($this->fields[0]['@'.$field]) 
+			  ||isset($this->fields[0]['#'.$field])
+			  ||isset($this->fields[0][$field])
 			)
 			{//primary key
 			 //index key
