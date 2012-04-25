@@ -36,6 +36,7 @@ class DOModelUser extends DOModel
 		}
 		return true;
 	}
+	/** What we do before save a new record**/
 	public function create_pre_validate( $posts )
 	{
 		$flag = true;
