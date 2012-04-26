@@ -11,13 +11,13 @@ class DOController
 		{
 			if( self::LoadController() )
 			{
+				DOHook::TriggerPlugin('system','prepareRouteTo'.ucwords(DORouter::$module),array());
 				$ctrClass = 'DO'.ucwords(DORouter::$controller);
 				self::$controller = new $ctrClass();
 			}
 			else
 			{//curd automate
 				self::AutoCurd(DORouter::$controller,DORouter::$action,$_POST);
-				exit();
 			}
 		}
 		return self::$controller;
@@ -105,6 +105,9 @@ class DOController
 						$msg 	= DOLang::Get($modelObj->DeleteMsgSuccess);
 					}
 				break;
+				default:
+					return;
+				break;
 			}
 			/** Is it an ajax request? **/
 			if($posts['__ajax'])
@@ -119,7 +122,7 @@ class DOController
 			/** Or redirect **/
 			if(!empty($posts['__redirect'])) DOUri::Redirect($posts['__redirect'],$msg,$flag);
 		}	
-		else
+/* 		else
 		{
 			$request = DOFactory::GetTool('http.request');
 			$msg	 = $request->Get('__DOMSG','cookie');
@@ -129,7 +132,7 @@ class DOController
 				setcookie('__DOMSG'		,'',time()-180);
 				setcookie('__DOMSG_TYPE','',time()-180);
 			}	
-		}
+		} */
 		return false;
 	}
 	/**

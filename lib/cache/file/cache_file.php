@@ -127,7 +127,6 @@ class DOCacheFile extends DOCache
 		list($var,$type) = explode('.',$hashkey);
 		self::GetCache($type)->Delete($var);
 		return self::Save($type);
-		#DOEvent::trigger('onDestry',)
 	}
 	/**
 	*remove a cache file

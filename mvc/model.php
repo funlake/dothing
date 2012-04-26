@@ -139,12 +139,12 @@ class DOModel
 			if(strpos($field,'__editor') === 0)
 			{
 				/**Editor dont need to strip html tag**/
-				$value = $filter->decode($value);
+				$value = trim($filter->decode($value));
 			}
 			else 
 			{
 				/**Other values should not including html tags **/
-				$value = $filter->process($value);
+				$value = trim($filter->process($value));
 			}
 			/** Do we have mapping for fields ?**/
 			if($this->maps[$field])
@@ -170,6 +170,14 @@ class DOModel
 						$falseFlag[] = $checked + 0;
 						continue;
 					}
+				}
+				/** Pre ajaust field's value? **/
+				if(method_exists($this,$this->action.'_adjust_DOALL'))
+				{
+					$value = call_user_func_array(
+							array($this,$this->action.'_adjust_DOALL')
+							,array($value,$posts)
+					);
 				}
 				/** Adjust field's value **/
 				if(method_exists($this,$this->action.'_adjust_'.$field))

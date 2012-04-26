@@ -16,6 +16,10 @@ class DOTemplate
 	
 	public static function LoadTemplate( $template )
 	{
+		if(!defined('MYROOT'))
+		{
+			define('MYROOT',DOUri::GetRoot().'/templates/'.$template);
+		}
 		ob_start();
 		include TEMPLATEROOT.DS.$template.DS.'index.php';
 		$content = ob_get_contents();

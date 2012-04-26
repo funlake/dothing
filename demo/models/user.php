@@ -2,6 +2,7 @@
 class DOModelUser extends DOModel
 {
 	public $fields;
+	public $maps;
 	/** What to be where conditions when we update a record **/
 	public $updatekey = array(
 		'user_id'	=> '=?'		
@@ -21,6 +22,10 @@ class DOModelUser extends DOModel
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
+	public function create_adjust_DOALL($value)
+	{
+		return trim($value);
+	}
 	/** Md5 serialize **/	
 	public function create_adjust_user_pass($value)
 	{

@@ -25,9 +25,11 @@ class DORouter extends DOBase
 		DOHook::TriggerPlugin('system','prepareRoute',array());
 		/**Initiate controller object **/
 		DOLoader::Import('mvc.controller');
+		
 		if( ! ($CTR = DOController::GetController()) )
 		{
-			return;
+			DOUri::Redirect('404.html');
+			exit();
 		}
 		//Whether controller class exist
 		$method = self::$action.'Action';
@@ -52,7 +54,7 @@ class DORouter extends DOBase
 		else 
 		{
 			//throw new Exception("Route fail!");
-			echo "404!";
+			DOUri::Redirect('404.html');
 			exit();
 			//DOUri::redirect($_404Page);
 		}

@@ -243,7 +243,7 @@ class DOUri
 			$params = str_replace('&amp;','&',http_build_query($params));
 		}
 
-		$link = '?'.DO_CKEY.'='.$module
+		$link = 'index.php?'.DO_CKEY.'='.$module
 				.($controller ? '-'.$controller : '')
 				.($action ? '-'.$action.($params ? '&'.$params : '') : '');
 
