@@ -11,7 +11,10 @@ class DOController
 		{
 			if( self::LoadController() )
 			{
-				DOHook::TriggerPlugin('system','prepareRouteTo'.ucwords(DORouter::$module),array());
+				/** Before specify controller call**/
+				DOHook::TriggerPlugin('system','prepareRouteTo'
+									.ucwords(DORouter::$module)
+									.ucwords(DORouter::$controller),array());
 				$ctrClass = 'DO'.ucwords(DORouter::$controller);
 				self::$controller = new $ctrClass();
 			}
@@ -143,12 +146,17 @@ class DOController
 	{
 		$action   	= preg_replace('#Action$#i','',DORouter::$action);
 		if(empty($view))
-		{//when $view set as null,we would include tpl file which name as action.
+		{//When $view set as null,we would include tpl file which name as action.
 			$view = $action;
 		}
 		if(!!$variables)
-		{//what variables we want to pass to tpl 
+		{//What variables we want to pass to tpl 
 			extract($variables);
+		}
+		//Mobile view?
+		if($mobileView)
+		{
+			$view .= "_mobile";
 		}
 		$layout     = APPBASE.DS.DORouter::$module.DS.'view'.DS.DORouter::$controller.DS.$view.'.php';
 		include_once $layout;

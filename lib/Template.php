@@ -1,8 +1,8 @@
 <?php
 class DOTemplate
 {
-	public static $params = array();
-	
+	public static $params 	= array();
+	public static $template	= '';
 	public static function SetPrams($params)
 	{
 		foreach($params as $key=>$val) self::SetParam($key,$val);
@@ -13,9 +13,19 @@ class DOTemplate
 		$key = strtolower($key);
 		self::$params[$key] = $val;
 	}
-	
-	public static function LoadTemplate( $template )
+	public static function SetTemplate( $template = '')
 	{
+		self::$template = $template ? $template : DO_TEMPLATE;
+	}
+	
+	public static function GetTemplate()
+	{
+		return self::$template;
+	}
+	public static function LoadTemplate( )
+	{
+		$template = self::GetTemplate();
+		
 		if(!defined('MYROOT'))
 		{
 			define('MYROOT',DOUri::GetRoot().'/templates/'.$template);
@@ -26,7 +36,7 @@ class DOTemplate
 		ob_end_clean();
 		return $content;
 	}
-	/**Core function,use to set hook all elements we want to display in template**/
+	/**Core function,use to set hooks for all elements we want to display in template**/
 	public static function _()
 	{
 		$args 	= func_get_args();

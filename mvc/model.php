@@ -40,11 +40,8 @@ class DOModel
 		return call_user_func_array(array($myDb,$name),$args);
 	}
 	/**
-	 * Enter description here...
+	 * Load model
 	 *
-	 * @param unknown_type $module
-	 * @param unknown_type $model
-	 * @param unknown_type $backend
 	 */
 	function Load( $model )
 	{
@@ -111,7 +108,6 @@ class DOModel
 		{
 			return false;
 		}
-		
 	}
 	
 	function Bind( array $posts = null )

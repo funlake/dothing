@@ -10,7 +10,8 @@ class DOResponse
 	/** Set Template first **/
 	public function __construct()
 	{
-		$this->SetTemplate();
+		//$this->SetTemplate();
+		DOTemplate::SetTemplate();
 	}
 	function SetHeaders(Array $headers)
 	{
@@ -34,15 +35,7 @@ class DOResponse
 	{
 		return $this->httpBody;
 	}
-	public function SetTemplate( $template = '')
-	{
-		$this->template = $template ? $template : DO_TEMPLATE;
-	}
-	
-	public function GetTemplate()
-	{
-		return $this->template;
-	}
+
 	function NoCache($t = false)
 	{
 		/**
@@ -74,7 +67,7 @@ class DOResponse
 				)
 			);
 			/** Get template and prepare to display**/
-			$this->SetBody(DOTemplate::LoadTemplate($this->GetTemplate()));
+			$this->SetBody(DOTemplate::LoadTemplate());
 			/** Do we have any plugin to format this responses?**/
 			$params   = array($this);
 			DOHook::TriggerPlugin('system','prepareDocument',$params);

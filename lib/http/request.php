@@ -10,7 +10,7 @@ class DORequest extends DOBase
 	#
 	#[Warning] Do not call twice in a same process(page)!!!
 	#
-	function Clean()
+	public function Clean()
 	{
 		$DO_GET    		= $_GET;
 		$DO_POST   		= $_POST;

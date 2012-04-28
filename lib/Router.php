@@ -21,14 +21,16 @@ class DORouter extends DOBase
 	{
 		self::Prepare();
 		#self::hasMap(DOUri::GetPathInfo());
-		/** Trigger beforeroute event and see what we want to do**/
+		/** Trigger plugin before all module route**/
 		DOHook::TriggerPlugin('system','prepareRoute',array());
+		/** Trigger plugin before calling a specify module */
+		DOHook::TriggerPlugin('system','prepareRouteTo'.ucwords(self::$module),array());
 		/**Initiate controller object **/
 		DOLoader::Import('mvc.controller');
 		
 		if( ! ($CTR = DOController::GetController()) )
 		{
-			DOUri::Redirect('404.html');
+			include '404.html';
 			exit();
 		}
 		//Whether controller class exist
@@ -54,7 +56,7 @@ class DORouter extends DOBase
 		else 
 		{
 			//throw new Exception("Route fail!");
-			DOUri::Redirect('404.html');
+			include '404.html';
 			exit();
 			//DOUri::redirect($_404Page);
 		}
