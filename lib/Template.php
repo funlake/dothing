@@ -2,7 +2,7 @@
 class DOTemplate
 {
 	public static $params 	= array();
-	public static $template	= '';
+	public static $template	= DO_TEMPLATE;
 	public static function SetPrams($params)
 	{
 		foreach($params as $key=>$val) self::SetParam($key,$val);
@@ -13,9 +13,9 @@ class DOTemplate
 		$key = strtolower($key);
 		self::$params[$key] = $val;
 	}
-	public static function SetTemplate( $template = '')
+	public static function SetTemplate( $template )
 	{
-		self::$template = $template ? $template : DO_TEMPLATE;
+		self::$template = $template ;
 	}
 	
 	public static function GetTemplate()
