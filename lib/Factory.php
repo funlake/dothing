@@ -181,7 +181,8 @@ class DOFactory
 			@array_shift( $args );
 			$component 		= 'DO'.ucwords($cn[1]);
 			$ref			= new ReflectionClass( $component );
-			$tools[$class] 	= call_user_func(array($ref,'newInstanceArgs'),$args);
+			$tools[$class] 	= call_user_func(array($ref,'newInstance'),$args);
+			//$tools[$class]		= new $component();
 		}
 		return $tools[$class];
 	}

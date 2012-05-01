@@ -38,12 +38,16 @@ class DOBlocks
 		//Display blocks with it's specific layout according to current page.
 		foreach( $pages as $page) 
 		{
-			$blocks[$page] && self::Invoke( explode(',',$blocks[$page]) );
+			if($page{0} !== '!' 
+			&& strpos(DORouter::GetPageIndex(),substr($page,1)) === false )
+			{//Invoke blocks
+				$blocks[$page] && self::Invoke( explode(',',$blocks[$page]) );
+			}
 		}
 		return ;	
 	}
 	/**
-	*** Invoke a function for display single block
+	*** Invoke a function for single block displaying
 	***/
 	public function Invoke( $block )
 	{
@@ -85,7 +89,14 @@ class DOBlocks
 		/** Do we have included configuration file before ? **/
 		if(!self::$config)
 		{//No for include action
-			self::$config = include BLKBASE.DS.'config.php';
+			$path = BLKBASE.DS.DOTemplate::GetTemplate().'_config.php';
+			/**Do we have blocks configuration file for specify template?**/
+			if(file_exists($path))
+			{/**Yes then use this one**/
+				self::$config = include $path;
+			}
+			/**No for including global file**/
+			else self::$config = include BLKBASE.DS.'config.php';
 		}
 		/** Get blocks by specific position **/
 		return self::$config[$pos];
@@ -97,7 +108,7 @@ class DOBlocksHelper
 	public function GetBlocksIndex()
 	{	
 		return array(
-			DORouter::$module."/".DORouter::$controller."/".DORouter::$action
+		    DORouter::$module."/".DORouter::$controller."/".DORouter::$action
 		   ,DORouter::$module."/".DORouter::$controller."/*"
 		   ,"*"
 		); 

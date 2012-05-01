@@ -74,9 +74,9 @@ class DOHook extends DOBase
 				{
 					continue ;
 				}
-				$plgClass = 'Plg'.ucwords($type);
-				$ref		= new ReflectionClass( $plgClass );
-				self::$pls[$plgFile] = call_user_func(array($ref,'newInstanceArgs'),$p);
+				$plgClass            = 'Plg'.ucwords($type);
+				$ref		     = new ReflectionClass( $plgClass );
+				self::$pls[$plgFile] = call_user_func(array($ref,'newInstance'),$p);
 			}
 			$func = 'On'.ucwords($func);
 			if(method_exists(self::$pls[$plgFile],$func))

@@ -182,5 +182,10 @@ class DORouter extends DOBase
 			)] = $v;
 		}
 	}
+	
+	public static function GetPageIndex()
+	{
+		return DORouter::$module.'/'.self::$controller.'/'.self::$action;
+	}
 }
 ?>

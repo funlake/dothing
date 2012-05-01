@@ -13,8 +13,9 @@ Class DOPaginateWS
 		{
 			include_once $path;
 			$class	= 'DOPaginate_'.$this->drive;
-			$ref		= new ReflectionClass( $class );
-			return call_user_func(array($ref,'newInstanceArgs'),$args );
+			//$ref		= new ReflectionClass( $class );
+			//return call_user_func(array($ref,'newInstanceArgs'),$args );
+			return new $class();
 		}
 	}	
 }
