@@ -1,7 +1,7 @@
 <?php
 class DORouter extends DOBase
 {
-	public $sep 		= '-';
+	static $sep 		= ':';
 	static $maps 		= array();
 	static $proj		= '';
 	static $module      = '';

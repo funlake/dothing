@@ -1,12 +1,12 @@
 <?php
 class DOBase
 {
-	public static $_mark;
-	private static $vars = array();
+	public static $_mark = array();
+	public static $_vars = array();
 	
 	public function __construct()
 	{
-		$this->Mark( get_class($this) );
+		//$this->Mark( get_class($this) );
 		
 		if(version_compare(phpversion(),'5.0.0','<') && method_exists($this,'__destruct'))
 		{
@@ -27,6 +27,11 @@ class DOBase
 		{
 			self::$_mark[$k] = DOFactory::Get('time') - $v;
 		}
+	}
+	
+	public static function ErrorLog($type,$msg)
+	{
+		
 	}
 	/**
 	 * Set Token

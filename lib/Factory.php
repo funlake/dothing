@@ -180,9 +180,11 @@ class DOFactory
 			DOLoader::Import('lib.'.$cn[0].'.'.$cn[1] );
 			@array_shift( $args );
 			$component 		= 'DO'.ucwords($cn[1]);
-			$ref			= new ReflectionClass( $component );
-			$tools[$class] 	= call_user_func(array($ref,'newInstance'),$args);
-			//$tools[$class]		= new $component();
+			/** Create instace with arguments **/
+			$tools[$class] 	= call_user_func(
+					array(new ReflectionClass( $component ),'newInstance')
+				   ,$args
+			);
 		}
 		return $tools[$class];
 	}

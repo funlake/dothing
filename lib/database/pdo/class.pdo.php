@@ -121,12 +121,15 @@ class DOPdo extends DODatabase implements DORecord
 		$debug				= $resource->errorInfo();
 		$this->insert_id   	= $this->connFlag->lastInsertId();
 		$this->affect_row  	= $resource->rowCount();
-		$this->debug ? $this->showError( $rSql , $debug[2] ) : '';
-		
 		$R = new stdClass();
 		$R->data 			= $this->data 		= $rs;
 		$R->insert_id		= $this->insert_id;
 		$R->affect_row  	= $this->affect_row;
+		$R->success         = ($debug[1] === '00000');
+		if(!$R->success)
+		{
+			DOBase::ErrorLog('sql',$debug[1]);
+		}
 		return $R;
 				
 	}
@@ -135,8 +138,9 @@ class DOPdo extends DODatabase implements DORecord
 	*/
 	public function Execute()
 	{
-		return $this->Query($this->GetQuery(),$this->GetParams());
-			   		//->insert_id;
+		$R = $this->Query($this->GetQuery(),$this->GetParams());
+		return $R->success;
+		//->insert_id;
 	}	
 	public function GetQuery()
 	{
@@ -195,26 +199,15 @@ class DOPdo extends DODatabase implements DORecord
            $resource->bindValue($k+1,$v,$this->getType($v));
         }
     }
-
+	/** 
+	 * Get type of params
+	 * @param notsure $param
+	 * @return Constant
+	 */
     function getType( $param )
     {
         $type = $this->types[gettype( $param )];
-	return $type ? $type : PDO::PARAM_STR;
-    }
-    /***
-	 * ------------------------
-	 * show the error message;
-	 * -------------------------
-	 *
-	 * @param string|boolen $msg
-    */
-    function showError( $msg ,$error='')
-    {
-       if($this->debug) 
-       {
-			echo getType($msg) == 'string' ? "<hr noshade size=0 color=#C0C0C0>".$msg."<hr noshade size=0 color=#C0C0C0><br>" : '';
-			if($error) exit( "<hr noshade size=0 color=#C0C0C0><span style='color:red'>".$error."</span><hr noshade size=0 color=#C0C0C0><br>" );
-       }
+		return $type ? $type : PDO::PARAM_STR;
     }
 }
 
