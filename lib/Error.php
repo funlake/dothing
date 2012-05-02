@@ -9,16 +9,21 @@ class DOError
 	/** Error messages container **/
 	private static $_errorMsg;
 	
+	public function __construct()
+	{
+	}
 	public static function Capture($errorNo,$errorString,$file,$line)
 	{
 		switch( $errorNo )
 		{
+			case E_ERROR:
 			case E_CORE_ERROR:
 			case E_COMPILE_ERROR:
 			case E_USER_ERROR:
 				self::ErrorHandler($errorString, $file, $line);
 			break;
 			
+			case E_WARNING:
 			case E_CORE_WARNING:
 			case E_COMPILE_WARNING:
 			case E_USER_WARNING:
@@ -68,6 +73,7 @@ class DOError
 	 */
 	public static function WarningHandler( $msg ,$file,$line)
 	{
+	
 		if(!strncasecmp($msg,'[###',1))
 		{
 			return self::CustomHandler($msg, $file, $line);
@@ -137,18 +143,16 @@ class DOError
 				,'line'	=> $line
 		);
 	}
-	
-	public static function GetErrorMsg()
-	{
-		return self::$_errorMsg;
-	}
-	
+
 	public function __destruct()
 	{
-		/** Save in session,we'd better close custom error handler in live enviroment **/
-		$sess = DOFactory::GetSession();
-		$sess->Set('DO_Errorinfo',self::$_errorMsg);
-		//$sess->End();
+		/** Dont save if refresh debug page **/
+		if(DORouter::$module !== 'debug')
+		{
+			/** Save in session,we'd better close custom error handler in live enviroment **/
+			$sess = DOFactory::GetSession();
+			$sess->Set('DO_Errorinfo',self::$_errorMsg);
+		}
 	}
 }
 ?>

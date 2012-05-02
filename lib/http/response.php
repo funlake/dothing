@@ -66,6 +66,7 @@ class DOResponse
 	
 	public function __destruct()
 	{
+		DOHook::TriggerPlugin('system','pageFinish',array());
 	}
 }
 ?>

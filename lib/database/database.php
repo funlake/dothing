@@ -12,17 +12,13 @@ class DODatabase implements DORecord
 	   ,'string'  => PDO::PARAM_STR
 	  # ,'array'   => PDO::PARAM_ARR
 	);
-	function DODatabase($host='localhost',$user='root',$pw,$db)	
+	function DODatabase($host,$user,$pwd,$dbname)	
 	{
-		$this->dbHost 		= 	$host	;
-		$this->dbUserName 	= 	$user	;
-		$this->dbPassWord	=	$pw		;
-		$this->dbName		=	$db		;
-		$this->debug		=	DO_DEBUG;
+	
 		//set dsn
-		call_user_func(array($this,'Set'.ucwords(DO_DBDRIVE).'Dsn'));
+		call_user_func_array(array($this,'SetDsn'),array($host,$dbname));
 		//connect
-		$this->Connect();
+		$this->Connect($user,$pwd);
 	}
 	
 	function SetNames()
@@ -52,11 +48,11 @@ class DODatabase implements DORecord
 	{
 		$this->opt = $options;
 	}
-	function Connect()
+	function Connect($user,$pass)
 	{
 		try
 		{
-			$this->connFlag = new PDO( $this->dsn,$this->dbUserName,$this->dbPassWord,$this->opt);
+			$this->connFlag = new PDO( $this->dsn,$user,$pass,$this->opt);
 			/** Use set_error_handler to cache sql error**/
 			//$this->connFlag->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 		}

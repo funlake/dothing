@@ -17,7 +17,7 @@ class DOSession
 	 */
 	function Start()
 	{
-		if( !self::$called)
+		if( !headers_sent() && !self::$called)
 		{	
 			self:$called = true;
 			//session name 
