@@ -338,7 +338,7 @@ class DOSyntax
 		return $this->FormatSql(implode("\n",$query));
 	}
 	/** Packed insert sql **/
-	public function Create( $type = 'INSERT')
+	public function Insert( $type = 'INSERT')
 	{
 		$query 		= array($type.' INTO');	
 		$query[]	= $this->coreTable;
@@ -351,7 +351,7 @@ class DOSyntax
 	/** Packed replace sql **/
 	public function Replace()
 	{
-		return $this->Create('REPLACE');
+		return $this->Insert('REPLACE');
 	}
 	/** Packed update sql **/
 	public function Update()
