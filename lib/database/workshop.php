@@ -7,14 +7,19 @@ class DODatabaseWS
 	private static $engine = array();
     private static $syntax;	
     private static $loader;
-	function DODatabaseWS( $drive ,$params=array())
+    private $handlerKey = '';
+	function DODatabaseWS( $driver ,$params=array())
 	{
-		if( self::checkEngine( $drive ))
+		/** Build a key for handler **/
+		$this->handlerKey = $driver."_".serialize($params);
+		/** Check if we have implegment this driver **/
+		if( self::checkEngine( $driver ))
 		{
-			self::loadEngine($drive,$params);
+			self::loadEngine($driver,$params);
 		}
+		
 	}
-	
+	/** Check if we have this driver **/
 	function CheckEngine( $driver )
 	{
 		$path = FRAMEWORK_ROOT.DS.'lib'.DS."database".DS.'drivers'.DS.$driver.".php";
@@ -30,7 +35,7 @@ class DODatabaseWS
 		}
 		return false;
 	}
-	
+	/** Load and initial **/
 	function LoadEngine( $driver,$parmas=array() )
 	{
 		$driver = "DODatabase".ucwords(strtolower($driver));
@@ -40,23 +45,23 @@ class DODatabaseWS
 			$params = array(DO_DBHOST,DO_DBUSER,DO_DBPASS,DO_DATABASE);
 		}
 		/** Database initial **/
-		self::$engine[] =  call_user_func_array(
-				array(new ReflectionClass( $driver ),'newInstance')
-				,$params
+		self::$engine[$this->handlerKey] =  call_user_func_array(
+			array(new ReflectionClass( $driver ),'newInstance')
+		   ,$params
 		);
 	}
-	
+	/** Get specify dirver **/
 	function GetEngine()
 	{
-		return end(self::$engine);
+		return self::$engine[$this->handlerKey];
 	}
-	
-	function GetSyntax()
+	/** Get syntax with driver **/
+	function GetSyntax($driver)
 	{
 		if(!self::$syntax)
 		{	
 			DOLoader::import('lib.database.syntax');
-			$eg = ucwords( DO_DBDRIVE ) . "Syntax";
+			$eg = ucwords( $driver ) . "Syntax";
 			self::$syntax = new $eg();
 		}			
 		return self::$syntax;

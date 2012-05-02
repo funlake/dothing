@@ -94,7 +94,7 @@ class DODatabase implements DORecord
 	 */
     function GetSyntax( )
    	{
-        return DODatabaseWS::GetSyntax();
+        return DODatabaseWS::GetSyntax($this->driver);
     }
 	/**
 	 * makeSql
