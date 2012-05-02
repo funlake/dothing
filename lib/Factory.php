@@ -39,7 +39,7 @@ class DOFactory
 	 * @param String $key
 	 * @return object
 	 */
-	function GetTable( $table , $key = '' , $db= '')
+	public static function GetTable( $table , $key = '' , $db= '')
 	{
 		DOLoader::Import('lib.database.database');
 		DOLoader::Import('lib.database.table');
@@ -54,7 +54,7 @@ class DOFactory
 	 * Get model
 	 * @param string $table
 	 */
-	public function GetModel($table)
+	public static function GetModel($table)
 	{
 		static $modelLoaded = false;
 		if(!$modelLoaded)
@@ -76,7 +76,7 @@ class DOFactory
 	/**
 	***Get pagenate handler
 	***/
-	function GetPaginate( )
+	public static function GetPaginate( )
 	{
 		$params = func_get_args();
 		DOLoader::Import('lib.paginate.workshop');
@@ -92,7 +92,7 @@ class DOFactory
 	 *
 	 * @return object
 	 */
-	function GetDatabase($driver = null)
+	public static function GetDatabase($driver = null)
 	{
 		DOLoader::Import('lib.database.workshop');
 		if(!$driver)
@@ -116,7 +116,7 @@ class DOFactory
 	 *
 	 * @return object
 	 */
-	function GetSession( )
+	public static function GetSession( )
 	{
 		DOLoader::Import('lib.session.workshop');
 		if(!self::$_load['session'])
@@ -130,14 +130,14 @@ class DOFactory
 	 * Get php mailer
 	 * @return mailer Object
 	 */
-	function GetMailer()
+	public static function GetMailer()
 	{
 		return self::GetTool('phpmailer');
 	}
 	/**
 	 * Get cache handler
 	 */
-	function GetCache()
+	public static function GetCache()
 	{
 		DOLoader::Import('lib.cache.workshop');
 		if(!self::$_load['cache'])
@@ -151,7 +151,7 @@ class DOFactory
 	 *
 	 * @return unknown
 	 */
-	function GetTime()
+	public static function GetTime()
 	{
 		$time = explode(' ',microtime() );
 		
@@ -160,7 +160,7 @@ class DOFactory
 	/**
 	 * Get http request filter
 	 */
-	public function GetFilter()
+	public static function GetFilter()
 	{
 		if(!self::$_load['filter'])
 		{
@@ -174,7 +174,7 @@ class DOFactory
 	 *
 	 * @return unknown
 	 */
-	function GetTool()
+	public static function GetTool()
 	{
 		static $tools = array();
 		$args 			= func_get_args();
@@ -187,7 +187,7 @@ class DOFactory
 			@array_shift( $args );
 			$component 		= 'DO'.ucwords($cn[1]);
 			/** Create instace with arguments **/
-			$tools[$class] 	= call_user_func(
+			$tools[$class] 	= call_user_func_array(
 					array(new ReflectionClass( $component ),'newInstance')
 				   ,$args
 			);

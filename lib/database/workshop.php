@@ -20,7 +20,7 @@ class DODatabaseWS
 		
 	}
 	/** Check if we have this driver **/
-	function CheckEngine( $driver )
+	public function CheckEngine( $driver )
 	{
 		$path = FRAMEWORK_ROOT.DS.'lib'.DS."database".DS.'drivers'.DS.$driver.".php";
 
@@ -36,7 +36,7 @@ class DODatabaseWS
 		return false;
 	}
 	/** Load and initial **/
-	function LoadEngine( $driver,$parmas=array() )
+	public function LoadEngine( $driver,$parmas=array() )
 	{
 		$driver = "DODatabase".ucwords(strtolower($driver));
 		/** If we dont pass any params,then use default driver && params **/
@@ -51,12 +51,12 @@ class DODatabaseWS
 		);
 	}
 	/** Get specify dirver **/
-	function GetEngine()
+	public function GetEngine()
 	{
 		return self::$engine[$this->handlerKey];
 	}
 	/** Get syntax with driver **/
-	function GetSyntax($driver)
+	public static function GetSyntax($driver)
 	{
 		if(!self::$syntax)
 		{	

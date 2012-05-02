@@ -5,7 +5,7 @@ class DOController
 	private static $controllerEvent = null;
 	private static $models			= array();
 	function DOController(){}
-	function GetController()
+	public static function GetController()
 	{
 		if( !self::$controller )
 		{
@@ -25,7 +25,7 @@ class DOController
 		}
 		return self::$controller;
 	}
-	function GetControllerEvent()
+	public static function GetControllerEvent()
 	{
 		if( !self::$controllerEvent )
 		{
@@ -38,7 +38,7 @@ class DOController
 		return self::$controllerEvent;
 					
 	}
-	function LoadController( )
+	public static function LoadController( )
 	{
 		$path  = APPBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
 		if(file_exists( $path ))
@@ -48,7 +48,7 @@ class DOController
 		}
 		return false;
 	}
-	function LoadControllerEvent()
+	public static function LoadControllerEvent()
 	{
 		$path  = EVTBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
 		if(file_exists( $path ))
@@ -60,7 +60,7 @@ class DOController
 		
 	}
 	/** Auto curd handler **/
-	public function AutoCurd($action,$model,array $posts = null)
+	public static function AutoCurd($action,$model,array $posts = null)
 	{
 		if(!!$posts && false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
 		{

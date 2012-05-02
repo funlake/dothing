@@ -15,7 +15,7 @@ class DOHook extends DOBase
 	*** After dispatch to a specific controller
 	*** we can invoke events registered in controller.
 	**/
-	public function TriggerEvent()
+	public static function TriggerEvent()
 	{
 		$args 	= func_get_args();
 		if(!DORouter::$module) return;
@@ -51,7 +51,7 @@ class DOHook extends DOBase
 	 * @param string $func //method
 	 * @param string $params //params
 	 */
-	public function TriggerPlugin($type,$func,$params)
+	public static function TriggerPlugin($type,$func,$params)
 	{
 		static $configs = array();
 		$type = strtolower($type);

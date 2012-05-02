@@ -9,9 +9,6 @@ class DOSyntax
 			      ,'sqlQuery'	,'params'	,'sets');
 	function DOSyntax( ){}
 	
-	function __construct(){
-		
-	}
 	function Quote( $t ){
 		if(strpos($t,'.') > 0) list($table,$field)=sscanf('%[^.].%[^.]',$t);
 		if(strpos($table,'#__') === 0) 

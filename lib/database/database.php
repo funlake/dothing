@@ -141,7 +141,7 @@ class DODatabase implements DORecord
 		$errors				= $resource->errorInfo();
 		if($this->IsError($errors))
 		{
-			trigger_error("[".DO_DBDRIVE."_ERROR]".$errors[2],E_USER_WARNING);
+			trigger_error("[###".DO_DBDRIVE."###]".$errors[2],E_USER_WARNING);
 		}
 		return $R;
 				

@@ -7,9 +7,9 @@
 class DOError
 {
 	/** Error messages container **/
-	private static $__errorMsg;
+	private static $_errorMsg;
 	
-	public static function InLog($errorNo,$errorString,$file,$line)
+	public static function Capture($errorNo,$errorString,$file,$line)
 	{
 		switch( $errorNo )
 		{
@@ -53,6 +53,10 @@ class DOError
 	 */
 	public static function ErrorHandler( $msg ,$file,$line)
 	{
+		if(!strncasecmp($msg,'[###',1))
+		{
+			return self::CustomHandler($msg, $file, $line);
+		}
 		self::$_errorMsg['doerror_fatalerror'][] = array(
 				'msg' 	=> $msg
 			   ,'file'	=> $file
@@ -64,6 +68,10 @@ class DOError
 	 */
 	public static function WarningHandler( $msg ,$file,$line)
 	{
+		if(!strncasecmp($msg,'[###',1))
+		{
+			return self::CustomHandler($msg, $file, $line);
+		}
 		self::$_errorMsg['doerror_warning'][] = array(
 				'msg' 	=> $msg
 			   ,'file'	=> $file
@@ -128,6 +136,19 @@ class DOError
 				,'file'	=> $file
 				,'line'	=> $line
 		);
+	}
+	
+	public static function GetErrorMsg()
+	{
+		return self::$_errorMsg;
+	}
+	
+	public function __destruct()
+	{
+		/** Save in session,we'd better close custom error handler in live enviroment **/
+		$sess = DOFactory::GetSession();
+		$sess->Set('DO_Errorinfo',self::$_errorMsg);
+		//$sess->End();
 	}
 }
 ?>

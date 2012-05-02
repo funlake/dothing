@@ -17,7 +17,7 @@ class DORouter extends DOBase
 	static $queryPath      = array();
 	
 	function DORouter(){}
-	function Dispatch()
+	public static function Dispatch()
 	{
 		self::Prepare();
 		#self::hasMap(DOUri::GetPathInfo());
@@ -63,7 +63,7 @@ class DORouter extends DOBase
 		DOHook::TriggerPlugin('system','afterRoute',array());
 	}
 	
-	function page_404( )
+	public static function page_404( )
 	{
 		$module		= $this->uri->getModule();
 		$controller = $this->uri->getController();
@@ -105,7 +105,7 @@ class DORouter extends DOBase
 	 *
 	 * @param unknown_type $pathinfo
 	 */
-	function Prepare()
+	public static function Prepare()
 	{
 		$pathinfo			= DOUri::GetPathInfo();
 		self::$module	  	= DOUri::GetModule();

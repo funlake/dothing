@@ -24,7 +24,7 @@ class DOUri
 	 * path info parsing
 	 *
 	 */
-	function ParsePathInfo()
+	public static function ParsePathInfo()
 	{
 		$pinfo 	= self::GetPathInfo();
 		$pinfo 	= ltrim($pinfo,'/');
@@ -40,7 +40,7 @@ class DOUri
 		self::$action     		= $ps[2] ? $ps[2] : self::$action;
 		return true;
 	}
-	public function ParseNormal()
+	public static function ParseNormal()
 	{
 		/** Prevent user parse same key as DOC_CKEY we configured */
 		$parsed = false;
@@ -71,13 +71,13 @@ class DOUri
 		return true;
 	}	
 
-	public function SafeValue( $value )
+	public static function SafeValue( $value )
 	{
 		return $value;
 		//$filter = DOFactory::GetFilter();
 		//return $filter->process( $value );
 	}
-	function GetPathInfo()
+	public static function GetPathInfo()
 	{
 		$dirname = str_replace(self::GetScheme().'://'.self::GetHost(),'',self::GetRoot());
 		if($_SERVER['PATH_INFO'])
@@ -111,7 +111,7 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetRoot()
+	public static function GetRoot()
 	{
 		static $root;
 		if(!$root)
@@ -167,7 +167,7 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetModule()
+	public static function GetModule()
 	{
 		return self::$module;
 	}
@@ -176,7 +176,7 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetController()
+	public static function GetController()
 	{
 		return self::$controller;
 	}
@@ -186,7 +186,7 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetAction()
+	public static function GetAction()
 	{
 		return self::$action;	
 	}
@@ -195,12 +195,12 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetParams()
+	public static function GetParams()
 	{
 		return self::$params;
 	}
 	
-	function Redirect($url,$msg='',$type=0)
+	public static function Redirect($url,$msg='',$type=0)
 	{
 		setcookie("__DOMSG",$msg,time()+20);
 		setcookie("__DOMSG_TYPE",$type,time()+20);
@@ -220,7 +220,7 @@ class DOUri
 	 * @param unknown_type $url
 	 * @return unknown
 	 */
-	function Format( $url )
+	public static function Format( $url )
 	{
 		if(DO_SEO)
 		{
@@ -236,7 +236,7 @@ class DOUri
 	 * @param string $params
 	 * @return string
 	 */
-	function BuildQuery($module,$controller,$action,$params='')
+	public static function BuildQuery($module,$controller,$action,$params='')
 	{
 		if(is_array($params))
 		{
@@ -256,7 +256,7 @@ class DOUri
 	 * @param unknown_type $query
 	 * @return unknown
 	 */
-	function RealUrl( $query )
+	public static function RealUrl( $query )
 	{
 		$query = self::Format($query);
 		return self::GetRoot()."/".$query;
@@ -270,7 +270,7 @@ class DOUri
 	 * @param string $key
 	 * @param string $value
 	 */
-	function SetParams( $key,$value)
+	public static function SetParams( $key,$value)
 	{
 		$filter = & DOFactory::get( 'class',array('filter') );
 		//filter
@@ -298,7 +298,7 @@ class DOUri
 		}
 	}
 	
-	function SetParam($v)
+	public static function SetParam($v)
 	{
 		$this->params[] = $v;
 	}

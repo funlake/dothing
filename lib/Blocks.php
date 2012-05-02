@@ -17,7 +17,7 @@ class DOBlocks
 	*** Bind blocks with position in template file.
 	*** @params : $pos -> position 
 	**/
-	public function Show( $pos )
+	public static function Show( $pos )
 	{
 		/**
 		**	1.Display cache block if we have
@@ -49,7 +49,7 @@ class DOBlocks
 	/**
 	*** Invoke a function for single block displaying
 	***/
-	public function Invoke( $block )
+	public static function Invoke( $block )
 	{
 		foreach((array)$block as $key=>$block)
 		{
@@ -70,7 +70,7 @@ class DOBlocks
 	/**
 	*** Import a block
 	***/
-	public function Import( $block )
+	public static function Import( $block )
 	{
 		if(!self::$blocks[$block])
 		{
@@ -79,12 +79,12 @@ class DOBlocks
 		}
 	}
 	/** Implement this later **/
-	public function GetCache( $pos )
+	public static function GetCache( $pos )
 	{
 		return false;
 	}
 	/** Blocks fetcher **/
-	public function Fetch( $pos )
+	public static function Fetch( $pos )
 	{
 		/** Do we have included configuration file before ? **/
 		if(!self::$config)
@@ -105,7 +105,7 @@ class DOBlocks
 class DOBlocksHelper
 {
 	/** Get index by current page **/
-	public function GetBlocksIndex()
+	public static function GetBlocksIndex()
 	{	
 		return array(
 		    DORouter::$module."/".DORouter::$controller."/".DORouter::$action

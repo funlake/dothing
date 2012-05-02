@@ -27,4 +27,13 @@ spl_autoload_register(array('DOLoader','AutoLoadLib'));
 spl_autoload_register(array('DOLoader','AutoLoadException'));
 /** Include common functions **/
 include FRAMEWORK_ROOT.DS.'include'.DS.'function.php';
+/**
+ * User custom error handler 
+ * We should close this function in live enviroment
+ **/
+if(error_reporting() && ini_get('display_errors'))
+{
+	$errorRef = new DOError();
+	set_error_handler(array($errorRef,'Capture'));
+}
 ?>

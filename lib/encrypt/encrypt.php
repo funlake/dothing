@@ -62,6 +62,7 @@ class DOEncrypt extends DOBase
 		/** Get iv size accroding to encode way**/
 		$iv_size     = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);
 		/** Create iv which make decrypt difficulty **/
+		mt_srand();
 		$iv          = mcrypt_create_iv($iv_size, MCRYPT_RAND);
 		/** Encode contents **/
 		$crypttext   = mcrypt_encrypt(MCRYPT_RIJNDAEL_256,$key,$text, MCRYPT_MODE_CBC, $iv);
@@ -79,7 +80,7 @@ class DOEncrypt extends DOBase
 		/** IV **/
 		$iv          = substr($value,-32);
 		/** Decode iv **/
-		$iv          = @mcrypt_decrypt(MCRYPT_RIJNDAEL_256,$rvalue,$iv,MCRYPT_MODE_ECB);//解密iv
+		$iv          = @mcrypt_decrypt(MCRYPT_RIJNDAEL_256,$rvalue,$iv,MCRYPT_MODE_ECB);//decode iv
 		$key         = $this->GetCipher();
 		$text        = $rvalue;
 		$decrypttext = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $text, MCRYPT_MODE_CBC, $iv);
