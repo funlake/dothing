@@ -18,20 +18,20 @@ class DOTree extends DOBase
 	{
 		call_user_func_array(array($this,'init'),$initArray);
 	}
-	public function init( $data,$idn,$pidn )
+	public function Init( $data,$idn,$pidn )
 	{
 		if(!$data)      {print('Could not generate tree without data!');return;}
 		if($idn) 	$this->idName = $idn;
 		if($pidn)	$this->pidName= $pidn;
 		if(!$this->treeArray)
 		{	
-			$this->treeArray 	      = $this->makeTreeData( $data );
+			$this->treeArray 	      = $this->MakeTreeData( $data );
 		}
 	}
 	/**
 	*tree structure generation
 	*/	
-	public function makeTreeData( $data )
+	public function MakeTreeData( $data )
 	{
 		$tree = array();
 		foreach((array)$data as $k=>$v)
@@ -46,7 +46,7 @@ class DOTree extends DOBase
 	*$deep // what is the level of current node
 	*$lcf  // binary flags of node's prefix.something like --> 0100 , it means we would replace 1 to '|' , 0 to '&nbsp';  
 	*/
-	public function render($root = 0,$deep = 0 , $lcf  = '0')
+	public function Render($root = 0,$deep = 0 , $lcf  = '0')
 	{
 		if( $this->treeArray[$root] )
 		{
@@ -67,11 +67,11 @@ class DOTree extends DOBase
 										        					   : $this->nodeChar) );
 				
 				
-				$html[] = $this->renderNode($this->format,$v,$prefix);    
+				$html[] = $this->RenderNode($this->format,$v,$prefix);    
 				if( $this->treeArray[$t] ) 
 				{
 					$dp	   = $deep + 1;
-					$html[]    = $this->catopen.$this->render( $t,$dp , $lcf.(!$isLastChild ? '1' : '0') ).$this->catend;
+					$html[]    = $this->catopen.$this->Render( $t,$dp , $lcf.(!$isLastChild ? '1' : '0') ).$this->catend;
 				}
 			}
 
@@ -81,7 +81,7 @@ class DOTree extends DOBase
 	/**
 	* replace format.
 	*/	
-	function renderNode( $format , $v , $prefix)
+	function RenderNode( $format , $v , $prefix)
 	{
 		return preg_replace(array('#\[prefix\]#','#\{(\w+)\}#e'),array($prefix,'$v["\1"]'),$format);
 	}

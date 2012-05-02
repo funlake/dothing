@@ -92,15 +92,21 @@ class DOFactory
 	 *
 	 * @return object
 	 */
-	function GetDatabase( )
+	function GetDatabase($driver = null)
 	{
 		DOLoader::Import('lib.database.workshop');
+		if(!$driver)
+		{
+			$driver = DO_DBDRIVE;
+		}
 		$params = func_get_args();
+		/**Get rid off driver **/
+		array_shift($params);
 		//init 
 		$key = 'pdo'.serialize( $params );
 		if(!self::$_load[$key])
 		{
-			self::$_load[$key] = new DODatabaseWS( DO_DBDRIVE ,$params);
+			self::$_load[$key] = new DODatabaseWS( $driver ,$params);
 		}
 		return self::$_load[$key]->GetEngine();
 	}
