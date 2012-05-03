@@ -1,6 +1,4 @@
 <?php
-/** Ignore stupid slashes **/
-set_magic_quotes_runtime( 0 );
 class DOFile
 {
 	public function __construct( )

@@ -16,16 +16,12 @@ class DOError
 	{
 		switch( $errorNo )
 		{
-			case E_ERROR:
-			case E_CORE_ERROR:
-			case E_COMPILE_ERROR:
+			case E_RECOVERABLE_ERROR:
 			case E_USER_ERROR:
 				self::ErrorHandler($errorString, $file, $line);
 			break;
 			
 			case E_WARNING:
-			case E_CORE_WARNING:
-			case E_COMPILE_WARNING:
 			case E_USER_WARNING:
 				self::WarningHandler($errorString, $file, $line);
 			break;
@@ -33,10 +29,6 @@ class DOError
 			case E_DEPRECATED:
 			case E_USER_DEPRECATED:
 				self::DepreatedHandler($errorString, $file, $line);
-			break;
-			
-			case E_PARSE:
-				self::ParsedHandler($errorString, $file, $line);
 			break;
 			
 			case E_STRICT:
@@ -60,7 +52,8 @@ class DOError
 	{
 		if(!strncasecmp($msg,'[###',1))
 		{
-			return self::CustomHandler($msg, $file, $line);
+			preg_match('~\[###([^#]+)###\]~', $msg,$m);
+			return self::CustomHandler($m[1],$msg, $file, $line);
 		}
 		self::$_errorMsg['doerror_fatalerror'][] = array(
 				'msg' 	=> $msg
@@ -73,10 +66,10 @@ class DOError
 	 */
 	public static function WarningHandler( $msg ,$file,$line)
 	{
-	
 		if(!strncasecmp($msg,'[###',1))
 		{
-			return self::CustomHandler($msg, $file, $line);
+			preg_match('~\[###([^#]+)###\]~', $msg,$m);
+			return self::CustomHandler($m[1],$msg, $file, $line);
 		}
 		self::$_errorMsg['doerror_warning'][] = array(
 				'msg' 	=> $msg
@@ -99,12 +92,13 @@ class DOError
 	/**
 	 * Custom error handler
 	 */
-	public static function CustomHandler( $msg ,$file,$line)
+	public static function CustomHandler( $key,$msg ,$file,$line)
 	{
-		self::$_errorMsg['doerror_custom'][] = array(
-				'msg' 	=> $msg
-			   ,'file'	=> $file
-			   ,'line'	=> $line	
+		self::$_errorMsg['doerror_'.$key][] = array(
+				'msg' 		=> $msg
+			   ,'file'		=> $file
+			   ,'line'		=> $line
+			   ,'backtrace'	=> print_r(debug_backtrace(),true)
 		);
 	}
 	

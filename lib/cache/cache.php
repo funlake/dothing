@@ -13,15 +13,15 @@ class DOCache
 	#read cache
 	public function Get($hashkey){}
 	#delete cache
-	public function Delete($hashkey,$timeout=null){}
+	public function Delete($hashkey){}
 	public function GetTime($object){}
-	public function SetTime($object,$time){}
+	public function SetTime($time){}
 	public function IfExpire($object){}
-	public function GetCache($name,$type)
+	public function GetCache($type)
 	{
 		return $this->Get($name.".".$type);
 	}
-	public function Save( $type , $name){}
+	public function Save( $type ){}
 }
 
 /*

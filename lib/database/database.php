@@ -48,18 +48,18 @@ class DODatabase implements DORecord
 	{
 		$this->opt = $options;
 	}
+	
+	public function SetAttributes()
+	{
+		
+	}
 	function Connect($user,$pass)
 	{
-		try
-		{
-			$this->connFlag = new PDO( $this->dsn,$user,$pass,$this->opt);
+		$this->connFlag = new PDO( $this->dsn,$user,$pass,$this->opt);
 			/** Use set_error_handler to cache sql error**/
 			//$this->connFlag->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-		}
-		catch( DOException $e)
-		{
-			throw new DbException('Can not connect to database',100,$e);	
-		}
+		$this->SetAttributes();
+		
 		$this->SetNames();
 	}
 	
@@ -116,7 +116,10 @@ class DODatabase implements DORecord
 		$syntax         	= $this->GetSyntax();
 		$rSql           	= $syntax->formatSql( $sql );
 		$resource 			= $this->connFlag->prepare( $rSql );
-		$this->BindValue($params, $resource);
+		if(!!$params)
+		{
+			$this->BindValue($params, $resource);
+		}
 		$resource->execute();
 		/** Return dataset**/
 		$rs					= array();
@@ -139,8 +142,7 @@ class DODatabase implements DORecord
 		{
 			trigger_error("[###".DO_DBDRIVE."###]".$errors[2],E_USER_WARNING);
 		}
-		return $R;
-				
+		return $R;			
 	}
 	/**
 	* For Create/Update/Delete operation.

@@ -36,7 +36,7 @@ class DOBase
 	/**
 	 * Set Token
 	 */
-	public function SetToken()
+	public static function SetToken()
 	{
 		$tokens = self::GenToken();
 		setcookie('__token',$tokens,time()+60);
@@ -45,7 +45,7 @@ class DOBase
 	/**
 	 * Get token
 	 */
-	public function GetToken()
+	public static function GetToken()
 	{
 		return $_COOKIE['__token'];
 	}
@@ -54,7 +54,7 @@ class DOBase
 	 *
 	 * @return string
 	 */
-	function GenToken()
+	public static function GenToken()
 	{
 		return md5(DO_SITECIPHER.uniqid( rand(),true ) );
 	}

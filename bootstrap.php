@@ -38,5 +38,5 @@ if(error_reporting() && ini_get('display_errors'))
 	set_error_handler(array($errorRef,'Capture'));
 }
 /** Shutdown event **/
-register_shutdown_function(array('DOHook','triggerPlugin'),'system','pageFinish');
+register_shutdown_function(array('DOHook','triggerPlugin'),'system','pageFinish',array());
 ?>
