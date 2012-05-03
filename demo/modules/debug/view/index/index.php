@@ -27,6 +27,19 @@ body {
 #widget-docs .ui-tabs-nav li.ui-tabs-selected a:visited,
 #widget-docs .ui-tabs-nav li.ui-tabs-selected a:hover,
 #widget-docs .ui-tabs-nav li.ui-tabs-selected a:active { color:#e6820E; }
+/** Custom style **/
+.doerror_row{
+	background:#f3f3f3;
+	height:20px;
+	padding:5px;
+}
+.doerror_num{
+	margin-right:10px;
+	font-weight:800;
+}
+.doerror_msg{
+	color:red;
+}
 </style>
 <div>
 	<link rel="stylesheet" href="<?php echo DOUri::GetRoot()?>/templates/default/complex/jquery/css/smoothness/jquery.ui.all.css"/>
@@ -46,13 +59,22 @@ body {
 			<?php $keys = array_keys($errors);?>
 			<ul>
 			<?php foreach($keys as $key):?>
-				<li><a href="#tab_<?php echo $key;?>"><?php echo substr(strstr($key,"_"),1)?></a></li>	
+				<li><a href="#tab_<?php echo $key;?>"><?php echo substr(strstr($key,"_"),1)."(".count($errors[$key]).")";?></a></li>	
 			<?php endforeach;?>
 			</ul>
 			<?php foreach($errors as $key=>$val):?>
 				<div id="tab_<?php echo $key?>">
-					<?php foreach($val as $error):?>
-						<p><?php echo $error['msg']?></p>
+					<?php foreach($val as $num=>$error):?>
+						<p class="doerror_row">
+							<?php 
+								echo "<span class='doerror_num'>#".($num+1).".</span>"
+									."<span class='doerror_msg'>"
+									.preg_replace('~\[###[^#]+###\]~','',$error['msg'])
+									."</span>"
+									." -> <b>".$error['file']."</b>"
+									."({$error['line']})"
+							?>
+						</p>
 					<?php endforeach;?>
 				</div>
 			<?php endforeach;?>

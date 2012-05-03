@@ -6,13 +6,15 @@
 //time zone
 date_default_timezone_set('Etc/GMT');
 //database
+//define('DO_DBDRIVE','sqlite');
+//define('DO_DATABASE','/var/www/demo/docms.sqlite');
 define('DO_DBDRIVE','mysql');
 define('DO_DATABASE','docms');
 define('DO_DBHOST','127.0.0.1');
 define('DO_DBUSER','root');
 define('DO_DBPASS','123456');
-define('DO_TABLEPRE','#');
-define('DO_DEBUG',false);
+define('DO_TABLEPRE','');
+define('DO_DEBUG',true);
 define('DO_SQLPCONNECT',false);
 //identify
 define('DO_ACCESS',1);

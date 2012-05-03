@@ -16,7 +16,15 @@ class DOIndex extends DOController
 	}
 	public function indexAction()
 	{
-		$db             = & DOFactory::GetDatabase();
+		$db             = DOFactory::GetDatabase();
+/* 		$db->Clean();
+		$db->From('#__messages')
+		->Select('*')
+		->Where('id','=?')
+		->Values(1)
+		->Read();
+		print_r($db->GetAll());
+		return; */
 		echo $db->From('#__users','u','u.*')
                    	->LeftJoin('#__role'
                           ,'r'
@@ -27,7 +35,7 @@ class DOIndex extends DOController
                    	->Groupby('r.role_id')
                    	->Orderby('u.user_id','asc')
                    	->Read();
-		
+		$db->GetAll();
 		$db->Clean();
 		echo "<br/>";
 		echo $db->From('#__category')
@@ -64,7 +72,7 @@ class DOIndex extends DOController
 			array('user_id' => 'null','user_name'=>'?','user_pass'=>'?','state'=>'?')
 		)
 		->Values('TT',md5('TT'),1)
-		->Create();
+		->Insert();
 		try{
 			$in = $db->Execute();
 		}catch(DOException $e)
@@ -96,8 +104,8 @@ class DOIndex extends DOController
 		$cache->Set('lake','Save yet?');
 		print_r($cache->Get('lake'));
 		
-		$cache->Set('lake2.module','tt');
-		print_r($cache->Get('lake2.module'));
+		$cache->Set('lake.module','tt');
+		print_r($cache->Get('lake.module'));
 	}
 	
 	public function modelAction()

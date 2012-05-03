@@ -52,13 +52,14 @@ class DOError
 	{
 		if(!strncasecmp($msg,'[###',1))
 		{
-			preg_match('~\[###([^#]+)###\]~', $msg,$m);
-			return self::CustomHandler($m[1],$msg, $file, $line);
+			preg_match('~\[###([^#]+)###\]((?:(?!//detail:).)*)(//detail:(.*)$)?~is', $msg,$m);
+			return self::CustomHandler($m[1],$m[2], $file, $line);
 		}
 		self::$_errorMsg['doerror_fatalerror'][] = array(
 				'msg' 	=> $msg
 			   ,'file'	=> $file
-			   ,'line'	=> $line	
+			   ,'line'	=> $line
+				
 		);
 	}
 	/**
@@ -68,8 +69,8 @@ class DOError
 	{
 		if(!strncasecmp($msg,'[###',1))
 		{
-			preg_match('~\[###([^#]+)###\]~', $msg,$m);
-			return self::CustomHandler($m[1],$msg, $file, $line);
+			preg_match('~\[###([^#]+)###\]((?:(?!//detail:).)*)(//detail:(.*)$)?~is', $msg,$m);
+			return self::CustomHandler($m[1],$m[2],@$m[4],$file, $line);
 		}
 		self::$_errorMsg['doerror_warning'][] = array(
 				'msg' 	=> $msg
@@ -92,13 +93,13 @@ class DOError
 	/**
 	 * Custom error handler
 	 */
-	public static function CustomHandler( $key,$msg ,$file,$line)
+	public static function CustomHandler( $key,$msg,$detail ,$file,$line)
 	{
 		self::$_errorMsg['doerror_'.$key][] = array(
 				'msg' 		=> $msg
 			   ,'file'		=> $file
 			   ,'line'		=> $line
-			   ,'backtrace'	=> print_r(debug_backtrace(),true)
+			   ,'detail'    => $detail
 		);
 	}
 	

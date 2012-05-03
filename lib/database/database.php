@@ -140,7 +140,14 @@ class DODatabase implements DORecord
 		$errors				= $resource->errorInfo();
 		if($this->IsError($errors))
 		{
-			trigger_error("[###".DO_DBDRIVE."###]".$errors[2],E_USER_WARNING);
+			//if(DO_DEBUG)
+			//{
+				$backtraces = debug_backtrace();
+				$detail     = '//detail:';
+				$json		= DOFactory::GetTool('json');
+				$detail    .= $json->encode($backtraces);
+			//}
+			trigger_error("[###".DO_DBDRIVE."###]".$errors[2].$details,E_USER_WARNING);
 		}
 		return $R;			
 	}
