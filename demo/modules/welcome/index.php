@@ -38,15 +38,16 @@ class DOIndex extends DOController
 		$db->GetAll();
 		$db->Clean();
 		echo "<br/>";
-		echo $db->From('#__category')
+		echo $db->From('#__categoryt')
 		   ->Set('category_name','?')
 		   ->Where('category_id','=?')
 		   ->Values('Article',1)
 		   ->Update();
 	#	echo $db->Commit();	
+		$db->Execute();
 		$db->Clean();
 		echo "<br/>";	
-		echo $db->From('#__category','c','c.*')
+		echo $db->From('#__categorye','c','c.*')
 			->InnerJoin('#__category_connection'
 				   ,'cc'
 				   ,'cc.category_id=c.category_id'

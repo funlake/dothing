@@ -138,7 +138,22 @@ class DOError
 				,'line'	=> $line
 		);
 	}
-
+	/**
+	 * Trigger user level error.
+	 * @param string $type  //Type of errors,e.g. mysql,file,dom... anything we can customize.
+	 * @param string $msg   //Main error messages
+	 * @param string $detail//Error details
+	 * @param string $level //Error level,those E_NOTICE,E_USER_WARNING stuff
+	 */
+	public static function Trigger($type,$msg,$detail,$level)
+	{
+		trigger_error('[###'.$type.'###]'
+					  .$msg.(!empty($detail) ? '//detail:'.$detail : '')
+					  ,$level);
+	}
+	/**
+	 * Push into session array
+	 */
 	public function __destruct()
 	{
 		/** Dont save if refresh debug page **/

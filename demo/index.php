@@ -4,7 +4,7 @@ ini_set('display_errors',true);
 define( 'DS'		, DIRECTORY_SEPARATOR );
 define('SYSTEM_NAME'	,'demo');
 define('SYSTEM_ROOT'	,realpath(dirname(__FILE__)));
-include '../dothing/bootstrap.php';
+include '../bootstrap.php';
 /** System config **/
 include 'config.php';
 $Request 	= DOFactory::GetTool('http.request');

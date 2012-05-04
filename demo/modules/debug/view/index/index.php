@@ -40,6 +40,65 @@ body {
 .doerror_msg{
 	color:red;
 }
+.doerror_table{
+	width: 100%; 
+	padding: 0; 
+	margin: 0; 
+}
+.doerror_table th{
+	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+	color: #4f6b72; 
+	border-right: 1px solid #C1DAD7; 
+	border-bottom: 1px solid #C1DAD7; 
+	border-top: 1px solid #C1DAD7; 
+	letter-spacing: 2px; 
+	text-transform: uppercase; 
+	text-align: left; 
+	padding: 6px 6px 6px 12px; 
+	background: #CAE8EA  no-repeat; 
+}
+.doerror_table caption { 
+	padding: 0 0 5px 0; 
+	width: 700px; 
+	font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+	text-align: right; 
+} 
+.doerror_table th.nobg { 
+	border-top: 0; 
+	border-left: 0; 
+	border-right: 1px solid #C1DAD7; 
+	background: none; 
+} 
+
+.doerror_table td { 
+	border-right: 1px solid #C1DAD7; 
+	border-bottom: 1px solid #C1DAD7; 
+	background: #fff; 
+	font-size:11px; 
+	padding: 6px 6px 6px 12px; 
+	color: #4f6b72; 
+} 
+
+
+.doerror_table td.alt { 
+	background: #F5FAFA; 
+	color: #797268; 
+} 
+
+.doerror_table th.spec { 
+	border-left: 1px solid #C1DAD7; 
+	border-top: 0; 
+	background: #fff no-repeat; 
+	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+} 
+
+.doerror_table th.specalt { 
+	border-left: 1px solid #C1DAD7; 
+	border-top: 0; 
+	background: #f5fafa no-repeat; 
+	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+	color: #797268; 
+} 
 </style>
 <div>
 	<link rel="stylesheet" href="<?php echo DOUri::GetRoot()?>/templates/default/complex/jquery/css/smoothness/jquery.ui.all.css"/>
@@ -74,10 +133,31 @@ body {
 									." -> <b>".$error['file']."</b>"
 									."({$error['line']})"
 							?>
+						<?php if(!empty($error['detail'])):?>
+							<p>
+								<table class='doerror_table' cellspacing='0'>
+									<caption></caption>
+									<tr>
+										<th width='30%'>File/Line</th>
+										<th>Function/Args</th>
+									</tr>
+							  <?php 
+									 $json   = DOFactory::GetTool('json');
+									 $detail = $json->decode($error['detail']);
+									 foreach(array_reverse($detail) as $traces):
+							   ?>
+							   		 <tr>
+							   		 	<td><?php echo $traces->file."(".$traces->line.")";?></td>
+							   		 	<td><?php echo $traces->function.'(<b>'.implode(',',array_filter($traces->args)).'</b>)';?></td>
+							   		 </tr>
+							   <?php endforeach; //line 147 ?>
+								</table>
+							</p>
+							<?php endif; //line 136?>
 						</p>
-					<?php endforeach;?>
+					<?php endforeach; //line 126?>
 				</div>
-			<?php endforeach;?>
+			<?php endforeach; //line 124?>
 	</div>
 	<script type='text/javascript'>
 	$(function(){
