@@ -68,7 +68,7 @@ body {
 						<p class="doerror_row">
 							<?php 
 								echo "<span class='doerror_num'>#".($num+1).".</span>"
-									."<span class='doerror_msg'>"
+								."<span class='doerror_msg'>"
 									.preg_replace('~\[###[^#]+###\]~','',$error['msg'])
 									."</span>"
 									." -> <b>".$error['file']."</b>"
