@@ -1,11 +1,14 @@
 <?php 
 DOLoader::Import('lib.database.database');
 /**
- * Sqlite handler
- * I saw that php's pdo for sqlite would get some wierd problem with php5.3-
- * when you try to bind integer value for a prepared statment,so 
- * we probably have to change some codes.
+ * @desc 
+ * Implegments Sqlite driver
+ * ---------------------------------------
+ * I saw that php's pdo for sqlite would get some weird problem with php5.3-
+ * when we try to bind some integer values for a prepared statment,so 
+ * we probably have to override Query method in database class.
  * reference : https://bugs.php.net/bug.php?id=45259
+ * ----------------------------------------
  * @author lake
  *
  */
