@@ -75,7 +75,7 @@ class DOController
 			$ins    = $modelObj->$action($posts);
 			switch($action)
 			{
-				case 'Create':
+				case 'Add':
 					if(!$ins->insert_id)
 					{
 						$flag	= 0;

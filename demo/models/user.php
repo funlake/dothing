@@ -22,27 +22,27 @@ class DOModelUser extends DOModel
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
-	public function create_adjust_DOALL($value)
+	public function add_adjust_DOALL($value)
 	{
 		return trim($value);
 	}
 	/** Md5 serialize **/	
-	public function create_adjust_user_pass($value)
+	public function add_adjust_user_pass($value)
 	{
 		return md5($value);
 	}
 	/** Keep unique user name **/
-	public function create_validate_user_name($value)
+	public function add_validate_user_name($value)
 	{
-		if(0 !== ($id = $this->GetOne('user_id',array('user_name'=>'=?'),$value)))
+		if(0 !==  $this->GetOne('user_id',array('user_name'=>'=?'),$value) )
 		{
 			$this->error_msg = DOLang::Get('Do not allow multiple users!');
 			return false;
 		}
 		return true;
 	}
-	/** What we do before save a new record**/
-	public function create_pre_validate( $posts )
+	/** What shall we do before saving a new record**/
+	public function add_pre_validate( $posts )
 	{
 		$flag = true;
 		if(empty($posts['user_name']))

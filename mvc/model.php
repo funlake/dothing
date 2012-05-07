@@ -6,11 +6,11 @@ class DOModel
 	private $binds 		 	= array();
 	private $cdts		    = array();
 	static  $curdErrors 	= array();
-	function __construct()
+	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
 	}
-	function Init()
+	public function Init()
 	{
 		$tables = func_get_args();
 		
@@ -27,14 +27,14 @@ class DOModel
 		return self::$_tbl;
 		
 	}
-	function GetName()
+	public function GetName()
 	{
 		return empty($this->name) 
 			 ? strtolower(preg_replace('#^DOModel#','',get_class($this)))
 		     : $this->name;
 	}
 	/** Go directly to table handler **/
-	function __call($name,array $args = null)
+	public function __call($name,array $args = null)
 	{
 		$myDb	= DOFactory::GetTable($this->GetName(),$this->pk);
 		return call_user_func_array(array($myDb,$name),$args);
@@ -43,7 +43,7 @@ class DOModel
 	 * Load model
 	 *
 	 */
-	function Load( $model )
+	public function Load( $model )
 	{
 		return DOController::GetModel( $model );
 	}
@@ -52,16 +52,16 @@ class DOModel
 	 * Single table data insert
 	 * @param array $insArray
 	 */
-	function Create( array $insArray = null)
+	public function Add( array $insArray = null)
 	{
-		$this->action = 'create';
+		$this->action = 'add';
 		if(empty($this->name))
 		{
 			throw DOException("Please set the name attribute to be a valid table name",200);
 		}
 		if( false != $this->Bind( $insArray ) )
 		{
-			return DOFactory::GetTable($this->name)->Create( $this->binds );
+			return DOFactory::GetTable($this->name)->Insert( $this->binds );
 		}
 		else
 		{
@@ -81,7 +81,7 @@ class DOModel
 	 * Single table data update
 	 * @param array $insArray
 	 */
-	function Update( array $uparray = null )
+	public function Update( array $uparray = null )
 	{
 		$this->action = 'update';
 		if(empty($this->name))
@@ -110,7 +110,7 @@ class DOModel
 		}
 	}
 	
-	function Bind( array $posts = null )
+	public function Bind( array $posts = null )
 	{
 		if(!$posts)
 		{

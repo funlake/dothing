@@ -113,8 +113,8 @@ class DOTable
 		return $this->_db->Execute()->affect_rows;
 	}
 	
-	/** Single table update **/
-	function Create(array $insarray )
+	/** Single table Insert **/
+	function Insert(array $insarray )
 	{
 		foreach($insarray as $k=>$v)
 		{
@@ -126,7 +126,7 @@ class DOTable
 		$db->Clean();
 		$db->From($this->_tb)->Set($sets);
 		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Create();
+		$db->Insert();
 		/** Can not use $db direcitly here,quite strange**/
 		return $this->_db->Execute();
 	}
