@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Single table object
+ * @author lake
+ *
+ */
 class DOTable
 {
 	/** Database instance **/

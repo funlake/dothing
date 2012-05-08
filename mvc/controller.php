@@ -20,7 +20,7 @@ class DOController
 			}
 			else
 			{//curd automate
-				self::AutoCurd(DORouter::$controller,DORouter::$action,$_POST);
+				self::AutoCrud(DORouter::$controller,DORouter::$action,$_REQUEST);
 			}
 		}
 		return self::$controller;
@@ -60,10 +60,14 @@ class DOController
 		
 	}
 	/** Auto curd handler **/
-	public static function AutoCurd($action,$model,array $posts = null)
+	public static function AutoCrud($action,$model,array $posts = null)
 	{
 		if(!!$posts && false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
 		{
+			if(!method_exists($modelObj, $action))
+			{
+				throw new RouteException("You got a 404 page", 404);
+			}
 			if($posts['__token'] != DOBase::GetToken())
 			{
 				DOUri::Redirect($posts['__redirect'],DOLang::Get(
@@ -136,7 +140,7 @@ class DOController
 				setcookie('__DOMSG_TYPE','',time()-180);
 			}	
 		} */
-		return false;
+		throw new UriException("404 Page",404);
 	}
 	/**
 	 * load view

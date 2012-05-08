@@ -142,11 +142,12 @@ class DODatabase implements DORecord
 		{
 			//if(DO_DEBUG)
 			//{
-				$backtraces = debug_backtrace();
-				$json		= DOFactory::GetTool('json');
-				$detail     = $json->encode($backtraces);
+			$backtraces = debug_backtrace();
+			$json		= DOFactory::GetTool('json');
+			$detail     = $json->encode($backtraces);
 			//}
-			DOError::Trigger(DO_DBDRIVE,$errors[2],$detail,E_USER_WARNING);
+			//DOError::Trigger(DO_DBDRIVE,$errors[2],$detail,E_USER_WARNING);
+			throw new DbException("Query error:".$sql."<{$errors[2]}>",301);
 		}
 		return $R;			
 	}
@@ -213,7 +214,7 @@ class DODatabase implements DORecord
         if( $params == null || !is_object($resource) ) return;
         foreach((array)$params as $k=>$v)
         {
-           $resource->bindValue($k+1,$v,$this->getType($v));
+           $resource->bindValue($k+1,$v,$this->GetType($v));
         }
     }
 	/** 
@@ -221,9 +222,9 @@ class DODatabase implements DORecord
 	 * @param notsure $param
 	 * @return Constant
 	 */
-    function getType( $param )
+    function GetType( $param )
     {
-        $type = $this->types[gettype( $param )];
+        $type = $this->types[GetType( $param )];
 		return $type ? $type : PDO::PARAM_STR;
     }
 }

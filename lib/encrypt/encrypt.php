@@ -5,7 +5,7 @@ class DOEncrypt extends DOBase
 	
 	function DOEncrypt()
 	{
-		$this->cipher = md5(DO_SITECIPHER);
+		$this->cipher = md5(md5(DO_SITECIPHER));
 	}
 	function SimpleEncrypt($text , $cipher='')
 	{
@@ -52,40 +52,49 @@ class DOEncrypt extends DOBase
 	{
 		return $cipher ? $cipher : $this->cipher;
 	}
-	
-	function CbcEncrypt($value){
-		if(!$value){
-			return false;
-		}
-		$key         = $this->GetCipher();
-		$text        = $value;
-		/** Get iv size accroding to encode way**/
-		$iv_size     = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);
-		/** Create iv which make decrypt difficulty **/
-		mt_srand();
-		$iv          = mcrypt_create_iv($iv_size, MCRYPT_RAND);
-		/** Encode contents **/
-		$crypttext   = mcrypt_encrypt(MCRYPT_RIJNDAEL_256,$key,$text, MCRYPT_MODE_CBC, $iv);
-		/** Encode iv and pad it to encoded contents **/
-		$ivencode    = @mcrypt_encrypt(MCRYPT_RIJNDAEL_256,$crypttext,$iv,MCRYPT_MODE_ECB);
-		return strtr(base64_encode($crypttext.$ivencode),'+/=','-_~'); 
+	public function Encrypt($value)
+	{
+		/** Module init **/
+		$ofb 		= mcrypt_module_open(MCRYPT_RIJNDAEL_256,'',DO_ENCRYPT_MODE, '');
+		/** Get iv size **/
+		$ivsize		= mcrypt_enc_get_block_size($ofb);
+		/** Create iv,work for windows/linux platforms **/
+		$iv  		= mcrypt_create_iv($ivsize,MCRYPT_RAND);
+		/** Get key **/
+		$key 		= substr($this->GetCipher(),0,$ivsize);
+		/** Init **/
+		mcrypt_generic_init($ofb, $key, $iv);
+		/** Encode,iv needed to pack in it**/
+		$encrypted 	=  strtr(base64_encode(mcrypt_generic( $ofb, $value ).$iv),'+/=','-_~');
+		/** Close **/
+		mcrypt_generic_deinit($ofb);
+		mcrypt_module_close($ofb);
+		
+		return $encrypted;
 	}
-	function CbcDecrypt($value){
-		if(!$value){
-			return false;
-		}
-		$value       = base64_decode(strtr($value,'-_~','+/='));
-		/** Raw content **/
-		$rvalue      = substr($value,0,-32);
+	
+	public function Decrypt($value)
+	{
+		$value       	= base64_decode(strtr($value,'-_~','+/='));	
+		/** Module init **/
+		$ofb 			= mcrypt_module_open(MCRYPT_RIJNDAEL_256,'',DO_ENCRYPT_MODE, '');
+		/** Get iv size **/
+		$ivsize			= mcrypt_enc_get_block_size($ofb);
+		/** Get key **/
+		$key 			= substr($this->GetCipher(),0,$ivsize);
+		/** Raw encoded value **/
+		$rvalue		 	= substr($value,0,$ivsize * -1);
 		/** IV **/
-		$iv          = substr($value,-32);
-		/** Decode iv **/
-		$iv          = @mcrypt_decrypt(MCRYPT_RIJNDAEL_256,$rvalue,$iv,MCRYPT_MODE_ECB);//decode iv
-		$key         = $this->GetCipher();
-		$text        = $rvalue;
-		$decrypttext = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $text, MCRYPT_MODE_CBC, $iv);
-		return $decrypttext;
+		$iv			 	= substr($value,$ivsize * -1);
+		/** Init **/
+		mcrypt_generic_init($ofb, $key, $iv);
+		/** Get paintext **/
+		$decrypted		= mdecrypt_generic($ofb,$rvalue);
+		/** Close **/
+		mcrypt_generic_deinit($ofb);
+		mcrypt_module_close($ofb);
+		
+		return $decrypted;
 	}
-	
 }
 ?>

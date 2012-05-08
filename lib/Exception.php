@@ -22,7 +22,8 @@ class DOException extends Exception
 	/**Push the messages into message array each throw **/
 	public function PushMsg($message,$code='')
 	{
-		$msg = "[".get_class($this)."]".$this->getFile()." - ".$this->getLine()." - ".$message;
+		$msg = "[".get_class($this)."]".$this->getFile()
+			  ." - ".$this->getLine()." - ".$message." - ".print_r($this->getTrace(),1);
 		self::$msg[] = $msg;
 	}
 	public function __call($mtd,$params=null)
