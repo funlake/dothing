@@ -1,6 +1,14 @@
 <?php
-
-class DOEncrypt extends DOBase
+/**
+** Encrypt/Decrypt handler
+**@author lake
+**@sample 
+**================================
+** $crypt   = DOFactory::GetTool('encrypt');
+** $encoded = $crypt->Encrypt("balabla");
+** echo $crypt->Decrypt($encoded);
+**/
+class DOEncrypt
 {
 	public $cipher;
 	
@@ -53,6 +61,9 @@ class DOEncrypt extends DOBase
 	{
 		return $cipher ? $cipher : $this->cipher;
 	}
+	/**
+	** Encrypt method
+	**/
 	public function Encrypt($value)
 	{
 		/** Module init **/
@@ -73,7 +84,9 @@ class DOEncrypt extends DOBase
 		
 		return $encrypted;
 	}
-	
+	/**
+	** Decrypt method
+	**/
 	public function Decrypt($value)
 	{
 		$value       	= base64_decode(strtr($value,'-_~','+/='));	

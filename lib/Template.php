@@ -1,4 +1,8 @@
 <?php
+/**
+**Template render class
+**@author lake
+**/
 class DOTemplate
 {
 	public static $params 	= array();
@@ -36,7 +40,9 @@ class DOTemplate
 		ob_end_clean();
 		return $content;
 	}
-	/**Core function,use to set hooks for all elements we want to display in template**/
+	/**
+	**Core function,use to hook all elements we want to display in template
+	**/
 	public static function _()
 	{
 		$args 	= func_get_args();

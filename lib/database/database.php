@@ -115,39 +115,44 @@ class DODatabase implements DORecord
 	{
 		$syntax         	= $this->GetSyntax();
 		$rSql           	= $syntax->formatSql( $sql );
-		$resource 			= $this->connFlag->prepare( $rSql );
+		$statement 			= $this->connFlag->prepare( $rSql );
 		if(!!$params)
 		{
-			$this->BindValue($params, $resource);
+			$this->BindValue($params, $statement);
 		}
-		$resource->execute();
+		/** Prepare statement execute **/
+		$statement->execute();
 		/** Return dataset**/
 		$rs					= array();
 		/** 
-		 * Don't invoke fetchAll if we dont need to do it
+		 * Don't invoke fetchAll method if we dont need to do it
 		 * or it would cause a HY000 error. 
 		 **/
 		if(preg_match('#^select\s+#i',$sql))
 		{
-			$rs					= $resource->fetchAll(PDO::FETCH_OBJ);
+			$rs					= $statement->fetchAll(PDO::FETCH_OBJ);
 		}
-		$this->insert_id   	= $this->connFlag->lastInsertId();
-		$this->affect_row  	= $resource->rowCount();
+		/** 
+		** Generate return record set
+		** Bind latest recordset for $PDO object
+		**/
 		$R = new stdClass();
+		$R->success			= false;
 		$R->data 			= $this->data 		= $rs;
-		$R->insert_id		= $this->insert_id;
-		$R->affect_row  	= $this->affect_row;
-		$errors				= $resource->errorInfo();
+		$R->insert_id		= $this->insert_id  = $this->connFlag->lastInsertId();
+		$R->affect_row  	= $this->affect_row = $statement->rowCount();
+		$errors				= $statement->errorInfo();
 		if($this->IsError($errors))
 		{
-			//if(DO_DEBUG)
-			//{
-			//$backtraces = debug_backtrace();
-			//$json		= DOFactory::GetTool('json');
-			//$detail     = $json->encode($backtraces);
-			//}
-			//DOError::Trigger(DO_DBDRIVE,$errors[2],$detail,E_USER_WARNING);
-			throw new DODatabaseException($sql."<{$errors[2]}>",301);
+			throw new DODatabaseException($sql."//detail:{$errors[2]}",301);
+		}
+		else
+		{
+			/** 
+			** When sql query runed properly.
+			** we see it as a successfully action,no matter affect_row was either 0 or 1.
+			**/
+			$R->success 	= true;
 		}
 		return $R;			
 	}
@@ -160,33 +165,50 @@ class DODatabase implements DORecord
 		return $R->success;
 		//->insert_id;
 	}	
+	/**
+	** Get last sql query
+	**/
 	public function GetQuery()
 	{
 		return $this->GetSyntax()->sqlQuery;
 	}
+	/**
+	** Get prepare params
+	**/
 	public function GetParams()
 	{
 		return $this->GetSyntax()->values;
 	}
+	/**
+	** Get all recordset
+	**/
 	public function GetAll()
 	{
 		return $this->Query($this->GetQuery(),$this->GetParams())
 			   ->data;	
 	}
+	/**
+	** Get one value
+	**/
 	public function GetOne($field)
 	{
 		$rs = @$this->Query($this->GetQuery(),$this->GetParams())
 			    ->data[0];
 		return	!empty($field) ? $rs->$field : current((array)$rs);	
 	}
-	
+	/**
+	** Get a single row
+	**/
 	public function GetRow()
 	{
 		return $this->Query($this->GetQuery(),$this->GetParams())
 			    ->data[0];	
 		
 	}
-
+	/**
+	** Get some of fields
+	** @param string/array $fields
+	**/
 	public function GetCol($fields)
 	{
 		$rs 		= $this->GetAll();
@@ -204,7 +226,7 @@ class DODatabase implements DORecord
 		return $rt;
 	}
 	/**
-	 * pdo bind value
+	 * Pdo bind value
 	 *
 	 * @param array $params
 	 * @param pdostatementobj $resource

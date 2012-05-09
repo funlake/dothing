@@ -4,6 +4,7 @@ ini_set('display_errors',true);
 define( 'DS'			, DIRECTORY_SEPARATOR );
 define('SYSTEM_NAME'	,basename(__FILE__));
 define('SYSTEM_ROOT'	,realpath(dirname(__FILE__)));
+
 include '../bootstrap.php';
 /** System config **/
 include 'config.php';
@@ -27,7 +28,6 @@ try
 }
 catch(DOException $e)
 {
-	echo "<pre/>";
 	print_r($e->_getMessage());
 }
 ?>

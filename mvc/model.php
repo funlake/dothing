@@ -1,11 +1,12 @@
 <?php
 class DOModel
 {
-	public static  $_tbl 	= array();
-	public static  $_mod 	= array();
-	private $binds 		 	= array();
-	private $cdts		    = array();
-	static  $curdErrors 	= array();
+	public static  $_tbl 		= array();
+	public static  $_mod 		= array();
+	private $binds 		 		= array();
+	private $cdts		    	= array();
+	static  $curdErrors 		= array();
+	public static $connections 	= array();
 	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
@@ -48,6 +49,10 @@ class DOModel
 		return DOController::GetModel( $model );
 	}
 	
+	public function Find()
+	{
+
+	}
 	/**
 	 * Single table data insert
 	 * @param array $insArray
@@ -118,7 +123,7 @@ class DOModel
 			$posts = $request->Get(null,'post');
 		}
 		$this->binds = $this->cdts = null;
-		/** Global validate **/
+		/** Global Validate **/
 		if(method_exists($this,$this->action.'_pre_validate'))
 		{
 			$checked = 	call_user_func_array(
@@ -127,6 +132,15 @@ class DOModel
 			);	
 			if(!$checked) return false;
 		}
+		/** Global Adjustment **/
+		if(method_exists($this,$this->action.'_pre_adjust'))
+		{
+			$value = call_user_func_array(
+				array($this,$this->action.'_pre_adjust')
+			   ,array($posts)
+			);
+		}
+		/** Log each field's status **/
 		$falseFlag = array(1);
 		/** Filter **/
 		$filter    = DOFactory::GetFilter();
@@ -166,14 +180,6 @@ class DOModel
 						$falseFlag[] = $checked + 0;
 						continue;
 					}
-				}
-				/** Pre ajaust field's value? **/
-				if(method_exists($this,$this->action.'_adjust_DOALL'))
-				{
-					$value = call_user_func_array(
-							array($this,$this->action.'_adjust_DOALL')
-							,array($value,$posts)
-					);
 				}
 				/** Adjust field's value **/
 				if(method_exists($this,$this->action.'_adjust_'.$field))

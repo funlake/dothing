@@ -13,6 +13,15 @@ class DOModelUser extends DOModel
 	);
 
 	public $error_msg  = '';
+
+	public static $connections = array(
+		'has_many' => array(
+			'#__posts' => array('user_id')
+		)
+	   ,'belong_to'=> array(
+	   		'#__member' => array('member_id')
+	   	)
+	);
 	public function __construct()
 	{
 		/** Parse fields **/
@@ -22,9 +31,9 @@ class DOModelUser extends DOModel
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
-	public function add_adjust_DOALL($value)
+	public function add_pre_adjust(&$post)
 	{
-		return trim($value);
+		//return trim($value);
 	}
 	/** Md5 serialize **/	
 	public function add_adjust_user_pass($value)

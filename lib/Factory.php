@@ -1,6 +1,7 @@
 <?php
 /**
  * Classes Factory 
+ * @author lake
  *
  */
 class DOFactory
