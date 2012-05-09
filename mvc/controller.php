@@ -5,16 +5,16 @@ class DOController
 	private static $controllerEvent = null;
 	private static $models			= array();
 	function DOController(){}
+	/**
+	** Get current controller according to recent URI
+	** This method would invoked after DORouter::Prepare()
+	**/
 	public static function GetController()
 	{
 		if( !self::$controller )
 		{
 			if( self::LoadController() )
 			{
-				/** Before specify controller call**/
-				DOHook::TriggerPlugin('system','prepareRouteTo'
-									.ucwords(DORouter::$module)
-									.ucwords(DORouter::$controller),array());
 				$ctrClass = 'DO'.ucwords(DORouter::$controller);
 				self::$controller = new $ctrClass();
 			}
@@ -66,7 +66,7 @@ class DOController
 		{
 			if(!method_exists($modelObj, $action))
 			{
-				throw new RouteException("You got a 404 page", 404);
+				throw new DORouterException("Unknown controller::action", 404);
 			}
 			if($posts['__token'] != DOBase::GetToken())
 			{
@@ -140,7 +140,7 @@ class DOController
 				setcookie('__DOMSG_TYPE','',time()-180);
 			}	
 		} */
-		throw new UriException("404 Page",404);
+		throw new DORouterException("Unknown controller::action", 404);
 	}
 	/**
 	 * load view

@@ -31,12 +31,12 @@ include FRAMEWORK_ROOT.DS.'include'.DS.'function.php';
  * User custom error handler 
  * We should close this function in live enviroment
  **/
-error_reporting(E_ALL);
+/* error_reporting(E_ALL);
 if(error_reporting() && ini_get('display_errors'))
 {
 	$errorRef = new DOError();
 	set_error_handler(array($errorRef,'Capture'));
-}
+} */
 /** Shutdown event **/
 register_shutdown_function(array('DOHook','triggerPlugin'),'system','pageFinish',array());
 ?>

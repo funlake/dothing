@@ -12,7 +12,7 @@ class DOIndex extends DOController
 	}
 	public function addAction()
 	{
-		
+		print_r(mcrypt_list_modes());
 	}
 	public function indexAction()
 	{
@@ -115,8 +115,8 @@ class DOIndex extends DOController
 		$_POST['user_pass'] = md5('123456');
 		$_POST['state']		= 1;
 		
-		$model 	= DOFactory::GetModel('user');
-		$ins 	= $model->Create();
+		$USER 	= DOFactory::GetModel('user');
+		$ins 	= $USER->Add();
 		if( $ins->insert_id )
 		{
 			echo "insert done! insert id : {$ins->insert_id}";
@@ -144,9 +144,10 @@ class DOIndex extends DOController
 	public function encryptAction()
 	{
 		$encrypt = DOFactory::GetTool('encrypt');
-		echo "encrypt:".($e = $encrypt->CbcEncrypt('1,1234567890'));
+		echo "encrypt:".($e = $encrypt->Encrypt('1,1234567890'));
+		echo "<br/>";	
+		echo "decrypt:".$encrypt->Decrypt($e);
 		echo "<br/>";
-		echo "decrypt:".$encrypt->CbcDecrypt($e);		
 	}
 
 	public function adduserAction()

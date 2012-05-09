@@ -4,6 +4,7 @@ class DOIndexEvent
 	/** Before indexAction call **/
 	public function OnBeforeRequestIndex($params)
 	{
+
 	}
 	/** After indexAction call **/
 	public function OnAfterRequestIndex($results)

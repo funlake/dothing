@@ -12,11 +12,13 @@ class PlgSystem
 		/** Strip slash since we using pdo **/
 		if(get_magic_quotes_gpc())
 		{
+			/** Gpc strip slashes **/
 			$_GET 		= DOStripslashes($_GET);
 			$_POST  	= DOStripslashes($_POST);
 			$_COOKIE  	= DOStripslashes($_COOKIE);
 		}
 		/**Check permission here?*/
+		//DOAcl::Check();
 	}
 	
 	public function OnAfterRoute()

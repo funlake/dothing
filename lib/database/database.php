@@ -80,7 +80,7 @@ class DODatabase implements DORecord
 		}
 		else 
 		{
-			throw new DOException("Didn't find method <b>".get_class($syntax)."::{$fn}</b>", 300);
+			throw new DODatabaseException("Didn't find method <b>".get_class($syntax)."::{$fn}</b>", 300);
 		}
 	}
 	/**
@@ -142,12 +142,12 @@ class DODatabase implements DORecord
 		{
 			//if(DO_DEBUG)
 			//{
-			$backtraces = debug_backtrace();
-			$json		= DOFactory::GetTool('json');
-			$detail     = $json->encode($backtraces);
+			//$backtraces = debug_backtrace();
+			//$json		= DOFactory::GetTool('json');
+			//$detail     = $json->encode($backtraces);
 			//}
 			//DOError::Trigger(DO_DBDRIVE,$errors[2],$detail,E_USER_WARNING);
-			throw new DbException("Query error:".$sql."<{$errors[2]}>",301);
+			throw new DODatabaseException($sql."<{$errors[2]}>",301);
 		}
 		return $R;			
 	}

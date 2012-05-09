@@ -26,6 +26,8 @@ class DOLoader
 	{
 		if(preg_match('#exception$#i',$exception))
 		{
+			$exception = preg_replace(array('#^DO#','#exception$#i'),array('','_\0'), $exception);
+			
 			include_once FRAMEWORK_ROOT.DS.''
 			.'lib'.DS
 			.'exception'.DS.strtolower($exception).'.php';

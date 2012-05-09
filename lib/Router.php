@@ -30,8 +30,7 @@ class DORouter extends DOBase
 		
 		if( ! ($CTR = DOController::GetController()) )
 		{
-			include '404.html';
-			exit();
+			throw new DORouterException("Unknown controller::action", 404);
 		}
 		//Whether controller class exist
 		$method = self::$action.'Action';
@@ -56,8 +55,7 @@ class DORouter extends DOBase
 		else 
 		{
 			//throw new Exception("Route fail!");
-			include '404.html';
-			exit();
+			throw new DORouterException("Unknown controller::action", 404);
 			//DOUri::redirect($_404Page);
 		}
 		DOHook::TriggerPlugin('system','afterRoute',array());

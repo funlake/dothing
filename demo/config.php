@@ -33,6 +33,8 @@ define('DO_SESSHANDLER','file');
 define('DO_CACHEHANDLER','file');
 //ciphter
 define('DO_SITECIPHER',md5('justdoit'));
+//defualt encrypt model
+define('DO_ENCRYPT_MODE','cbc');
 //template
 define('DO_TEMPLATE','default');
 //mailer

@@ -54,7 +54,7 @@ class DOUri
 		{
 			if( $key == DO_CKEY && !$parsed )
 			{
-				list(self::$module,$controller,$action) = explode('-',$val);
+				list(self::$module,$controller,$action) = explode(':',$val);
 				if($controller != '') self::$controller = $controller;
 				if($action     != '') self::$action	    = $action;
 				$parsed = true;
@@ -66,7 +66,7 @@ class DOUri
 		}
 		if(!$parsed) 
 		{
-			throw new UriException("Did not find param '".DO_CKEY."' in uri",'000');
+			throw new DOUriException("Did not find param '".DO_CKEY."' in uri",'000');
 		}
 		return true;
 	}	

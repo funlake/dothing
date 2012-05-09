@@ -1,4 +1,5 @@
 <?php
+
 class DOEncrypt extends DOBase
 {
 	public $cipher;

@@ -7,7 +7,8 @@
 class DOException extends Exception
 {
 	/** All message we want to display finally**/
-	public static $msg = array();
+	public static $msg  = array();
+	public static $item = 0;
 	
 	public function __construct($message,$code,Exception $previous = null)
 	{
@@ -22,9 +23,11 @@ class DOException extends Exception
 	/**Push the messages into message array each throw **/
 	public function PushMsg($message,$code='')
 	{
-		$msg = "[".get_class($this)."]".$this->getFile()
-			  ." - ".$this->getLine()." - ".$message." - ".print_r($this->getTrace(),1);
-		self::$msg[] = $msg;
+		self::$msg[self::$item]['msg'] 	= $message;
+		self::$msg[self::$item]['file'] = $this->getFile();
+		self::$msg[self::$item]['line'] = $this->getLine();
+		self::$msg[self::$item]['trace']= $this->getTrace();
+		self::$item++;	
 	}
 	public function __call($mtd,$params=null)
 	{
