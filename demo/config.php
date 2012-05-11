@@ -9,7 +9,7 @@ date_default_timezone_set('Etc/GMT');
 //define('DO_DBDRIVE','sqlite');
 //define('DO_DATABASE','/var/www/demo/docms.sqlite');
 define('DO_DBDRIVE','mysql');
-define('DO_DATABASE','docms');
+define('DO_DATABASE','demo');
 define('DO_DBHOST','127.0.0.1');
 define('DO_DBUSER','root');
 define('DO_DBPASS','123456');
@@ -43,7 +43,7 @@ define('DO_MAIL_SMTP_AUTH','1');
 define('DO_MAIL_SMTP_HOST','ssl://smtp.gmail.com');
 define('DO_MAIL_SMTP_PORT',465);
 define('DO_MAIL_SMTP_USER','ffunlake@gmail.com');
-define('DO_MAIL_SMTP_PASS','fuliang168');
+define('DO_MAIL_SMTP_PASS','');
 define('DO_MAIL_FROM_NAME','Petition system');
 define('DO_MAIL_SEND_EXE','/usr/bin/sendmail');
 ?>
