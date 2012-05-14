@@ -9,7 +9,7 @@ date_default_timezone_set('Etc/GMT');
 //define('DO_DBDRIVE','sqlite');
 //define('DO_DATABASE','/var/www/demo/docms.sqlite');
 define('DO_DBDRIVE','mysql');
-define('DO_DATABASE','demo');
+define('DO_DATABASE','docms');
 define('DO_DBHOST','127.0.0.1');
 define('DO_DBUSER','root');
 define('DO_DBPASS','123456');

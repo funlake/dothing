@@ -17,6 +17,8 @@ class PlgSystem
 			$_POST  	= DOStripslashes($_POST);
 			$_COOKIE  	= DOStripslashes($_COOKIE);
 		}
+		$response = DOFactory::GetTool('http.response');
+		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
 		/**Check permission here?*/
 		//DOAcl::Check();
 	}
@@ -24,11 +26,16 @@ class PlgSystem
 	public function OnAfterRoute()
 	{
 	}
-	
-	public function OnPrepareDocument($response)
+	/** Before page dispaly **/
+	public function OnPagePrepare($response)
 	{
 		//$response->SetBody($response->GetBody());	
 		return true;
+	}
+
+	public function OnPageFinish()
+	{
+
 	}
 }
 ?>

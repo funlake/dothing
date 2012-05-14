@@ -156,7 +156,7 @@ class DOFactory
 	{
 		$time = explode(' ',microtime() );
 		
-		return $time[0] + $time[1];
+		return (float)($time[0] + $time[1]);
 	}
 	/**
 	 * Get http request filter

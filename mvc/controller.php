@@ -50,7 +50,7 @@ class DOController
 	}
 	public static function LoadControllerEvent()
 	{
-		$path  = EVTBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
+		$path  = self::GetPath('event').DS.DORouter::$controller.".php";
 		if(file_exists( $path ))
 		{
 			include $path;
@@ -177,9 +177,7 @@ class DOController
 		if(!self::$models[$model])
 		{
 			//Model path
-			$path = APPBASE.DS.DORouter::$module
-					. DS
-					. 'model'
+			$path = self::GetPath('model')
 					. DS
 					. $model.'.php' ;
 			if( file_exists( $path ))
@@ -194,6 +192,16 @@ class DOController
 			else self::$models[$model] = null;
 		}
 		return self::$models[$model];
+	}
+
+	public static function GetModuleRoot()
+	{
+		return APPBASE.DS.DORouter::$module;
+	}
+
+	public static function GetPath($dir)
+	{
+		return self::GetModuleRoot().DS.$dir;
 	}
 	/**
 	 * call model's method which function name's prefixs were 'get'

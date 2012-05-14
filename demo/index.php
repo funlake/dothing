@@ -4,7 +4,7 @@ ini_set('display_errors',true);
 define( 'DS'			, DIRECTORY_SEPARATOR );
 define('SYSTEM_NAME'	,basename(__FILE__));
 define('SYSTEM_ROOT'	,realpath(dirname(__FILE__)));
-
+/** Load bootstrap **/
 include '../bootstrap.php';
 /** System config **/
 include 'config.php';

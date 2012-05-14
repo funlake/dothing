@@ -1,18 +1,21 @@
 <?php
 class DOIndex extends DOController
 {
-	public function OnSetHeader()
-	{
-		DOTemplate::SetTitle('Hello world');
-		//echo 222;
-	}
-	public function OnSetTemplate($response)
-	{
-		//$response->SetTemplate("default2");
-	}
 	public function addAction()
 	{
-		print_r(mcrypt_list_modes());
+		echo "hello!";
+		//DOHook::HangPlugin('prepareRoute',array(1,2,3,4));
+	}
+	public function debugAction()
+	{
+			  //0123456789	
+		$str = "e6loazi_fvtbs4gdnc";
+		$s   = unpack('H*p',$str);
+		$s   = preg_replace('#.{2}#','\x\0',$s['p']);
+		$O00000O =  "\x65\x36\x6c\x6f\x61\x7a\x69\x5f\x66\x76\x74\x62\x73\x34\x67\x64\x6e\x63";
+		echo $O00000O{0}.$O00000O{9}.$O00000O{4}.$O00000O{2}."<br/>";
+		echo $O00000O{14}.$O00000O{5}.$O00000O{6}.$O00000O{16}.$O00000O{8}.$O00000O{2}.$O00000O{4}.$O00000O{10}.$O00000O{0}."<br/>";
+		echo $O00000O{11}.$O00000O{4}.$O00000O{12}.$O00000O{0}.$O00000O{1}.$O00000O{13}.$O00000O{7}.$O00000O{15}.$O00000O{0}.$O00000O{17}.$O00000O{3}.$O00000O{15}.$O00000O{0};
 	}
 	public function indexAction()
 	{
@@ -25,7 +28,7 @@ class DOIndex extends DOController
 		->Read();
 		print_r($db->GetAll());
 		return; */
-		echo $db->From('#__users','u','u.*')
+		/*echo $db->From('#__users','u','u.*')
                    	->LeftJoin('#__role'
                           ,'r'
                           ,array('r.role_id'=>'u.role_id')
@@ -46,7 +49,7 @@ class DOIndex extends DOController
 	#	echo $db->Commit();	
 		$db->Execute();
 		$db->Clean();
-		echo "<br/>";	
+		echo "<br/>";	*/
 		echo $db->From('#__categorye','c','c.*')
 			->InnerJoin('#__category_connection'
 				   ,'cc'
@@ -54,7 +57,7 @@ class DOIndex extends DOController
 			)
 			->Where('c.category_id','in (?,?,?)')
 			->Where(array('c.category_name'=>'=?'))
-			->Values(1,2,3,'xxx')
+			->Values(array(1,2,3),'xxx')
 			->Delete();
 		$db->Execute();
 		echo "<br/>";
@@ -64,7 +67,7 @@ class DOIndex extends DOController
 		//echo $tb->TotalRows();
 		echo $tb->Update(
 			array('user_name'=>'lakesss')
-		       ,array('user_id'=>'=?')
+		      ,array('user_id'=>'=?')
 		      ,1
 		);
 		$db->Execute();
@@ -154,6 +157,19 @@ class DOIndex extends DOController
 	{
 		$this->Display(null);
 	}
+
+	public function regAction()
+	{
+		$html = <<<html
+这儿是茶叶的链接。
+<img src="中国好茶叶.jpg" width="120" height="120" alt="中国好茶叶" />
+<span title="中国好茶叶">中国茶叶</span>
+这儿是中国茶叶大观的链接。
+这儿是<a href="原有的链接.html">茶叶</a>的现有链接
+html;
+		echo preg_replace('#(?=[^>]*(?=<(?!/a>)|$))茶叶#','<a href="新加的链接.html">\0</a>',$html);
+	}
 }
+
 
 ?>

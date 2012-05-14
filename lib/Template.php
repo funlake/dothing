@@ -53,9 +53,15 @@ class DOTemplate
 	{
 		self::$params['title'] = $title;
 	}
+
+	public static function SetModule($module)
+	{
+		self::$params['module'] = $module;
+	}
 	public static function GetBlocks( $pos )
 	{
 		$pos = strtolower( $pos );
+		/**We probably need to adjust specific block in a controller**/
  		DOHook::TriggerEvent(
 			array(
 				'beforeRenderBlock'.ucwords($pos) => array(self::$params)
@@ -65,9 +71,8 @@ class DOTemplate
 		ob_start();	
 		DOBlocks::Show($pos);
 		$blockContent = ob_get_contents();
- 		self::$params["blocks"][$pos] .= $blockContent;
-		ob_end_clean();
- 		
+ 		self::$params["blocks"][$pos] .= ob_get_clean();
+ 		/**We probably need to adjust specific block in a controller**/
 		DOHook::TriggerEvent(
 			array(
 				'afterRenderBlock'.ucwords($pos) => array($blockContent)

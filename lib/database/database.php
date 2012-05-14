@@ -149,8 +149,8 @@ class DODatabase implements DORecord
 		else
 		{
 			/** 
-			** When sql query runed properly.
-			** we see it as a successfully action,no matter affect_row was either 0 or 1.
+			** When sql query was executed properly(mean that database did not dump any error).
+			** we treat it as a successfully execution,no matter affect_row was either 0 or 1.
 			**/
 			$R->success 	= true;
 		}
@@ -185,7 +185,7 @@ class DODatabase implements DORecord
 	public function GetAll()
 	{
 		return $this->Query($this->GetQuery(),$this->GetParams())
-			   ->data;	
+			   		->data;	
 	}
 	/**
 	** Get one value
@@ -193,7 +193,7 @@ class DODatabase implements DORecord
 	public function GetOne($field)
 	{
 		$rs = @$this->Query($this->GetQuery(),$this->GetParams())
-			    ->data[0];
+			  		->data[0];
 		return	!empty($field) ? $rs->$field : current((array)$rs);	
 	}
 	/**

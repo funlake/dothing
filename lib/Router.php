@@ -22,9 +22,7 @@ class DORouter extends DOBase
 		self::Prepare();
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
-		DOHook::TriggerPlugin('system','prepareRoute',array());
-		/** Trigger plugin before calling a specify module */
-		DOHook::TriggerPlugin('system','prepareRouteTo'.ucwords(self::$module),array());
+		DOHook::HangPlugin('prepareRoute',array());
 		/**Initiate controller object **/
 		DOLoader::Import('mvc.controller');
 		
@@ -44,8 +42,7 @@ class DORouter extends DOBase
 			);
 			ob_start();
 			call_user_func_array(array($CTR,$method),self::$params);
-			DOTemplate::SetParam('module', $content = ob_get_contents());
-			ob_end_clean();
+			DOTemplate::SetModule($content = ob_get_clean());
  			DOHook::TriggerEvent(
 				array(
 				    'afterRequest' => array($content)
@@ -54,34 +51,12 @@ class DORouter extends DOBase
 		}
 		else 
 		{
-			//throw new Exception("Route fail!");
 			throw new DORouterException("Unknown controller::action", 404);
-			//DOUri::redirect($_404Page);
 		}
-		DOHook::TriggerPlugin('system','afterRoute',array());
+		DOHook::HangPlugin('afterRoute',array());
 	}
-	
-	public static function page_404( )
-	{
-		$module		= $this->uri->getModule();
-		$controller = $this->uri->getController();
-		$action     = $this->uri->getAction();
-		$params		= $this->uri->getParams();
-		$p = array(
-			    'error'			=> '404'
-			   ,'module'		=> $module
-			   ,'controller'	=> $controller
-			   ,'action'		=> $action
-		);
-		//uniqe parames
-		$u = array_merge($p,$params);
-		//generate url string
-		$_404Page = DOUri::BuildQuery('error','error','index',$u);
-		
-		return $_404Page;
-	}
-	
-	public static function map()
+
+	public static function Map()
 	{
 		$args   = func_get_args();
 		$regexp = $args[0];

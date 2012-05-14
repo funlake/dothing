@@ -49,24 +49,14 @@ class DOResponse
 			{
 				$this->NoCache();
 			}
- 			/**Binding some event registered in specific controller**/
- 			DOHook::TriggerEvent(
-				array(
-				    'setHeader'		=> array($this)
-				   ,'setTemplate'	=> array($this)
-				)
-			);
 			/** Get template and prepare to display**/
 			$this->SetBody(DOTemplate::LoadTemplate());
 			/** Do we have any plugin to format this responses?**/
 			$params   = array($this);
-			DOHook::TriggerPlugin('system','prepareDocument',$params);
+			DOHook::HangPlugin('beforDisplay',$params);
 			echo $this->GetBody();
 	}
 	
-	public function __destruct()
-	{
-		DOHook::TriggerPlugin('system','pageFinish',array());
-	}
+	public function __destruct(){}
 }
 ?>

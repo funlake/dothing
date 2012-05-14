@@ -5,7 +5,7 @@ define('FRAMEWORK_ROOT' ,realpath( dirname(__FILE__) ) );
 /** Some base paths for project,project must define SYSTEM_ROOT**/
 define('APPBASE'        ,SYSTEM_ROOT.DS.'modules');
 define('PLGBASE'        ,SYSTEM_ROOT.DS.'plugins');
-define('EVTBASE'        ,SYSTEM_ROOT.DS.'events' );
+//define('EVTBASE'        ,SYSTEM_ROOT.DS.'events' );
 define('BLKBASE'        ,SYSTEM_ROOT.DS.'blocks' );
 /** Where we put templates and related files**/
 define('TEMPLATEROOT'   ,SYSTEM_ROOT.DS.'templates');
@@ -38,5 +38,5 @@ if(error_reporting() && ini_get('display_errors'))
 	set_error_handler(array($errorRef,'Capture'));
 } */
 /** Shutdown event **/
-register_shutdown_function(array('DOHook','triggerPlugin'),'system','pageFinish',array());
+register_shutdown_function(array('DOHook','HangPlugin'),'shutdown',array());
 ?>
