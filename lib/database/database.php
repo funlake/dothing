@@ -162,7 +162,7 @@ class DODatabase implements DORecord
 	public function Execute()
 	{
 		$R = $this->Query($this->GetQuery(),$this->GetParams());
-		return $R->success;
+		return $R;
 		//->insert_id;
 	}	
 	/**

@@ -11,7 +11,6 @@ class DOModelUser extends DOModel
 	public $deletekey = array(
 		'user_id'	=> '=?'
 	);
-
 	public $error_msg  = '';
 
 	public static $connections = array(
@@ -28,10 +27,12 @@ class DOModelUser extends DOModel
 		$this->fields = include TABLEBASE.DS.'table_user.php';
 		/** Set primary key **/
 		$this->pk	  = 'user_id';
+
+		$this->addMsgSuccess = DOLang::Get('You have successfully add a new user');
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
-	public function add_pre_adjust(&$post)
+	public function add_pre_adjust($post)
 	{
 		//return trim($value);
 	}
@@ -43,7 +44,7 @@ class DOModelUser extends DOModel
 	/** Keep unique user name **/
 	public function add_validate_user_name($value)
 	{
-		if(0 !==  $this->GetOne('user_id',array('user_name'=>'=?'),$value) )
+		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?'),$value) )
 		{
 			$this->error_msg = DOLang::Get('Do not allow multiple users!');
 			return false;
@@ -65,6 +66,12 @@ class DOModelUser extends DOModel
 			$flag 		 = false;
 		}
 		return $flag;
+	}
+
+	/** A listener trigger after event 'OnAfterRequestAddUser' **/
+	public function event_afterRequestAddUser($params)
+	{
+
 	}
 }
 

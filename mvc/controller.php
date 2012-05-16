@@ -76,40 +76,60 @@ class DOController
 				);
 			}
 			$action = ucwords(strtolower($action));
+			DOHook::TriggerEvent(
+				array(
+				    'beforeRequest' => array($posts)
+				)
+			);
 			$ins    = $modelObj->$action($posts);
 			switch($action)
 			{
 				case 'Add':
-					if(!$ins->insert_id)
+					if(!$ins->success)
 					{
 						$flag	= 0;
-						$msg 	= DOLang::Get($modelObj->CreateMsgFail);
+						$msg 	= DOLang::Get($modelObj->addMsgFail);
 						$detail	= $modelObj->error_msg;
 					}
 					else
 					{
 						$flag	= 1;
-						$msg	= DOLang::Get($modelObj->CreateMsgSuccess);
+						$msg	= DOLang::Get($modelObj->addMsgSuccess);
 						$detail	= $modelObj->info_msg;
+						DOHook::TriggerEvent(
+							array(
+							    'afterRequest' => array($ins,$posts)
+							)
+						);
 					}
 				break;
 
 				case 'Update':
-						$msg	= DOLang::Get($modelObj->UpdateMsgSuccess);
+						$msg	= DOLang::Get($modelObj->updateMsgSuccess);
 						$detail	= $modelObj->info_msg;
+						DOHook::TriggerEvent(
+							array(
+							    'afterRequest' => array($ins,$posts)
+							)
+						);
 				break;
 				
 				case 'Delete':
-					if(!$ins->affect_rows)
+					if(!$ins->success)
 					{
 						$flag	= 0;
-						$msg 	= DOLang::Get($modelObj->DeleteMsgFail);
+						$msg 	= DOLang::Get($modelObj->deleteMsgFail);
 						$detail	= $modelObj->error_msg;
 					}	
 					else 
 					{
 						$flag	= 1;
-						$msg 	= DOLang::Get($modelObj->DeleteMsgSuccess);
+						$msg 	= DOLang::Get($modelObj->deleteMsgSuccess);
+						DOHook::TriggerEvent(
+							array(
+							    'afterRequest' => array($ins,$posts)
+							)
+						);
 					}
 				break;
 				default:
@@ -127,7 +147,11 @@ class DOController
 				exit();
 			}
 			/** Or redirect **/
-			if(!empty($posts['__redirect'])) DOUri::Redirect($posts['__redirect'],$msg,$flag);
+			if(!empty($posts['__redirect'])) 
+			{
+				$msg = empty($msg) ? $detail : $msg;
+				DOUri::Redirect($posts['__redirect'],$msg,$flag);
+			}
 		}	
 /* 		else
 		{

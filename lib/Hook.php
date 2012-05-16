@@ -7,6 +7,7 @@
 class DOHook
 {
 	private static $listener 	= array();
+
 	/**
 	*** @description
 	*** Controller level event.
@@ -17,6 +18,7 @@ class DOHook
 	{
 		$args 	= func_get_args();
 		if(!DORouter::$module) return;
+		self::LoadEvents();
 		foreach( $args as $events)
 		{
 			foreach($events as $event=>$params)
@@ -30,6 +32,7 @@ class DOHook
 					call_user_func_array(array(
 						$CTR,$onEvent
 					), $params);
+					DOEvent::CallChain(DORouter::$controller,strtolower($event),$params);
 				}
 				/**Do we have registered this event for specific action?**/
 				$onEvent = 'On'.ucwords($event).ucwords(DORouter::$action);
@@ -37,13 +40,24 @@ class DOHook
 				{
 					call_user_func_array(array(
 						$CTR,$onEvent
-					), $params);					
+					), $params);
+					DOEvent::CallChain(DORouter::$controller
+						,strtolower($event.DORouter::$action),$params
+					);
 				}
 			}
 
 		}
 	}
-
+	public static function LoadEvents()
+	{
+		static $loaded = false;
+		if(!$loaded)
+		{
+			include DOController::GetPath('event').DS.'event.listener.php';
+			$loaded = true;
+		}
+	}
 	public static function HangPlugin( $event , array $params = null )
 	{
 		foreach((array)self::FetchPlugins($event) as $plugin )
@@ -56,10 +70,10 @@ class DOHook
 		$event = strtolower($event);
 		if(!self::$listener[$event])
 		{
-			foreach(glob(PLGBASE.DS.$event.DS.'*.php') as $plugins)
+			foreach(glob(PLGBASE.DS.$event.DS.'plg_*.php') as $plugins)
 			{
 				include $plugins;
-				$plugin = basename($plugins,'.php');
+				$plugin = preg_replace('#^plg_#i','',basename($plugins,'.php'));
 				$class 	= 'DOPlg'.ucwords(strtolower($plugin)).ucwords($event);
 				self::$listener[$event][] = new $class();
 			}

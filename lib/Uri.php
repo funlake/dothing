@@ -244,8 +244,8 @@ class DOUri
 		}
 
 		$link = 'index.php?'.DO_CKEY.'='.$module
-				.($controller ? '-'.$controller : '')
-				.($action ? '-'.$action.($params ? '&'.$params : '') : '');
+				.($controller ? ':'.$controller : '')
+				.($action ? ':'.$action.($params ? '&'.$params : '') : '');
 
 		return self::RealUrl($link);
 	}
