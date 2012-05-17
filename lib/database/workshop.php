@@ -61,6 +61,7 @@ class DODatabaseWS
 		if(!self::$syntax)
 		{	
 			DOLoader::import('lib.database.syntax');
+			DOLoader::import('lib.database.syntax.'.$driver);
 			$eg = ucwords( $driver ) . "Syntax";
 			self::$syntax = new $eg();
 		}			

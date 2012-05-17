@@ -28,6 +28,8 @@ try
 }
 catch(DOException $e)
 {
+	/** Capture request **/
+	$request 	= DOFactory::GetTool('http.request');
 	if(!$request->Get('__ajax','request'))
 	{
 		include 'error.php';
