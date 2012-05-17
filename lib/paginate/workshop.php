@@ -12,7 +12,7 @@ Class DOPaginateWS
 		if(file_exists( $path ))
 		{
 			include_once $path;
-			$class	= 'DOPaginate_'.$this->drive;
+			$class	= 'DOPaginate'.ucwords(strtolower($this->drive));
 			//$ref		= new ReflectionClass( $class );
 			//return call_user_func(array($ref,'newInstanceArgs'),$args );
 			return new $class();

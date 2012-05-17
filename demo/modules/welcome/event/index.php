@@ -38,9 +38,5 @@ class DOIndexEvent
 
 	}
 
-	public function BindAfterRequestAdd($posts)
-	{
-		print_r($posts);
-	}
 }
 ?>

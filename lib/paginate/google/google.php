@@ -1,6 +1,6 @@
 <?php
 DOLoader::import('lib.paginate.paginate');
-class DOPaginate_google extends DOPaginate
+class DOPaginateGoogle extends DOPaginate
 {
 	public $maxItemsPerPage	= 20;
 	public $halfMax		= 0;

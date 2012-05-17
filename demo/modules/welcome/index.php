@@ -4,6 +4,7 @@ class DOIndex extends DOController
 	public function addAction()
 	{
 		echo "hello!";
+		print_r($_GET);
 		//DOHook::HangPlugin('prepareRoute',array(1,2,3,4));
 	}
 	public function debugAction()
@@ -50,7 +51,7 @@ class DOIndex extends DOController
 		$db->Execute();
 		$db->Clean();
 		echo "<br/>";	*/
-		echo $db->From('#__categorye','c','c.*')
+		$db->From('#__category','c','c.*')
 			->InnerJoin('#__category_connection'
 				   ,'cc'
 				   ,'cc.category_id=c.category_id'
@@ -60,9 +61,9 @@ class DOIndex extends DOController
 			->Values(array(1,2,3),'xxx')
 			->Delete();
 		$db->Execute();
-		echo "<br/>";
+		//echo "<br/>";
 		$db->Clean();
-		echo $db->From('#__category')->Select('count(*) as amount')->Read();
+/*		echo $db->From('#__category')->Select('count(*) as amount')->Read();
 		$tb = DOFactory::GetTable('#__user');
 		//echo $tb->TotalRows();
 		echo $tb->Update(
@@ -77,14 +78,11 @@ class DOIndex extends DOController
 		)
 		->Values('TT',md5('TT'),1)
 		->Insert();
-		try{
-			$in = $db->Execute();
-		}catch(DOException $e)
-		{
-			print_r($e->_getMessage());
-		}
+		$in = $db->Execute();
 
-		echo $tb->GetTotal(array('user_id'=>'>?'),1);
+
+
+		echo $tb->GetTotal(array('user_id'=>'>?'),1);*/
 		$this->Display();
 	}
 
@@ -118,7 +116,7 @@ class DOIndex extends DOController
 		$_POST['user_pass'] = md5('123456');
 		$_POST['state']		= 1;
 		
-		$USER 	= DOFactory::GetModel('user');
+		$USER 	= DOFactory::GetModel('#__user');
 		$ins 	= $USER->Add();
 		if( $ins->insert_id )
 		{
@@ -141,7 +139,7 @@ class DOIndex extends DOController
 	}
 	public function urlAction($user_id=null,$user_name=null)
 	{
-		echo DOUri::BuildQuery('a','b','c','a=b&c=d&e=f');
+		echo DOUri::BuildQuery('welcome','index','url','a=b&c=d&e=f');
 	}
 
 	public function encryptAction()

@@ -76,7 +76,7 @@ function CodeReplace($file,$encodedCode)
 	$codes .= PHP_EOL.'?'.'>';
 
 	$codesLens = strlen($codes);
-	$codesLen = $codesLen-4+strlen($codesLens);
+	$codesLen = $codesLens-4+strlen($codesLens);
 	$codes    = preg_replace('#@{4}#',$codesLen,$codes);
 	fwrite($fh, $codes);
 	fclose($fh);

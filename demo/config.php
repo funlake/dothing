@@ -37,6 +37,8 @@ define('DO_SITECIPHER',md5('justdoit'));
 define('DO_ENCRYPT_MODE','cbc');
 //template
 define('DO_TEMPLATE','default');
+//default controller
+define('DO_MODULE','welcome');
 //mailer
 define('DO_MAILER','smtp');
 define('DO_MAIL_SMTP_AUTH','1');

@@ -2,7 +2,9 @@
 class DOUri
 {
 	public $project;
-	private static $module	   = 'welcome';
+	/** MVC separator **/
+	private static $separator  = ':';
+	private static $module	   = DO_MODULE;
 	private static $controller = 'index';
 	private static $action     = 'index';
 	private static $params = array();
@@ -42,7 +44,7 @@ class DOUri
 	}
 	public static function ParseNormal()
 	{
-		/** Prevent user parse same key as DOC_CKEY we configured */
+		/** Prevent user parse same key as DOC_CKEY we configure before */
 		$parsed = false;
 		/** Set default module **/
 		if(!$_GET)
@@ -54,7 +56,7 @@ class DOUri
 		{
 			if( $key == DO_CKEY && !$parsed )
 			{
-				list(self::$module,$controller,$action) = explode(':',$val);
+				list(self::$module,$controller,$action) = explode(self::$separator,$val);
 				if($controller != '') self::$controller = $controller;
 				if($action     != '') self::$action	    = $action;
 				$parsed = true;
@@ -135,8 +137,7 @@ class DOUri
 			else 
 			{
 				$info = $_SERVER['SCRIPT_NAME'] ? $_SERVER['SCRIPT_NAME'] : $_SERVER['PHP_SELF'];
-				
-				$info     = preg_replace('#/index\.php$#','',$info);
+				//$info     = preg_replace('#/index\.php$#','',$info);
 			}
 			$root     = $protocol.'://'.$host.$info;
 		}
@@ -224,7 +225,7 @@ class DOUri
 	{
 		if(DO_SEO)
 		{
-			$url = preg_replace('#\?'.DO_CKEY.'=([^&]+&?)#ie','strtr("$1","-&","//");',$url);
+			$url = preg_replace('#\?'.DO_CKEY.'=([^&]+&?)#ie','strtr("$1",":&","//");',$url,1);
 		}
 		return $url;
 	}
@@ -242,11 +243,15 @@ class DOUri
 		{
 			$params = str_replace('&amp;','&',http_build_query($params));
 		}
-
-		$link = 'index.php?'.DO_CKEY.'='.$module
-				.($controller ? ':'.$controller : '')
-				.($action ? ':'.$action.($params ? '&'.$params : '') : '');
-
+		if(!DO_SEO)
+		{
+			$link = '?'.DO_CKEY.'='.implode(self::$separator,array($module,$controller,$action))
+				    .(!empty($params) ? '&'.$params : '');
+		}
+		else
+		{
+			$link = '/'.implode('/',array($module,$controller,$action,$params));
+		}
 		return self::RealUrl($link);
 	}
 	
@@ -258,8 +263,8 @@ class DOUri
 	 */
 	public static function RealUrl( $query )
 	{
-		$query = self::Format($query);
-		return self::GetRoot()."/".$query;
+		//$query = self::Format($query);
+		return self::GetRoot().$query;
 	}
 	/**
 	 * handle _GET params in path info url.

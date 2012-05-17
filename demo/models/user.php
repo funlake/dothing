@@ -32,17 +32,17 @@ class DOModelUser extends DOModel
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
-	public function add_pre_adjust($post)
+	public function Add_pre_adjust($post)
 	{
 		//return trim($value);
 	}
 	/** Md5 serialize **/	
-	public function add_adjust_user_pass($value)
+	public function Add_adjust_user_pass($value)
 	{
 		return md5($value);
 	}
 	/** Keep unique user name **/
-	public function add_validate_user_name($value)
+	public function Add_validate_user_name($value)
 	{
 		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?'),$value) )
 		{
@@ -52,7 +52,7 @@ class DOModelUser extends DOModel
 		return true;
 	}
 	/** What shall we do before saving a new record**/
-	public function add_pre_validate( $posts )
+	public function Add_pre_validate( $posts )
 	{
 		$flag = true;
 		if(empty($posts['user_name']))
@@ -69,10 +69,11 @@ class DOModelUser extends DOModel
 	}
 
 	/** A listener trigger after event 'OnAfterRequestAddUser' **/
-	public function event_afterRequestAddUser($params)
+	public function Event_afterRequestAddUser($params)
 	{
 
 	}
+
 }
 
 ?>

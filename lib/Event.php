@@ -13,7 +13,7 @@ class DOEvent
 		foreach((array)self::$events[$ctr][$evt] as $lst)
 		{
 			list($mod,$ipm) = explode('.',$lst);
-			$ipm            = 'event_'.strtolower($ipm);
+			$ipm            = 'Event_'.strtolower($ipm);
 			call_user_func_array(array(
 				DOFactory::GetModel('#__'.$mod),$ipm
 			),$params);

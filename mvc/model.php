@@ -59,7 +59,7 @@ class DOModel
 	 */
 	public function Add( array $insArray = null)
 	{
-		$this->action = 'add';
+		$this->action = __METHOD__;
 		if(empty($this->name))
 		{
 			throw DOException("Please set the name attribute to be a valid table name",200);
@@ -79,7 +79,7 @@ class DOModel
 	 */
 	function Delete(array $cdtarray = null)
 	{
-		$this->action = 'delete';
+		$this->action = __METHOD__;
 	}
 	
 	/**
@@ -88,7 +88,7 @@ class DOModel
 	 */
 	public function Update( array $uparray = null )
 	{
-		$this->action = 'update';
+		$this->action = __METHOD__;
 		if(empty($this->name))
 		{
 			throw DOException("Please set the name attribute to be a valid table name");
@@ -215,6 +215,10 @@ class DOModel
 					$this->binds[$rawKey] = $default;
 				}
 			}
+		}
+		else
+		{
+			throw new DOException("Empty parameters!",101);
 		}
 		return array_product($falseFlag);
 	}

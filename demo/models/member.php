@@ -11,8 +11,9 @@ class DOModelMember extends DOModel
 	*** implements listener
 	***/
 
-	public function event_afteradduser($ins,$params)
+	public function Event_afteradduser($ins,$params)
 	{
+		throw new DOException("I'm bad guy", 1);
 	}
 }
 

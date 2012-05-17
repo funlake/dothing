@@ -28,6 +28,13 @@ try
 }
 catch(DOException $e)
 {
-	print_r($e->_getMessage());
+	if(!$request->Get('__ajax','request'))
+	{
+		include 'error.php';
+	}
+	else
+	{//Dump as json
+		
+	}
 }
 ?>

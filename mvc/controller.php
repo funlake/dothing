@@ -68,12 +68,9 @@ class DOController
 			{
 				throw new DORouterException("Unknown controller::action", 404);
 			}
-			if($posts['__token'] != DOBase::GetToken())
+			if($posts['__token'] != DOBase::GetToken() || empty($posts['__token']) )
 			{
-				DOUri::Redirect($posts['__redirect'],DOLang::Get(
-						'Unvalid token'
-					),0
-				);
+				throw new DORouterException("Invalid token",102);
 			}
 			$action = ucwords(strtolower($action));
 			DOHook::TriggerEvent(
@@ -153,17 +150,6 @@ class DOController
 				DOUri::Redirect($posts['__redirect'],$msg,$flag);
 			}
 		}	
-/* 		else
-		{
-			$request = DOFactory::GetTool('http.request');
-			$msg	 = $request->Get('__DOMSG','cookie');
-			if(!empty($msg))
-			{
-				echo $msg;
-				setcookie('__DOMSG'		,'',time()-180);
-				setcookie('__DOMSG_TYPE','',time()-180);
-			}	
-		} */
 		throw new DORouterException("Unknown controller::action", 404);
 	}
 	/**
