@@ -107,10 +107,14 @@ class DOSyntax
 		$this->values = array();
 		foreach(func_get_args() as $values) 
 		{
-			if(!is_array($values)) $values = array($values);
-			foreach ($values as $value)
+			if(!is_array($values)) $this->values[] = $values;
+			else
 			{
-				$this->values[] = $value;
+				//$this->values[] = "'".implode("','",$values)."'";
+				foreach ($values as $value)
+				{
+					$this->values[] = $value;
+				}
 			}
 		}
 		

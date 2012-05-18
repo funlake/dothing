@@ -18,9 +18,14 @@ class DOController
 				$ctrClass = 'DO'.ucwords(DORouter::$controller);
 				self::$controller = new $ctrClass();
 			}
-			else
+			else if(DORouter::$module === 'autocrud')
 			{//curd automate
 				self::AutoCrud(DORouter::$controller,DORouter::$action,$_REQUEST);
+				exit();
+			}
+			else
+			{
+				throw new DORouterException("Unknown module", 404);
 			}
 		}
 		return self::$controller;
@@ -68,7 +73,7 @@ class DOController
 			{
 				throw new DORouterException("Unknown controller::action", 404);
 			}
-			if($posts['__token'] != DOBase::GetToken() || empty($posts['__token']) )
+			if( 'Select' != $action && ($posts['__token'] != DOBase::GetToken() || empty($posts['__token']) ) )
 			{
 				throw new DORouterException("Invalid token",102);
 			}
@@ -102,13 +107,23 @@ class DOController
 				break;
 
 				case 'Update':
-						$msg	= DOLang::Get($modelObj->updateMsgSuccess);
-						$detail	= $modelObj->info_msg;
-						DOHook::TriggerEvent(
-							array(
-							    'afterRequest' => array($ins,$posts)
-							)
-						);
+						if(!$ins->success)
+						{
+							$flag	= 0;
+							$msg 	= DOLang::Get($modelObj->updateMsgFail);
+							$detail	= $modelObj->error_msg;
+						}
+						else
+						{
+							$flag   = 1;
+							$msg	= DOLang::Get($modelObj->updateMsgSuccess);
+							$detail	= $modelObj->info_msg;
+							DOHook::TriggerEvent(
+								array(
+								    'afterRequest' => array($ins,$posts)
+								)
+							);
+						}
 				break;
 				
 				case 'Delete':
@@ -129,6 +144,14 @@ class DOController
 						);
 					}
 				break;
+
+				case 'Select':
+						DOHook::TriggerEvent(
+							array(
+							    'afterRequest' => array($ins,$posts)
+							)
+						);
+				break;
 				default:
 					return;
 				break;
@@ -141,14 +164,20 @@ class DOController
 				echo $json->encode(
 					array('flag'=>$flag,'msg'=>$msg,'detail'=>$detail)		
 				);
-				exit();
 			}
 			/** Or redirect **/
-			if(!empty($posts['__redirect'])) 
+			else if(!empty($posts['__redirect'])) 
 			{
-				$msg = empty($msg) ? $detail : $msg;
+				$msg = empty($msg) ? $detail : $msg.' > ' .$detail;
 				DOUri::Redirect($posts['__redirect'],$msg,$flag);
 			}
+			/** REST call ? **/
+			else
+			{
+				$json = DOFactory::GetTool('json');
+				echo $posts['callback']."(".$json->encode($ins).")";
+			}
+			exit();
 		}	
 		throw new DORouterException("Unknown controller::action", 404);
 	}
@@ -160,7 +189,7 @@ class DOController
 	{
 		$action   	= preg_replace('#Action$#i','',DORouter::$action);
 		if(empty($view))
-		{//When $view set as null,we would include tpl file which name as action.
+		{//When $view set as null,we would include tpl file which's name as action.
 			$view = $action;
 		}
 		if(!!$variables)
@@ -212,31 +241,6 @@ class DOController
 	public static function GetPath($dir)
 	{
 		return self::GetModuleRoot().DS.$dir;
-	}
-	/**
-	 * call model's method which function name's prefixs were 'get'
-	 *
-	 * @param String $method
-	 * @param Array $params
-	 * @return 
-	 */
-	function Get( $method )
-	{
-		$model 	= DORouter::$controller;
-		$model	= strtolower($model);
-		if(!self::$models[$model])
-		{
-			//set model
-			self::$models[$model] 	 = self::GetModel();
-		}
-		$m = "Get".ucwords(strtolower($method));
-		if(method_exists(self::$models[$model],$m))
-		{
-			$args = func_get_args();
-			array_unshift($args);
-			return call_user_func_array(array(self::$models[$model],$m),$args);
-		}
-		return false;
 	}
 	
 	function __destruct()

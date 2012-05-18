@@ -51,11 +51,15 @@ class DOHook
 	}
 	public static function LoadEvents()
 	{
-		static $loaded = false;
-		if(!$loaded)
+		static $loaded = array();
+		if(!$loaded[DORouter::$module])
 		{
-			include DOController::GetPath('event').DS.'event.listener.php';
-			$loaded = true;
+			$listenerFile = DOController::GetPath('event').DS.'event.listener.php';
+			if(file_exists($listenerFile)) 
+			{
+				include $listenerFile;
+			}
+			$loaded[DORouter::$module] = true;
 		}
 	}
 	public static function HangPlugin( $event , array $params = null )

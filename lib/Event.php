@@ -2,13 +2,13 @@
 class DOEvent
 {
 	private static $events = array();
-	public function AddEvent($event,$listener)
+	public static function AddEvent($event,$listener)
 	{// Implements by subclass
 		list($ctr,$evt) = explode('.',$event);
 		self::$events[$ctr][$evt][] = $listener;
 	}
 
-	public function CallChain($ctr,$evt,array $params = null)
+	public static function CallChain($ctr,$evt,array $params = null)
 	{
 		foreach((array)self::$events[$ctr][$evt] as $lst)
 		{

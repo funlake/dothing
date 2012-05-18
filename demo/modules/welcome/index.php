@@ -58,7 +58,7 @@ class DOIndex extends DOController
 			)
 			->Where('c.category_id','in (?,?,?)')
 			->Where(array('c.category_name'=>'=?'))
-			->Values(array(1,2,3),'xxx')
+			->Values(array('a',2,3),'xxx')
 			->Delete();
 		$db->Execute();
 		//echo "<br/>";
@@ -153,9 +153,16 @@ class DOIndex extends DOController
 
 	public function adduserAction()
 	{
-		$this->Display(null);
+		$variables['task'] = 'Add';
+		$this->Display(null,$variables);
 	}
-
+	public function edituserAction($id = null)
+	{
+		$data = DOFactory::GetModel('#__user')->Select($id);
+		$variables['data'] = $data;
+		$variables['task'] = 'Update';
+		$this->Display('adduser',$variables);
+	}
 	public function regAction()
 	{
 		$html = <<<html

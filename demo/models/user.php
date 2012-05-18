@@ -4,18 +4,20 @@ class DOModelUser extends DOModel
 	public $fields;
 	public $maps;
 	/** What to be where conditions when we update a record **/
-	public $updatekey = array(
+	public $updateKey = array(
 		'user_id'	=> '=?'		
 	);
+	public $updateVal = 0;
+
 	/** What to be where conditions when we update a record **/
-	public $deletekey = array(
+	public $deleteKey = array(
 		'user_id'	=> '=?'
 	);
 	public $error_msg  = '';
 
 	public static $connections = array(
 		'has_many' => array(
-			'#__posts' => array('user_id')
+			'#__userinfo' => array('user_id')
 		)
 	   ,'belong_to'=> array(
 	   		'#__member' => array('member_id')
@@ -28,7 +30,9 @@ class DOModelUser extends DOModel
 		/** Set primary key **/
 		$this->pk	  = 'user_id';
 
-		$this->addMsgSuccess = DOLang::Get('You have successfully add a new user');
+		$this->addMsgSuccess 	= DOLang::Get('You have successfully add a new user');
+		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
+		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
@@ -68,12 +72,24 @@ class DOModelUser extends DOModel
 		return $flag;
 	}
 
-	/** A listener trigger after event 'OnAfterRequestAddUser' **/
-	public function Event_afterRequestAddUser($params)
+	public function Update_validate_user_name($value,$posts)
 	{
-
+		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?','user_id'=>'<>?'),$value,$posts['user_id']) )
+		{
+			$this->error_msg = DOLang::Get('Do not allow multiple users!');
+			return false;
+		}
+		return true;
 	}
 
+	public function Update_adjust_user_pass($value,$posts)
+	{
+		if($posts['pass_edited'])
+		{
+			return md5($value);
+		}
+		return $value;
+	}
 }
 
 ?>

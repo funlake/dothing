@@ -34,7 +34,7 @@ class DOTable
 		return $this->_db->query( $sql );
 	} */
 	/** Get one field according to conditions */
-	function GetOne($field,array $condition = null)
+	function GetOne($field,$condition = null)
 	{
 		$vals = array();
 		foreach(array_slice(func_get_args(),2) as $val)
@@ -114,7 +114,7 @@ class DOTable
 		$db = call_user_func_array(array($db,'Values'), $vals);
 		$db->Update();
 		/** Can not use $db direcitly here,quite strange**/
-		return $this->_db->Execute()->affect_rows;
+		return $this->_db->Execute();
 	}
 	
 	/** Single table Insert **/
