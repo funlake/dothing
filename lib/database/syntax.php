@@ -220,7 +220,8 @@ class DOSyntax
 		$wheres = array();
 		foreach((array)$this->where as $k=>$v)
 		{
-			$wheres[] 	= $k." ".$v;
+			/** Field of database table should not be a numeric name **/
+			$wheres[] 	= (!is_numeric($k) ? $k : '')." ".$v;
 		}
 		if(!!$wheres)
 		{

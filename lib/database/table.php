@@ -41,6 +41,7 @@ class DOTable
 		{
 			$vals[] = $val;
 		}
+
 		$db = $this->_db;
 		$db->Clean();
 		$db->From( $this->_tb)

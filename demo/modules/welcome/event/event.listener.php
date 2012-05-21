@@ -1,2 +1,3 @@
 <?php
-DOEvent::AddEvent('add.afterrequestuser','member.afteradduser');
+/** We dont have crud events defaultly **/
+//DOEvent::AddEvent('add.afterrequestuser','member.afteradduser');

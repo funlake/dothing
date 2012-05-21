@@ -36,6 +36,7 @@ class DOHook
 				}
 				/**Do we have registered this event for specific action?**/
 				$onEvent = 'On'.ucwords($event).ucwords(DORouter::$action);
+
 				if(method_exists($CTR,$onEvent))
 				{
 					call_user_func_array(array(

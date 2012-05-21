@@ -6,7 +6,7 @@ class DOModel
 	private $binds 		 		= array();
 	private $cdts		    	= array();
 	static  $curdErrors 		= array();
-	public static $connections 	= array();
+	public  $connections 		= array();
 	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
@@ -90,11 +90,14 @@ class DOModel
 		{
 			throw new DOException("Unknow table",102);
 		}
+		/** We don't need to handle primary key in insert operation **/
+		unset($insArray[$this->pk]);
 		if( false != $this->Bind( $insArray ) )
 		{
 			
 			$R =  DOFactory::GetTable($this->name)->Insert( $this->binds );
 			$this->SetFieldsValue($R,$insArray,$this->action);
+			$this->AffectChainAction($insArray);
 			return $R;
 		}
 		else
@@ -140,6 +143,7 @@ class DOModel
 			$caller = DOFactory::GetTable($this->name);
 			$R      = call_user_func_array(array($caller,__FUNCTION__), $params);
 			$this->SetFieldsValue($R,$uparray,$this->action);
+			$this->AffectChainAction($uparray);
 			return $R;
 		}
 		else 
@@ -194,9 +198,9 @@ class DOModel
 			{
 				$field = $this->maps[$field];
 			}
-			if(isset($this->fields[0]['@'.$field]) 
-			  ||isset($this->fields[0]['#'.$field])
-			  ||isset($this->fields[0][$field])
+			if(isset($this->fields['@'.$field]) 
+			  ||isset($this->fields['#'.$field])
+			  ||isset($this->fields[$field])
 			)
 			{//primary key
 			 //index key
@@ -234,14 +238,15 @@ class DOModel
 		if(!!$this->binds)
 		{
 			/** Merge mapper **/
-			foreach($this->fields[0] as $key=>$default)
+			foreach($this->fields as $key=>$default)
 			{
-				$rawKey = trim($key,'#@');
+				$rawKey = trim($key,'@#');
 				if(!isset($this->binds[$rawKey]))
 				{
 					$this->binds[$rawKey] = $default;
 				}
 			}
+			//print_r($this->binds);exit;
 		}
 		else
 		{
@@ -271,7 +276,39 @@ class DOModel
 		$this->last['fields']			    = array();
 		$this->last['lastAction'] 			= $action;
 		$this->last['fields'][$this->pk] 	= $posts[$this->pk] ? $posts[$this->pk] : $ins->insert_id;
-		$this->last['fields'] 				= array_merge($this->last['fields'],$posts);
+		$this->last['fields'] 				= array_merge($posts,$this->last['fields']);
+	}
+
+	/** 
+	** This method would be invoked 
+	** after we do some insert/update/delete action
+	**/
+	public function AffectChainAction($post)
+	{
+		$posts = $post;
+		foreach((array)$this->connections['has_one'] as $tb => $fields)
+		{
+			foreach($fields as $field)
+			{
+				$posts[$field]  = $this->last['fields'][$field];
+			}
+			call_user_func(array(
+				DOFactory::GetModel($tb),$this->action
+			),$posts);
+		}
+
+		$posts = $post;
+		foreach((array)$this->connections['has_many'] as $tb => $fields)
+		{
+			foreach($fields as $field)
+			{
+				$posts[$field]  = $this->last['fields'][$field];
+			}
+			print_r($posts);
+			call_user_func(array(
+				DOFactory::GetModel($tb),$this->action
+			),$posts);
+		}
 	}
 }
 ?>

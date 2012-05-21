@@ -1,7 +1,12 @@
 <?php
 class DOModelUser extends DOModel
 {
-	public $fields;
+	public $fields = array(
+		'@user_id'  => true,
+		'user_name'	=> 'VARCHAR(100)',
+		'user_pass'	=> 'VARCHAR(32)',
+		'state'		=> '1'
+	);
 	public $maps;
 	/** What to be where conditions when we update a record **/
 	public $updateKey = array(
@@ -15,18 +20,18 @@ class DOModelUser extends DOModel
 	);
 	public $error_msg  = '';
 
-	public static $connections = array(
-		'has_many' => array(
+	public $connections = array(
+/*		'has_one' => array(
 			'#__userinfo' => array('user_id')
-		)
-	   ,'belong_to'=> array(
-	   		'#__member' => array('member_id')
+		)*/
+	   'has_one'=> array(
+	   		'#__member' => array('user_id')
 	   	)
 	);
 	public function __construct()
 	{
 		/** Parse fields **/
-		$this->fields = include TABLEBASE.DS.'table_user.php';
+		//$this->fields = include TABLEBASE.DS.'table_user.php';
 		/** Set primary key **/
 		$this->pk	  = 'user_id';
 
@@ -50,7 +55,7 @@ class DOModelUser extends DOModel
 	{
 		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?'),$value) )
 		{
-			$this->error_msg = DOLang::Get('Do not allow multiple users!');
+			$this->error_msg = DOLang::Get('Do not allow duplicated users!');
 			return false;
 		}
 		return true;
@@ -61,22 +66,22 @@ class DOModelUser extends DOModel
 		$flag = true;
 		if(empty($posts['user_name']))
 		{
-			$this->error_msg = DOLang::Get('Empty user name');
-			$flag 		 = false;
+			$this->error_msg  = DOLang::Get('Empty user name');
+			$flag 		 	  = false;
 		}
 		if(empty($posts['user_pass']))
 		{
 			$this->error_msg .= ' '.DOLang::Get('Empty user pass');
-			$flag 		 = false;
+			$flag 		 	  = false;
 		}
 		return $flag;
 	}
 
 	public function Update_validate_user_name($value,$posts)
 	{
-		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?','user_id'=>'<>?'),$value,$posts['user_id']) )
+		if(0 !=  $this->GetOne('user_id','user_name=? and user_id<>?',$value,$posts['user_id']) )
 		{
-			$this->error_msg = DOLang::Get('Do not allow multiple users!');
+			$this->error_msg  = DOLang::Get('Do not allow duplicated users!');
 			return false;
 		}
 		return true;

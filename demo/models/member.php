@@ -1,19 +1,18 @@
 <?php
 class DOModelMember extends DOModel
 {
+
 	public function __construct()
 	{
-		$this->fields = array();
+		$this->fields = array(
+			'user_id'		=> true
+		   ,'member_name'	=> true
+		);
+		$this->updateKey = array(
+			'user_id' => '=?'
+		);
+		$this->name   = 'member';
 		$this->pk     = 'member_id';
-	}
-
-	/***
-	*** implements listener
-	***/
-
-	public function Event_afteradduser($ins,$params)
-	{
-		throw new DOException("I'm bad guy", 1);
 	}
 }
 

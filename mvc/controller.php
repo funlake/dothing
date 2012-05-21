@@ -46,6 +46,7 @@ class DOController
 	public static function LoadController( )
 	{
 		$path  = APPBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
+
 		if(file_exists( $path ))
 		{
 			include $path;
@@ -56,6 +57,7 @@ class DOController
 	public static function LoadControllerEvent()
 	{
 		$path  = self::GetPath('event').DS.DORouter::$controller.".php";
+
 		if(file_exists( $path ))
 		{
 			include $path;
@@ -78,6 +80,10 @@ class DOController
 				throw new DORouterException("Invalid token",102);
 			}
 			$action = ucwords(strtolower($action));
+			/** 
+			*** We didn't prepare events for crud call defautly
+			*** Unless user create dir crud/event/ and specific events
+			 **/
 			DOHook::TriggerEvent(
 				array(
 				    'beforeRequest' => array($posts)

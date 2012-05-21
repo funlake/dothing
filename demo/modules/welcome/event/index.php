@@ -12,7 +12,6 @@ class DOIndexEvent
 	/** Trigger after indexAction call **/
 	public function OnAfterRequestAddUser($results)
 	{
-		//print_r($results);exit;
 		//$this->On(__METHOD__);
 		//DOTemplate::SetModule($results."after");
 	}

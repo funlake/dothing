@@ -1,5 +1,5 @@
 <?php
-$f[0] = array(
+$f = array(
 	'@user_id'=>'INTEGER',
 	'user_name'=>'VARCHAR(100)',
 	'user_pass'=>'VARCHAR(32)',
@@ -7,8 +7,6 @@ $f[0] = array(
 //	'email'=>'VARCHAR(50)',
 //	'created_time'=>'DATETIME',
 //	'last_visit'=>'DATETIME',
-);
-$f[1] = array(
 );
 return $f;
 ?>
