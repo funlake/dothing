@@ -12,28 +12,6 @@ class DOFactory
 	public static $_load = array();
 	
 	/**
-	 * 
-	 *
-	 * @return initObj
-	 */
-/* 	public function & Get( $tool ,$params = array() )
-	{
-		static $tools;
-		
-		$p 	  = $tool;
-		//if get classes..
-		if( $params[0] ) 
-		{
-			$p .= $params[0];
-		}
-		if(!isset( $tools[$p] ) || self::$crateEveryTime[$tool] )
-		{
-			$t 			= ucfirst( $tool );
-			$tools[$p] 		= & call_user_func_array(array(__CLASS__,"_create{$t}"),$params);
-		}
-		return $tools[$p];
-	} */
-	/**
 	 * Create Single Table Handler 
 	 *
 	 * @param String $table
@@ -64,10 +42,13 @@ class DOFactory
 			$modelLoaded = true;
 		}
 		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
-		//echo $table;
 		if(!self::$_load['models'][$table])
 		{
-			if(!file_exists(MODELBASE.DS.$table.'.php')) return false;
+			if(!file_exists(MODELBASE.DS.$table.'.php'))
+			{
+				throw new DOException("Unkonw model:".$table, 121);
+				return false;
+			} 
 			include MODELBASE.DS.$table.'.php';
 			$modelClass = 'DOModel'.ucwords(strtolower($table));
 			self::$_load['models'][$table] = new $modelClass();
@@ -195,22 +176,5 @@ class DOFactory
 		}
 		return $tools[$class];
 	}
-	
-/* 	function GetExtjs()
-	{
-		static $ext = array();
-		$args 			= func_get_args();
-		$class          = $args[0];
-		if( ! $ext[$class]  )
-		{
-			$cn 		= explode('_',$class,2);
-			if(!$cn[1]) $cn[1] = $cn[0];
-			DOLoader::Import('include.extjs.'.$cn[1]);
-			@array_shift( $args );
-			$component 	= 'DOExt'.ucwords($cn[1]);
-			$ext[$class] = new $component( $args );
-		}
-		return $ext[$class];
-	} */
 }
 ?>

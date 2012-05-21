@@ -285,6 +285,11 @@ class DOModel
 	**/
 	public function AffectChainAction($post)
 	{
+		/** People dont want to handle other connected tables **/
+		if(isset($post['__chain']) && $post['__chain'] == 0)
+		{
+			return ;
+		}
 		$posts = $post;
 		foreach((array)$this->connections['has_one'] as $tb => $fields)
 		{
