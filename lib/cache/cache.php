@@ -29,6 +29,8 @@ class DOCache
 		$fp = fopen($cachePath,'w+');
 		fwrite($fp,$content);
 		fclose($fp);
+
+		//$this->Set('page.'.$pageName,$content);
 	}
 
 	public function GetTplCache($mca,$dir='.')
@@ -47,48 +49,46 @@ class DOCache
 
 	public function SetControllerCache($mca,$content)
 	{
-		$cacheModule = $this->GetPageCacheConfig($mca);
-		/** Controller need to be cache? **/
-		if(isset($cacheModule[$mca[0]][$mca[1].":".$mca[2]]))
-		{
-			return $this->SetTplCache($mca,$content,'controller') ;
-		}
-		return false;
+		return $this->MvcSetCache($mca,$content,'controller');
 	}
 
 	public function GetControllerCache($mca)
 	{		
-		$cacheModule = $this->GetPageCacheConfig($mca);
-		/** Controller need to be cache? **/
-		if(isset($cacheModule[$mca[0]][$mca[1].":".$mca[2]]))
-		{
-			return $this-> GetTplCache($mca,'controller') ;
-		}
-		return false;
+		return $this->MvcGetCache($mca,'controller');
 	}
 
 	public function SetPageCache($mca,$content)
 	{
-		$cacheModule = $this->GetPageCacheConfig($mca);
-		/** Page need to be cache? **/
-		if($cacheModule[$mca[0]][$mca[1].":".$mca[2]])
-		{
-			return $this->SetTplCache($mca,$content,'page') ;
-		}
-		return false;
+		return $this->MvcSetCache($mca,$content,'page');
 	}
 
 	public function GetPageCache($mca)
 	{
-		$cacheModule = $this->GetPageCacheConfig($mca);
+		return $this->MvcGetCache($mca,'page');
+	}
+
+	public function MvcSetCache($mca,$content,$type = 'page')
+	{
+		$cacheModule = $this->GetMvcCacheConfig($mca);
 		/** Page need to be cache? **/
 		if($cacheModule[$mca[0]][$mca[1].":".$mca[2]])
 		{
-			return $this->GetTplCache($mca,'page') ;
-		}	
-		return '';
+			return $this->SetTplCache($mca,$content,$type) ;
+		}
+		return false;		
 	}
-	public function GetPageCacheConfig($mca)
+
+	public function MvcGetCache($mca,$type = 'page')
+	{
+		$cacheModule = $this->GetMvcCacheConfig($mca);
+		/** Page need to be cache? **/
+		if($cacheModule[$mca[0]][$mca[1].":".$mca[2]])
+		{
+			return $this->GetTplCache($mca,$type) ;
+		}	
+		return false;		
+	}
+	public function GetMvcCacheConfig($mca)
 	{
 		static $cacheModule = null;
 		if(!$cacheModule)
