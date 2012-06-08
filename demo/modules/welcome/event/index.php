@@ -29,28 +29,17 @@ class DOIndexEvent
 	}
 	public function OnBeforeRequest( $mca )
 	{
-		$this->cache 	= DOFactory::GetCache(); 
-		if(!($cacheModule = $this->cache->Get('page_cache_'.$mca[0])))
-		{
-			$cacheModule = include APPBASE.DS.'cache'.DS.'cache.config.php';
-			$cacheModule = serialize($cacheModule);
-			$this->cache->Set('page_cache_'.$mca[0],$cacheModule,time()+3600);
-		}
-		$this->cacheModule = unserialize($cacheModule);
-		/** Controller need to be cache? **/
-		if(isset($this->cacheModule[$mca[0]][$mca[1].":".$mca[2]]))
-		{
-			DOTemplate::SetModule( $this->cache-> GetPageCache($mca,'controller') );
-		}
+		$cache = DOFactory::GetCache();
+
+		DOTemplate::SetModule($cache->GetControllerCache($mca));
 
 	}
 
 	public function OnAfterRequest($mca,$content)
 	{
-		if($this->cacheModule[$mca[0]][$mca[1].":".$mca[2]])
-		{
-			$this->cache->SetPageCache($mca,$content,'controller');
-		}
+		$cache = DOFactory::GetCache();
+
+		$cache->SetControllerCache($mca,$content);
 	}
 /*	// Trigger before all actions in controller index call
 	public function OnBeforeRequestIndex($mca)
