@@ -10,10 +10,11 @@ class DOCacheFileEntity
 	{
 		$this->obj = (array)$obj;
 	}
-	public function Update( $var , $content)
+	public function Update( $var , $content ,$expire = 0)
 	{
 		$this->obj[$var]		  = new stdClass();
 		$this->obj[$var]->content = $content;
+		$this->obj[$var]->expire  = $expire;
 	}
 	public function Read( $var = '' )
 	{
@@ -22,9 +23,13 @@ class DOCacheFileEntity
 			if(!$this->obj[$var])
 			{
 				/** Did not set **/
-				trigger_error("Cache [$var] did not set",E_USER_WARNING);
+				//trigger_error("Cache [$var] did not set",E_USER_NOTICE);
 				return DOCACHE_ERROR_NOTSET; 
 			}
+			else if($this->obj[$var]->expire < time())
+			{
+				return false;
+			}	
 			return $this->obj[$var]->content;
 		}
 		return $this->obj;
@@ -97,11 +102,11 @@ class DOCacheFile extends DOCache
 	* $varname.system/module/plugin/event...
 	*============================================
 	*/
-	public function Set( $hashkey , $content)
+	public function Set( $hashkey , $content , $expire = 0)
 	{
 		list($var,$type) 	= explode('.',$hashkey);
 		$type				= !empty($type) ? $type : 'system';
-		self::GetCache($type)->Update($var,$content);
+		self::GetCache($type)->Update($var,$content,$expire);
 		return self::Save($type);
 		#DOEvent::trigger('onDestry',)
 	}

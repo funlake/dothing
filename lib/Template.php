@@ -36,9 +36,7 @@ class DOTemplate
 		}
 		ob_start();
 		include TEMPLATEROOT.DS.$template.DS.'index.php';
-		$content = ob_get_contents();
-		ob_end_clean();
-		return $content;
+		return ob_get_clean();
 	}
 	/**
 	**Core function,use to hook all elements we want to display in template

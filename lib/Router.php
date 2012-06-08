@@ -15,14 +15,16 @@ class DORouter extends DOBase
 		,':action'		=>'#[a-z]+#i'	
 	);
 	static $queryPath      = array();
+	/**Contents of specific controller**/
+	static $content      = null;
 	
 	function DORouter(){}
-	public static function Dispatch()
+	public static function Dispatch(array $mca = null)
 	{
-		self::Prepare();
+		self::Prepare($mca);
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
-		DOHook::HangPlugin('prepareRoute',array());
+		DOHook::HangPlugin('prepareRoute',array($mca));
 		/**Initiate controller object **/
 		DOLoader::Import('mvc.controller');
 		
@@ -37,15 +39,19 @@ class DORouter extends DOBase
 		{
  			DOHook::TriggerEvent(
 				array(
-				    'beforeRequest' => array(self::$params)
+				    'beforeRequest' => array($mca)
 				)
 			);
-			ob_start();
-			call_user_func_array(array($CTR,$method),self::$params);
-			DOTemplate::SetModule($content = ob_get_clean());
+			/** No cache then update cache **/
+			if(!DOTemplate::GetModule() )
+			{
+				ob_start();
+				call_user_func_array(array($CTR,$method),self::$params);
+				DOTemplate::SetModule(ob_get_clean());
+			}
  			DOHook::TriggerEvent(
 				array(
-				    'afterRequest' => array($content)
+				    'afterRequest' => array($mca,DOTemplate::GetModule())
 				)
 			);
 		}
@@ -53,7 +59,7 @@ class DORouter extends DOBase
 		{
 			throw new DORouterException("Unknown controller::action", 404);
 		}
-		DOHook::HangPlugin('afterRoute',array());
+		DOHook::HangPlugin('afterRoute',array($mca));
 	}
 
 	public static function Map()
@@ -78,13 +84,20 @@ class DORouter extends DOBase
 	 *
 	 * @param unknown_type $pathinfo
 	 */
-	public static function Prepare()
+	public static function Prepare(array $mca = null)
 	{
 		$pathinfo			= DOUri::GetPathInfo();
-		self::$module	  	= DOUri::GetModule();
-		self::$controller 	= DOUri::GetController();
-		self::$action     	= DOUri::GetAction();
-		self::$params	 	= DOUri::GetParams();
+		if(!!$mca)
+		{
+			list(self::$module,self::$controller,self::$action,self::$params) = $mca;
+		}
+		else
+		{
+			self::$module	  	= DOUri::GetModule();
+			self::$controller 	= DOUri::GetController();
+			self::$action     	= DOUri::GetAction();
+			self::$params	 	= DOUri::GetParams();
+		}
 		if(DO_SEO)
 		{
 			foreach((array)self::$maps as $k=>$v)
@@ -159,6 +172,11 @@ class DORouter extends DOBase
 	public static function GetPageIndex()
 	{
 		return DORouter::$module.'/'.self::$controller.'/'.self::$action;
+	}
+
+	public static function GetMca()
+	{
+		return array(self::$module,self::$controller,self::$action,self::$params);
 	}
 }
 ?>

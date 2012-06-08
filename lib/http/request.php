@@ -1,5 +1,4 @@
 <?php
-
 class DORequest extends DOBase
 {
 	public static $serverVars = array('_get','_post','_request','_env','_server','_files','_cookie','_session');

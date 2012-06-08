@@ -40,7 +40,7 @@ class DOUri
 		self::$module	  		= $ps[0] ? $ps[0] : self::$module;
 		self::$controller 		= $ps[1] ? $ps[1] : self::$controller;
 		self::$action     		= $ps[2] ? $ps[2] : self::$action;
-		return true;
+		return array(self::$module,self::$controller,self::$action,self::$params);
 	}
 	public static function ParseNormal()
 	{
@@ -70,7 +70,7 @@ class DOUri
 		{
 			throw new DOUriException("Did not find param '".DO_CKEY."' in uri",'000');
 		}
-		return true;
+		return array(self::$module,self::$controller,self::$action,self::$params);
 	}	
 
 	public static function SafeValue( $value )
@@ -143,6 +143,11 @@ class DOUri
 		}
 
 		return $root;
+	}
+
+	public static function GetBase()
+	{
+		return preg_replace('#/index\.php$#i','',self::GetRoot());
 	}
 	public static function GetScheme( )
 	{

@@ -67,7 +67,7 @@ class DOHook
 	{
 		foreach((array)self::FetchPlugins($event) as $plugin )
 		{
-			$plugin->Trigger($params);
+			call_user_func_array(array($plugin,'Trigger'),$params);
 		}
 	}
 	public static function FetchPlugins( $event )

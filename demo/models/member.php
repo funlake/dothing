@@ -1,4 +1,9 @@
 <?php
+/**
+**@project:/var/www/dothing
+**@whytodo:
+**@author:Lake
+**/
 class DOModelMember extends DOModel
 {
 

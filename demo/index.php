@@ -14,13 +14,8 @@ try
 	$request 	= DOFactory::GetTool('http.request');
 	/** Clean dangrous params **/
 	$request->Clean();
-	/** Parse URI **/
-	DOUri::Parse();
-	/**$C = new DOCache();
-	$C->GetCache( $params );
-	**/
-	/** Route **/
-	DORouter::Dispatch();
+	/** Parse Uri then dispatch **/
+	DORouter::Dispatch(	DOUri::Parse() );
 	/** Generate response **/
 	$response	= DOFactory::GetTool('http.response');
 	/** Http response **/

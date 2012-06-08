@@ -1,10 +1,15 @@
 <?php
+/**
+**@project:/var/www/dothing
+**@whytodo:
+**@author:Lake
+**/
+
 class DOIndex extends DOController
 {
 	public function addAction()
 	{
-		echo "hello!";
-		print_r($_GET);
+		echo "hello";
 		//DOHook::HangPlugin('prepareRoute',array(1,2,3,4));
 	}
 	public function debugAction()
@@ -18,6 +23,7 @@ class DOIndex extends DOController
 		echo $O00000O{14}.$O00000O{5}.$O00000O{6}.$O00000O{16}.$O00000O{8}.$O00000O{2}.$O00000O{4}.$O00000O{10}.$O00000O{0}."<br/>";
 		echo $O00000O{11}.$O00000O{4}.$O00000O{12}.$O00000O{0}.$O00000O{1}.$O00000O{13}.$O00000O{7}.$O00000O{15}.$O00000O{0}.$O00000O{17}.$O00000O{3}.$O00000O{15}.$O00000O{0};
 	}
+
 	public function indexAction()
 	{
 		$db             = DOFactory::GetDatabase();

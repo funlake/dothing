@@ -81,8 +81,8 @@ class DOController
 			}
 			$action = ucwords(strtolower($action));
 			/** 
-			*** We didn't prepare events for crud call defautly
-			*** Unless user create dir crud/event/ and specific events
+			*** We didn't prepare events for crud call generally
+			*** Unless user create dir crud/event/ and create events files
 			 **/
 			DOHook::TriggerEvent(
 				array(

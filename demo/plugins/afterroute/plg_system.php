@@ -1,10 +1,8 @@
 <?php
 class DOPlgSystemAfterroute extends DOPlugin
 {
-	public function Trigger()
+	public function Trigger( $mca = null)
 	{
-		//$contents = DOTemplate::GetModule();
-		//DOTemplate::SetModule($contents."<br/>i am after route plugin");
 	}
 }
 ?>

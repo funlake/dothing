@@ -53,7 +53,7 @@ class DOResponse
 			$this->SetBody(DOTemplate::LoadTemplate());
 			/** Do we have any plugin to format this responses?**/
 			$params   = array($this);
-			DOHook::HangPlugin('beforDisplay',$params);
+			DOHook::HangPlugin('afterPageRender',$params);
 			echo $this->GetBody();
 	}
 	
