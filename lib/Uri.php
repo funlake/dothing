@@ -7,7 +7,7 @@ class DOUri
 	private static $module	   = DO_MODULE;
 	private static $controller = 'index';
 	private static $action     = 'index';
-	private static $params = array();
+	private static $params 	   = array();
 	private function DOUri(){}
 	
 	/**

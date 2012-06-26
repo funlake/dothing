@@ -7,8 +7,50 @@
 
 class DOIndex extends DOController
 {
+	public function assignTo($obj,$keys,$value)
+	{
+		if(count($keys) > 1) 
+		{
+			$h = array_shift($keys);
+			$obj->$h = $obj->$h ? $obj->$h : new stdClass();
+			$this->assignTo($obj->$h,$keys,$value);
+		}
+		else
+		{
+			$obj->$keys[0] = $value;
+		}
+	}
 	public function addAction()
 	{
+		//echo strtr('he is the guy',array_combine($unuseful,array_fill(0,count($unuseful),'')));
+ 		$config['production']['db.mongo.hostname'] = "localhost";
+ 		$config['production']['db.mongo.password'] = "1234567";
+
+ 		$object = new stdClass();
+ 		foreach($config['production'] as $key=>$value)
+ 		{
+ 			$this->assignTo($object,explode('.',$key),$value);
+ 		}		
+ 		#$this->assignTo($o,array('db','mongo','hostname'),'localhost');
+ 		#$this->assignTo($o,array('lake'),'hehe');
+ 		print_r($object);
+ 		$str = "var a=23434,bc=3434,erd=5656,ddfeto='dsf3df34dff3',eof='sdfwerwer34',wer=4554;";
+		#method 1
+		preg_match_all('#\w+=\d+#i',$str,$m);
+
+		print_r($m);
+		#method 2
+
+		parse_str(str_replace(array('var ',',',';'),array('','&',''),$str),$out);
+
+		print_r(array_filter($out,'is_numeric'));
+
+		exit;
+
+		//echo date('Y-m-d', strtotime("last day of -4 month"));
+		$arr1 = array(1,2,3,4);
+		$arr2 = array(8,7,6,5);
+		print_r(array_map('array_sum',array_map(null,$arr1,array_reverse($arr2))));
 		echo "hello";
 		//DOHook::HangPlugin('prepareRoute',array(1,2,3,4));
 	}
@@ -57,6 +99,7 @@ class DOIndex extends DOController
 		$db->Execute();
 		$db->Clean();
 		echo "<br/>";	*/
+		$db->Clean();
 		$db->From('#__category','c','c.*')
 			->InnerJoin('#__category_connection'
 				   ,'cc'

@@ -32,13 +32,12 @@ class DOIndexEvent
 		$cache = DOFactory::GetCache();
 
 		DOTemplate::SetModule($cache->GetControllerCache($mca));
-
 	}
 
 	public function OnAfterRequest($mca,$content)
 	{
 		$cache = DOFactory::GetCache();
-
+		
 		$cache->SetControllerCache($mca,$content);
 	}
 /*	// Trigger before all actions in controller index call

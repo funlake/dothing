@@ -12,6 +12,9 @@ class DODatabase implements DORecord
 	   ,'string'  => PDO::PARAM_STR
 	  # ,'array'   => PDO::PARAM_ARR
 	);
+
+	public $sqlQuerys = array();
+	public $sqlQuery  = '';
 	function DODatabase($host,$user,$pwd,$dbname)	
 	{
 	
@@ -114,8 +117,9 @@ class DODatabase implements DORecord
 	function Query( $sql,$params=null )
 	{
 		$syntax         	= $this->GetSyntax();
-		$rSql           	= $syntax->formatSql( $sql );
-		$statement 			= $this->connFlag->prepare( $rSql );
+		$this->sqlQuerys[]  = $this->sqlQuery = $syntax->formatSql( $sql );
+		DOHook::HangPlugin('prepareSql',array($this,$syntax,$params));
+		$statement 			= $this->connFlag->prepare( $this->sqlQuery );
 		if(!!$params)
 		{
 			$this->BindValue($params, $statement);

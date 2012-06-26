@@ -21,7 +21,7 @@ define('DO_ACCESS',1);
 //controller key in url
 define('DO_CKEY','C');
 //pathinfo switch
-define('DO_SEO',false);
+define('DO_SEO',true);
 //char set
 define('DO_CHARSET','utf-8');
 //brower cache or not

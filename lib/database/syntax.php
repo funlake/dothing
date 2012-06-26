@@ -215,7 +215,7 @@ class DOSyntax
 	/**
 	 * Get conditions
 	 */
-	private function GetWhere()
+	public function GetWhere()
 	{
 		$wheres = array();
 		foreach((array)$this->where as $k=>$v)
@@ -232,7 +232,7 @@ class DOSyntax
 	/**
 	 * Get Group by params
 	 */
-	private function GetGroupby()
+	public function GetGroupby()
 	{
 		$groupby = '';
 		if( !!$this->groupby)

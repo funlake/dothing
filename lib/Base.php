@@ -39,7 +39,9 @@ class DOBase
 	public static function SetToken()
 	{
 		$tokens = self::GenToken();
-		setcookie('__token',$tokens,time()+60);
+		$sess   = DOFactory::GetSession();
+		$sess->Set('__token',$tokens);
+		//setcookie('__token',$tokens,time()+60);
 		return $tokens;
 	}
 	/**
@@ -47,7 +49,9 @@ class DOBase
 	 */
 	public static function GetToken()
 	{
-		return $_COOKIE['__token'];
+		$sess   = DOFactory::GetSession();
+		return $sess->Get('__token');
+		//return $_COOKIE['__token'];
 	}
 	/**
 	 * Gen token

@@ -99,35 +99,4 @@ class DOCache
 	}
 	public function Save( $type ){}
 }
-
-/*
-class DOCache extends DOBase
-{
-	public function write( $content )
-	{#error_reporting(E_ALL);ini_set('display_errors',true);
-		$isAdmin 	= parent::get('backend');
-		$uri	 	= & DOFactory::get('com',array('uri'));
-		$cachePath	= CACHE_ROOT.DS.($isAdmin ? $isAdmin.DS : '');	
-		$params 	= strtr(http_build_query( $uri->params ),'=&','__');
-		$realPath       = $cachePath.implode('_',array($uri->getModule(),$uri->getController(),$uri->getAction(),$params));
-		file_put_contents( $realPath.".html",$content);
-	}
-
-	public function read()
-	{
-		
-	}
-
-	public function delete()
-	{
-		
-	}
-
-
-	public function clean()
-	{
-	
-	}
-}*/
-
 ?>

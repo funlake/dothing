@@ -1,5 +1,11 @@
 <?php
-class DOView extends DOBase
+abstract class DOViewAdapater
+{
+	abstract public function __grid($config);
+	abstract public function __list($config);
+	abstract public function __tree($config);
+}
+class DOView
 {
 	function display()
 	{
@@ -33,6 +39,11 @@ js;
 	function loadCalendarJs()
 	{
 		
+	}
+
+	public function _table()
+	{
+
 	}
 	
 }
