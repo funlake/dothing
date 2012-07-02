@@ -11,4 +11,5 @@
 			setcookie('__DOMSG','',time()-180);
 		}		
 	?>
+	This is message position
 </span>

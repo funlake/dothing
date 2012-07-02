@@ -26,7 +26,7 @@
 		
 		<div class="content_pad">			
 			<ul class="right">
-				<li><block type="admin.menu"/></li>
+				<li><block type="header"/></li>
 				<li><a href="javascript:;" class="top_icon"><span class="ui-icon ui-icon-person"></span>Logged in as John Doe</a></li>
 				<li><a href="javascript:;" class="new_messages top_alert">1 New Message</a></li>
 				<li><a href="#DO_THEME_BASE#/pages/settings.html">Settings</a></li>
@@ -83,7 +83,7 @@
 		<div class="content_pad">
 			
 			<h1 class="no_breadcrumbs">Home</h1>
-			
+			<div id="message"><block type="message"/></div>
 			<div id="search">
 				<form action="/search" method="get">
 					<input type="text" value="" placeholder="Search" name="search" id="search_input" title="Search" />					

@@ -83,7 +83,7 @@
 		<div class="content_pad">
 			
 			<h1 class="no_breadcrumbs">Home</h1>
-			
+			<div id="message"><?php echo DOTemplate::_("block","message");?></div>
 			<div id="search">
 				<form action="/search" method="get">
 					<input type="text" value="" placeholder="Search" name="search" id="search_input" title="Search" />					
