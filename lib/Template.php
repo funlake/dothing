@@ -21,7 +21,12 @@ class DOTemplate
 	{
 		self::$template = $template ;
 	}
-	
+	public static function SetTemplateUriPath($template)
+	{
+		!defined('DO_THEME_BASE') AND
+		define('DO_THEME_BASE',DOUri::GetRoot().'/templates/'.$template);
+		
+	}
 	public static function GetTemplate()
 	{
 		return self::$template;
@@ -29,14 +34,49 @@ class DOTemplate
 	public static function LoadTemplate( )
 	{
 		$template = self::GetTemplate();
-		
-		if(!defined('MYROOT'))
-		{
-			define('MYROOT',DOUri::GetRoot().'/templates/'.$template);
-		}
+		//Set URI base for template file
+		self::SetTemplateUriPath($template);
 		ob_start();
-		include TEMPLATEROOT.DS.$template.DS.'index.php';
-		return ob_get_clean();
+		$parsedFile	= TEMPLATEROOT.DS.$template.DS.'index.tpl.php';
+		if(file_exists($parsedFile))
+		{
+			include $parsedFile;
+			return ob_get_clean();
+		}
+		else
+		{
+			include TEMPLATEROOT.DS.$template.DS.'index.design.php';
+			return self::ParseTemplate(ob_get_clean(),$parsedFile);
+		}
+		
+	}
+
+	public static function ParseTemplate($content,$path = '')
+	{
+		$content = self::Replace($content);
+		if(!empty($path))
+		{//write to parse file.
+			file_put_contents($path,$content);
+			ob_start();
+			include $path;
+			$content = ob_get_clean();
+		}
+		return $content;
+	}
+
+	public static function Replace($content)
+	{
+		return preg_replace(
+			array(
+				'#<(module|block)[^>]*(type="([^"]+)")?[^>]*/>#i'
+			   ,'~#(\w+)#~'
+			)
+		   ,array(
+		   		'<?php echo DOTemplate::_("\1","\3");?>'
+		   	   ,'<?php echo \1;?>'
+		   	)
+		   ,$content
+		);
 	}
 	/**
 	**Core function,use to hook all elements we want to display in template
@@ -56,7 +96,7 @@ class DOTemplate
 	{
 		self::$params['module'] = $module;
 	}
-	public static function GetBlocks( $pos )
+	public static function GetBlock( $pos )
 	{
 		$pos = strtolower( $pos );
 		/**We probably need to adjust specific block in a controller**/
@@ -69,7 +109,8 @@ class DOTemplate
 		ob_start();	
 		DOBlocks::Show($pos);
 		$blockContent = ob_get_contents();
- 		self::$params["blocks"][$pos] .= ob_get_clean();
+		ob_clean();
+ 		self::$params["blocks"][$pos] .= $blockContent;
  		/**We probably need to adjust specific block in a controller**/
 		DOHook::TriggerEvent(
 			array(

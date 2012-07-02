@@ -17,7 +17,6 @@ class DODatabase implements DORecord
 	public $sqlQuery  = '';
 	function DODatabase($host,$user,$pwd,$dbname)	
 	{
-	
 		//set dsn
 		call_user_func_array(array($this,'SetDsn'),array($host,$dbname));
 		//connect

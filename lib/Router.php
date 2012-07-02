@@ -1,5 +1,5 @@
 <?php
-class DORouter extends DOBase
+class DORouter
 {
 	static $sep 		= ':';
 	static $maps 		= array();
@@ -18,7 +18,6 @@ class DORouter extends DOBase
 	/**Contents of specific controller**/
 	static $content      = null;
 	
-	function DORouter(){}
 	public static function Dispatch(array $mca = null)
 	{
 		self::Prepare($mca);
@@ -129,7 +128,7 @@ class DORouter extends DOBase
 						//match mvc string in url
 						if(self::$mvcHash[':'.$mk])
 						{
-							self::${$mk} = $mv; 
+							self::${$mk} 	= $mv; 
 							$ignoreNextLoop = true;
 						}
 						//params format

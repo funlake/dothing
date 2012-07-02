@@ -37,6 +37,10 @@ define('DO_SITECIPHER',md5('justdoit'));
 define('DO_ENCRYPT_MODE','cbc');
 //template
 define('DO_TEMPLATE','default');
+//admin template
+define('DO_ADMIN_TEMPLATE','administrator-default');
+//admin interface
+define('DO_ADMIN_INTERFACE','ads007');
 //default controller
 define('DO_MODULE','welcome');
 //mailer

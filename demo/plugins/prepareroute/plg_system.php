@@ -30,6 +30,30 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		**/
 		$response = DOFactory::GetTool('http.response');
 		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
+		$this->AdminProcess();
+	}
+	/** Do something when we go to admin page **/
+	public function AdminProcess()
+	{
+		/** Hide admin interface ? **/
+		if(DO_ADMIN_INTERFACE)
+		{
+			switch(DORouter::$module)
+			{
+				case  'admin':
+					throw new DORouterException("Page Not Found!", 404);
+				break;
+
+				case DO_ADMIN_INTERFACE :
+					DORouter::$module = 'admin';
+				break;
+			}
+		}
+		/** Set Template for admin interface **/
+		if(DORouter::$module === 'admin')
+		{
+			DOTemplate::SetTemplate(DO_ADMIN_TEMPLATE);
+		}		
 	}
 }
 ?>

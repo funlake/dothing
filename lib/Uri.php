@@ -132,7 +132,7 @@ class DOUri
 	            **/
 				$mca	  = str_replace('%2F','/',$_SERVER['PATH_INFO']);
 				$info 	  = preg_replace('#'.preg_quote($mca).'$#','',$info);
-				$info     = preg_replace('#/index$#','',$info);
+				$info     = preg_replace('#/index(\.php)?$#','',$info);
 			}
 			else 
 			{

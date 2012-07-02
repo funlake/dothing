@@ -20,6 +20,11 @@ class DOIndex extends DOController
 			$obj->$keys[0] = $value;
 		}
 	}
+
+	public static function title()
+	{
+		return DOLang::Get("Home");
+	}
 	public function addAction()
 	{
 		//echo strtr('he is the guy',array_combine($unuseful,array_fill(0,count($unuseful),'')));

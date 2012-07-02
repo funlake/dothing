@@ -6,7 +6,7 @@ DOLoader::Import('lib.database.database');
  * ---------------------------------------
  * I saw that php's pdo for sqlite would get some weird problem with php5.3-
  * when we try to bind some integer values for a prepared statment,so 
- * we probably have to override Query method in database class.
+ * we probably have to override Query method in this class.
  * reference : https://bugs.php.net/bug.php?id=45259
  * ----------------------------------------
  * @author lake
