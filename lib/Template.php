@@ -67,7 +67,7 @@ class DOTemplate
 	{
 		return preg_replace(
 			array(
-				'#<(module|block)[^>]*(type="([^"]+)")?[^>]*/>#i'
+				'#<(module|block)[^>]*(type\s*=\s*"([^"]+)")[^>]*/>#is'
 			   ,'~#(\w+)#~'
 			)
 		   ,array(

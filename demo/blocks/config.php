@@ -6,5 +6,8 @@ return array(
    ,'message' => array(
 		'*' => 'message'
 	)
+   ,'admin.menu' => array(
+   		'*' => 'menu'
+   	)
 );
 ?>

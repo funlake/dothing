@@ -38,8 +38,7 @@ class DOBlocks
 		//Display blocks with it's specific layout according to current page.
 		foreach( $pages as $page) 
 		{
-			if($page{0} !== '!' 
-			&& strpos(DORouter::GetPageIndex(),substr($page,1)) === false )
+			if($page{0} !== '!' AND strpos(DORouter::GetPageIndex(),substr($page,1)) === false )
 			{//Invoke blocks
 				$blocks[$page] && self::Invoke( explode(',',$blocks[$page]) );
 			}
@@ -58,7 +57,7 @@ class DOBlocks
 			/** Include block file **/
 			!empty($blk) && self::Import( $blk );
 			/** Display it **/
-			$blockClass = 'DOBlocks'.ucwords($blk);
+			$blockClass = 'DOBlocks'.self::GetBlockName($blk);
 			if(class_exists( $blockClass ))
 			{
 				$blockObj = new $blockClass();
@@ -67,6 +66,15 @@ class DOBlocks
 		}
 		return true;	
 	}
+
+	public static function GetBlockName($block)
+	{
+		if(strpos($block,'.') !== false)
+		{
+			$block = implode('',array_map('ucwords',explode('.',$block)));
+		}
+		return ucwords($block);
+	}
 	/**
 	*** Import a block
 	***/
@@ -74,7 +82,15 @@ class DOBlocks
 	{
 		if(!self::$blocks[$block])
 		{
-			include BLKBASE.DS.$block.DS.$block.'.php'; 
+			if(strpos($block,'.') !== false)
+			{
+				list($dir,$blk) = explode('.',$block);
+				include BLKBASE.DS.$dir.DS.$blk.DS.$blk.'.php';
+			}
+			else
+			{
+				include BLKBASE.DS.$block.DS.$block.'.php'; 
+			}
 			self::$blocks[$block] = true;
 		}
 	}

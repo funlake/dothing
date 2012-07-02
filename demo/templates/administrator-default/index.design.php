@@ -26,6 +26,7 @@
 		
 		<div class="content_pad">			
 			<ul class="right">
+				<li><block type="admin.menu"/></li>
 				<li><a href="javascript:;" class="top_icon"><span class="ui-icon ui-icon-person"></span>Logged in as John Doe</a></li>
 				<li><a href="javascript:;" class="new_messages top_alert">1 New Message</a></li>
 				<li><a href="#DO_THEME_BASE#/pages/settings.html">Settings</a></li>
