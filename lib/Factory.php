@@ -35,12 +35,6 @@ class DOFactory
 	 */
 	public static function GetModel($table)
 	{
-		static $modelLoaded = false;
-		if(!$modelLoaded)
-		{
-			DOLoader::Import('mvc.model');
-			$modelLoaded = true;
-		}
 		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		if(!self::$_load['models'][$table])
 		{
@@ -127,6 +121,15 @@ class DOFactory
 			self::$_load['cache'] = new DOCacheWS();
 		}
 		return self::$_load['cache']->GetEngine();
+	}
+
+	public static function GetJson()
+	{
+		if(!self::$_load['json'])
+		{
+			self::$_load['json'] = new DOJson();
+		}
+		return self::$_load['json'];		
 	}
 	/**
 	 * microtime

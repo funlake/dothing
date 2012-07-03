@@ -24,8 +24,6 @@ class DORouter
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
 		DOHook::HangPlugin('prepareRoute',array($mca));
-		/**Initiate controller object **/
-		DOLoader::Import('mvc.controller');
 		
 		if( ! ($CTR = DOController::GetController()) )
 		{
