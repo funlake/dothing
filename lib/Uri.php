@@ -132,7 +132,7 @@ class DOUri
 	            **/
 				$mca	  = str_replace('%2F','/',$_SERVER['PATH_INFO']);
 				$info 	  = preg_replace('#'.preg_quote($mca).'$#','',$info);
-				$info     = preg_replace('#/index(\.php)?$#','',$info);
+				//$info     = preg_replace('#/index(\.php)?$#','',$info);
 			}
 			else 
 			{
@@ -242,7 +242,7 @@ class DOUri
 	 * @param string $params
 	 * @return string
 	 */
-	public static function BuildQuery($module,$controller,$action,$params='')
+	public static function BuildQuery($module,$controller='index',$action='index',$params='')
 	{
 		if(is_array($params))
 		{

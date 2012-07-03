@@ -23,7 +23,7 @@ class DOTemplate
 	}
 	public static function SetTemplateUriPath($template)
 	{
-		!defined('DO_URI_BASE') AND define('DO_URI_BASE',DOUri::GetRoot());
+		!defined('DO_URI_BASE') AND define('DO_URI_BASE',DOUri::GetBase());
 	 	!defined('DO_THEME_BASE') AND define('DO_THEME_BASE',DO_URI_BASE.'/templates/'.$template);	
 	}
 	public static function GetTemplate()
