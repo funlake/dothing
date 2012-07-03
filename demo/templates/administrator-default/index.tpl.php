@@ -26,7 +26,6 @@
 		
 		<div class="content_pad">			
 			<ul class="right">
-				<li><?php echo DOTemplate::_("block","header");?></li>
 				<li><a href="javascript:;" class="top_icon"><span class="ui-icon ui-icon-person"></span>Logged in as John Doe</a></li>
 				<li><a href="javascript:;" class="new_messages top_alert">1 New Message</a></li>
 				<li><a href="<?php echo DO_THEME_BASE;?>/pages/settings.html">Settings</a></li>
@@ -40,40 +39,7 @@
 		
 		<div class="content_pad">
 			<h1><a href="dashboard.html">Dashboard Admin</a></h1>
-			
-			<ul id="nav">
-				<li class="nav_current nav_icon"><a href="<?php echo DOUri::BuildQuery(DO_ADMIN_INTERFACE);?>"><span class="ui-icon ui-icon-home"></span>Home</a></li>
-				<li class="nav_dropdown nav_icon">
-					<a href="javascript:;"><span class="ui-icon ui-icon-gripsmall-diagonal-se"></span>Styles</a>
-					
-					<div class="nav_menu">			
-						<ul>
-							<li><a href="<?php echo DO_THEME_BASE;?>/pages/text.html">Buttons &amp; Text</a></li>	
-							<li><a href="<?php echo DO_THEME_BASE;?>/pages/grid.html">Grid Layout</a></li>	
-							<li><a href="<?php echo DO_THEME_BASE;?>/pages/tables.html">Tables</a></li>	
-							<li><a href="<?php echo DO_THEME_BASE;?>/pages/forms.html">Forms</a></li>	
-							<li><a href="<?php echo DO_THEME_BASE;?>/pages/charts.html">Charts</a></li>						
-						</ul>
-						
-					</div>
-				</li>
-				
-				<li class="nav_icon"><a href="<?php echo DO_THEME_BASE;?>/pages/widgets.html"><span class="ui-icon ui-icon-gear"></span>Widgets</a></li>
-				<li class="nav_icon"><a href="<?php echo DO_THEME_BASE;?>/pages/reports.html"><span class="ui-icon ui-icon-signal"></span>Reports</a></li>
-				
-				<li class="nav_dropdown nav_icon_only">
-					<a href="javascript:;">&nbsp;</a>
-					
-					<div class="nav_menu">
-						
-						<ul>
-							<li><a href="javascript:;">Overflow Menu</a></li>
-							<li><a href="javascript:;">Items Can</a></li>
-							<li><a href="javascript:;">Go Here</a></li>
-						</ul>
-					</div> <!-- .menu -->
-				</li>
-			</ul>
+			<?php echo DOTemplate::_("block","menu");?>
 		</div> <!-- .content_pad -->
 		
 	</div> <!-- #header -->	
@@ -106,18 +72,6 @@
 	</div> <!-- #footer -->		
 	
 </div> <!-- #wrapper -->
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery-1.5.2.min.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery-ui-1.8.12.custom.min.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/misc/excanvas.min.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/facebox.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery.visualize.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery.dataTables.min.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery.tablesorter.min.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery.uniform.min.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery.placeholder.min.js"></script>
-
-<script src="<?php echo DO_THEME_BASE;?>/js/widgets.js"></script>
-<script src="<?php echo DO_THEME_BASE;?>/js/dashboard.js"></script>
 
 <script type="text/javascript">
 

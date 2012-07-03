@@ -56,23 +56,29 @@ class DOModel
 		{
 			throw new DOException("Unknow table",102);
 		}
-		if(!is_array($where))
+
+		if(!empty($where) and !is_array($where))
 		{
 			$where = array($this->pk => $where);
 		}
+
 		if( false != $this->Bind($where) )
 		{
-			$condition = array_intersect($where,$this->binds);
-			foreach($condition as $k=>$v)
+			$params = array();
+			if(!!$where)
 			{
-				$condition[$k] = '=?';
-				$params[]      = $v;
+				$condition = array_intersect($where,$this->binds);
+				foreach($condition as $k=>$v)
+				{
+					$condition[$k] = '=?';
+					$params[]      = $v;
+				}
+				array_unshift($params,$condition);
 			}
-			array_unshift($params,$condition);
 			$caller =  DOFactory::GetTable($this->name);
-			$R      = call_user_func_array(array($caller,'GetRow'), $params);
-			$this->SetFieldsValue($R,$R,$this->action);
-			return $R;
+			$R      = call_user_func_array(array($caller,'GetAll'), $params);
+			$this->SetFieldsValue($R,$R[0],$this->action);
+			return !!$params ? $R[0] : $R;
 		}
 		else
 		{
@@ -90,20 +96,19 @@ class DOModel
 		{
 			throw new DOException("Unknow table",102);
 		}
-		/** We don't need to handle primary key in insert operation **/
-		unset($insArray[$this->pk]);
 		if( false != $this->Bind( $insArray ) )
 		{
-			
-			$R =  DOFactory::GetTable($this->name)->Insert( $this->binds );
-			$this->SetFieldsValue($R,$insArray,$this->action);
-			$this->AffectChainAction($insArray);
-			return $R;
+			/** We don't need to handle primary key in insert operation **/
+			unset($this->binds[$this->pk]);
+			if(!!$this->binds)
+			{
+				$R =  DOFactory::GetTable($this->name)->Insert( $this->binds );
+				$this->SetFieldsValue($R,$insArray,$this->action);
+				$this->AffectChainAction($insArray);
+				return $R;
+			}
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 	
 	/**
@@ -250,7 +255,10 @@ class DOModel
 		}
 		else
 		{
-			throw new DOException("Empty parameters!",101);
+			if($this->action !== 'Select')
+			{
+		 		throw new DOException("Empty parameters!",101);
+			}
 		}
 		return array_product($falseFlag);
 	}

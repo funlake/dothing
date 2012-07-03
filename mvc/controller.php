@@ -20,7 +20,10 @@ class DOController
 			}
 			else if(DORouter::$module === 'autocrud')
 			{//curd automate
-				self::AutoCrud(DORouter::$controller,DORouter::$action,$_REQUEST);
+				self::AutoCrud(DORouter::$controller
+							  ,DORouter::$action
+							  ,$_REQUEST
+				);
 				exit();
 			}
 			else
@@ -69,7 +72,8 @@ class DOController
 	/** Auto curd handler **/
 	public static function AutoCrud($action,$model,array $posts = null)
 	{
-		if(!!$posts && false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
+		$action = ucwords(strtolower($action));
+		if(/*!!$posts && */false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
 		{
 			if(!method_exists($modelObj, $action))
 			{

@@ -80,18 +80,24 @@ class DOBlocks
 	***/
 	public static function Import( $block )
 	{
-		if(!self::$blocks[$block])
+		$blkId = preg_replace('#[^a-z]#i','',$block);
+		if(!self::$blocks[$blkId])
 		{
 			if(strpos($block,'.') !== false)
 			{
 				list($dir,$blk) = explode('.',$block);
-				include BLKBASE.DS.$dir.DS.$blk.DS.$blk.'.php';
+				$file = BLKBASE.DS.$dir.DS.$blk.DS.$blk.'.php';
 			}
 			else
 			{
-				include BLKBASE.DS.$block.DS.$block.'.php'; 
+				$file = BLKBASE.DS.$block.DS.$block.'.php'; 
 			}
-			self::$blocks[$block] = true;
+			if(!file_exists($file))
+			{
+				throw new DORouterException("Unknown block:[{$blk}]", 404);
+			}
+			include_once $file;
+			self::$blocks[$blkId] = dirname($file);
 		}
 	}
 	/** Implement this later **/
@@ -116,6 +122,11 @@ class DOBlocks
 		}
 		/** Get blocks by specific position **/
 		return self::$config[$pos];
+	}
+
+	public static function GetBlocks()
+	{
+		return self::$blocks;
 	}
 }
 class DOBlocksHelper
