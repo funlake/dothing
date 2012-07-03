@@ -56,12 +56,10 @@ class DOModel
 		{
 			throw new DOException("Unknow table",102);
 		}
-
 		if(!empty($where) and !is_array($where))
 		{
 			$where = array($this->pk => $where);
 		}
-
 		if( false != $this->Bind($where) )
 		{
 			$params = array();
@@ -75,7 +73,7 @@ class DOModel
 				}
 				array_unshift($params,$condition);
 			}
-			$caller =  DOFactory::GetTable($this->name);
+			$caller = DOFactory::GetTable($this->name);
 			$R      = call_user_func_array(array($caller,'GetAll'), $params);
 			$this->SetFieldsValue($R,$R[0],$this->action);
 			return !!$params ? $R[0] : $R;
@@ -134,6 +132,7 @@ class DOModel
 		if( false != $this->Bind($uparray) )
 		{
 			$params   = array();
+			/**Update conditions should not stay in binds array*/
 			foreach(array_keys($this->updateKey) as $upkey)
 			{
 				unset($this->binds[$upkey]);
