@@ -195,7 +195,9 @@ class DOModel
 			else 
 			{
 				/**Other values should not including html tags **/
-				$value = trim($filter->process($value));
+				$value = $filter->process($value);
+
+				if(!is_array($value)) $value = trim($value);
 			}
 			/** Do we have mapping for fields ?**/
 			if($this->maps[$field])

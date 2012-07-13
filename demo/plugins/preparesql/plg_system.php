@@ -1,7 +1,12 @@
 <?php
 class DOPlgSystemPreparesql extends DOPlugin
 {
+	/**
+	**@$database : Object
+	**@$syntax   : Object
+	**/
 	public function Trigger($database,$syntax,$params)
-	{//table separator handle probably here.
+	{//Table separator handle process probably add to here.
+
 	}
 }

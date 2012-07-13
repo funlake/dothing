@@ -137,6 +137,7 @@ class DOIndex extends DOController
 
 
 		echo $tb->GetTotal(array('user_id'=>'>?'),1);*/
+		
 		$this->Display();
 	}
 

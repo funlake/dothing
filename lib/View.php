@@ -1,11 +1,30 @@
 <?php
-abstract class DOViewAdapater
+class DOView
 {
-	abstract public function Grid($config);
-	abstract public function Tree($config);
-	abstract public function MenuList($config);
-	abstract public function GridTree($config);
-	abstract public function TableList($config);
+	public function Grid($config)
+	{
+
+	}
+	public function Tree($config)
+	{
+
+	}
+	public function MenuList($config)
+	{
+
+	}
+	public function GridTree($config)
+	{
+
+	}
+	public function TableList($config)
+	{
+		
+	}
+	public function SetTplRoot($dir)
+	{
+		$this->tplBase = $dir;
+	}
 }
 class DOView
 {

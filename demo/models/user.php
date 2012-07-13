@@ -5,9 +5,12 @@ class DOModelUser extends DOModel
 		'@user_id'  => true,
 		'user_name'	=> 'VARCHAR(100)',
 		'user_pass'	=> 'VARCHAR(32)',
+		'img_url'   => 'no-image.png',
 		'state'		=> '1'
 	);
-	public $maps;
+	public $maps = array(
+		'images'	=> 'img_url'
+	);
 	/** What to be where conditions when we update a record **/
 	public $updateKey = array(
 		'user_id'	=> '=?'		
@@ -94,6 +97,11 @@ class DOModelUser extends DOModel
 			return md5($value);
 		}
 		return $value;
+	}
+
+	public function Add_adjust_img_url($files,$posts)
+	{
+		return basename($files['name']);
 	}
 }
 

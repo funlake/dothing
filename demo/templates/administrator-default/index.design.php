@@ -1,22 +1,19 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head> 
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
 	<title>Dashboard | Dashboard Admin</title> 
-	
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/reset.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/text.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/form.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/buttons.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/grid.css" type="text/css" media="screen" title="no title" />	
-	<link rel="stylesheet" href="#DO_THEME_BASE#/css/layout.css" type="text/css" media="screen" title="no title" />	
-	
+	<link rel="stylesheet" href="#DO_THEME_BASE#/css/layout.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/ui-darkness/jquery-ui-1.8.12.custom.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/plugin/jquery.visualize.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/plugin/facebox.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/plugin/uniform.default.css" type="text/css" media="screen" title="no title" />
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/plugin/dataTables.css" type="text/css" media="screen" title="no title" />
-	
 	<link rel="stylesheet" href="#DO_THEME_BASE#/css/custom.css" type="text/css" media="screen" title="no title">
 </head> 
 <body> 

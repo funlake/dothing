@@ -8,4 +8,3 @@ class DOPlgSystemAfterpagerender extends DOPlugin
 		return $cache->SetPageCache($mca,$response->GetBody());
 	}
 }
-?>

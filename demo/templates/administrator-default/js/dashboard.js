@@ -7,7 +7,7 @@ var Dashboard = function ()
 	function init ()
 	{		
 		$('*[rel=facebox]').facebox ();
-		$('.datatable').dataTable ();
+		$('.datatable').dataTable({"sPaginationType":"full_numbers"});
 		$('.uniform').find ('input, select').uniform ();
 		$('input, textarea').placeholder ();
 		

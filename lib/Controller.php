@@ -22,7 +22,7 @@ class DOController
 			{//curd automate
 				self::AutoCrud(DORouter::$controller
 							  ,DORouter::$action
-							  ,$_REQUEST
+							  ,array_merge($_REQUEST,$_FILES)
 				);
 				exit();
 			}
