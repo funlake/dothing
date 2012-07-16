@@ -187,9 +187,18 @@ class DOController
 				$json = DOFactory::GetJson();
 				echo $posts['callback']."(".$json->encode($ins).")";
 			}
-			exit();
+			return;
 		}	
 		throw new DORouterException("Unknown controller::action", 404);
+	}
+
+	public function AutoAccess($format,$args = array())
+	{
+		list($action,$model) = explode('.',$format);
+		ob_start();
+		self::AutoCrud($action,$model,$args);
+		$json = DOFactory::GetJson();
+		return $json->decode(trim(ob_get_clean(),'()'));
 	}
 	/**
 	 * load view
