@@ -1,5 +1,5 @@
 <?php
-defined('DO_ACCESS') OR exit('Do not allow visit directly!');
+defined('DO_ACCESS') OR exit('Get Away!');
 /**
  * @class: InputFilter (PHP4 & PHP5, with comments)
  * @project: PHP Input Filter

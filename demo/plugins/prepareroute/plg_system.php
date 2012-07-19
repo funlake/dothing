@@ -25,15 +25,18 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		/** 
 		** Content type for most of pages would be text/html 
 		** So we treat it as a default content-type here.
-		** If people want to orverride this,like goint to generate http download headers,
-		** should do that with [beforeRequest] event in controller.
+		** If people want to orverride this,like going to generate http download headers,
+		** should do that with [beforeRequest] event with controller.
 		**/
 		$response = DOFactory::GetTool('http.response');
 		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
-		$this->AdminProcess();
+		/** Template Set **/
+		self::AdminProcess();
+		/** Set URI base for template file**/
+		DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
 	}
 	/** Do something when we go to admin page **/
-	public function AdminProcess()
+	public static function AdminProcess()
 	{
 		/** Hide admin interface ? **/
 		if(DO_ADMIN_INTERFACE)
@@ -53,7 +56,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		if(DORouter::$module === 'admin')
 		{
 			DOTemplate::SetTemplate(DO_ADMIN_TEMPLATE);
-		}		
+		}
 	}
 }
 ?>

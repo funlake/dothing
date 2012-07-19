@@ -28,5 +28,10 @@ class DOIndex extends DOController
 
 		echo preg_replace('#(\!)?\s+\[num:(\d+)\]#ie','isset($array[\2]) ? "\1 ".$array[\2]["name"] : " "',$string);
 	}
+
+	public function loginAction($request = null)
+	{
+		$this->Display(null);exit;
+	}
 }
 ?>

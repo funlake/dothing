@@ -43,7 +43,12 @@ class DORouter
 			if(!DOTemplate::GetModule() )
 			{
 				ob_start();
-				call_user_func_array(array($CTR,$method),self::$params);
+				call_user_func(array($CTR,$method),array(
+					'get'		=> self::$params
+				   ,'post'  	=> $_POST
+				   ,'cookie'	=> $_COOKIE
+				   ,'session'	=> $_SESSION
+				));
 				DOTemplate::SetModule(ob_get_clean());
 			}
  			DOHook::TriggerEvent(

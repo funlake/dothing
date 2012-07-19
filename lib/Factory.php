@@ -149,7 +149,6 @@ class DOFactory
 	{
 		if(!self::$_load['filter'])
 		{
-			DOLoader::Import('lib.dothing.filter');
 			self::$_load['filter'] = new DOFilter();
 		}
 		return self::$_load['filter'];

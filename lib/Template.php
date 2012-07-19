@@ -34,7 +34,7 @@ class DOTemplate
 	{
 		$template = self::GetTemplate();
 		//Set URI base for template file
-		self::SetTemplateUriPath($template);
+	//	self::SetTemplateUriPath($template);
 		ob_start();
 		$parsedFile	= TEMPLATEROOT.DS.$template.DS.'index.tpl.php';
 		if(file_exists($parsedFile))
