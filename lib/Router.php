@@ -40,6 +40,8 @@ class DORouter
 				    'beforeRequest' => array(self::GetMca())
 				)
 			);
+			/** Set some constants for template usage**/
+			DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
 			/** No cache then update cache **/
 			if(!DOTemplate::GetModule() )
 			{

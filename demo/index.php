@@ -14,6 +14,7 @@ try
 	$request 	= DOFactory::GetTool('http.request');
 	/** Clean dangrous params **/
 	$request->Clean();
+	
 	/** Parse Uri then dispatch **/
 	DORouter::Dispatch(	DOUri::Parse() );
 	/** Generate response **/

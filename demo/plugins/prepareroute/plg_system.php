@@ -34,7 +34,6 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		if(DORouter::GetModule() == 'admin')
 		{
 			DOTemplate::SetTemplate(DO_ADMIN_TEMPLATE);
-			DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
 		}
 	}
 }

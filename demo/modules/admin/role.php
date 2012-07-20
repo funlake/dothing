@@ -27,4 +27,17 @@ class DORole extends DOController
 		$variables['data']['roles_amount'] = $dao->GetOne('total');
 		$this->Display('list',$variables);
 	}
+
+	public function refAction($request = null)
+	{
+		$refClass = new reflectionClass($this);
+		foreach($refClass->getMethods() as $method)
+		{
+			if($method->isPublic())
+			{
+				$publics[] = $method->name;
+			}
+		}
+		print_r($publics);
+	}
 }
