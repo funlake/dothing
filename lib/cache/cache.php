@@ -70,22 +70,40 @@ class DOCache
 	public function MvcSetCache($mca,$content,$type = 'page')
 	{
 		$cacheModule = $this->GetMvcCacheConfig($mca);
-		/** Page need to be cache? **/
-		if($cacheModule[$mca[0]][$mca[1].":".$mca[2]])
+		$ifCache	 = false;
+		switch($type)
 		{
-			return $this->SetTplCache($mca,$content,$type) ;
+			case 'page':
+				/** Page need to be cache? **/
+				$ifCache = $cacheModule[$mca[0]][$mca[1].":".$mca[2]];
+			break;
+
+			case 'controller':
+				/** controller need to be cache? **/
+				$ifCache = isset($cacheModule[$mca[0]][$mca[1].":".$mca[2]]);	
+			break;
 		}
+		if($ifCache) return $this->SetTplCache($mca,$content,$type) ;
 		return false;		
 	}
 
 	public function MvcGetCache($mca,$type = 'page')
 	{
 		$cacheModule = $this->GetMvcCacheConfig($mca);
-		/** Page need to be cache? **/
-		if($cacheModule[$mca[0]][$mca[1].":".$mca[2]])
+		$ifCache	 = false;
+		switch($type)
 		{
-			return $this->GetTplCache($mca,$type) ;
-		}	
+			case 'page' :
+				/** Find page cache file? **/
+				$ifCache = $cacheModule[$mca[0]][$mca[1].":".$mca[2]];
+			break;
+
+			case 'controller':
+				/** Find controller cache file? **/
+				$ifCache = isset($cacheModule[$mca[0]][$mca[1].":".$mca[2]]);
+			break;	
+		}
+		if($ifCache) return $this->GetTplCache($mca,$type) ;
 		return false;		
 	}
 	public function GetMvcCacheConfig($mca)

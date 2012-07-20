@@ -21,9 +21,10 @@ class DORouter
 	public static function Dispatch(array $mca = null)
 	{
 		self::Prepare($mca);
+
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
-		DOHook::HangPlugin('prepareRoute',array($mca));
+		DOHook::HangPlugin('prepareRoute',array(self::GetMca()));
 		
 		if( ! ($CTR = DOController::GetController()) )
 		{
@@ -36,7 +37,7 @@ class DORouter
 		{
  			DOHook::TriggerEvent(
 				array(
-				    'beforeRequest' => array($mca)
+				    'beforeRequest' => array(self::GetMca())
 				)
 			);
 			/** No cache then update cache **/
@@ -53,7 +54,7 @@ class DORouter
 			}
  			DOHook::TriggerEvent(
 				array(
-				    'afterRequest' => array($mca,DOTemplate::GetModule())
+				    'afterRequest' => array(self::GetMca(),DOTemplate::GetModule())
 				)
 			);
 		}
@@ -61,7 +62,7 @@ class DORouter
 		{
 			throw new DORouterException("Unknown controller::action", 404);
 		}
-		DOHook::HangPlugin('afterRoute',array($mca));
+		DOHook::HangPlugin('afterRoute',array(self::GetMca()));
 	}
 
 	public static function Map()
@@ -99,6 +100,18 @@ class DORouter
 			self::$controller 	= DOUri::GetController();
 			self::$action     	= DOUri::GetAction();
 			self::$params	 	= DOUri::GetParams();
+		}
+		//Wanna hide the admin interface?
+		if(DO_ADMIN_INTERFACE)
+		{
+			if(DO_ADMIN_INTERFACE == self::$module)
+			{
+				self::$module   = 'admin';
+			}
+			elseif("admin" == self::$module)
+			{
+				throw new DORouterException("Page Not Found!", 404);
+			}
 		}
 		if(DO_SEO)
 		{
@@ -179,6 +192,26 @@ class DORouter
 	public static function GetMca()
 	{
 		return array(self::$module,self::$controller,self::$action,self::$params);
+	}
+
+	public static function GetModule()
+	{
+		return self::$module;
+	}
+
+	public static function GetController()
+	{
+		return self::$controller;
+	}
+
+	public static function GetAction()
+	{
+		return self::$action;
+	}
+
+	public static function GetParams()
+	{
+
 	}
 }
 ?>

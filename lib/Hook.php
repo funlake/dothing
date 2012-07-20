@@ -32,7 +32,7 @@ class DOHook
 					call_user_func_array(array(
 						$CTR,$onEvent
 					), $params);
-					DOEvent::CallChain(DORouter::$controller,strtolower($event),$params);
+					// DOEvent::CallChain(DORouter::$controller,strtolower($event),$params);
 				}
 				/**Do we have registered this event for specific action?**/
 				$onEvent = 'On'.ucwords($event).ucwords(DORouter::$action);
@@ -42,9 +42,9 @@ class DOHook
 					call_user_func_array(array(
 						$CTR,$onEvent
 					), $params);
-					DOEvent::CallChain(DORouter::$controller
-						,strtolower($event.DORouter::$action),$params
-					);
+					// DOEvent::CallChain(DORouter::$controller
+					// 	,strtolower($event.DORouter::$action),$params
+					// );
 				}
 			}
 
@@ -70,15 +70,21 @@ class DOHook
 			call_user_func_array(array($plugin,'Trigger'),$params);
 		}
 	}
+	
 	public static function FetchPlugins( $event )
 	{
+		static $events = null;
+		if(!$events)
+		{
+			$events = include PLGBASE.DS.'config.php';
+		}
 		$event = strtolower($event);
 		if(!self::$listener[$event])
 		{
-			foreach(glob(PLGBASE.DS.$event.DS.'plg_*.php') as $plugins)
+			foreach($events[$event] as $plugin=>$valid)
 			{
-				include $plugins;
-				$plugin = preg_replace('#^plg_#i','',basename($plugins,'.php'));
+				if(!$valid) continue;
+				include PLGBASE.DS.$event.DS.'plg_'.$plugin.'.php';
 				$class 	= 'DOPlg'.ucwords(strtolower($plugin)).ucwords($event);
 				self::$listener[$event][] = new $class();
 			}

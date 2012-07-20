@@ -1,7 +1,7 @@
 <?php
 //include dirname(__FILE__).DS.'index.listener.php';
 /** Events for controller index **/
-class DOIndexEvent
+class DOIndexEvent extends DOEvent
 {
 	public $cache       = null;
 	public $cacheModule = array();
@@ -26,19 +26,6 @@ class DOIndexEvent
 	public function OnAfterRenderBlockBanner($content)
 	{
 		//DOTemplate::$params['blocks']['banner'] = 'i changed it through event';
-	}
-	public function OnBeforeRequest( $mca )
-	{
-		$cache = DOFactory::GetCache();
-
-		DOTemplate::SetModule($cache->GetControllerCache($mca));
-	}
-
-	public function OnAfterRequest($mca,$content)
-	{
-		$cache = DOFactory::GetCache();
-		
-		$cache->SetControllerCache($mca,$content);
 	}
 /*	// Trigger before all actions in controller index call
 	public function OnBeforeRequestIndex($mca)

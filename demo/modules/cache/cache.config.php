@@ -3,7 +3,10 @@
 return array(
 	'welcome' => array(
 		//'index:index' => true 
-	   'index:add'   => false
+	   'index:index'   => false
+	)
+	,'admin'  => array(
+		//'index:index'  => true
 	)
 );
 ?>

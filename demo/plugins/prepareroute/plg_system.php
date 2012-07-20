@@ -6,7 +6,7 @@
 class DOPlgSystemPrepareroute extends DOPlugin
 {
 	public function Trigger($mca = null)
-	{
+	{	
 		$cache = DOFactory::GetCache();
 		if(false !== ($cacheContent = $cache->GetPageCache($mca)))
 		{
@@ -31,31 +31,10 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		$response = DOFactory::GetTool('http.response');
 		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
 		/** Template Set **/
-		self::AdminProcess();
-		/** Set URI base for template file**/
-		DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
-	}
-	/** Do something when we go to admin page **/
-	public static function AdminProcess()
-	{
-		/** Hide admin interface ? **/
-		if(DO_ADMIN_INTERFACE)
-		{
-			switch(DORouter::$module)
-			{
-				case  'admin':
-					throw new DORouterException("Page Not Found!", 404);
-				break;
-
-				case DO_ADMIN_INTERFACE :
-					DORouter::$module = 'admin';
-				break;
-			}
-		}
-		/** Set Template for admin interface **/
-		if(DORouter::$module === 'admin')
+		if(DORouter::GetModule() == 'admin')
 		{
 			DOTemplate::SetTemplate(DO_ADMIN_TEMPLATE);
+			DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
 		}
 	}
 }

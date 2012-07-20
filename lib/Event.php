@@ -1,7 +1,7 @@
 <?php
 class DOEvent
 {
-	private static $events = array();
+/*	private static $events = array();
 	public static function AddEvent($event,$listener)
 	{// Implements by subclass
 		list($ctr,$evt) = explode('.',$event);
@@ -19,6 +19,18 @@ class DOEvent
 			),$params);
 		}
 		return true;
+	}*/
+
+	public function OnBeforeRequest( $mca )
+	{//Get controller cache if it has
+		$cache = DOFactory::GetCache();
+		DOTemplate::SetModule($cache->GetControllerCache($mca));
+	}
+
+	public function OnAfterRequest($mca,$content)
+	{//Generate controller cache if needed[see modules/cache/cache.config.php]
+		$cache = DOFactory::GetCache();
+		$cache->SetControllerCache($mca,$content);
 	}
 }
 ?>

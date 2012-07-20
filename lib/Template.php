@@ -33,21 +33,21 @@ class DOTemplate
 	public static function LoadTemplate( )
 	{
 		$template = self::GetTemplate();
-		//Set URI base for template file
-	//	self::SetTemplateUriPath($template);
 		ob_start();
 		$parsedFile	= TEMPLATEROOT.DS.$template.DS.'index.tpl.php';
 		if(file_exists($parsedFile))
 		{
 			include $parsedFile;
-			return ob_get_clean();
+			$content = ob_get_clean();
+
 		}
 		else
 		{
 			include TEMPLATEROOT.DS.$template.DS.'index.design.php';
-			return self::ParseTemplate(ob_get_clean(),$parsedFile);
+			$content = ob_get_clean();
+			return self::ParseTemplate(&$content,$parsedFile);
 		}
-		
+		return $content;
 	}
 
 	public static function ParseTemplate($content,$path = '')
@@ -107,8 +107,7 @@ class DOTemplate
 		/** Display blocks according to related position **/
 		ob_start();	
 		DOBlocks::Show($pos);
-		$blockContent = ob_get_contents();
-		ob_clean();
+		$blockContent = ob_get_clean();
  		self::$params["blocks"][$pos] .= $blockContent;
  		/**We probably need to adjust specific block in a controller**/
 		DOHook::TriggerEvent(

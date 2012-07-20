@@ -63,6 +63,7 @@ class DOController
 
 		if(file_exists( $path ))
 		{
+			@include self::GetPath('event').DS."event.base.php";
 			include $path;
 			return true;
 		}

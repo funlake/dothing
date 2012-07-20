@@ -1,6 +1,10 @@
 <?php
 class DOIndex extends DOController
 {
+	public function __construct()
+	{
+		parent::__construct();
+	}
 	public function indexAction()
 	{
 		$sentence = "zero one two three four five six seven eight";
