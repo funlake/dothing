@@ -1,5 +1,5 @@
 <?php
-class DORole extends DOController
+class DOControllerRole extends DOController
 {
 	public function indexAction($request=null)
 	{

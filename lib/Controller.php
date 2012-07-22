@@ -15,7 +15,7 @@ class DOController
 		{
 			if( self::LoadController() )
 			{
-				$ctrClass = 'DO'.ucwords(DORouter::$controller);
+				$ctrClass = 'DOController'.ucwords(DORouter::$controller);
 				self::$controller = new $ctrClass();
 			}
 			else if(DORouter::$module === 'autocrud')

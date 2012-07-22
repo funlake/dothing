@@ -1,5 +1,5 @@
 <?php
-class DOIndex extends DOController
+class DOControllerIndex extends DOController
 {
 	public function __construct()
 	{
