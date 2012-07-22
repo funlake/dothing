@@ -7,7 +7,7 @@
 class DOError
 {
 	/** Error messages container **/
-	private static $_errorMsg;
+	public static $_errorMsg;
 	
 	public function __construct()
 	{

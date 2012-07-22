@@ -7,6 +7,7 @@ class DOModel
 	private $cdts		    	= array();
 	static  $curdErrors 		= array();
 	public  $connections 		= array();
+	public $pk					= 'id';
 	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();

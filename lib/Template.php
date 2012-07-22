@@ -3,6 +3,7 @@
 **Template render class
 **@author lake
 **/
+
 class DOTemplate
 {
 	public static $params 	= array();
@@ -45,7 +46,7 @@ class DOTemplate
 		{
 			include TEMPLATEROOT.DS.$template.DS.'index.design.php';
 			$content = ob_get_clean();
-			return self::ParseTemplate(&$content,$parsedFile);
+			$content = self::ParseTemplate($content,$parsedFile);
 		}
 		return $content;
 	}

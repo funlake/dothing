@@ -13,7 +13,7 @@ class DOLoader
 	{
 		if(!preg_match('#(?<!Do)Exception$#i',$class))
 		{
-			@include_once FRAMEWORK_ROOT.DS
+			include_once FRAMEWORK_ROOT.DS
 			    .'lib'.DS
 			    .str_replace('_',DS,preg_replace('#^DO#','',$class)).".php";
 		}

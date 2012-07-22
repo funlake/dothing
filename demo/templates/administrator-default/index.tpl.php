@@ -18,6 +18,10 @@
 	<link rel="stylesheet" href="<?php echo DO_THEME_BASE;?>/css/plugin/dataTables.css" type="text/css" media="screen" title="no title" />
 	
 	<link rel="stylesheet" href="<?php echo DO_THEME_BASE;?>/css/custom.css" type="text/css" media="screen" title="no title">
+	<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery-1.5.2.min.js"></script>
+	<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery-ui-1.8.12.custom.min.js"></script>
+	<script src="<?php echo DO_THEME_BASE;?>/js/jquery/jquery.uniform.min.js"></script>
+	<script src="<?php echo DO_THEME_BASE;?>/js/init.js"></script>
 </head> 
 <body> 
 <div id="wrapper">
@@ -51,10 +55,9 @@
 			<h1 class="no_breadcrumbs">Home</h1>
 			<div id="message"><?php echo DOTemplate::_("block","message");?></div>
 			<div id="search">
-				<form action="/search" method="get">
-					<input type="text" value="" placeholder="Search" name="search" id="search_input" title="Search" />					
-					<input type="submit" value="" name="submit" class="submit" />					
-				</form>
+				<button class="btn-icon btn btn-check btn-green"><span></span>Save</button>
+				<button class="btn-icon btn btn-cross btn-red"><span></span>Cancel</button>
+				<button class="btn-icon btn btn-check"><span></span>Accept</button>
 			</div> <!-- #search -->
 			
 		</div> <!-- .content_pad -->
@@ -74,7 +77,7 @@
 </div> <!-- #wrapper -->
 
 <script type="text/javascript">
-
+	DOJs.init();
 </script>
 
 </body> 

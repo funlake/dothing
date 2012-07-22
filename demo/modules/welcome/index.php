@@ -71,7 +71,7 @@ class DOIndex extends DOController
 		echo $O00000O{11}.$O00000O{4}.$O00000O{12}.$O00000O{0}.$O00000O{1}.$O00000O{13}.$O00000O{7}.$O00000O{15}.$O00000O{0}.$O00000O{17}.$O00000O{3}.$O00000O{15}.$O00000O{0};
 	}
 
-	public function indexAction()
+	public function indexAction($request=null)
 	{
 		$db             = DOFactory::GetDatabase();
 /* 		$db->Clean();
@@ -138,7 +138,7 @@ class DOIndex extends DOController
 
 		echo $tb->GetTotal(array('user_id'=>'>?'),1);*/
 		
-		$this->Display();
+		$this->Display(null);
 	}
 
 	public function mailAction()

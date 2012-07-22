@@ -28,7 +28,9 @@ catch(DOException $e)
 	$request 	= DOFactory::GetTool('http.request');
 	if(!$request->Get('__ajax','request'))
 	{
-		include 'error.php';
+		echo "<pre/>";
+		print_r(DOException::$msg);
+		//include 'error.php';
 	}
 	else
 	{//Dump as json

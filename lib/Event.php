@@ -24,6 +24,7 @@ class DOEvent
 	public function OnBeforeRequest( $mca )
 	{//Get controller cache if it has
 		$cache = DOFactory::GetCache();
+		//echo class_exists('DOTemplate');
 		DOTemplate::SetModule($cache->GetControllerCache($mca));
 	}
 
