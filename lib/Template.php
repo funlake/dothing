@@ -26,6 +26,8 @@ class DOTemplate
 	{
 		!defined('DO_URI_BASE') AND define('DO_URI_BASE',DOUri::GetBase());
 	 	!defined('DO_THEME_BASE') AND define('DO_THEME_BASE',DO_URI_BASE.'/templates/'.$template);	
+
+	 	!defined('DO_THEME_DIR') AND define('DO_THEME_DIR',TEMPLATEROOT.DS.$template);	
 	}
 	public static function GetTemplate()
 	{

@@ -7,7 +7,8 @@ class DOBlocksItem
 		$current	= strtolower(str_replace('DOBlocks','',get_class($this)));
 		if(!empty($blocks[$current]))
 		{
-			include_once $blocks[$current].DS.'layout'.DS.$tpl.'.php';
+			//if(TEMPLATEROOT.DS.DOTemplate::GetTemplate().DS.'')
+			include_once $blocks[$current];
 		}
 		else
 		{

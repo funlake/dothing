@@ -54,14 +54,15 @@ class DOBlocks
 		{
 			/** Get blocks and it's layout for this page**/
 			list($blk,$lyt)	= explode(':',$block);	
+			$lyt  			= !empty($lyt) ? $lyt : 'default';
 			/** Include block file **/
-			!empty($blk) && self::Import( $blk );
+			!empty($blk) && self::Import( $blk,$lyt );
 			/** Display it **/
 			$blockClass = 'DOBlocks'.self::GetBlockName($blk);
 			if(class_exists( $blockClass ))
 			{
 				$blockObj = new $blockClass();
-				call_user_func(array($blockObj,'Display'),$lyt ? $lyt : 'default');	
+				call_user_func(array($blockObj,'Display'),$lyt);	
 			}
 		}
 		return true;	
@@ -78,7 +79,7 @@ class DOBlocks
 	/**
 	*** Import a block
 	***/
-	public static function Import( $block )
+	public static function Import( $block ,$layout='')
 	{
 		$blkId = preg_replace('#[^a-z]#i','',$block);
 		if(!self::$blocks[$blkId])
@@ -97,7 +98,21 @@ class DOBlocks
 				throw new DORouterException("Unknown block:[{$blk}]", 404);
 			}
 			include_once $file;
-			self::$blocks[$blkId] = dirname($file);
+			self::$blocks[$blkId] = self::GetLayout($block,$layout);
+		}
+	}
+
+	public static function GetLayout($block,$layout)
+	{
+		$path 			= str_replace('.',DS,$block);
+		$blockCover     = DO_THEME_DIR.DS.'blocks'.DS.$path.DS.$layout.'.php';
+		if(file_exists($blockCover))
+		{
+			return $blockCover;
+		}
+		else
+		{
+			return BLKBASE.DS.$path.DS.'layout'.DS.$layout.'.php';
 		}
 	}
 	/** Implement this later **/
@@ -111,7 +126,7 @@ class DOBlocks
 		/** Do we have included configuration file before ? **/
 		if(!self::$config)
 		{//No for include action
-			$path = TEMPLATEROOT.DS.DOTemplate::GetTemplate().DS.'block_config.php';
+			$path = TEMPLATEROOT.DS.DOTemplate::GetTemplate().DS.'block.config.php';
 			/**Do we have blocks configuration file for specify template?**/
 			if(file_exists($path))
 			{/**Yes then use this one**/
