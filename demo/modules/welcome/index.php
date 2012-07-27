@@ -5,7 +5,7 @@
 **@author:Lake
 **/
 
-class DOIndex extends DOController
+class DOControllerIndex extends DOController
 {
 	public function assignTo($obj,$keys,$value)
 	{

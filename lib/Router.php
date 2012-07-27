@@ -20,7 +20,7 @@ class DORouter
 	
 	public static function Dispatch(array $mca = null)
 	{
-		self::Prepare($mca);
+		self::Prepare();
 
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
@@ -92,17 +92,12 @@ class DORouter
 	public static function Prepare(array $mca = null)
 	{
 		$pathinfo			= DOUri::GetPathInfo();
-		if(!!$mca)
-		{
-			list(self::$module,self::$controller,self::$action,self::$params) = $mca;
-		}
-		else
-		{
-			self::$module	  	= DOUri::GetModule();
-			self::$controller 	= DOUri::GetController();
-			self::$action     	= DOUri::GetAction();
-			self::$params	 	= DOUri::GetParams();
-		}
+
+		self::$module	  	= DOUri::GetModule();
+		self::$controller 	= DOUri::GetController();
+		self::$action     	= DOUri::GetAction();
+		self::$params	 	= DOUri::GetParams();
+		
 		//Wanna hide the admin interface?
 		if(DO_ADMIN_INTERFACE)
 		{

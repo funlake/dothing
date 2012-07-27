@@ -49,7 +49,10 @@ class DOModel
 	{
 		return DOController::GetModel( $model );
 	}
-	
+	public function Find($where = null)
+	{
+		return $this->Select($where);
+	}
 	public function Select($where = null)
 	{
 		$this->action = __FUNCTION__;
@@ -66,18 +69,27 @@ class DOModel
 			$params = array();
 			if(!!$where)
 			{
-				$condition = array_intersect($where,$this->binds);
-				foreach($condition as $k=>$v)
+				//$condition = array_intersect($where,$this->binds);
+				$condition = array();
+				$j         = 0;
+				foreach($where as $k=>$v)
 				{
-					$condition[$k] = '=?';
-					$params[]      = $v;
+					if(is_array($v))
+					{
+						$condition[$k] 	   = ($v[1] ? $v[1] : '=').'?';
+						$params[$j++]      = $v[0];
+					}
+					else
+					{
+						//$condition[$v]     = ' ';
+					}
 				}
 				array_unshift($params,$condition);
 			}
 			$caller = DOFactory::GetTable($this->name);
 			$R      = call_user_func_array(array($caller,'GetAll'), $params);
 			$this->SetFieldsValue($R,$R[0],$this->action);
-			return !!$params ? $R[0] : $R;
+			return $R;
 		}
 		else
 		{

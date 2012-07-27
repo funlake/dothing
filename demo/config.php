@@ -52,5 +52,4 @@ define('DO_MAIL_SMTP_USER','ffunlake@gmail.com');
 define('DO_MAIL_SMTP_PASS','');
 define('DO_MAIL_FROM_NAME','Petition system');
 define('DO_MAIL_SEND_EXE','/usr/bin/sendmail');
-?>
 

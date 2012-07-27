@@ -39,7 +39,7 @@ class DOController
 		{
 			if( self::LoadControllerEvent() )
 			{
-				$ctrClass = 'DO'.ucwords(DORouter::$controller).'Event';
+				$ctrClass = 'DOEvent'.ucwords(DORouter::$controller);
 				self::$controllerEvent = new $ctrClass();
 			}
 		}
@@ -48,7 +48,8 @@ class DOController
 	}
 	public static function LoadController( )
 	{
-		$path  = APPBASE.DS.DORouter::$module.DS.DORouter::$controller.".php";
+		$path  = APPBASE.DS.DORouter::GetModule()
+						.DS.DORouter::GetController().".php";
 
 		if(file_exists( $path ))
 		{
@@ -59,11 +60,9 @@ class DOController
 	}
 	public static function LoadControllerEvent()
 	{
-		$path  = self::GetPath('event').DS.DORouter::$controller.".php";
-
+		$path  = self::GetPath('event').DS.DORouter::GetController().".php";
 		if(file_exists( $path ))
 		{
-			@include self::GetPath('event').DS."event.base.php";
 			include $path;
 			return true;
 		}
@@ -157,6 +156,7 @@ class DOController
 				break;
 
 				case 'Select':
+				case 'Find'  :
 						DOHook::TriggerEvent(
 							array(
 							    'afterRequest' => array($ins,$posts)
