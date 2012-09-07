@@ -212,17 +212,21 @@ class DOController
 		{//When $view set as null,we would include tpl file which's name as action.
 			$view = $action;
 		}
-		if(!!$variables)
-		{//What variables we want to pass to tpl 
-			extract($variables);
-		}
 		//Mobile view?
 		if($mobileView)
 		{
 			$view .= "_mobile";
 		}
-		$layout     = APPBASE.DS.DORouter::$module.DS.'view'.DS.DORouter::$controller.DS.$view.'.php';
-		include_once $layout;
+		$layout     = APPBASE.DS.DORouter::$module
+					 .DS.'view'
+					 .DS.DORouter::$controller
+					 .DS.'layout.'.$view.'.php';
+		if(!file_exists($layout))
+		{
+			throw new Exception("{$layout} is not exists!");
+		}
+		//include_once $layout;
+		echo DOTemplate::ParseHtml($layout,$variables);
 	}
 	/**
 	 * load model object

@@ -68,6 +68,7 @@ class DOTemplate
 
 	public static function Replace($content)
 	{
+		return $content;
 		return preg_replace(
 			array(
 				'#<(module|block)[^>]*(type\s*=\s*"([^"]+)")[^>]*/>#is'
@@ -129,6 +130,76 @@ class DOTemplate
 	public static function GetTitle()
 	{
 		return self::$params['title'];
+	}
+	public static function ParseHtml($file,$variables = array())
+	{
+		if(!!$variables)
+		{//What variables we want to pass to tpl 
+			extract($variables);
+		}
+		ob_start();
+		include_once $file;
+		return self::Parse(ob_get_clean());
+	}
+	public static function Parse($content,$innerData = array())
+	{
+		return preg_replace(
+			array('#<(\w+):loop=([^>]+)>(.*)</\1:loop>#ise')
+		   ,array('self::LoopParse("\2","\3",$innerData,"\1")')
+		,$content);
+	}
+	public static function LoopParse($attr,$content,$innerData = array(),$tag)
+	{
+		list($source,$attrs) = preg_split("#\s+#",$attr,2);
+		$html = array();
+		if(!empty($source))
+		{
+			if(!empty($innerData))
+			{
+				$data = $innerData[$source];
+			}
+			else
+			{
+				$data = self::GetSource($source);
+			}
+			foreach((array)$data as $item)
+			{
+				$template = $content;
+				if(strpos($template,":loop=") !== false)
+				{
+					$template = self::Parse($template,$item);
+				}
+				$item 	= (array)$item;
+				$html[] = preg_replace('~{#([^}]+)}~e','$item["\1"];',$template);
+			}
+		}
+		if(count($html))
+		{
+			return "<".$tag." ".$attrs.">".implode("",$html)."</".$tag.">";
+		}
+		return "";
+	}
+	public static function GetSource($source)
+	{
+		if(strpos($source,".") !== false)
+		{
+			list($type,$core,$action) = sscanf($source,"%[^|]|%[^.].%s");
+			$_method 			  = "Get".ucwords(strtolower($type))."Constant";
+			$handler			  = call_user_func(array(__CLASS__,$_method),$core);
+			return $handler->$action();
+		}
+	}
+
+	public static function GetModelConstant($model)
+	{
+		return DOFactory::GetModel(strtolower($model));
+	}
+
+	public static function GetBlockConstant($pos)
+	{
+		$pos = array_map('strtolower',explode("@",$pos));
+		$pos = implode(".",$pos);
+		return DOBlocks::GetBlock($pos);
 	}
 }
 ?>

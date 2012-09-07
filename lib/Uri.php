@@ -177,7 +177,7 @@ class DOUri
 	 */
 	public static function GetModule()
 	{
-		return self::$module ? self::$module : $_POST['__M'];
+		return !empty($_POST['__M']) ? $_POST['__M'] : self::$module;
 	}
 	/**
 	 * get controllers name
@@ -186,7 +186,7 @@ class DOUri
 	 */
 	public static function GetController()
 	{
-		return self::$controller ? self::$controller : $_POST['__C'];
+		return !empty($_POST['__C']) ? $_POST['__C'] : self::$controller;
 	}
 	
 	/**
@@ -196,7 +196,7 @@ class DOUri
 	 */
 	public static function GetAction()
 	{
-		return $_POST['__A'] ? $_POST['__A'] : self::$action;	
+		return !empty($_POST['__A']) ? $_POST['__A'] : self::$action;	
 	}
 	/**
 	 * get params

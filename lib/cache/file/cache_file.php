@@ -20,15 +20,14 @@ class DOCacheFileEntity
 	{
 		if(!empty($var))
 		{
-			if(!$this->obj[$var])
+			if(!isset($this->obj[$var]))
 			{
 				/** Did not set **/
-				//trigger_error("Cache [$var] did not set",E_USER_NOTICE);
-				return DOCACHE_ERROR_NOTSET; 
+				return DOCACHE_NOTSET; 
 			}
 			else if($this->obj[$var]->expire < time())
 			{
-				return false;
+				return DOCACHE_EXPIRE;
 			}	
 			return $this->obj[$var]->content;
 		}
@@ -54,10 +53,10 @@ class DOCacheFile extends DOCache
 	/**
 	*get cache operation class
 	*/
-	public function GetCache($type='system')
+	public function GetCache($type)
 	{
-		$ck = $type ? $type : 'system';
-		if(!self::$entity[$ck])
+		if($type == '') $type = 'system';
+		if(!self::$entity[$type])
 		{
 			$file = CACHEROOT.DS.$type.".cache";
 			if(!file_exists( $file) )
@@ -67,9 +66,9 @@ class DOCacheFile extends DOCache
 			$vars = file_get_contents( $file );
 			if(!empty( $vars )) $obj  = json_decode( $vars );
 			else $obj = array();
-			self::$entity[$ck] = new DOCacheFileEntity($obj);	
+			self::$entity[$type] = new DOCacheFileEntity($obj);	
 		}
-		return self::$entity[$ck];
+		return self::$entity[$type];
 	}
 	/**
 	*save cache file
@@ -106,7 +105,7 @@ class DOCacheFile extends DOCache
 	{
 		list($var,$type) 	= explode('.',$hashkey);
 		$type				= !empty($type) ? $type : 'system';
-		self::GetCache($type)->Update($var,$content,$expire);
+		self::GetCache($type)->Update($var,$content,time()+$expire);
 		return self::Save($type);
 		#DOEvent::trigger('onDestry',)
 	}

@@ -13,6 +13,8 @@ class DOBlocks
 	private static $config = array();
 	/** Blocks class array **/
 	private static $blocks = array();
+
+	private static $blocksInstant = array();
 	/**
 	*** Bind blocks with position in template file.
 	*** @params : $pos -> position 
@@ -56,13 +58,12 @@ class DOBlocks
 			list($blk,$lyt)	= explode(':',$block);	
 			$lyt  			= !empty($lyt) ? $lyt : 'default';
 			/** Include block file **/
-			!empty($blk) && self::Import( $blk,$lyt );
-			/** Display it **/
-			$blockClass = 'DOBlocks'.self::GetBlockName($blk);
-			if(class_exists( $blockClass ))
+			if(!empty($blk))
 			{
-				$blockObj = new $blockClass();
-				call_user_func(array($blockObj,'Display'),$lyt);	
+				if(self::GetBlock($blk,$lyt))
+				{
+					self::GetBlock($blk,$lyt)->Display($lyt);
+				}
 			}
 		}
 		return true;	
@@ -143,6 +144,21 @@ class DOBlocks
 	{
 		return self::$blocks;
 	}
+
+	public static function GetBlock($pos,$layout = '')
+	{
+		self::import($pos,$layout);
+		$blockClass = 'DOBlocks'.self::GetBlockName($pos);
+		if(!class_exists($blockClass))
+		{
+			throw new Exception("Undefined Blcok:{$pos}");
+		}
+		if(!self::$blocksInstant[$blockClass])
+		{
+			self::$blocksInstant[$blockClass] = new $blockClass();
+		}
+		return self::$blocksInstant[$blockClass];
+	}
 }
 class DOBlocksHelper
 {
@@ -150,8 +166,9 @@ class DOBlocksHelper
 	public static function GetBlocksIndex()
 	{	
 		return array(
-		    DORouter::$module."/".DORouter::$controller."/".DORouter::$action
-		   ,DORouter::$module."/".DORouter::$controller."/*"
+		    DORouter::$module.":".DORouter::$controller.":".DORouter::$action
+		   ,DORouter::$module.":".DORouter::$controller.":*"
+		   ,DORouter::$module.":*"
 		   ,"*"
 		); 
 	}

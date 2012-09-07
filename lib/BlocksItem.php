@@ -8,7 +8,7 @@ class DOBlocksItem
 		if(!empty($blocks[$current]))
 		{
 			//if(TEMPLATEROOT.DS.DOTemplate::GetTemplate().DS.'')
-			include_once $blocks[$current];
+			echo DOTemplate::ParseHtml($blocks[$current]);
 		}
 		else
 		{

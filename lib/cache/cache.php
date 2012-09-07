@@ -1,5 +1,6 @@
 <?php
-define('DOCACHE_ERROR_NOTSET',null);
+define('DOCACHE_NOTSET'		 , null);
+define('DOCACHE_EXPIRED'	 , null);
 /**
 *
 *Curd cache class
