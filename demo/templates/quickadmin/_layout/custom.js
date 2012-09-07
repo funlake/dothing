@@ -222,24 +222,23 @@
 			}
 		}); 
 		
-		$('.panel .tabs li').click(function(){
+		$('.tabheader').click(function(){
 			var parent = $(this).closest('.panel');
 			var content = $('a', this).attr('rel');
 			
 			$('.tabs .active', parent).removeClass('active');
 			$(this).addClass('active');
 			
-			$('.tabs-content > .active', parent).slideUp('fast', function(){
-				$(this).removeClass('active');
-				
-				$('#'+content).slideDown('fast', function(){
-					$(this).addClass('active');
-				});
-			});
+			var activenode = $('.tabs-content > .active', parent);
+			activenode.hide();
+			activenode.removeClass('active');
+
+			var content    = $('#'+content);
+			content.show();
+			content.addClass('active');
 			
 			return false;
 		});
-		
 	}
 	
 	

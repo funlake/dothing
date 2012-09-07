@@ -32,16 +32,11 @@ class DOModelSetting extends DOModel
 		/** Set primary key **/
 		$this->pk	  = 'id';
 
-		$this->addMsgSuccess 	= DOLang::Get('You have successfully made it');
+		$this->addMsgSuccess 	= DOLang::Get('Configuration Done!');
 		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
 		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
 		/** Set name,parent call**/
 		parent::__construct();
-	}	
-	
-	public function Add_pre_adjust($post)
-	{
-		//return trim($value);
 	}
 }
 

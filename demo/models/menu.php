@@ -1,29 +1,27 @@
-<?php 
-!defined('DO_ACCESS') AND DIE("Go Away!");
-class DOBlocksAdminMenu extends DOBlocksItem
+<?php
+/**
+**@project:/var/www/dothing
+**@whytodo:
+**@author:Lake
+**/
+class DOModelMenu extends DOModel
 {
-	public function GetMenu()
+	public function __construct()
 	{
-/*		$actions = include APPBASE.DS.DORouter::GetModule()
-						  .DS.'view'
-			              .DS.DORouter::GetController()
-			              .DS.'action.config.php';
+		$this->fields = array(
+			'id'		=> true
+		   ,'pid'       => '0'
+		   ,'name'		=> true
+		   ,'link'		=> true
+		);
+		$this->updateKey = array(
+			'id' => '=?'
+		);
+		$this->pk     = 'id';
+	}
 
-		$actions = $actions[DORouter::GetAction()];
-
-		$actlist = array(); 
-
-		$i 		 = 0;
-
-		foreach($actions as $title=>$action)
-		{
-			$actlist[$i]['title'] = DOLang::Get($title);
-			$actlist[$i]['onclick']  = $action['action'];
-			$actlist[$i]['icon']  = 'icon-menu-'.$action['icon'].'.png';
-			$actlist[$i]['link']  = $action['link'] ? $action['link'] : 'javascript:void(null);';
- 			$i++;
-		}
-		return $actlist;*/
+	public function GetTopMenu()
+	{
 		return array(
 		   array(
 				'title' => DOLang::Get('Modules')

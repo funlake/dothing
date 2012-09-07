@@ -1,24 +1,21 @@
+<?php !defined('DO_ACCESS') AND DIE("Go Away!");?>
 <div>
-	<ul class="nav-user-options">
-		<?php foreach($this->GetMenu() as $data) : ?>
+ 	<ul:loop=Model|Menu.GetTopMenu class="nav-user-options">
 			<li>
-				<a href="<?php echo $data['link'];?>">
-					<img src="<?php echo DO_THEME_BASE;?>/_layout/images/icons/<?php echo $data['icon'];?>" alt="<?php echo $data['alt'];?>	" />
-					&nbsp; <?php echo $data['title'];?>						
+				<a onclick="{#onclick}" href="{#link}">
+					<img src="<?php echo DO_THEME_BASE;?>/_layout/images/icons/{#icon}" alt="{#alt}" />
+					&nbsp; {#title}						
 				</a>
-				<?php if(!!$data['child']) :?>
-				<ul>
-					<?php foreach((array)$data['child'] as $key=>$childData) :?>
-						<li class="<?php echo $childData['class'];?> last">
-							<a href="<?php echo $childData['link'];?>">
-								<?php echo $childData['title'];?>
-							</a>
-						</li>
-					<?php endforeach;?>
-					<li class="pin"></li>
-				</ul>
-				<?php endif;?>
+				<ul:loop=child class="menu_child">
+					<li class="{#class}">
+						<a href="{#link}">{#title}</a>
+					</li>
+				</ul:loop>
 			</li>
-		<?php endforeach;?>
-	</ul>
+	</ul:loop>
 </div>
+<script type='text/javascript'>
+!function($){
+	$('.menu_child').append('<li class="pin"></li>');
+}(jQuery)
+</script>

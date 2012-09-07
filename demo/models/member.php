@@ -20,5 +20,3 @@ class DOModelMember extends DOModel
 		$this->pk     = 'member_id';
 	}
 }
-
-?>

@@ -1,7 +1,7 @@
 <?php
 !defined('DO_ACCESS') AND DIE('GO AWAY!');
 
-class DORoleEvent extends DOEvent
+class DOEventRole extends DOEvent
 {
 	public function onBeforeRequest($mca)
 	{

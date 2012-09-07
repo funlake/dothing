@@ -1,7 +1,7 @@
 <?php
 //include dirname(__FILE__).DS.'index.listener.php';
 /** Events for controller index **/
-class DOIndexEvent extends DOEvent
+class DOEventIndex extends DOEvent
 {
 	public $cache       = null;
 	public $cacheModule = array();

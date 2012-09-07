@@ -157,12 +157,18 @@ class DOControllerIndex extends DOController
 	}
 	public function cacheAction()
 	{
-		$cache 		= DOFactory::GetCache();
-		$cache->Set('lake','Save yet?');
-		print_r($cache->Get('lake'));
-		
-		$cache->Set('lake.module','tt');
-		print_r($cache->Get('lake.module'));
+		echo "<b>Cache usage:</b>";
+		echo "<br/>";
+		//DOFactory::GetCache()->Set('lake','Save yet?',60);
+		if(DOFactory::GetCache()->Get('lake') === DOCACHE_EXPIRED)
+		{
+			DOFactory::GetCache()->Set('lake',"hello world!",100);
+		}
+
+		echo DOFactory::GetCache()->Get('lake');
+		echo "<br/>----------<br/>";
+	//	DOFactory::GetCache()->Set('lake.module','tt',30);
+		print_r(DOFactory::GetCache()->Get('lake.module'));
 	}
 	
 	public function modelAction()
