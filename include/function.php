@@ -126,4 +126,24 @@ function GetMessageType($type)
 	);
 	return $types[$type];
 }
+
+function M($mod)
+{
+	return DOFactory::GetModel($mod);
+}
+
+function T($type,$pos)
+{
+	return DOTemplate::_($type,$pos);
+}
+
+function L($langVar)
+{
+	return DOLang::Get($langVar);
+}
+
+function Url($string)
+{
+	return call_user_func_array(array(DOUri,"BuildQuery"),explode('/',$string));
+}
 ?>

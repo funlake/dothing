@@ -139,16 +139,16 @@ class DOTemplate
 		}
 		ob_start();
 		include_once $file;
-		return self::Parse(ob_get_clean());
+		return self::Parse(ob_get_clean(),null,$variables);
 	}
-	public static function Parse($content,$innerData = array())
+	public static function Parse($content,$innerData = array(),$variables)
 	{
 		return preg_replace(
 			array('#<(\w+):loop=([^>]+)>(.*)</\1:loop>#ise')
-		   ,array('self::LoopParse("\2","\3",$innerData,"\1")')
+		   ,array('self::LoopParse("\2","\3",$innerData,"\1",$variables)')
 		,$content);
 	}
-	public static function LoopParse($attr,$content,$innerData = array(),$tag)
+	public static function LoopParse($attr,$content,$innerData = array(),$tag,$variables)
 	{
 		list($source,$attrs) = preg_split("#\s+#",$attr,2);
 		$html = array();
@@ -160,14 +160,14 @@ class DOTemplate
 			}
 			else
 			{
-				$data = self::GetSource($source);
+				$data = self::GetSource($source,$variables);
 			}
 			foreach((array)$data as $item)
 			{
 				$template = $content;
 				if(strpos($template,":loop=") !== false)
 				{
-					$template = self::Parse($template,$item);
+					$template = self::Parse($template,$item,$variables);
 				}
 				$item 	= (array)$item;
 				$html[] = preg_replace('~{#([^}]+)}~e','$item["\1"];',$template);
@@ -179,14 +179,18 @@ class DOTemplate
 		}
 		return "";
 	}
-	public static function GetSource($source)
+	public static function GetSource($source,$variables)
 	{
 		if(strpos($source,".") !== false)
-		{
+		{//Read data from outside
 			list($type,$core,$action) = sscanf($source,"%[^|]|%[^.].%s");
 			$_method 			  = "Get".ucwords(strtolower($type))."Constant";
 			$handler			  = call_user_func(array(__CLASS__,$_method),$core);
 			return $handler->$action();
+		}
+		else
+		{
+			return $variables[trim($source,'{$}')];
 		}
 	}
 
@@ -197,7 +201,7 @@ class DOTemplate
 
 	public static function GetBlockConstant($pos)
 	{
-		$pos = array_map('strtolower',explode("@",$pos));
+		$pos = array_map('strtolower',explode("/",$pos));
 		$pos = implode(".",$pos);
 		return DOBlocks::GetBlock($pos);
 	}
