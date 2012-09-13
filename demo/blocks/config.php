@@ -1,13 +1,13 @@
 <?php
+!defined('DO_ACCESS') AND die("How can you see me?");
 return array(
-	'banner'  => array(
-		'*' => 'userinfo'
+	'menu' => array(
+		'admin:*' 	=> 'admin.menu'
 	)
+   ,'sidebar' => array(
+   		'admin:*' 	=> 'admin.leftmenu'
+   	)
    ,'message' => array(
-		'*' => 'message'
-	)
-   ,'admin.menu' => array(
-   		'*' => 'menu'
+   		'*' 		=> 'message'
    	)
 );
-?>
