@@ -210,8 +210,14 @@ class DOUri
 	
 	public static function Redirect($url,$msg='',$type=0)
 	{
-		setcookie("__DOMSG",$msg,time()+20);
-		setcookie("__DOMSG_TYPE",$type,time()+20);
+		if(!empty($msg))
+		{
+			$session = DOFactory::GetSession();
+			$session->Set("__DOMSG"			,$msg);
+			$session->Set("__DOMSG_TYPE"	,$type);
+		}
+		//setcookie("__DOMSG",$msg,time()+20);
+		//setcookie("__DOMSG_TYPE",$type,time()+20);
 		if(headers_sent())
 		{
 			echo "<script type='text/javascript'>location.href='{$url}';</script>";
@@ -221,6 +227,8 @@ class DOUri
 			$response = DOFactory::GetTool('http.response');
 			$response->SetHeader('Location',$url);
 		}
+		//we have to do this before redirection.
+		exit;
 	}
 	/**
 	 * Format seo url.
