@@ -31,11 +31,12 @@
       <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-114-precomposed.png">
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-72-precomposed.png">
       <link rel="apple-touch-icon-precomposed" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-57-precomposed.png">
+      <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/jquery.js"></script>    
     </head>
 
     <body>
 
-      <div class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
           <div class="container-fluid">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -48,19 +49,14 @@
               <p class="navbar-text pull-right">
                 Logged in as <a href="#" class="navbar-link">Username</a>
               </p>
-              <ul class="nav">
-                <li class="active"><a href="#"><?php echo DOLang::Get('Configuration');?></a></li>
-                <li><a href="#about"><?php echo DOLang::Get('Modules');?></a></li>
-                <li><a href="#contact"><?php echo DOLang::Get('Blocks');?></a></li>
-                <li><a href="#contact"><?php echo DOLang::Get('Plugins');?></a></li>
-                <li><a href="#contact"><?php echo DOLang::Get('Templates');?></a></li>
-              </ul>
+              <?php echo T('block','mainmenu');?>
             </div><!--/.nav-collapse -->
           </div>
         </div>
       </div>
 
       <div class="container-fluid">
+        <?php echo T('block','message');?>
         <div class="row-fluid">
           <div class="span3">
             <?php echo T('block','sidebar');?>
@@ -81,7 +77,6 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/jquery.js"></script>
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-transition.js"></script>
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-alert.js"></script>
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-modal.js"></script>
