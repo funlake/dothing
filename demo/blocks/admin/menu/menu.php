@@ -4,42 +4,41 @@ class DOBlocksAdminMenu extends DOBlocksItem
 {
 	public function GetMenu()
 	{
-/*		$actions = include APPBASE.DS.DORouter::GetModule()
-						  .DS.'view'
-			              .DS.DORouter::GetController()
-			              .DS.'action.config.php';
-
-		$actions = $actions[DORouter::GetAction()];
-
-		$actlist = array(); 
-
-		$i 		 = 0;
-
-		foreach($actions as $title=>$action)
-		{
-			$actlist[$i]['title'] = DOLang::Get($title);
-			$actlist[$i]['onclick']  = $action['action'];
-			$actlist[$i]['icon']  = 'icon-menu-'.$action['icon'].'.png';
-			$actlist[$i]['link']  = $action['link'] ? $action['link'] : 'javascript:void(null);';
- 			$i++;
-		}
-		return $actlist;*/
+		$cur = DORouter::GetController();
 		return array(
 		   array(
-				'title' => DOLang::Get('Modules')
-			   ,'link'  => DOUri::BuildQuery(DO_ADMIN_INTERFACE,"system","setting")
-			   ,'icon'  => 'icon-menu-profile.png'
+				'title' => DOLang::Get('Configuration')
+			   ,'link'  => Url(DO_ADMIN_INTERFACE."/system/setting")
+			   ,'class' => ($cur == 'system') ? 'active' : ''
+			)
+		   ,array(
+				'title' => DOLang::Get('Components')."<b class='caret'></b>"
+			   ,'link'  => '#'
+			   ,'class' => 'dropdown '.(in_array($cur,array('module','user','role','category')) ? 'active' : '')
+			   ,'attrs' => ' class="dropdown-toggle" data-toggle="dropdown" '
+			   ,'child' => array(
+			   		array(
+			   			'title' => 'Modules'
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/module/index")
+			   		)
+			   	   ,array(
+			   			'title' => 'Users'
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/user/index")
+			   		)
+			   	   ,array(
+			   			'title' => 'Roles'
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/role/index")
+			   		)
+			   	   ,array(
+			   			'title' => 'Categories'
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/category/index")
+			   		)
+			   	)
 			)
 		   ,array(
 				'title' => DOLang::Get('Blocks')
-						  ." <img class='pin' src='".DO_THEME_BASE."/_layout/images/back-nav-sub-pin.png'/>"
 			   ,'link'  => DOUri::BuildQuery(DO_ADMIN_INTERFACE,"system","setting")
 			   ,'icon'  => 'icon-menu-tasks.png'
-			   ,'child' => array(
-			   		array('title' => 'a','class'=>'first')
-			   	   ,array('title' => 'b','class'=>'last')
-			   	  // ,array('title' => '' ,'class'=>'pin')
-			   	)
 			)
 		   ,array(
 				'title' => DOLang::Get('Setting')
