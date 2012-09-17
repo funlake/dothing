@@ -144,13 +144,14 @@ class DOTemplate
 	public static function Parse($content,$innerData = array(),$variables)
 	{
 		return preg_replace(
-			array('#<(\w+):loop=([^>]+)>(.*)</\1:loop>#ise')
+			array('#<(\w+):loop=([^>]+)>((?:((?![^<]+:loop).)|(?R))*)</\1:loop>#ise')
 		   ,array('self::LoopParse("\2","\3",$innerData,"\1",$variables)')
 		,$content);
 	}
 	public static function LoopParse($attr,$content,$innerData = array(),$tag,$variables)
 	{
 		list($source,$attrs) = preg_split("#\s+#",$attr,2);
+		$innerData 			 = (array)$innerData;
 		$html = array();
 		if(!empty($source))
 		{
