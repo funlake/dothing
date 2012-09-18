@@ -3,7 +3,7 @@
 return array(
 	'setting' => array(
 		'save' => array(
-			'action' => "jQuery('#DOAdminForm').submit()"
+			'action' => "jQuery('#Afm').submit()"
 		   ,'icon'   => 'tasks'
 		   ,'class'  => 'save-action'
 		)

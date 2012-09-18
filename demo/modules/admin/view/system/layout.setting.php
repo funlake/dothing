@@ -1,16 +1,26 @@
-<div class="pull-right">
-  <button class="btn btn-success" onclick="jQuery('#Afm').submit()">
-  	<i class="icon-ok icon-white"></i>
-  	<?php echo L('Apply');?>
-  </button>
-  <button class="btn btn-danger">
-  	<i class="icon-remove icon-white"></i>
-  	<?php echo L('Cancel');?>
-  </button>
-</div>
+<?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <form action="<?php echo Url(DO_ADMIN_INTERFACE.'/system/savesetting');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
 <fieldset>
-	<legend><?php echo L('Database');?></legend>
+	<legend><a name="baseinfo"><?php echo L('Base Information');?></a></legend>
+	<div class="control-group">
+		<label class="control-label" for="cipher">
+			<?php echo DOLang::Get('Cipher');?>
+		</label>
+		<div class="controls">
+			<input type="text" id="cipher" name="S_DO_SITECIPHER" class="input-xlarge" value="<?php echo $setting['DO_SITECIPHER'];?>" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="copyright">
+			<?php echo DOLang::Get('Copyright');?>
+		</label>
+		<div class="controls">
+			<input type="text" id="copyright" name="S_DO_COPYRIGHT" class="input-xlarge" value="<?php echo $setting['DO_COPYRIGHT'];?>" />
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend><a name="database"><?php echo L('Database');?></a></legend>
 		<div class="control-group">
 			<label class="control-label" for="drive">
 				<?php echo DOLang::Get('Driver');?>
@@ -53,21 +63,6 @@
 		</div>
 		<div class="control-group">
 			<?php 
-				if(!isset($setting['DO_PDO']))
-				{
-					$pdo = array(1=>"checked");
-				}
-				else $pdo = array($setting['DO_PDO'] => "checked");
-			?>
-			<label class="control-label" for="pdo">
-				<?php echo DOLang::Get('Use PDO?');?>
-			</label>
-			<div class="controls">
-				<input id="pdo" name="S_DO_PDO" value="1" type="checkbox" <?php echo $pdo[1];?>/>
-			</div>
-		</div>
-		<div class="control-group">
-			<?php 
 				if(!isset($setting['DO_SQLPCONNECT']))
 				{
 					$pcon = array(1=>"checked");
@@ -78,9 +73,20 @@
 				<?php echo DOLang::Get('Persistent connect?');?>
 			</label>
 			<div class="controls">
-				<input id="pcon" name="S_DO_SQLPCONNECT" value="1" type="checkbox" <?php echo $pcon[1];?>/>
+				<input id="pcon" name="S_DO_SQLPCONNECT" value="0" type="radio" <?php echo $pcon[0];?>/>No
+				<input id="pcon" name="S_DO_SQLPCONNECT" value="1" type="radio" <?php echo $pcon[1];?>/>Yes
 			</div>
 		</div>
 		<input type='hidden' name='__A' value='savesetting'/>
 </fieldset>
+<div class="pull-right">
+  <button class="btn btn-primary" onclick="jQuery('#Afm').submit()">
+  	<i class="icon-ok icon-white"></i>
+  	<?php echo L('Apply');?>
+  </button>
+  <button class="btn btn-danger" onclick="return false;">
+  	<i class="icon-remove icon-white"></i>
+  	<?php echo L('Cancel');?>
+  </button>
+</div>
 </form>
