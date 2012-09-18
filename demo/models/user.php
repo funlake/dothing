@@ -79,7 +79,22 @@ class DOModelUser extends DOModel
 		}
 		return $flag;
 	}
-
+	/** What shall we do before saving a new record**/
+	public function Update_pre_validate( $posts )
+	{
+		$flag = true;
+		if(empty($posts['user_name']))
+		{
+			$this->error_msg  = DOLang::Get('Empty user name');
+			$flag 		 	  = false;
+		}
+		if(empty($posts['user_pass']))
+		{
+			$this->error_msg .= ' '.DOLang::Get('Empty user pass');
+			$flag 		 	  = false;
+		}
+		return $flag;
+	}
 	public function Update_validate_user_name($value,$posts)
 	{
 		if(0 !=  $this->GetOne('user_id','user_name=? and user_id<>?',$value,$posts['user_id']) )
