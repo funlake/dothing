@@ -179,7 +179,11 @@ class DOController
 			/** Or redirect **/
 			else if(!empty($posts['__redirect'])) 
 			{
-				$msg = empty($msg) ? $detail : $msg.' > ' .$detail;
+				if(!empty($detail))
+				{
+					$detail = "(<i>{$detail}</i>)";
+				}
+				$msg = empty($msg) ? $detail : $msg.$detail;
 				DOUri::Redirect($posts['__redirect'],$msg,$flag);
 			}
 			/** REST call ? **/
