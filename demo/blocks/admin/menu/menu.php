@@ -17,11 +17,7 @@ class DOBlocksAdminMenu extends DOBlocksItem
 			   ,'class' => 'dropdown '.(in_array($cur,array('module','user','role','category')) ? 'active' : '')
 			   ,'attrs' => ' class="dropdown-toggle" data-toggle="dropdown" '
 			   ,'child' => array(
-			   		array(
-			   			'title' => 'Modules'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/module/index")
-			   		)
-			   	   ,array(
+			   	   array(
 			   			'title' => 'Users'
 			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/user/index")
 			   		)
@@ -32,6 +28,10 @@ class DOBlocksAdminMenu extends DOBlocksItem
 			   	   ,array(
 			   			'title' => 'Categories'
 			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/category/index")
+			   		)
+			   	   ,array(
+			   			'title' => 'Extensions'
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/module/index")
 			   		)
 			   	)
 			)

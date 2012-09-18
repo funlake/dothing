@@ -3,14 +3,22 @@ class DOBlocksMessage extends DOBlocksItem
 {
 	public function GetMessage()
 	{
-		$request = DOFactory::GetTool('http.request');
-		$msg	 = $request->Get('__DOMSG','cookie');
-		$type	 = $request->Get('__DOMSG_TYPE','cookie');
+		$session = DOFactory::GetSession();
+		$msg	 = $session->Get('__DOMSG');
+		$type	 = $session->Get('__DOMSG_TYPE');
+		//$this->CleanMessage();
 		if(!empty($msg))
 		{
 			return array('message' => $msg,'type' => $type);
 		}
 		return array();
+	}
+
+	public function CleanMessage()
+	{
+		$session = DOFactory::GetSession();
+		$msg	 = $session->Set('__DOMSG','');
+		$type	 = $session->Set('__DOMSG_TYPE','');		
 	}
 }
 

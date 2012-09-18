@@ -1,12 +1,24 @@
 <?php 
 !defined('DO_ACCESS') AND DIE("Go Away!");
+file_put_contents("a.log",'@',FILE_APPEND);
 $flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
 ?>
 <?php if(isset($flashMsg['type'])):?>
-	<div class="notice <?php echo GetMessageType($flashMsg['type']);?>">
-		<span>
-			<?php echo $flashMsg['message'];?>
-		</span>
+	<div class="row-fluid" id="msg-row">
+		<div class="span12">
+			<div class="alert alert-<?php echo GetMessageType($flashMsg['type']);?>">
+				<a class="close" id="msg-close">x</a>
+				<span>
+					<?php echo $flashMsg['message'];?>
+				</span>
+			</div>
+		</div>
 	</div>
-<?php setcookie("__DOMSG",'',time()-3600);setcookie("__DOMSG_TYPE",'',time()-3600);?>
+	<script type='text/javascript'>
+		$(function(){
+			$('#msg-close').click(function(){
+				$('#msg-row').fadeOut();
+			})
+		})
+	</script>
 <?php endif;?>
