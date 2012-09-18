@@ -81,7 +81,8 @@ class DOModel
 					}
 					else
 					{
-						//$condition[$v]     = ' ';
+						$condition[$v]     = $k.'=?';
+						$params[$j++]      = $v;
 					}
 				}
 				array_unshift($params,$condition);
