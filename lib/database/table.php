@@ -34,65 +34,53 @@ class DOTable
 		return $this->_db->query( $sql );
 	} */
 	/** Get one field according to conditions */
-	function GetOne($field,$condition = null)
+	function GetOne($field,$condition = null,$vals = array(),$orderby = array(),$groupby = null)
 	{
-		$vals = array();
-		foreach(array_slice(func_get_args(),2) as $val)
-		{
-			$vals[] = $val;
-		}
+		$db = $this->_db;
+		$db->Clean();
+		$db->From( $this->_tb)
+		->Select($field)
+		->Where($condition)
+		->Values($vals)
+		->Read();
+		return $db->GetOne($field);
+	}
+	/** Get row according to conditions */
+	function GetRow(array $condition = null,$vals = array(),$orderby = array(),$groupby = null)
+	{
 
 		$db = $this->_db;
 		$db->Clean();
-		$db->From( $this->_tb)
-		   ->Select($field)
-		   ->Where($condition);
-		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Read();
-		return $this->_db->GetOne($field);
-	}
-	/** Get row according to conditions */
-	function GetRow(array $condition = null)
-	{
-		$vals = array();
-		foreach(array_slice(func_get_args(),1) as $val)
-		{
-			$vals[] = $val;
-		}
-		$db = $this->_db;
-		$db->Clean();
-		$db->From( $this->_tb)
-		   ->Select('*')
-		   ->Where($condition);
-		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Read();
-		return $this->_db->GetRow();
+		$db->From( $this->_tb )
+	   	->Select('*')
+	   	->Where($condition)
+	   	->Values($vals)
+	   	->Read();
+		return $db->GetRow();
 	}
 	
 	/** Get col in all rows we fetch according to conditions */
-	function GetCol($fields,array $condition = null)
+	function GetCol($fields,array $condition = null,$vals = array(),$orderby = array(),$groupby = null)
 	{
-		$vals = array();
-		foreach(array_slice(func_get_args(),2) as $val)
-		{
-			$vals[] = $val;
-		}
 		$db = $this->_db;
 		$db->Clean();
-		$db->From( $this->_tb)
+		$db->From( $this->_tb )
 		->Select($fields)
-		->Where($condition);
-		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Read();
-		return $this->_db->GetCol($fields);
+		->Orderby($orderby)
+		->Groupby($groupby)
+		->Where($condition)
+		->Values($vals)
+		->Read();
+		return $db->GetCol($fields);
 	}
 	
 	/** Get all short way calling **/
-	function GetAll(array $condition = null)
+	function GetAll(array $condition = null,$vals = array(),$orderby = array(),$groupby = null)
 	{
-		$args = func_get_args();
-		array_unshift($args,'*');
-		return call_user_func_array(array($this,"GetCol"),$args);
+		return call_user_func_array(
+			 array($this,"GetCol")
+			,array('*',$condition,$vals,$orderby,$groupby)
+		);
 	}
 	
 	/** Single table update **/
@@ -137,15 +125,13 @@ class DOTable
 	}
 	
 	/** Single table delete function **/
-	function Delete( array $condition = null)
+	function Delete( array $condition = null , $vals = array())
 	{
-		$args = func_get_args();
-		array_unshift($args);
 		$db = $this->_db;
 		$db->Clean();
 		$db->From($this->_tb)
 		->Where($condition)
-		->Values($args)
+		->Values($vals)
 		->Delete();
 		return $db->Execute();
 	}

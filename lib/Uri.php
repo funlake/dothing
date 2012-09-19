@@ -39,6 +39,7 @@ class DOUri
 			parse_str($param,$params);
 			self::$params		=  $_GET = $params;
 		}
+		$_REQUEST 				= array_merge($_REQUEST,$_GET);
 		self::$module	  		= $ps[0] ? $ps[0] : self::$module;
 		self::$controller 		= $ps[1] ? $ps[1] : self::$controller;
 		self::$action     		= $ps[2] ? $ps[2] : self::$action;
@@ -265,7 +266,8 @@ class DOUri
 		}
 		else
 		{
-			$link = '/'.implode('/',array($module,$controller,$action,$params));
+			$link = '/'.implode('/',array($module,$controller,$action))
+				  . (!empty($params)?('@'.$params):'');
 		}
 		return self::RealUrl($link);
 	}
@@ -306,7 +308,6 @@ class DOUri
 				$this->params[ $m[1] ][] =  $arr[$arrk];
 			}
 			$this->params[ $m[1] ][$arrk] =  $arr[$arrk];
-
 		}
 		else
 		{

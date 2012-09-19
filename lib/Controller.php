@@ -79,7 +79,7 @@ class DOController
 			{
 				throw new DORouterException("Unknown controller::action", 404);
 			}
-			if( 'Select' != $action && ($posts['__token'] != DOBase::GetToken() || empty($posts['__token']) ) )
+			if( !in_array($action,array('Select','Delete')) && ($posts['__token'] != DOBase::GetToken() || empty($posts['__token']) ) )
 			{
 				throw new DORouterException("Invalid token",102);
 			}

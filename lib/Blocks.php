@@ -36,7 +36,6 @@ class DOBlocks
 		$blocks = self::Fetch( $pos );
 		//Get current page
 		$pages   = DOBlocksHelper::GetBlocksIndex();
-
 		//Display blocks with it's specific layout according to current page.
 		foreach( $pages as $page) 
 		{
@@ -50,20 +49,17 @@ class DOBlocks
 	/**
 	*** Invoke a function for single block displaying
 	***/
-	public static function Invoke( $block )
+	public static function Invoke( $blocks )
 	{
-		foreach((array)$block as $key=>$block)
+		foreach((array)$blocks as $key=>$block)
 		{
 			/** Get blocks and it's layout for this page**/
-			list($blk,$lyt)	= explode(':',$block);	
+			list($blk,$lyt)	= explode(':',$block);
 			$lyt  			= !empty($lyt) ? $lyt : 'default';
 			/** Include block file **/
 			if(!empty($blk))
 			{
-				if(self::GetBlock($blk,$lyt))
-				{
-					self::GetBlock($blk,$lyt)->Display($lyt);
-				}
+				self::GetBlock($blk,$lyt)->Display($lyt);
 			}
 		}
 		return true;	
@@ -96,7 +92,7 @@ class DOBlocks
 			}
 			if(!file_exists($file))
 			{
-				throw new DORouterException("Unknown block:[{$blk}]", 404);
+				throw new DORouterException("Unknown block:[{$block}]", 404);
 			}
 			include_once $file;
 			self::$blocks[$blkId] = self::GetLayout($block,$layout);

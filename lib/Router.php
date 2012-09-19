@@ -186,6 +186,11 @@ class DORouter
 		return DORouter::$module.'/'.self::$controller.'/'.self::$action;
 	}
 
+	public static function GetSearchIndex()
+	{
+		return "DOSearch.".self::GetPageIndex();
+	}
+
 	public static function GetMca()
 	{
 		return array(self::$module,self::$controller,self::$action,self::$params);

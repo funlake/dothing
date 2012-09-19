@@ -33,5 +33,10 @@ class DOEvent
 		$cache = DOFactory::GetCache();
 		$cache->SetControllerCache($mca,$content);
 	}
+
+	public function OnAfterRenderBlockMessage($content)
+	{
+
+	}
 }
 ?>

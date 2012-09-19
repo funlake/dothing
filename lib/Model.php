@@ -51,9 +51,19 @@ class DOModel
 	}
 	public function Find($where = null)
 	{
-		return $this->Select($where);
+		$session = DOFactory::GetSession();//session_start would happen here
+		if(!empty($where) and !is_array($where))
+		{
+			$where = array($this->pk => $where);
+		}
+		$searchs = (array)$session->Get(DORouter::GetSearchIndex());
+		if(!!(array_filter($searchs)))
+		{
+			$where   = array_merge((array)$where,$searchs);
+		}
+		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby);
 	}
-	public function Select($where = null)
+	public function Select($where = null,$compare = '=',$orderby = array(),$groupby = null)
 	{
 		$this->action = __FUNCTION__;
 		if(empty($this->name))
@@ -77,18 +87,26 @@ class DOModel
 					if(is_array($v))
 					{
 						$condition[$k] 	   = ($v[1] ? $v[1] : '=').'?';
-						$params[$j++]      = $v[0];
+						$params[$j++]      = ($v[1] == 'like' ? ('%'.$v[0].'%') : $v[0]);
 					}
 					else
 					{
-						$condition[$v]     = $k.'=?';
-						$params[$j++]      = $v;
+						if($compare == 'like')
+						{
+							$condition[]     = $k.' like ?';
+							$params[$j++]    = '%'.$v.'%';
+						}
+						else
+						{
+							$condition[]     = $k.'=?';
+							$params[$j++]    = $v;							
+						}
 					}
 				}
-				array_unshift($params,$condition);
+				//array_unshift($params,$condition);
 			}
 			$caller = DOFactory::GetTable($this->name);
-			$R      = call_user_func_array(array($caller,'GetAll'), $params);
+			$R      = call_user_func_array(array($caller,'GetAll'),array($condition,$params,$orderby,$groupby));
 			$this->SetFieldsValue($R,$R[0],$this->action);
 			return $R;
 		}
@@ -129,6 +147,20 @@ class DOModel
 	function Delete(array $cdtarray = null)
 	{
 		$this->action = __FUNCTION__;
+		if(empty($this->name))
+		{
+			throw new DOException("Unknow table",102);
+		}
+		if( false != $this->Bind( $insArray ) )
+		{
+			/** We don't need to handle primary key in insert operation **/
+			if(!!$this->binds)
+			{
+				$R =  DOFactory::GetTable($this->name)->Delete( $this->binds );
+				return $R;
+			}
+		}
+		return false;		
 	}
 	
 	/**

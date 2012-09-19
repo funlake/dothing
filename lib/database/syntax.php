@@ -175,11 +175,12 @@ class DOSyntax
 	function Orderby()
 	{
 		$args = func_get_args();
+		if(!$args) return $this;
 		switch(count($args))
 		{
 			case 1:
 				$orderList = $args[0];
-				foreach($orderList as $k=>$v)
+				foreach((array)$orderList as $k=>$v)
 				{
 					$this->orderby[$k] = $v; 
 				}
@@ -194,7 +195,9 @@ class DOSyntax
 	/** Set Group by **/
 	function Groupby( )
 	{
-		foreach(func_get_args() as $k=>$v)
+		$args = func_get_args();
+		if(!array_filter($args)) return $this;
+		foreach($args as $k=>$v)
 		{
 			$this->groupby[$k] = $v; 
 		}
