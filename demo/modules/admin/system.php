@@ -5,7 +5,7 @@ class DOControllerSystem extends DOController
 	public function settingAction($request = null)
 	{
 		$M 		= DOFactory::GetModel("#__setting");
-		$data	= $M->Find(array(
+		$data	= $M->Select(array(
 				'status' => array('0','>')
 			)
 		);

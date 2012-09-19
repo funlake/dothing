@@ -34,7 +34,7 @@
   	<i class="icon-ok icon-white"></i>
   	<?php echo L('Apply');?>
   </button>
-  <button class="btn btn-danger" onclick="location.href=$('#__redirect').val();return false;">
+  <button class="btn btn-warning" onclick="location.href=$('#__redirect').val();return false;">
   	<i class="icon-remove icon-white"></i>
   	<?php echo L('Cancel');?>
   </button>

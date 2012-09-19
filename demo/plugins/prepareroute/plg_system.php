@@ -35,6 +35,30 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		{
 			DOTemplate::SetTemplate(DO_ADMIN_TEMPLATE);
 		}
+		/** Search handler **/
+		$this->SearchPrepare($mca);
+	}
+
+	public function SearchPrepare($mca)
+	{
+		//params were useless here
+		if(isset($_POST['DO']['search']))
+		{
+			array_pop($mca);
+			$mca['params'] = null;
+			$session = DOFactory::GetSession();
+			$pagekey = "DOSearch.".implode('/',$mca);
+			$pagekey = rtrim($pagekey,"/");
+			if(!empty($_POST['DO']['search']))
+			{
+				$session->Set($pagekey,$_POST['DO']['search']);
+			}
+			else
+			{
+				$session->Clean($pagekey,$_POST['DO']['search']);
+			}
+		}
+
 	}
 }
 ?>

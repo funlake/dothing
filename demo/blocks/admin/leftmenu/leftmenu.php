@@ -46,15 +46,34 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		);
 		$menus['admin/user/*'] = array(
 			array(
-				'title' => L('All')
-			   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index")
-			   ,'class' => ''
-			)
-		   ,array(
-				'title' => L('Administrator')
-			   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index@group=admin")
-			   ,'class' => ''
-			)
+				'title' => L('Users')
+			   ,'link'  => '#'
+			   ,'class'	=> 'nav-header'
+			   ,'child' => array(
+			   		array(
+						'title' => L('All')
+					   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index")
+					   ,'class' => ''
+					)
+				   ,array(
+						'title' => L('Administrator')
+					   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index@group=admin")
+					   ,'class' => ''
+					)
+			   )
+		   )
+		  ,array(
+		  		'title' => L('Groups')
+		  	   ,'link'  => '#'
+		  	   ,'class' => 'nav-header'
+		  	   ,'child' => array(
+		  	   		array(
+		  	   			'title' => L('All')
+		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/group')
+		  	   		   ,'class' => strpos(DORouter::GetAction(),'group') !== false ? 'active' : ''
+		  	   		)
+		  	   	)
+		   )
 		);
 		$curIndex = DORouter::GetPageIndex();
 		foreach($menus as $key=>$menu)

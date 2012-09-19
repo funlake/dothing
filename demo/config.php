@@ -21,7 +21,7 @@ define('DO_ACCESS',1);
 //controller key in url
 define('DO_CKEY','C');
 //pathinfo switch
-define('DO_SEO',false);
+define('DO_SEO',true);
 //char set
 define('DO_CHARSET','utf-8');
 //brower cache or not
@@ -38,7 +38,7 @@ define('DO_ENCRYPT_MODE','cbc');
 //template
 define('DO_TEMPLATE','default');
 //admin template
-define('DO_ADMIN_TEMPLATE','quickadmin');
+define('DO_ADMIN_TEMPLATE','bootstrap');
 //admin interface
 define('DO_ADMIN_INTERFACE','ads007');
 //default controller

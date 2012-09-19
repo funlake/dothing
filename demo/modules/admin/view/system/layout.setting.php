@@ -84,7 +84,7 @@
   	<i class="icon-ok icon-white"></i>
   	<?php echo L('Apply');?>
   </button>
-  <button class="btn btn-danger" onclick="return false;">
+  <button class="btn btn-warning" onclick="return false;">
   	<i class="icon-remove icon-white"></i>
   	<?php echo L('Cancel');?>
   </button>

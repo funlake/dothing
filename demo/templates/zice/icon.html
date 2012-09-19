@@ -1,0 +1,672 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+        <meta name="description" content=""/>
+        <meta name="keywords" content=""/>
+        
+        <title>ziceinclude&trade; admin version 1.1 online</title>
+
+        <!-- Link shortcut icon-->
+        <link rel="shortcut icon" type="image/ico" href="images/favicon2.ico"/> 
+
+        <!-- Link css-->
+        <link rel="stylesheet" type="text/css" href="css/zice.style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/icon.css"/>
+        <link rel="stylesheet" type="text/css" href="css/ui-custom.css"/>
+        <link rel="stylesheet" type="text/css" href="css/timepicker.css"/>
+        <link rel="stylesheet" type="text/css" href="components/colorpicker/css/colorpicker.css"/>
+        <link rel="stylesheet" type="text/css" href="components/elfinder/css/elfinder.css"/>
+        <link rel="stylesheet" type="text/css" href="components/datatables/dataTables.css"/>
+        <link rel="stylesheet" type="text/css" href="components/validationEngine/validationEngine.jquery.css"/>     
+        <link rel="stylesheet" type="text/css" href="components/jscrollpane/jscrollpane.css"/>
+        <link rel="stylesheet" type="text/css" href="components/fancybox/jquery.fancybox.css"/>
+        <link rel="stylesheet" type="text/css" href="components/tipsy/tipsy.css"/>
+        <link rel="stylesheet" type="text/css" href="components/editor/jquery.cleditor.css"/>
+        <link rel="stylesheet" type="text/css" href="components/chosen/chosen.css"/>
+        <link rel="stylesheet" type="text/css" href="components/confirm/jquery.confirm.css"/>
+        <link rel="stylesheet" type="text/css" href="components/sourcerer/sourcerer.css"/>
+        <link rel="stylesheet" type="text/css" href="components/fullcalendar/fullcalendar.css"/>
+        <link rel="stylesheet" type="text/css" href="components/Jcrop/jquery.Jcrop.css"/>   
+		
+        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="components/flot/excanvas.min.js"></script><![endif]-->  
+		
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="components/ui/jquery.ui.min.js"></script> 
+        <script type="text/javascript" src="components/ui/jquery.autotab.js"></script>
+        <script type="text/javascript" src="components/ui/timepicker.js"></script>
+        <script type="text/javascript" src="components/colorpicker/js/colorpicker.js"></script>
+        <script type="text/javascript" src="components/checkboxes/iphone.check.js"></script>
+        <script type="text/javascript" src="components/elfinder/js/elfinder.full.js"></script>
+        <script type="text/javascript" src="components/datatables/dataTables.min.js"></script>
+        <script type="text/javascript" src="components/datatables/ColVis.js"></script>
+        <script type="text/javascript" src="components/scrolltop/scrolltopcontrol.js"></script>
+        <script type="text/javascript" src="components/fancybox/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="components/jscrollpane/mousewheel.js"></script>
+        <script type="text/javascript" src="components/jscrollpane/mwheelIntent.js"></script>
+        <script type="text/javascript" src="components/jscrollpane/jscrollpane.min.js"></script>
+        <script type="text/javascript" src="components/spinner/ui.spinner.js"></script>
+        <script type="text/javascript" src="components/tipsy/jquery.tipsy.js"></script>
+        <script type="text/javascript" src="components/editor/jquery.cleditor.js"></script>
+        <script type="text/javascript" src="components/chosen/chosen.js"></script>
+        <script type="text/javascript" src="components/confirm/jquery.confirm.js"></script>
+        <script type="text/javascript" src="components/validationEngine/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="components/validationEngine/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="components/vticker/jquery.vticker-min.js"></script>
+        <script type="text/javascript" src="components/sourcerer/sourcerer.js"></script>
+        <script type="text/javascript" src="components/fullcalendar/fullcalendar.js"></script>
+        <script type="text/javascript" src="components/flot/flot.js"></script>
+        <script type="text/javascript" src="components/flot/flot.pie.min.js"></script>
+        <script type="text/javascript" src="components/flot/flot.resize.min.js"></script>
+        <script type="text/javascript" src="components/flot/graphtable.js"></script>
+        <script type="text/javascript" src="components/uploadify/swfobject.js"></script>
+        <script type="text/javascript" src="components/uploadify/uploadify.js"></script>        
+        <script type="text/javascript" src="components/checkboxes/customInput.jquery.js"></script>
+        <script type="text/javascript" src="components/effect/jquery-jrumble.js"></script>
+        <script type="text/javascript" src="components/filestyle/jquery.filestyle.js"></script>
+        <script type="text/javascript" src="components/placeholder/jquery.placeholder.js"></script>
+		<script type="text/javascript" src="components/Jcrop/jquery.Jcrop.js"></script>
+        <script type="text/javascript" src="components/imgTransform/jquery.transform.js"></script>
+        <script type="text/javascript" src="components/webcam/webcam.js"></script>
+		<script type="text/javascript" src="components/rating_star/rating_star.js"></script>
+		<script type="text/javascript" src="components/dualListBox/dualListBox.js"></script>
+		<script type="text/javascript" src="components/smartWizard/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/zice.custom.js"></script>    
+		<script type="text/javascript">
+        
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-29497072-1']);
+          _gaq.push(['_trackPageview']);
+        
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        
+        </script>    
+   
+           
+        </head>        
+        <body class="dashborad">        
+        <div id="alertMessage" class="error"></div>
+		<!-- Header -->
+        <div id="header">
+                <div id="account_info"> 
+                    <img src="images/avatar.png" alt="Online" class="avatar"/>
+					<div class="setting" title="Profile Setting"><b>Welcome,</b> <b class="red">John Doe</b><img src="images/gear.png" class="gear"  alt="Profile Setting" ></div>
+					<div class="logout" title="Disconnect"><b >Logout</b> <img src="images/connect.png" name="connect" class="disconnect" alt="disconnect" ></div> 
+                </div>
+            </div><!-- End Header -->
+			<div id="shadowhead"></div>
+  
+              <div id="left_menu">
+                    <ul id="main_menu" class="main_menu">
+                      <li class="limenu" ><a href="dashboard.html"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
+                      <li class="limenu" ><a href="#" ><span class="ico gray shadow window"></span><b>Form elements</b></a>
+                        <ul>
+                          <li ><a href="form.html"> basic form </a></li>
+                          <li ><a href="vform.html"> validation </a></li>
+                          <li ><a href="wizard.html"> wizard </a></li>
+                        </ul>
+                      </li>
+                      <li class="limenu" ><a href="#"><span class="ico gray  dimensions" ></span><b>Sample pages</b></a>
+                        <ul>
+                          <li ><a href="profile.html"> Profile setting </a></li>
+                          <li ><a href="conversation.html"> conversation</a></li>
+                          <li ><a href="imagesEditor.html"> Images Editor </a></li>
+                          <li ><a href="grid.html"> Grid System </a></li>
+                        </ul>
+                      </li>
+                      <li class="limenu" ><a href="table.html"><span class="ico gray shadow  spreadsheet"></span><b>Tables</b> </a></li>
+                      <li class="limenu" ><a href="gallery.html"><span class="ico gray shadow pictures_folder"></span><b>Gallery </b></a></li>
+                      <li class="limenu" ><a href="#"><span class="ico gray shadow stats_lines"></span><b>Graph and Charts</b> </a>
+                        <ul>
+                          <li><a href="modalchartLive.html" class="pop_box">live chart </a></li>
+                          <li><a href="chart.html">all chart</a></li>
+                        </ul>
+                      </li>
+                      <li class="limenu" ><a href="filemanager.html"><span class="ico gray shadow  file"></span><b>File manager </b></a></li>
+                      <li class="limenu" ><a href="calendar.html"><span class="ico gray shadow calendar"></span><b>Calendar </b></a></li>
+                      <li class="limenu" ><a href="typography.html"><span class="ico gray  shadow paragraph_align_left"></span><b>Typography</b></a></li>
+                      <li class="limenu" ><a href="inelement.html"><span class="ico gray shadow abacus"></span><b>Interface elements </b></a></li>
+                      <li class="limenu" ><a href="map.html"><span class="ico gray shadow  location"></span><b>Map location </b></a></li>
+                      <li class="limenu select" ><a href="icon.html"><span class="ico gray  shadow satellite"></span><b>Icon and Button </b></a></li>
+					  <li class="limenu" ><a href="404.html"><span class="ico gray  shadow firewall"></span><b>Error Pages</b></a></li>
+
+                        
+                    </ul>
+              </div>
+
+            
+            <div id="content">
+                <div class="inner">
+					<div class="topcolumn">
+						<div class="logo"></div>
+                            <ul  id="shortcut">
+                                <li> <a href="#" title="Back To home"> <img src="images/icon/shortcut/home.png" alt="home"/><strong>Home</strong> </a> </li>
+                                <li> <a href="#" title="Website Graph"> <img src="images/icon/shortcut/graph.png" alt="graph"/><strong>Graph</strong> </a> </li>
+                                <li> <a href="#" title="Setting" > <img src="images/icon/shortcut/setting.png" alt="setting" /><strong>Setting</strong></a> </li> 
+                                <li> <a href="#" title="Messages"> <img src="images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
+                            </ul>
+					</div>
+                    <div class="clear"></div>     
+                    
+						<!-- full width -->
+						<div class="widget">
+                        <div class="header"><span ><span class="ico gray satellite"></span>Icon and Button</span></div><!-- End header -->	
+                        <div class="content" >
+
+                   <h3><span class="icon"></span>button style</h3>
+                            <a class="uibutton " >button</a> 
+                            <a class="uibutton special" >button</a>
+							<a class="uibutton confirm" >button</a>
+                            <a class="uibutton normal" >button</a> 
+                            <a class="uibutton disable" >button</a>
+							<br class="clear" /><br class="clear" />
+                            <a class="uibutton large" >button</a> 
+                            <a class="uibutton special large" >button</a>
+							<a class="uibutton confirm large" >button</a>
+                            <a class="uibutton normal large" >button</a> 
+                            <a class="uibutton disable large" >button</a>
+                      <br class="clear" /><br class="clear" />
+                       <h3><span class="icon"></span>button icon style</h3>     
+                            <a class="uibutton icon add " >button</a> 
+                            <a class="uibutton icon edit " >button</a> 
+                            <a class="uibutton icon secure " >button</a> 
+                            <a class="uibutton icon forward " >button</a> 
+                            <a class="uibutton icon answer " >button</a> 
+                            <a class="uibutton icon prev " >button</a> 
+                            <a class="uibutton icon next " >button</a> 
+                       <br class="clear" /><br class="clear" />
+                            <a class="uibutton icon special add " >button</a> 
+                            <a class="uibutton icon special edit " >button</a> 
+                            <a class="uibutton icon special secure " >button</a> 
+                            <a class="uibutton icon special forward " >button</a> 
+                            <a class="uibutton icon special answer " >button</a> 
+                            <a class="uibutton icon special prev " >button</a> 
+                            <a class="uibutton icon special next " >button</a> 
+                       <br class="clear" /><br class="clear" />
+                            <a class="uibutton icon confirm add " >button</a> 
+                            <a class="uibutton icon confirm edit " >button</a> 
+                            <a class="uibutton icon confirm secure " >button</a> 
+                            <a class="uibutton icon confirm forward " >button</a> 
+                            <a class="uibutton icon confirm answer " >button</a> 
+                            <a class="uibutton icon confirm prev " >button</a> 
+                            <a class="uibutton icon confirm next " >button</a> 
+                       <br class="clear" /><br class="clear" />
+                             <a class="uibutton icon normal add " >button</a> 
+                             <a class="uibutton icon normal edit " >button</a> 
+                             <a class="uibutton icon normal secure " >button</a> 
+                             <a class="uibutton icon normal forward " >button</a> 
+                             <a class="uibutton icon normal answer " >button</a> 
+                             <a class="uibutton icon normal prev " >button</a> 
+                             <a class="uibutton icon normal next " >button</a> 
+                       <br class="clear" /><br class="clear" />
+                             <a class="uibutton icon disable add " >button</a> 
+                             <a class="uibutton icon disable edit " >button</a> 
+                             <a class="uibutton icon disable secure " >button</a> 
+                             <a class="uibutton icon disable forward " >button</a> 
+                             <a class="uibutton icon disable answer " >button</a> 
+                             <a class="uibutton icon disable prev " >button</a> 
+                             <a class="uibutton icon disable next " >button</a> 
+                        <br class="clear" /><br class="clear" />
+                  <h3><span class="icon"></span>custom your button group style </h3>  
+                        <ul class="uibutton-group">
+                            <li><a class="uibutton icon prev" >Prev</a></li>
+                            <li><a class="uibutton icon add pop_box"  >New Album</a></li>
+                        </ul>
+                        <ul class="uibutton-group">
+                              <li><a class="uibutton icon prev special" >Prev</a></li>
+                              <li><a class="uibutton icon add special"  >New </a></li>
+                              <li><a  class="uibutton  icon secure special"  >upload Pic to Album</a></li>
+                        </ul>
+                        <ul class="uibutton-group">
+                              <li><a class="uibutton disable " >saveForm</a></li>
+                              <li><a class="uibutton  icon edit  special" >Edit  About</a></li>      
+                        </ul>
+                    <br class="clear" /><br class="clear" />
+                          <ul class="uibutton-group">
+                              <li><a class="uibutton icon prev" >Prev</a></li>
+                          </ul>
+                              <ul class="uibutton-group">
+                              <li><a class="uibutton disable " >button</a></li>
+                              <li><a class="uibutton  disable "  >button </a></li>
+
+                          </ul>
+                              <ul class="uibutton-group">
+                              <li><a class="uibutton icon next" >Next</a></li>
+                          </ul>
+                        <ul class="uibutton-group">
+                            <li><a class="uibutton  icon answer normal "  >Answer</a> </li>
+                            <li><a class="uibutton  icon forward normal " >Forward</a></li>
+                        </ul>
+                        <ul class="uibutton-group">
+                            <li><a class="uibutton icon add "   >Add Contact</a></li>
+                            <li><a class="uibutton special "  >Delete</a></li>
+                        </ul>
+
+                   <br class="clear" /><br class="clear" />
+                  <h3><span class="icon"></span>icon style color</h3>     
+
+                        <div class="iconBox color" title="abacus" > <img src="images/icon/color_18/abacus.png"  alt="abacus"/> </div>
+                        <div class="iconBox color" title="access_point" > <img src="images/icon/color_18/access_point.png"  alt="access_point"/> </div>
+                        <div class="iconBox color" title="add" > <img src="images/icon/color_18/add.png"  alt="add"/> </div>
+                        <div class="iconBox color" title="administrator" > <img src="images/icon/color_18/administrator.png"  alt="administrator"/> </div>
+                        <div class="iconBox color" title="alarm" > <img src="images/icon/color_18/alarm.png"  alt="alarm"/> </div>
+                        <div class="iconBox color" title="arrow_bidirectional" > <img src="images/icon/color_18/arrow_bidirectional.png"  alt="arrow_bidirectional"/> </div>
+                        <div class="iconBox color" title="arrow_down2" > <img src="images/icon/color_18/arrow_down2.png"  alt="arrow_down2"/> </div>
+                        <div class="iconBox color" title="arrow_left2" > <img src="images/icon/color_18/arrow_left2.png"  alt="arrow_left2"/> </div>
+                        <div class="iconBox color" title="arrow_right2" > <img src="images/icon/color_18/arrow_right2.png"  alt="arrow_right2"/> </div>
+                        <div class="iconBox color" title="arrow_up2" > <img src="images/icon/color_18/arrow_up2.png"  alt="arrow_up2"/> </div>
+                        <div class="iconBox color" title="attachment" > <img src="images/icon/color_18/attachment.png"  alt="attachment"/> </div>
+                        <div class="iconBox color" title="audio_knob" > <img src="images/icon/color_18/audio_knob.png"  alt="audio_knob"/> </div>
+                        <div class="iconBox color" title="barcode" > <img src="images/icon/color_18/barcode.png"  alt="barcode"/> </div>
+                        <div class="iconBox color" title="battery_empty" > <img src="images/icon/color_18/battery_empty.png"  alt="battery_empty"/> </div>
+                        <div class="iconBox color" title="battery_full" > <img src="images/icon/color_18/battery_full.png"  alt="battery_full"/> </div>
+                        <div class="iconBox color" title="battery_half" > <img src="images/icon/color_18/battery_half.png"  alt="battery_half"/> </div>
+                        <div class="iconBox color" title="bell" > <img src="images/icon/color_18/bell.png"  alt="bell"/> </div>
+                        <div class="iconBox color" title="bill" > <img src="images/icon/color_18/bill.png"  alt="bill"/> </div>
+                        <div class="iconBox color" title="binoculars" > <img src="images/icon/color_18/binoculars.png"  alt="binoculars"/> </div>
+                        <div class="iconBox color" title="bold" > <img src="images/icon/color_18/bold.png"  alt="bold"/> </div>
+                        <div class="iconBox color" title="book" > <img src="images/icon/color_18/book.png"  alt="book"/> </div>
+                        <div class="iconBox color" title="bookmark" > <img src="images/icon/color_18/bookmark.png"  alt="bookmark"/> </div>
+                        <div class="iconBox color" title="briefcase" > <img src="images/icon/color_18/briefcase.png"  alt="briefcase"/> </div>
+                        <div class="iconBox color" title="brightness" > <img src="images/icon/color_18/brightness.png"  alt="brightness"/> </div>
+                        <div class="iconBox color" title="broken_link" > <img src="images/icon/color_18/broken_link.png"  alt="broken_link"/> </div>
+                        <div class="iconBox color" title="brush" > <img src="images/icon/color_18/brush.png"  alt="brush"/> </div>
+                        <div class="iconBox color" title="burn_blu-ray" > <img src="images/icon/color_18/burn_blu-ray.png"  alt="burn_blu-ray"/> </div>
+                        <div class="iconBox color" title="burn_blu-ray2" > <img src="images/icon/color_18/burn_blu-ray2.png"  alt="burn_blu-ray2"/> </div>
+                        <div class="iconBox color" title="burn_dvd" > <img src="images/icon/color_18/burn_dvd.png"  alt="burn_dvd"/> </div>
+                        <div class="iconBox color" title="burn_dvd2" > <img src="images/icon/color_18/burn_dvd2.png"  alt="burn_dvd2"/> </div>
+                        <div class="iconBox color" title="cabinet" > <img src="images/icon/color_18/cabinet.png"  alt="cabinet"/> </div>
+                        <div class="iconBox color" title="calculator" > <img src="images/icon/color_18/calculator.png"  alt="calculator"/> </div>
+                        <div class="iconBox color" title="calendar" > <img src="images/icon/color_18/calendar.png"  alt="calendar"/> </div>
+                        <div class="iconBox color" title="camera" > <img src="images/icon/color_18/camera.png"  alt="camera"/> </div>
+                        <div class="iconBox color" title="cancel" > <img src="images/icon/color_18/cancel.png"  alt="cancel"/> </div>
+                        <div class="iconBox color" title="card_clubs" > <img src="images/icon/color_18/card_clubs.png"  alt="card_clubs"/> </div>
+                        <div class="iconBox color" title="card_diamonds" > <img src="images/icon/color_18/card_diamonds.png"  alt="card_diamonds"/> </div>
+                        <div class="iconBox color" title="card_hearts" > <img src="images/icon/color_18/card_hearts.png"  alt="card_hearts"/> </div>
+                        <div class="iconBox color" title="card_spades" > <img src="images/icon/color_18/card_spades.png"  alt="card_spades"/> </div>
+                        <div class="iconBox color" title="certificate-(2)" > <img src="images/icon/color_18/certificate-(2).png"  alt="certificate-(2)"/> </div>
+                        <div class="iconBox color" title="certificate" > <img src="images/icon/color_18/certificate.png"  alt="certificate"/> </div>
+                        <div class="iconBox color" title="chat-exclamation" > <img src="images/icon/color_18/chat-exclamation.png"  alt="chat-exclamation"/> </div>
+                        <div class="iconBox color" title="checkmark" > <img src="images/icon/color_18/checkmark.png"  alt="checkmark"/> </div>
+                        <div class="iconBox color" title="checkmark2" > <img src="images/icon/color_18/checkmark2.png"  alt="checkmark2"/> </div>
+                        <div class="iconBox color" title="clip" > <img src="images/icon/color_18/clip.png"  alt="clip"/> </div>
+                        <div class="iconBox color" title="clipboard" > <img src="images/icon/color_18/clipboard.png"  alt="clipboard"/> </div>
+                        <div class="iconBox color" title="clock" > <img src="images/icon/color_18/clock.png"  alt="clock"/> </div>
+                        <div class="iconBox color" title="close" > <img src="images/icon/color_18/close.png"  alt="close"/> </div>
+                        <div class="iconBox color" title="cloud" > <img src="images/icon/color_18/cloud.png"  alt="cloud"/> </div>
+                        <div class="iconBox color" title="cloud2" > <img src="images/icon/color_18/cloud2.png"  alt="cloud2"/> </div>
+                        <div class="iconBox color" title="coin" > <img src="images/icon/color_18/coin.png"  alt="coin"/> </div>
+                        <div class="iconBox color" title="compress" > <img src="images/icon/color_18/compress.png"  alt="compress"/> </div>
+                        <div class="iconBox color" title="connect" > <img src="images/icon/color_18/connect.png"  alt="connect"/> </div>
+                        <div class="iconBox color" title="contrast" > <img src="images/icon/color_18/contrast.png"  alt="contrast"/> </div>
+                        <div class="iconBox color" title="copy" > <img src="images/icon/color_18/copy.png"  alt="copy"/> </div>
+                        <div class="iconBox color" title="cross" > <img src="images/icon/color_18/cross.png"  alt="cross"/> </div>
+                        <div class="iconBox color" title="cutter" > <img src="images/icon/color_18/cutter.png"  alt="cutter"/> </div>
+                        <div class="iconBox color" title="delete" > <img src="images/icon/color_18/delete.png"  alt="delete"/> </div>
+                        <div class="iconBox color" title="dial" > <img src="images/icon/color_18/dial.png"  alt="dial"/> </div>
+                        <div class="iconBox color" title="diary" > <img src="images/icon/color_18/diary.png"  alt="diary"/> </div>
+                        <div class="iconBox color" title="dimensions" > <img src="images/icon/color_18/dimensions.png"  alt="dimensions"/> </div>
+                        <div class="iconBox color" title="directional_down" > <img src="images/icon/color_18/directional_down.png"  alt="directional_down"/> </div>
+                        <div class="iconBox color" title="directional_left" > <img src="images/icon/color_18/directional_left.png"  alt="directional_left"/> </div>
+                        <div class="iconBox color" title="directional_right" > <img src="images/icon/color_18/directional_right.png"  alt="directional_right"/> </div>
+                        <div class="iconBox color" title="directional_up" > <img src="images/icon/color_18/directional_up.png"  alt="directional_up"/> </div>
+                        <div class="iconBox color" title="disconnect" > <img src="images/icon/color_18/disconnect.png"  alt="disconnect"/> </div>
+                        <div class="iconBox color" title="diskette" > <img src="images/icon/color_18/diskette.png"  alt="diskette"/> </div>
+                        <div class="iconBox color" title="document" > <img src="images/icon/color_18/document.png"  alt="document"/> </div>
+                        <div class="iconBox color" title="door" > <img src="images/icon/color_18/door.png"  alt="door"/> </div>
+                        <div class="iconBox color" title="download2" > <img src="images/icon/color_18/download2.png"  alt="download2"/> </div>
+                        <div class="iconBox color" title="dropper" > <img src="images/icon/color_18/dropper.png"  alt="dropper"/> </div>
+                        <div class="iconBox color" title="earphones" > <img src="images/icon/color_18/earphones.png"  alt="earphones"/> </div>
+                        <div class="iconBox color" title="effects" > <img src="images/icon/color_18/effects.png"  alt="effects"/> </div>
+                        <div class="iconBox color" title="eject" > <img src="images/icon/color_18/eject.png"  alt="eject"/> </div>
+                        <div class="iconBox color" title="emoticon_angry" > <img src="images/icon/color_18/emoticon_angry.png"  alt="emoticon_angry"/> </div>
+                        <div class="iconBox color" title="emoticon_confused" > <img src="images/icon/color_18/emoticon_confused.png"  alt="emoticon_confused"/> </div>
+                        <div class="iconBox color" title="emoticon_grin" > <img src="images/icon/color_18/emoticon_grin.png"  alt="emoticon_grin"/> </div>
+                        <div class="iconBox color" title="emoticon_in_love" > <img src="images/icon/color_18/emoticon_in_love.png"  alt="emoticon_in_love"/> </div>
+                        <div class="iconBox color" title="emoticon_sad" > <img src="images/icon/color_18/emoticon_sad.png"  alt="emoticon_sad"/> </div>
+                        <div class="iconBox color" title="emoticon_sleeping" > <img src="images/icon/color_18/emoticon_sleeping.png"  alt="emoticon_sleeping"/> </div>
+                        <div class="iconBox color" title="emoticon_smile" > <img src="images/icon/color_18/emoticon_smile.png"  alt="emoticon_smile"/> </div>
+                        <div class="iconBox color" title="encrypt" > <img src="images/icon/color_18/encrypt.png"  alt="encrypt"/> </div>
+                        <div class="iconBox color" title="eraser" > <img src="images/icon/color_18/eraser.png"  alt="eraser"/> </div>
+                        <div class="iconBox color" title="eye" > <img src="images/icon/color_18/eye.png"  alt="eye"/> </div>
+                        <div class="iconBox color" title="eye_closed" > <img src="images/icon/color_18/eye_closed.png"  alt="eye_closed"/> </div>
+                        <div class="iconBox color" title="fast_forward" > <img src="images/icon/color_18/fast_forward.png"  alt="fast_forward"/> </div>
+                        <div class="iconBox color" title="file" > <img src="images/icon/color_18/file.png"  alt="file"/> </div>
+                        <div class="iconBox color" title="fill" > <img src="images/icon/color_18/fill.png"  alt="fill"/> </div>
+                        <div class="iconBox color" title="fingerprint" > <img src="images/icon/color_18/fingerprint.png"  alt="fingerprint"/> </div>
+                        <div class="iconBox color" title="firewall" > <img src="images/icon/color_18/firewall.png"  alt="firewall"/> </div>
+                        <div class="iconBox color" title="first" > <img src="images/icon/color_18/first.png"  alt="first"/> </div>
+                        <div class="iconBox color" title="folder" > <img src="images/icon/color_18/folder.png"  alt="folder"/> </div>
+                        <div class="iconBox color" title="font" > <img src="images/icon/color_18/font.png"  alt="font"/> </div>
+                        <div class="iconBox color" title="font_size" > <img src="images/icon/color_18/font_size.png"  alt="font_size"/> </div>
+                        <div class="iconBox color" title="game_control" > <img src="images/icon/color_18/game_control.png"  alt="game_control"/> </div>
+                        <div class="iconBox color" title="gear" > <img src="images/icon/color_18/gear.png"  alt="gear"/> </div>
+                        <div class="iconBox color" title="group" > <img src="images/icon/color_18/group.png"  alt="group"/> </div>
+                        <div class="iconBox color" title="hammer" > <img src="images/icon/color_18/hammer.png"  alt="hammer"/> </div>
+                        <div class="iconBox color" title="hand_point" > <img src="images/icon/color_18/hand_point.png"  alt="hand_point"/> </div>
+                        <div class="iconBox color" title="hand_thumbsdown" > <img src="images/icon/color_18/hand_thumbsdown.png"  alt="hand_thumbsdown"/> </div>
+                        <div class="iconBox color" title="hand_thumbsup" > <img src="images/icon/color_18/hand_thumbsup.png"  alt="hand_thumbsup"/> </div>
+                        <div class="iconBox color" title="hard_disk" > <img src="images/icon/color_18/hard_disk.png"  alt="hard_disk"/> </div>
+                        <div class="iconBox color" title="headset" > <img src="images/icon/color_18/headset.png"  alt="headset"/> </div>
+                        <div class="iconBox color" title="heart" > <img src="images/icon/color_18/heart.png"  alt="heart"/> </div>
+                        <div class="iconBox color" title="help" > <img src="images/icon/color_18/help.png"  alt="help"/> </div>
+                        <div class="iconBox color" title="help2" > <img src="images/icon/color_18/help2.png"  alt="help2"/> </div>
+                        <div class="iconBox color" title="history" > <img src="images/icon/color_18/history.png"  alt="history"/> </div>
+                        <div class="iconBox color" title="home" > <img src="images/icon/color_18/home.png"  alt="home"/> </div>
+                        <div class="iconBox color" title="hourglass" > <img src="images/icon/color_18/hourglass.png"  alt="hourglass"/> </div>
+                        <div class="iconBox color" title="hourglass2" > <img src="images/icon/color_18/hourglass2.png"  alt="hourglass2"/> </div>
+                        <div class="iconBox color" title="id" > <img src="images/icon/color_18/id.png"  alt="id"/> </div>
+                        <div class="iconBox color" title="info" > <img src="images/icon/color_18/info.png"  alt="info"/> </div>
+                        <div class="iconBox color" title="info2" > <img src="images/icon/color_18/info2.png"  alt="info2"/> </div>
+                        <div class="iconBox color" title="italic" > <img src="images/icon/color_18/italic.png"  alt="italic"/> </div>
+                        <div class="iconBox color" title="item" > <img src="images/icon/color_18/item.png"  alt="item"/> </div>
+                        <div class="iconBox color" title="key" > <img src="images/icon/color_18/key.png"  alt="key"/> </div>
+                        <div class="iconBox color" title="last" > <img src="images/icon/color_18/last.png"  alt="last"/> </div>
+                        <div class="iconBox color" title="lightbulb" > <img src="images/icon/color_18/lightbulb.png"  alt="lightbulb"/> </div>
+                        <div class="iconBox color" title="link" > <img src="images/icon/color_18/link.png"  alt="link"/> </div>
+                        <div class="iconBox color" title="list" > <img src="images/icon/color_18/list.png"  alt="list"/> </div>
+                        <div class="iconBox color" title="location" > <img src="images/icon/color_18/location.png"  alt="location"/> </div>
+                        <div class="iconBox color" title="lock" > <img src="images/icon/color_18/lock.png"  alt="lock"/> </div>
+                        <div class="iconBox color" title="lock_open" > <img src="images/icon/color_18/lock_open.png"  alt="lock_open"/> </div>
+                        <div class="iconBox color" title="login" > <img src="images/icon/color_18/login.png"  alt="login"/> </div>
+                        <div class="iconBox color" title="mail" > <img src="images/icon/color_18/mail.png"  alt="mail"/> </div>
+                        <div class="iconBox color" title="mail_open" > <img src="images/icon/color_18/mail_open.png"  alt="mail_open"/> </div>
+                        <div class="iconBox color" title="messenger" > <img src="images/icon/color_18/messenger.png"  alt="messenger"/> </div>
+                        <div class="iconBox color" title="microhpone" > <img src="images/icon/color_18/microhpone.png"  alt="microhpone"/> </div>
+                        <div class="iconBox color" title="microphone" > <img src="images/icon/color_18/microphone.png"  alt="microphone"/> </div>
+                        <div class="iconBox color" title="money_bag" > <img src="images/icon/color_18/money_bag.png"  alt="money_bag"/> </div>
+                        <div class="iconBox color" title="monitor" > <img src="images/icon/color_18/monitor.png"  alt="monitor"/> </div>
+                        <div class="iconBox color" title="moon" > <img src="images/icon/color_18/moon.png"  alt="moon"/> </div>
+                        <div class="iconBox color" title="music" > <img src="images/icon/color_18/music.png"  alt="music"/> </div>
+                        <div class="iconBox color" title="music_folder" > <img src="images/icon/color_18/music_folder.png"  alt="music_folder"/> </div>
+                        <div class="iconBox color" title="music_library" > <img src="images/icon/color_18/music_library.png"  alt="music_library"/> </div>
+                        <div class="iconBox color" title="next" > <img src="images/icon/color_18/next.png"  alt="next"/> </div>
+                        <div class="iconBox color" title="notepad" > <img src="images/icon/color_18/notepad.png"  alt="notepad"/> </div>
+                        <div class="iconBox color" title="paragraph_align_left" > <img src="images/icon/color_18/paragraph_align_left.png"  alt="paragraph_align_left"/> </div>
+                        <div class="iconBox color" title="paragraph_align_right" > <img src="images/icon/color_18/paragraph_align_right.png"  alt="paragraph_align_right"/> </div>
+                        <div class="iconBox color" title="paragraph_justify" > <img src="images/icon/color_18/paragraph_justify.png"  alt="paragraph_justify"/> </div>
+                        <div class="iconBox color" title="password" > <img src="images/icon/color_18/password.png"  alt="password"/> </div>
+                        <div class="iconBox color" title="paste" > <img src="images/icon/color_18/paste.png"  alt="paste"/> </div>
+                        <div class="iconBox color" title="pause" > <img src="images/icon/color_18/pause.png"  alt="pause"/> </div>
+                        <div class="iconBox color" title="pen" > <img src="images/icon/color_18/pen.png"  alt="pen"/> </div>
+                        <div class="iconBox color" title="pencil" > <img src="images/icon/color_18/pencil.png"  alt="pencil"/> </div>
+                        <div class="iconBox color" title="phone" > <img src="images/icon/color_18/phone.png"  alt="phone"/> </div>
+                        <div class="iconBox color" title="photo_album" > <img src="images/icon/color_18/photo_album.png"  alt="photo_album"/> </div>
+                        <div class="iconBox color" title="pictures_folder" > <img src="images/icon/color_18/pictures_folder.png"  alt="pictures_folder"/> </div>
+                        <div class="iconBox color" title="play" > <img src="images/icon/color_18/play.png"  alt="play"/> </div>
+                        <div class="iconBox color" title="point" > <img src="images/icon/color_18/point.png"  alt="point"/> </div>
+                        <div class="iconBox color" title="power" > <img src="images/icon/color_18/power.png"  alt="power"/> </div>
+                        <div class="iconBox color" title="previous" > <img src="images/icon/color_18/previous.png"  alt="previous"/> </div>
+                        <div class="iconBox color" title="print" > <img src="images/icon/color_18/print.png"  alt="print"/> </div>
+                        <div class="iconBox color" title="pyramid" > <img src="images/icon/color_18/pyramid.png"  alt="pyramid"/> </div>
+                        <div class="iconBox color" title="random" > <img src="images/icon/color_18/random.png"  alt="random"/> </div>
+                        <div class="iconBox color" title="record" > <img src="images/icon/color_18/record.png"  alt="record"/> </div>
+                        <div class="iconBox color" title="redo" > <img src="images/icon/color_18/redo.png"  alt="redo"/> </div>
+                        <div class="iconBox color" title="reload" > <img src="images/icon/color_18/reload.png"  alt="reload"/> </div>
+                        <div class="iconBox color" title="repeat" > <img src="images/icon/color_18/repeat.png"  alt="repeat"/> </div>
+                        <div class="iconBox color" title="resize2" > <img src="images/icon/color_18/resize2.png"  alt="resize2"/> </div>
+                        <div class="iconBox color" title="rewind" > <img src="images/icon/color_18/rewind.png"  alt="rewind"/> </div>
+                        <div class="iconBox color" title="rotate" > <img src="images/icon/color_18/rotate.png"  alt="rotate"/> </div>
+                        <div class="iconBox color" title="round" > <img src="images/icon/color_18/round.png"  alt="round"/> </div>
+                        <div class="iconBox color" title="ruler_square" > <img src="images/icon/color_18/ruler_square.png"  alt="ruler_square"/> </div>
+                        <div class="iconBox color" title="satellite" > <img src="images/icon/color_18/satellite.png"  alt="satellite"/> </div>
+                        <div class="iconBox color" title="scissors" > <img src="images/icon/color_18/scissors.png"  alt="scissors"/> </div>
+                        <div class="iconBox color" title="screwdriver" > <img src="images/icon/color_18/screwdriver.png"  alt="screwdriver"/> </div>
+                        <div class="iconBox color" title="security" > <img src="images/icon/color_18/security.png"  alt="security"/> </div>
+                        <div class="iconBox color" title="shopping_basket" > <img src="images/icon/color_18/shopping_basket.png"  alt="shopping_basket"/> </div>
+                        <div class="iconBox color" title="software24" > <img src="images/icon/color_18/software24.png"  alt="software24"/> </div>
+                        <div class="iconBox color" title="spam" > <img src="images/icon/color_18/spam.png"  alt="spam"/> </div>
+                        <div class="iconBox color" title="speaker" > <img src="images/icon/color_18/speaker.png"  alt="speaker"/> </div>
+                        <div class="iconBox color" title="speaker2" > <img src="images/icon/color_18/speaker2.png"  alt="speaker2"/> </div>
+                        <div class="iconBox color" title="sphere" > <img src="images/icon/color_18/sphere.png"  alt="sphere"/> </div>
+                        <div class="iconBox color" title="spreadsheet" > <img src="images/icon/color_18/spreadsheet.png"  alt="spreadsheet"/> </div>
+                        <div class="iconBox color" title="square" > <img src="images/icon/color_18/square.png"  alt="square"/> </div>
+                        <div class="iconBox color" title="star" > <img src="images/icon/color_18/star.png"  alt="star"/> </div>
+                        <div class="iconBox color" title="stats_bars" > <img src="images/icon/color_18/stats_bars.png"  alt="stats_bars"/> </div>
+                        <div class="iconBox color" title="stats_lines" > <img src="images/icon/color_18/stats_lines.png"  alt="stats_lines"/> </div>
+                        <div class="iconBox color" title="stats_pie" > <img src="images/icon/color_18/stats_pie.png"  alt="stats_pie"/> </div>
+                        <div class="iconBox color" title="stop" > <img src="images/icon/color_18/stop.png"  alt="stop"/> </div>
+                        <div class="iconBox color" title="strike_through" > <img src="images/icon/color_18/strike_through.png"  alt="strike_through"/> </div>
+                        <div class="iconBox color" title="sun" > <img src="images/icon/color_18/sun.png"  alt="sun"/> </div>
+                        <div class="iconBox color" title="target" > <img src="images/icon/color_18/target.png"  alt="target"/> </div>
+                        <div class="iconBox color" title="thunder" > <img src="images/icon/color_18/thunder.png"  alt="thunder"/> </div>
+                        <div class="iconBox color" title="trash_can" > <img src="images/icon/color_18/trash_can.png"  alt="trash_can"/> </div>
+                        <div class="iconBox color" title="underlined" > <img src="images/icon/color_18/underlined.png"  alt="underlined"/> </div>
+                        <div class="iconBox color" title="undo" > <img src="images/icon/color_18/undo.png"  alt="undo"/> </div>
+                        <div class="iconBox color" title="upload2" > <img src="images/icon/color_18/upload2.png"  alt="upload2"/> </div>
+                        <div class="iconBox color" title="usb" > <img src="images/icon/color_18/usb.png"  alt="usb"/> </div>
+                        <div class="iconBox color" title="user" > <img src="images/icon/color_18/user.png"  alt="user"/> </div>
+                        <div class="iconBox color" title="user_woman" > <img src="images/icon/color_18/user_woman.png"  alt="user_woman"/> </div>
+                        <div class="iconBox color" title="volume_control" > <img src="images/icon/color_18/volume_control.png"  alt="volume_control"/> </div>
+                        <div class="iconBox color" title="webcam" > <img src="images/icon/color_18/webcam.png"  alt="webcam"/> </div>
+                        <div class="iconBox color" title="window" > <img src="images/icon/color_18/window.png"  alt="window"/> </div>
+                        <div class="iconBox color" title="wizard" > <img src="images/icon/color_18/wizard.png"  alt="wizard"/> </div>
+                        <div class="iconBox color" title="world" > <img src="images/icon/color_18/world.png"  alt="world"/> </div>
+                        <div class="iconBox color" title="zoom" > <img src="images/icon/color_18/zoom.png"  alt="zoom"/> </div>
+                        <div class="iconBox color" title="zoom_in" > <img src="images/icon/color_18/zoom_in.png"  alt="zoom_in"/> </div>
+                        <div class="iconBox color" title="zoom_out" > <img src="images/icon/color_18/zoom_out.png"  alt="zoom_out"/> </div>
+                            
+                         <br class="clear" /><br class="clear" />
+                        <h3><span class="icon"></span>icon style gray</h3>     
+      
+                        <div class="iconBox gray" title="abacus" > <img src="images/icon/gray_18/abacus.png"  alt="abacus"/> </div>
+                        <div class="iconBox gray" title="access_point" > <img src="images/icon/gray_18/access_point.png"  alt="access_point"/> </div>
+                        <div class="iconBox gray" title="add" > <img src="images/icon/gray_18/add.png"  alt="add"/> </div>
+                        <div class="iconBox gray" title="administrator" > <img src="images/icon/gray_18/administrator.png"  alt="administrator"/> </div>
+                        <div class="iconBox gray" title="alarm" > <img src="images/icon/gray_18/alarm.png"  alt="alarm"/> </div>
+                        <div class="iconBox gray" title="arrow_bidirectional" > <img src="images/icon/gray_18/arrow_bidirectional.png"  alt="arrow_bidirectional"/> </div>
+                        <div class="iconBox gray" title="arrow_down2" > <img src="images/icon/gray_18/arrow_down2.png"  alt="arrow_down2"/> </div>
+                        <div class="iconBox gray" title="arrow_left2" > <img src="images/icon/gray_18/arrow_left2.png"  alt="arrow_left2"/> </div>
+                        <div class="iconBox gray" title="arrow_right2" > <img src="images/icon/gray_18/arrow_right2.png"  alt="arrow_right2"/> </div>
+                        <div class="iconBox gray" title="arrow_up2" > <img src="images/icon/gray_18/arrow_up2.png"  alt="arrow_up2"/> </div>
+                        <div class="iconBox gray" title="attachment" > <img src="images/icon/gray_18/attachment.png"  alt="attachment"/> </div>
+                        <div class="iconBox gray" title="audio_knob" > <img src="images/icon/gray_18/audio_knob.png"  alt="audio_knob"/> </div>
+                        <div class="iconBox gray" title="barcode" > <img src="images/icon/gray_18/barcode.png"  alt="barcode"/> </div>
+                        <div class="iconBox gray" title="battery_empty" > <img src="images/icon/gray_18/battery_empty.png"  alt="battery_empty"/> </div>
+                        <div class="iconBox gray" title="battery_full" > <img src="images/icon/gray_18/battery_full.png"  alt="battery_full"/> </div>
+                        <div class="iconBox gray" title="battery_half" > <img src="images/icon/gray_18/battery_half.png"  alt="battery_half"/> </div>
+                        <div class="iconBox gray" title="bell" > <img src="images/icon/gray_18/bell.png"  alt="bell"/> </div>
+                        <div class="iconBox gray" title="bill" > <img src="images/icon/gray_18/bill.png"  alt="bill"/> </div>
+                        <div class="iconBox gray" title="binoculars" > <img src="images/icon/gray_18/binoculars.png"  alt="binoculars"/> </div>
+                        <div class="iconBox gray" title="bold" > <img src="images/icon/gray_18/bold.png"  alt="bold"/> </div>
+                        <div class="iconBox gray" title="book" > <img src="images/icon/gray_18/book.png"  alt="book"/> </div>
+                        <div class="iconBox gray" title="bookmark" > <img src="images/icon/gray_18/bookmark.png"  alt="bookmark"/> </div>
+                        <div class="iconBox gray" title="briefcase" > <img src="images/icon/gray_18/briefcase.png"  alt="briefcase"/> </div>
+                        <div class="iconBox gray" title="brightness" > <img src="images/icon/gray_18/brightness.png"  alt="brightness"/> </div>
+                        <div class="iconBox gray" title="broken_link" > <img src="images/icon/gray_18/broken_link.png"  alt="broken_link"/> </div>
+                        <div class="iconBox gray" title="brush" > <img src="images/icon/gray_18/brush.png"  alt="brush"/> </div>
+                        <div class="iconBox gray" title="burn_blu-ray" > <img src="images/icon/gray_18/burn_blu-ray.png"  alt="burn_blu-ray"/> </div>
+                        <div class="iconBox gray" title="burn_blu-ray2" > <img src="images/icon/gray_18/burn_blu-ray2.png"  alt="burn_blu-ray2"/> </div>
+                        <div class="iconBox gray" title="burn_dvd" > <img src="images/icon/gray_18/burn_dvd.png"  alt="burn_dvd"/> </div>
+                        <div class="iconBox gray" title="burn_dvd2" > <img src="images/icon/gray_18/burn_dvd2.png"  alt="burn_dvd2"/> </div>
+                        <div class="iconBox gray" title="cabinet" > <img src="images/icon/gray_18/cabinet.png"  alt="cabinet"/> </div>
+                        <div class="iconBox gray" title="calculator" > <img src="images/icon/gray_18/calculator.png"  alt="calculator"/> </div>
+                        <div class="iconBox gray" title="calendar" > <img src="images/icon/gray_18/calendar.png"  alt="calendar"/> </div>
+                        <div class="iconBox gray" title="camera" > <img src="images/icon/gray_18/camera.png"  alt="camera"/> </div>
+                        <div class="iconBox gray" title="cancel" > <img src="images/icon/gray_18/cancel.png"  alt="cancel"/> </div>
+                        <div class="iconBox gray" title="card_clubs" > <img src="images/icon/gray_18/card_clubs.png"  alt="card_clubs"/> </div>
+                        <div class="iconBox gray" title="card_diamonds" > <img src="images/icon/gray_18/card_diamonds.png"  alt="card_diamonds"/> </div>
+                        <div class="iconBox gray" title="card_hearts" > <img src="images/icon/gray_18/card_hearts.png"  alt="card_hearts"/> </div>
+                        <div class="iconBox gray" title="card_spades" > <img src="images/icon/gray_18/card_spades.png"  alt="card_spades"/> </div>
+                        <div class="iconBox gray" title="certificate-(2)" > <img src="images/icon/gray_18/certificate-(2).png"  alt="certificate-(2)"/> </div>
+                        <div class="iconBox gray" title="certificate" > <img src="images/icon/gray_18/certificate.png"  alt="certificate"/> </div>
+                        <div class="iconBox gray" title="chat-exclamation" > <img src="images/icon/gray_18/chat-exclamation.png"  alt="chat-exclamation"/> </div>
+                        <div class="iconBox gray" title="checkmark" > <img src="images/icon/gray_18/checkmark.png"  alt="checkmark"/> </div>
+                        <div class="iconBox gray" title="checkmark2" > <img src="images/icon/gray_18/checkmark2.png"  alt="checkmark2"/> </div>
+                        <div class="iconBox gray" title="clip" > <img src="images/icon/gray_18/clip.png"  alt="clip"/> </div>
+                        <div class="iconBox gray" title="clipboard" > <img src="images/icon/gray_18/clipboard.png"  alt="clipboard"/> </div>
+                        <div class="iconBox gray" title="clock" > <img src="images/icon/gray_18/clock.png"  alt="clock"/> </div>
+                        <div class="iconBox gray" title="close" > <img src="images/icon/gray_18/close.png"  alt="close"/> </div>
+                        <div class="iconBox gray" title="cloud" > <img src="images/icon/gray_18/cloud.png"  alt="cloud"/> </div>
+                        <div class="iconBox gray" title="cloud2" > <img src="images/icon/gray_18/cloud2.png"  alt="cloud2"/> </div>
+                        <div class="iconBox gray" title="coin" > <img src="images/icon/gray_18/coin.png"  alt="coin"/> </div>
+                        <div class="iconBox gray" title="compress" > <img src="images/icon/gray_18/compress.png"  alt="compress"/> </div>
+                        <div class="iconBox gray" title="connect" > <img src="images/icon/gray_18/connect.png"  alt="connect"/> </div>
+                        <div class="iconBox gray" title="contrast" > <img src="images/icon/gray_18/contrast.png"  alt="contrast"/> </div>
+                        <div class="iconBox gray" title="copy" > <img src="images/icon/gray_18/copy.png"  alt="copy"/> </div>
+                        <div class="iconBox gray" title="cross" > <img src="images/icon/gray_18/cross.png"  alt="cross"/> </div>
+                        <div class="iconBox gray" title="cutter" > <img src="images/icon/gray_18/cutter.png"  alt="cutter"/> </div>
+                        <div class="iconBox gray" title="delete" > <img src="images/icon/gray_18/delete.png"  alt="delete"/> </div>
+                        <div class="iconBox gray" title="dial" > <img src="images/icon/gray_18/dial.png"  alt="dial"/> </div>
+                        <div class="iconBox gray" title="diary" > <img src="images/icon/gray_18/diary.png"  alt="diary"/> </div>
+                        <div class="iconBox gray" title="dimensions" > <img src="images/icon/gray_18/dimensions.png"  alt="dimensions"/> </div>
+                        <div class="iconBox gray" title="directional_down" > <img src="images/icon/gray_18/directional_down.png"  alt="directional_down"/> </div>
+                        <div class="iconBox gray" title="directional_left" > <img src="images/icon/gray_18/directional_left.png"  alt="directional_left"/> </div>
+                        <div class="iconBox gray" title="directional_right" > <img src="images/icon/gray_18/directional_right.png"  alt="directional_right"/> </div>
+                        <div class="iconBox gray" title="directional_up" > <img src="images/icon/gray_18/directional_up.png"  alt="directional_up"/> </div>
+                        <div class="iconBox gray" title="disconnect" > <img src="images/icon/gray_18/disconnect.png"  alt="disconnect"/> </div>
+                        <div class="iconBox gray" title="diskette" > <img src="images/icon/gray_18/diskette.png"  alt="diskette"/> </div>
+                        <div class="iconBox gray" title="document" > <img src="images/icon/gray_18/document.png"  alt="document"/> </div>
+                        <div class="iconBox gray" title="door" > <img src="images/icon/gray_18/door.png"  alt="door"/> </div>
+                        <div class="iconBox gray" title="download2" > <img src="images/icon/gray_18/download2.png"  alt="download2"/> </div>
+                        <div class="iconBox gray" title="dropper" > <img src="images/icon/gray_18/dropper.png"  alt="dropper"/> </div>
+                        <div class="iconBox gray" title="earphones" > <img src="images/icon/gray_18/earphones.png"  alt="earphones"/> </div>
+                        <div class="iconBox gray" title="effects" > <img src="images/icon/gray_18/effects.png"  alt="effects"/> </div>
+                        <div class="iconBox gray" title="eject" > <img src="images/icon/gray_18/eject.png"  alt="eject"/> </div>
+                        <div class="iconBox gray" title="emoticon_angry" > <img src="images/icon/gray_18/emoticon_angry.png"  alt="emoticon_angry"/> </div>
+                        <div class="iconBox gray" title="emoticon_confused" > <img src="images/icon/gray_18/emoticon_confused.png"  alt="emoticon_confused"/> </div>
+                        <div class="iconBox gray" title="emoticon_grin" > <img src="images/icon/gray_18/emoticon_grin.png"  alt="emoticon_grin"/> </div>
+                        <div class="iconBox gray" title="emoticon_in_love" > <img src="images/icon/gray_18/emoticon_in_love.png"  alt="emoticon_in_love"/> </div>
+                        <div class="iconBox gray" title="emoticon_sad" > <img src="images/icon/gray_18/emoticon_sad.png"  alt="emoticon_sad"/> </div>
+                        <div class="iconBox gray" title="emoticon_sleeping" > <img src="images/icon/gray_18/emoticon_sleeping.png"  alt="emoticon_sleeping"/> </div>
+                        <div class="iconBox gray" title="emoticon_smile" > <img src="images/icon/gray_18/emoticon_smile.png"  alt="emoticon_smile"/> </div>
+                        <div class="iconBox gray" title="encrypt" > <img src="images/icon/gray_18/encrypt.png"  alt="encrypt"/> </div>
+                        <div class="iconBox gray" title="eraser" > <img src="images/icon/gray_18/eraser.png"  alt="eraser"/> </div>
+                        <div class="iconBox gray" title="eye" > <img src="images/icon/gray_18/eye.png"  alt="eye"/> </div>
+                        <div class="iconBox gray" title="eye_closed" > <img src="images/icon/gray_18/eye_closed.png"  alt="eye_closed"/> </div>
+                        <div class="iconBox gray" title="fast_forward" > <img src="images/icon/gray_18/fast_forward.png"  alt="fast_forward"/> </div>
+                        <div class="iconBox gray" title="file" > <img src="images/icon/gray_18/file.png"  alt="file"/> </div>
+                        <div class="iconBox gray" title="fill" > <img src="images/icon/gray_18/fill.png"  alt="fill"/> </div>
+                        <div class="iconBox gray" title="fingerprint" > <img src="images/icon/gray_18/fingerprint.png"  alt="fingerprint"/> </div>
+                        <div class="iconBox gray" title="firewall" > <img src="images/icon/gray_18/firewall.png"  alt="firewall"/> </div>
+                        <div class="iconBox gray" title="first" > <img src="images/icon/gray_18/first.png"  alt="first"/> </div>
+                        <div class="iconBox gray" title="folder" > <img src="images/icon/gray_18/folder.png"  alt="folder"/> </div>
+                        <div class="iconBox gray" title="font" > <img src="images/icon/gray_18/font.png"  alt="font"/> </div>
+                        <div class="iconBox gray" title="font_size" > <img src="images/icon/gray_18/font_size.png"  alt="font_size"/> </div>
+                        <div class="iconBox gray" title="game_control" > <img src="images/icon/gray_18/game_control.png"  alt="game_control"/> </div>
+                        <div class="iconBox gray" title="gear" > <img src="images/icon/gray_18/gear.png"  alt="gear"/> </div>
+                        <div class="iconBox gray" title="group" > <img src="images/icon/gray_18/group.png"  alt="group"/> </div>
+                        <div class="iconBox gray" title="hammer" > <img src="images/icon/gray_18/hammer.png"  alt="hammer"/> </div>
+                        <div class="iconBox gray" title="hand_point" > <img src="images/icon/gray_18/hand_point.png"  alt="hand_point"/> </div>
+                        <div class="iconBox gray" title="hand_thumbsdown" > <img src="images/icon/gray_18/hand_thumbsdown.png"  alt="hand_thumbsdown"/> </div>
+                        <div class="iconBox gray" title="hand_thumbsup" > <img src="images/icon/gray_18/hand_thumbsup.png"  alt="hand_thumbsup"/> </div>
+                        <div class="iconBox gray" title="hard_disk" > <img src="images/icon/gray_18/hard_disk.png"  alt="hard_disk"/> </div>
+                        <div class="iconBox gray" title="headset" > <img src="images/icon/gray_18/headset.png"  alt="headset"/> </div>
+                        <div class="iconBox gray" title="heart" > <img src="images/icon/gray_18/heart.png"  alt="heart"/> </div>
+                        <div class="iconBox gray" title="help" > <img src="images/icon/gray_18/help.png"  alt="help"/> </div>
+                        <div class="iconBox gray" title="help2" > <img src="images/icon/gray_18/help2.png"  alt="help2"/> </div>
+                        <div class="iconBox gray" title="history" > <img src="images/icon/gray_18/history.png"  alt="history"/> </div>
+                        <div class="iconBox gray" title="home" > <img src="images/icon/gray_18/home.png"  alt="home"/> </div>
+                        <div class="iconBox gray" title="hourglass" > <img src="images/icon/gray_18/hourglass.png"  alt="hourglass"/> </div>
+                        <div class="iconBox gray" title="hourglass2" > <img src="images/icon/gray_18/hourglass2.png"  alt="hourglass2"/> </div>
+                        <div class="iconBox gray" title="id" > <img src="images/icon/gray_18/id.png"  alt="id"/> </div>
+                        <div class="iconBox gray" title="info" > <img src="images/icon/gray_18/info.png"  alt="info"/> </div>
+                        <div class="iconBox gray" title="info2" > <img src="images/icon/gray_18/info2.png"  alt="info2"/> </div>
+                        <div class="iconBox gray" title="italic" > <img src="images/icon/gray_18/italic.png"  alt="italic"/> </div>
+                        <div class="iconBox gray" title="item" > <img src="images/icon/gray_18/item.png"  alt="item"/> </div>
+                        <div class="iconBox gray" title="key" > <img src="images/icon/gray_18/key.png"  alt="key"/> </div>
+                        <div class="iconBox gray" title="last" > <img src="images/icon/gray_18/last.png"  alt="last"/> </div>
+                        <div class="iconBox gray" title="lightbulb" > <img src="images/icon/gray_18/lightbulb.png"  alt="lightbulb"/> </div>
+                        <div class="iconBox gray" title="link" > <img src="images/icon/gray_18/link.png"  alt="link"/> </div>
+                        <div class="iconBox gray" title="list" > <img src="images/icon/gray_18/list.png"  alt="list"/> </div>
+                        <div class="iconBox gray" title="location" > <img src="images/icon/gray_18/location.png"  alt="location"/> </div>
+                        <div class="iconBox gray" title="lock" > <img src="images/icon/gray_18/lock.png"  alt="lock"/> </div>
+                        <div class="iconBox gray" title="lock_open" > <img src="images/icon/gray_18/lock_open.png"  alt="lock_open"/> </div>
+                        <div class="iconBox gray" title="login" > <img src="images/icon/gray_18/login.png"  alt="login"/> </div>
+                        <div class="iconBox gray" title="mail" > <img src="images/icon/gray_18/mail.png"  alt="mail"/> </div>
+                        <div class="iconBox gray" title="mail_open" > <img src="images/icon/gray_18/mail_open.png"  alt="mail_open"/> </div>
+                        <div class="iconBox gray" title="messenger" > <img src="images/icon/gray_18/messenger.png"  alt="messenger"/> </div>
+                        <div class="iconBox gray" title="microhpone" > <img src="images/icon/gray_18/microhpone.png"  alt="microhpone"/> </div>
+                        <div class="iconBox gray" title="microphone" > <img src="images/icon/gray_18/microphone.png"  alt="microphone"/> </div>
+                        <div class="iconBox gray" title="money_bag" > <img src="images/icon/gray_18/money_bag.png"  alt="money_bag"/> </div>
+                        <div class="iconBox gray" title="monitor" > <img src="images/icon/gray_18/monitor.png"  alt="monitor"/> </div>
+                        <div class="iconBox gray" title="moon" > <img src="images/icon/gray_18/moon.png"  alt="moon"/> </div>
+                        <div class="iconBox gray" title="music" > <img src="images/icon/gray_18/music.png"  alt="music"/> </div>
+                        <div class="iconBox gray" title="music_folder" > <img src="images/icon/gray_18/music_folder.png"  alt="music_folder"/> </div>
+                        <div class="iconBox gray" title="music_library" > <img src="images/icon/gray_18/music_library.png"  alt="music_library"/> </div>
+                        <div class="iconBox gray" title="next" > <img src="images/icon/gray_18/next.png"  alt="next"/> </div>
+                        <div class="iconBox gray" title="notepad" > <img src="images/icon/gray_18/notepad.png"  alt="notepad"/> </div>
+                        <div class="iconBox gray" title="paragraph_align_left" > <img src="images/icon/gray_18/paragraph_align_left.png"  alt="paragraph_align_left"/> </div>
+                        <div class="iconBox gray" title="paragraph_align_right" > <img src="images/icon/gray_18/paragraph_align_right.png"  alt="paragraph_align_right"/> </div>
+                        <div class="iconBox gray" title="paragraph_justify" > <img src="images/icon/gray_18/paragraph_justify.png"  alt="paragraph_justify"/> </div>
+                        <div class="iconBox gray" title="password" > <img src="images/icon/gray_18/password.png"  alt="password"/> </div>
+                        <div class="iconBox gray" title="paste" > <img src="images/icon/gray_18/paste.png"  alt="paste"/> </div>
+                        <div class="iconBox gray" title="pause" > <img src="images/icon/gray_18/pause.png"  alt="pause"/> </div>
+                        <div class="iconBox gray" title="pen" > <img src="images/icon/gray_18/pen.png"  alt="pen"/> </div>
+                        <div class="iconBox gray" title="pencil" > <img src="images/icon/gray_18/pencil.png"  alt="pencil"/> </div>
+                        <div class="iconBox gray" title="phone" > <img src="images/icon/gray_18/phone.png"  alt="phone"/> </div>
+                        <div class="iconBox gray" title="photo_album" > <img src="images/icon/gray_18/photo_album.png"  alt="photo_album"/> </div>
+                        <div class="iconBox gray" title="pictures_folder" > <img src="images/icon/gray_18/pictures_folder.png"  alt="pictures_folder"/> </div>
+                        <div class="iconBox gray" title="play" > <img src="images/icon/gray_18/play.png"  alt="play"/> </div>
+                        <div class="iconBox gray" title="point" > <img src="images/icon/gray_18/point.png"  alt="point"/> </div>
+                        <div class="iconBox gray" title="power" > <img src="images/icon/gray_18/power.png"  alt="power"/> </div>
+                        <div class="iconBox gray" title="previous" > <img src="images/icon/gray_18/previous.png"  alt="previous"/> </div>
+                        <div class="iconBox gray" title="print" > <img src="images/icon/gray_18/print.png"  alt="print"/> </div>
+                        <div class="iconBox gray" title="pyramid" > <img src="images/icon/gray_18/pyramid.png"  alt="pyramid"/> </div>
+                        <div class="iconBox gray" title="random" > <img src="images/icon/gray_18/random.png"  alt="random"/> </div>
+                        <div class="iconBox gray" title="record" > <img src="images/icon/gray_18/record.png"  alt="record"/> </div>
+                        <div class="iconBox gray" title="redo" > <img src="images/icon/gray_18/redo.png"  alt="redo"/> </div>
+                        <div class="iconBox gray" title="reload" > <img src="images/icon/gray_18/reload.png"  alt="reload"/> </div>
+                        <div class="iconBox gray" title="repeat" > <img src="images/icon/gray_18/repeat.png"  alt="repeat"/> </div>
+                        <div class="iconBox gray" title="resize2" > <img src="images/icon/gray_18/resize2.png"  alt="resize2"/> </div>
+                        <div class="iconBox gray" title="rewind" > <img src="images/icon/gray_18/rewind.png"  alt="rewind"/> </div>
+                        <div class="iconBox gray" title="rotate" > <img src="images/icon/gray_18/rotate.png"  alt="rotate"/> </div>
+                        <div class="iconBox gray" title="round" > <img src="images/icon/gray_18/round.png"  alt="round"/> </div>
+                        <div class="iconBox gray" title="ruler_square" > <img src="images/icon/gray_18/ruler_square.png"  alt="ruler_square"/> </div>
+                        <div class="iconBox gray" title="satellite" > <img src="images/icon/gray_18/satellite.png"  alt="satellite"/> </div>
+                        <div class="iconBox gray" title="scissors" > <img src="images/icon/gray_18/scissors.png"  alt="scissors"/> </div>
+                        <div class="iconBox gray" title="screwdriver" > <img src="images/icon/gray_18/screwdriver.png"  alt="screwdriver"/> </div>
+                        <div class="iconBox gray" title="security" > <img src="images/icon/gray_18/security.png"  alt="security"/> </div>
+                        <div class="iconBox gray" title="shopping_basket" > <img src="images/icon/gray_18/shopping_basket.png"  alt="shopping_basket"/> </div>
+                        <div class="iconBox gray" title="software24" > <img src="images/icon/gray_18/software24.png"  alt="software24"/> </div>
+                        <div class="iconBox gray" title="spam" > <img src="images/icon/gray_18/spam.png"  alt="spam"/> </div>
+                        <div class="iconBox gray" title="speaker" > <img src="images/icon/gray_18/speaker.png"  alt="speaker"/> </div>
+                        <div class="iconBox gray" title="speaker2" > <img src="images/icon/gray_18/speaker2.png"  alt="speaker2"/> </div>
+                        <div class="iconBox gray" title="sphere" > <img src="images/icon/gray_18/sphere.png"  alt="sphere"/> </div>
+                        <div class="iconBox gray" title="spreadsheet" > <img src="images/icon/gray_18/spreadsheet.png"  alt="spreadsheet"/> </div>
+                        <div class="iconBox gray" title="square" > <img src="images/icon/gray_18/square.png"  alt="square"/> </div>
+                        <div class="iconBox gray" title="star" > <img src="images/icon/gray_18/star.png"  alt="star"/> </div>
+                        <div class="iconBox gray" title="stats_bars" > <img src="images/icon/gray_18/stats_bars.png"  alt="stats_bars"/> </div>
+                        <div class="iconBox gray" title="stats_lines" > <img src="images/icon/gray_18/stats_lines.png"  alt="stats_lines"/> </div>
+                        <div class="iconBox gray" title="stats_pie" > <img src="images/icon/gray_18/stats_pie.png"  alt="stats_pie"/> </div>
+                        <div class="iconBox gray" title="stop" > <img src="images/icon/gray_18/stop.png"  alt="stop"/> </div>
+                        <div class="iconBox gray" title="strike_through" > <img src="images/icon/gray_18/strike_through.png"  alt="strike_through"/> </div>
+                        <div class="iconBox gray" title="sun" > <img src="images/icon/gray_18/sun.png"  alt="sun"/> </div>
+                        <div class="iconBox gray" title="target" > <img src="images/icon/gray_18/target.png"  alt="target"/> </div>
+                        <div class="iconBox gray" title="thunder" > <img src="images/icon/gray_18/thunder.png"  alt="thunder"/> </div>
+                        <div class="iconBox gray" title="trash_can" > <img src="images/icon/gray_18/trash_can.png"  alt="trash_can"/> </div>
+                        <div class="iconBox gray" title="underlined" > <img src="images/icon/gray_18/underlined.png"  alt="underlined"/> </div>
+                        <div class="iconBox gray" title="undo" > <img src="images/icon/gray_18/undo.png"  alt="undo"/> </div>
+                        <div class="iconBox gray" title="upload2" > <img src="images/icon/gray_18/upload2.png"  alt="upload2"/> </div>
+                        <div class="iconBox gray" title="usb" > <img src="images/icon/gray_18/usb.png"  alt="usb"/> </div>
+                        <div class="iconBox gray" title="user" > <img src="images/icon/gray_18/user.png"  alt="user"/> </div>
+                        <div class="iconBox gray" title="user_woman" > <img src="images/icon/gray_18/user_woman.png"  alt="user_woman"/> </div>
+                        <div class="iconBox gray" title="volume_control" > <img src="images/icon/gray_18/volume_control.png"  alt="volume_control"/> </div>
+                        <div class="iconBox gray" title="webcam" > <img src="images/icon/gray_18/webcam.png"  alt="webcam"/> </div>
+                        <div class="iconBox gray" title="window" > <img src="images/icon/gray_18/window.png"  alt="window"/> </div>
+                        <div class="iconBox gray" title="wizard" > <img src="images/icon/gray_18/wizard.png"  alt="wizard"/> </div>
+                        <div class="iconBox gray" title="world" > <img src="images/icon/gray_18/world.png"  alt="world"/> </div>
+                        <div class="iconBox gray" title="zoom" > <img src="images/icon/gray_18/zoom.png"  alt="zoom"/> </div>
+                        <div class="iconBox gray" title="zoom_in" > <img src="images/icon/gray_18/zoom_in.png"  alt="zoom_in"/> </div>
+                        <div class="iconBox gray" title="zoom_out" > <img src="images/icon/gray_18/zoom_out.png"  alt="zoom_out"/> </div>
+
+                        </div><!-- End content -->
+                    </div><!-- End full width -->
+
+					<!-- clear fix -->
+					<div class="clear"></div>
+
+                    <div id="footer"> &copy; Copyright 2012 <span class="tip"><a  href="#" title="Zice Admin" >Your Company Name</a> </span> </div>
+
+                </div> <!--// End inner -->
+              </div> <!--// End content --> 
+</body>
+</html>

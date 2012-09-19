@@ -54,7 +54,6 @@
           </div>
         </div>
       </div>
-
       <div class="container-fluid">
         <?php echo T('block','message');?>
         <div class="row-fluid">
@@ -89,6 +88,5 @@
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-collapse.js"></script>
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-carousel.js"></script>
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-typeahead.js"></script>
-
   </body>
   </html>

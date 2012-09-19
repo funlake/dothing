@@ -37,5 +37,10 @@ class DOControllerIndex extends DOController
 	{
 		$this->Display(null);exit;
 	}
+
+	public function searchAction($request)
+	{
+		
+	}
 }
 ?>
