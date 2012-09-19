@@ -6,7 +6,6 @@
 **/
 class DOModelMember extends DOModel
 {
-
 	public function __construct()
 	{
 		$this->fields = array(

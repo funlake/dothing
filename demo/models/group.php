@@ -36,6 +36,9 @@ class DOModelGroup extends DOModel
 		$this->addMsgSuccess 	= DOLang::Get('You have successfully add a new group');
 		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
 		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
+
+		$this->deleteMsgSuccess = L('You have successfully deleted the item');
+		$this->deleteFail       = L('Fail to delete');
 		/** Set name,parent call**/
 		parent::__construct();
 	}	

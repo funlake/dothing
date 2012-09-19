@@ -43,7 +43,28 @@ $searchs     = $session->Get($searchIndex);
 			<td>
 				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup@id=');?>{#group_id}">
 				</a>
+				<a class="icon-remove" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal"></a>
 			</td>
 		</tr>
 	</tbody:loop>
 </table>
+
+<div class="modal" id="DOModal" style="display:none">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3><?php echo L('Warning');?></h3>
+  </div>
+  <div class="modal-body">
+    <p><?php echo L('Do you want to delete this item?');?></p>
+  </div>
+  <div class="modal-footer">
+  	<a href="<?php echo Url('autocrud/Delete/group@group_id=1');?>" class="btn btn-primary">
+  		<i class="icon-arrow-right icon-white"></i>
+  		<?php echo L('Go');?>
+  	</a>
+    <a data-dismiss="modal" class="btn btn-warning">
+    	<i class="icon-remove icon-white"></i>
+    	<?php echo L('Cancel');?>
+   	</a>
+  </div>
+</div>
