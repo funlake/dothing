@@ -171,7 +171,7 @@ class DOTemplate
 					$template = self::Parse($template,$item,$variables);
 				}
 				$item 	= (array)$item;
-				$html[] = preg_replace('~{#([^}]+)}~e','$item["\1"];',$template);
+				$html[] = preg_replace('~{#([^@}]+)(@)?(?(2)(\w+))}~e','\3($item["\1"])',$template);
 			}
 		}
 		if(count($html))
