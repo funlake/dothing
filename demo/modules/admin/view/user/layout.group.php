@@ -36,35 +36,39 @@ $searchs     = $session->Get($searchIndex);
 	</thead>
 	<tbody:loop=Model|Group.Find class="adminTable">
 		<tr>
-			<td>{#group_id}</td>
-			<td>{#group_name}</td>
+			<td>{#id}</td>
+			<td>{#name}</td>
 			<td>{#ordering}</td>
-			<td>{#state}</td>
+			<td>{#status}</td>
 			<td>
-				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup@id=');?>{#group_id}">
+				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup@id=');?>{#id}">
 				</a>
-				<a class="icon-remove" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal"></a>
+				<a class="icon-remove" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal_{#id}"></a>
+				<div class="modal" id="DOModal_{#id}" style="display:none">
+				  <form id="form{#id}" action="<?php echo Url('autocrud/Delete/group');?>" method="post">
+					  <div class="modal-header">
+					    <a class="close" data-dismiss="modal">×</a>
+					    <h3><?php echo L('Warning');?></h3>
+					  </div>
+					  <div class="modal-body">
+					    <p><?php echo L('Do you want to delete this item?');?></p>
+					  </div>
+					  <div class="modal-footer">
+					  	<a href="javascript:void(0);" onclick="jQuery('#form{#id}').submit()" class="btn btn-success">
+					  		<i class="icon-ok icon-white"></i>
+					  		<?php echo L('Yes');?>
+					  	</a>
+					    <a data-dismiss="modal" class="btn btn-warning">
+					    	<i class="icon-remove icon-white"></i>
+					    	<?php echo L('Cancel');?>
+					   	</a>
+						<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/group');?>"/>
+						<input type="hidden" id="group_id" name="id" value="{#id}"/>
+					   </div>
+				   </form>
+				</div>
 			</td>
 		</tr>
 	</tbody:loop>
 </table>
 
-<div class="modal" id="DOModal" style="display:none">
-  <div class="modal-header">
-    <a class="close" data-dismiss="modal">×</a>
-    <h3><?php echo L('Warning');?></h3>
-  </div>
-  <div class="modal-body">
-    <p><?php echo L('Do you want to delete this item?');?></p>
-  </div>
-  <div class="modal-footer">
-  	<a href="<?php echo Url('autocrud/Delete/group@group_id=1');?>" class="btn btn-primary">
-  		<i class="icon-arrow-right icon-white"></i>
-  		<?php echo L('Go');?>
-  	</a>
-    <a data-dismiss="modal" class="btn btn-warning">
-    	<i class="icon-remove icon-white"></i>
-    	<?php echo L('Cancel');?>
-   	</a>
-  </div>
-</div>

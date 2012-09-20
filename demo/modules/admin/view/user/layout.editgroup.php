@@ -1,6 +1,6 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <div class="well">
-	<form action="<?php echo Url('autocrud/Update/group');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
+	<form action="<?php echo Url('autocrud/'.$action.'/group');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
 	<fieldset>
 		<legend>
 			<a><?php echo L('Group -> Edit');?></a>
@@ -16,11 +16,11 @@
 			</div>
 		</legend>
 		<div class="control-group">
-			<label class="control-label" for="group_name">
+			<label class="control-label" for="name">
 				<?php echo L('Name');?>
 			</label>
 			<div class="controls">
-				<input type="text" id="group_name" name="group_name" class="input-xlarge" value="<?php echo $data->group_name;?>" />
+				<input type="text" id="name" name="name" class="input-xlarge" value="<?php echo $data->name;?>" />
 			</div>
 		</div>
 		<div class="control-group">
@@ -43,7 +43,7 @@
 		</div>
 	</fieldset>
 		<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/group');?>"/>
-		<input type="hidden" id="group_id" name="group_id" value="<?php echo $data->group_id;?>"/>
+		<input type="hidden" id="group_id" name="id" value="<?php echo $data->id;?>"/>
 		<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
 	</form>
 </div>
