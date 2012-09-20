@@ -151,14 +151,19 @@ class DOModel
 		{
 			throw new DOException("Unknow table",102);
 		}
-		if( false != $this->Bind( $insArray ) )
+		if( false != $this->Bind( $cdtarray ) )
 		{
-			/** We don't need to handle primary key in insert operation **/
-			if(!!$this->binds)
+			$params   = array();
+			$params[] = $this->deleteKey;
+			foreach($this->deleteKey as $dk=>$dv)
 			{
-				$R =  DOFactory::GetTable($this->name)->Delete( $this->binds );
-				return $R;
+				$params[] = $this->binds[$dk];
 			}
+			$caller = DOFactory::GetTable($this->name);
+			$R      = call_user_func_array(array($caller,__FUNCTION__), $params);
+			$this->SetFieldsValue($R,$cdtarray,$this->action);
+			$this->AffectChainAction($cdtarray);
+			return $R;
 		}
 		return false;		
 	}
@@ -302,7 +307,7 @@ class DOModel
 		}
 		else
 		{
-			if($this->action !== 'Select')
+			if($this->action !== 'Select' and $this->action !== 'Delete')
 			{
 		 		throw new DOException("Empty parameters!",101);
 			}

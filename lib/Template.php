@@ -176,7 +176,7 @@ class DOTemplate
 		}
 		if(count($html))
 		{
-			return "<".$tag." ".$attrs.">".implode("",$html)."</".$tag.">";
+			return stripslashes("<".$tag." ".$attrs.">".implode("",$html)."</".$tag.">");
 		}
 		return "";
 	}

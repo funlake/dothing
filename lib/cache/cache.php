@@ -112,7 +112,7 @@ class DOCache
 		static $cacheModule = null;
 		if(!$cacheModule)
 		{
-			$cacheModule = include APPBASE.DS.'cache'.DS.'cache.config.php';
+			$cacheModule = @include APPBASE.DS.'cache'.DS.'cache.config.php';
 		}
 		return $cacheModule;
 	}
