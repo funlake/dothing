@@ -2,10 +2,11 @@
 class DOModelGroup extends DOModel
 {
 	public $fields = array(
-		'@group_id'  => true,
-		'group_name' => 'VARCHAR(100)',
+		'@id'  => true,
+		'name' => 'VARCHAR(100)',
 		'ordering'	 => 'VARCHAR(32)',
-		'state'		 => '1'
+		'description'=> true,
+		'status'		 => '1'
 	);
 	public $defaultOrderby = array(
 		'ordering' => 'DESC'
@@ -14,13 +15,13 @@ class DOModelGroup extends DOModel
 	public $defaultGroupby = null;
 	/** What to be where conditions when we update a record **/
 	public $updateKey = array(
-		'group_id'	=> '=?'		
+		'id'	=> '=?'		
 	);
 	public $updateVal = 0;
 
 	/** What to be where conditions when we update a record **/
 	public $deleteKey = array(
-		'group_id'	=> '=?'
+		'id'	=> '=?'
 	);
 	public $error_msg  = '';
 
@@ -31,21 +32,24 @@ class DOModelGroup extends DOModel
 		/** Parse fields **/
 		//$this->fields = include TABLEBASE.DS.'table_user.php';
 		/** Set primary key **/
-		$this->pk	  = 'group_id';
+		$this->pk	  = 'id';
 
-		$this->addMsgSuccess 	= DOLang::Get('You have successfully add a new group');
-		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
-		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
+		$this->addMsgSuccess 	= L('You have successfully add a new group');
+		$this->addMsgFail       = L('Fail to add');
+		$this->updateMsgSuccess = L('You have successfully modify it');
+		$this->updateMsgFail	= L('You failed to modify it');
 
 		$this->deleteMsgSuccess = L('You have successfully deleted the item');
 		$this->deleteFail       = L('Fail to delete');
+
+
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
 	/** Keep unique user name **/
-	public function Add_validate_group_name($value)
+	public function Add_validate_name($value)
 	{
-		if(0 !=  $this->GetOne('group_id',array('group_name'=>'=?'),$value) )
+		if(0 !=  $this->GetOne('id',array('name'=>'=?'),$value) )
 		{
 			$this->error_msg = DOLang::Get('Do not allow duplicated groups!');
 			return false;
@@ -56,7 +60,7 @@ class DOModelGroup extends DOModel
 	public function Add_pre_validate( $posts )
 	{
 		$flag = true;
-		if(empty($posts['group_name']))
+		if(empty($posts['name']))
 		{
 			$this->error_msg  = DOLang::Get('Empty Group name');
 			$flag 		 	  = false;
@@ -68,9 +72,9 @@ class DOModelGroup extends DOModel
 	{
 		return $this->Add_pre_validate($posts);
 	}
-	public function Update_validate_group_name($value,$posts)
+	public function Update_validate_name($value,$posts)
 	{
-		if(0 !=  $this->GetOne('group_id','group_name=? and group_id<>?',$value,$posts['group_id']) )
+		if(0 !=  $this->GetOne('id','name=? and id<>?',$value,$posts['id']) )
 		{
 			$this->error_msg  = DOLang::Get('Do not allow duplicated groups!');
 			return false;
