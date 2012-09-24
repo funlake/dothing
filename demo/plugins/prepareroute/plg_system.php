@@ -58,7 +58,6 @@ class DOPlgSystemPrepareroute extends DOPlugin
 				$session->Clean($pagekey,$_POST['DO']['search']);
 			}
 		}
-
 	}
 }
 ?>

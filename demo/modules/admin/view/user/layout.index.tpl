@@ -33,22 +33,17 @@ $searchs     = $session->Get($searchIndex);
 			<th><?php echo L('Actions');?></th>
 		</tr>
 	</thead>
-	<tbody class="adminTable">				
-<?php foreach(DOFactory::GetModel(strtolower('User'))->Find() as $key_0=>$item_0) : ?>
-<?php $item_0=(array)$item_0; ?>
-
+	<tbody:loop=Model|User.Find class="adminTable">
 		<tr>
-			<td><?php echo ($item_0["user_id"]);?></td>
-			<td><?php echo ($item_0["user_name"]);?></td>
-			<td><?php echo ($item_0["user_pass"]);?></td>
+			<td>{#user_id}</td>
+			<td>{#user_name}</td>
+			<td>{#user_pass}</td>
 			<td>
-				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit@id=');?><?php echo ($item_0["user_id"]);?>">
+				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit@id=');?>{#user_id}">
 				</a>
 			</td>
 		</tr>
-		
-<?php endforeach;?>
-</tbody>
+	</tbody:loop>
 </table>
 <?php
 echo M('user')->Count();

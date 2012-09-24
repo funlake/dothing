@@ -37,6 +37,11 @@ define('DO_SITECIPHER',md5('justdoit'));
 define('DO_ENCRYPT_MODE','cbc');
 //template
 define('DO_TEMPLATE','default');
+//need to parse template file?
+//we'd better set it to false when we put it on server.
+define('DO_TEMPLATE_PARSE',true);
+//valid when above setting was true.
+define('DO_TEMPLATE_EXT'  ,'.tpl');
 //admin template
 define('DO_ADMIN_TEMPLATE','bootstrap');
 //admin interface
@@ -52,4 +57,6 @@ define('DO_MAIL_SMTP_USER','ffunlake@gmail.com');
 define('DO_MAIL_SMTP_PASS','');
 define('DO_MAIL_FROM_NAME','Petition system');
 define('DO_MAIL_SEND_EXE','/usr/bin/sendmail');
+
+
 
