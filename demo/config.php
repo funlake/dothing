@@ -41,7 +41,7 @@ define('DO_TEMPLATE','default');
 //we'd better set it to false when we put it on server.
 define('DO_TEMPLATE_PARSE',true);
 //valid when above setting was true.
-define('DO_TEMPLATE_EXT'  ,'.tpl');
+define('DO_TEMPLATE_EXT'  ,'.php');
 //admin template
 define('DO_ADMIN_TEMPLATE','bootstrap');
 //admin interface

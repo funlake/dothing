@@ -56,7 +56,7 @@ class DOModelUser extends DOModel
 	/** Keep unique user name **/
 	public function Add_validate_user_name($value)
 	{
-		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?'),$value) )
+		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?'),array($value)) )
 		{
 			$this->error_msg = DOLang::Get('Do not allow duplicated users!');
 			return false;
@@ -97,7 +97,7 @@ class DOModelUser extends DOModel
 	}
 	public function Update_validate_user_name($value,$posts)
 	{
-		if(0 !=  $this->GetOne('user_id','user_name=? and user_id<>?',$value,$posts['user_id']) )
+		if(0 !=  $this->GetOne('user_id','user_name=? and user_id<>?',array($value,$posts['user_id'])) )
 		{
 			$this->error_msg  = DOLang::Get('Do not allow duplicated users!');
 			return false;

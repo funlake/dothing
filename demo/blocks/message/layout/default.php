@@ -1,6 +1,5 @@
 <?php 
 !defined('DO_ACCESS') AND DIE("Go Away!");
-file_put_contents("a.log",'@',FILE_APPEND);
 $flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
 ?>
 <?php if(isset($flashMsg['type'])):?>
@@ -21,4 +20,5 @@ $flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
 			})
 		})
 	</script>
+	<?php $this->CleanMessage();?>
 <?php endif;?>

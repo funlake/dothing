@@ -49,19 +49,19 @@
               <p class="navbar-text pull-right">
                 Logged in as <a href="#" class="navbar-link">Username</a>
               </p>
-              <?php echo T('block','mainmenu');?>
+              <block:mainmenu/>
             </div><!--/.nav-collapse -->
           </div>
         </div>
       </div>
       <div class="container-fluid">
-        <?php echo T('block','message');?>
+        <block:message/>
         <div class="row-fluid">
           <div class="span3">
-            <?php echo T('block','sidebar');?>
+            <block:sidebar/>
           </div><!--/span-->
           <div class="span9">
-            <?php echo T('module','__CURRENT__');?>
+            <module:__CURRENT__/>
           </div><!--/span-->
         </div><!--/row-->
 

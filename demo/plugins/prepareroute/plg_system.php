@@ -26,7 +26,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		** Content type for most of pages would be text/html 
 		** So we treat it as a default content-type here.
 		** If people want to orverride this,like going to generate http download headers,
-		** should do that with [beforeRequest] event with controller.
+		** should do that by [beforeRequest] event with controller.
 		**/
 		$response = DOFactory::GetTool('http.response');
 		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
