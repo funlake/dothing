@@ -1,6 +1,6 @@
 <?php 
 /**
- * Exception handler,most of codes copied from ZendFrameWork.
+ * Exception handler,basically copied from ZendFrameWork.
  * @ajusted by lake
  *
  */

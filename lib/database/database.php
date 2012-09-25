@@ -5,6 +5,7 @@ DOLoader::Import('lib.database.record');
  * @author lake
  *
  */
+ini_set("mysql.trace_mode", "0");
 class DODatabase implements DORecord
 {
 	public $types = array(
@@ -118,7 +119,9 @@ class DODatabase implements DORecord
 		$syntax         	= $this->GetSyntax();
 		$this->sqlQuerys[]  = $this->sqlQuery = $syntax->formatSql( $sql );
 		DOHook::HangPlugin('prepareSql',array($this,$syntax,$params));
-		$statement 			= $this->connFlag->prepare( $this->sqlQuery );
+		$statement 			= $this->connFlag->prepare( $this->sqlQuery ,
+			array(PDO::MYSQL_ATTR_FOUND_ROWS => true)
+		);
 		if(!!$params)
 		{
 			$this->BindValue($params, $statement);
@@ -195,10 +198,11 @@ class DODatabase implements DORecord
 	**/
 	public function GetOne($field)
 	{
-		$rs = @$this->Query($this->GetQuery(),$this->GetParams())
-			  		->data[0];
+		$rs = $this->Query($this->GetQuery(),$this->GetParams())
+			  	   ->data[0];
 		return	!empty($field) ? $rs->$field : current((array)$rs);	
 	}
+
 	/**
 	** Get a single row
 	**/
@@ -216,6 +220,8 @@ class DODatabase implements DORecord
 	{
 		$rs 		= $this->GetAll();
 		$rt 		= array();
+		/** strip the total request rows **/
+		$fields     = trim(str_replace('SQL_CALC_FOUND_ROWS','',$fields));
 		if($fields === '*') return $rs;
 		$fields		= explode(',',$fields);
 		foreach($rs as $k=>$record)
@@ -227,6 +233,15 @@ class DODatabase implements DORecord
 			}
 		}
 		return $rt;
+	}
+	/**
+	** Get found_rows according to statement which have added 'SQL_CALC_FOUND_ROWS'
+	** @return number
+	**/
+	public function GetFoundRows()
+	{
+		$rs = $this->Query($this->GetQuery(),$this->GetParams());
+		return $rs->affect_row;
 	}
 	/**
 	 * Pdo bind value

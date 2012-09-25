@@ -25,8 +25,7 @@ class DOTemplate
 	public static function SetTemplateUriPath($template)
 	{
 		!defined('DO_URI_BASE') AND define('DO_URI_BASE',DOUri::GetBase());
-	 	!defined('DO_THEME_BASE') AND define('DO_THEME_BASE',DO_URI_BASE.'/templates/'.$template);	
-
+	 	!defined('DO_THEME_BASE') AND define('DO_THEME_BASE',DO_URI_BASE.'/templates/'.$template);
 	 	!defined('DO_THEME_DIR') AND define('DO_THEME_DIR',TEMPLATEROOT.DS.$template);	
 	}
 	public static function GetTemplate()
@@ -36,50 +35,26 @@ class DOTemplate
 	public static function LoadTemplate( )
 	{
 		$template = self::GetTemplate();
-		ob_start();
-		$parsedFile	= TEMPLATEROOT.DS.$template.DS.'index.tpl.php';
-		if(file_exists($parsedFile))
+		$cFile	= TEMPLATEROOT.DS.$template.DS.'index.php';
+		$vFile  = TEMPLATEROOT.DS.$template.DS.'index.tpl.php';
+		if(!file_exists($parsedFile))
 		{
-			include $parsedFile;
-			$content = ob_get_clean();
-
+			$content = file_get_contents($vFile);
+			$content = self::ParseTemplate($content,$cFile);
 		}
-		else
-		{
-			include TEMPLATEROOT.DS.$template.DS.'index.design.php';
-			$content = ob_get_clean();
-			$content = self::ParseTemplate($content,$parsedFile);
-		}
-		return $content;
+		include $cFile;
+		return;
 	}
 
 	public static function ParseTemplate($content,$path = '')
 	{
-		$content = self::Replace($content);
+		$content 		= self::Parse($content,null,null);
 		if(!empty($path))
-		{//write to parse file.
-			file_put_contents($path,$content);
-			ob_start();
-			include $path;
-			$content = ob_get_clean();
+		{
+			$fileHandler	= DOFactory::GetTool('file.basic');
+			$fileHandler->Store($path,$content); 
 		}
 		return $content;
-	}
-
-	public static function Replace($content)
-	{
-		return $content;
-		return preg_replace(
-			array(
-				'#<(module|block)[^>]*(type\s*=\s*"([^"]+)")[^>]*/>#is'
-			   ,'~#(\w+)#~'
-			)
-		   ,array(
-		   		'<?php echo DOTemplate::_("\1","\3");?>'
-		   	   ,'<?php echo \1;?>'
-		   	)
-		   ,$content
-		);
 	}
 	/**
 	**Core function,use to hook all elements we want to display in template
@@ -131,48 +106,55 @@ class DOTemplate
 	{
 		return self::$params['title'];
 	}
-	public static function ParseHtml($file,$variables = array())
+	public static function ParseHtml($tplfile,$variables = array())
 	{
-		if(!!$variables)
-		{//What variables we want to pass to tpl 
-			extract($variables);
-		}
-		ob_start();
-		include_once $file;
-		return self::Parse(ob_get_clean(),null,$variables);
+		return self::Parse(file_get_contents($tplfile),null,$variables);
 	}
-	public static function Parse($content,$innerData = array(),$variables)
+	public static function Parse($content,$innerData = '',$variables,$level=0)
 	{
 		return preg_replace(
-			array('#<(\w+):loop=([^>]+)>((?:((?![^<]+:loop).)|(?R))*)</\1:loop>#ise')
-		   ,array('self::LoopParse("\2","\3",$innerData,"\1",$variables)')
+			array(
+				'#<(\w+):loop=([^>]+)>((?:((?![^<]+:loop).)|(?R))*)</\1:loop>#ise'
+			   ,'#<(module|block):(\w+)\s*/>#is'
+			)
+		   ,array(
+		   		'self::LoopParse("\2","\3",$innerData,"\1",$variables,$level)'
+		   	   ,'<?php echo T("\1","\2");?>'
+		   	)
 		,$content);
 	}
-	public static function LoopParse($attr,$content,$innerData = array(),$tag,$variables)
+	public static function LoopParse($attr,$content,$innerData = '',$tag,$variables,$level)
 	{
 		list($source,$attrs) = preg_split("#\s+#",$attr,2);
-		$innerData 			 = (array)$innerData;
+	//	$innerData 			 = (array)$innerData;
 		$html = array();
 		if(!empty($source))
 		{
 			if(!empty($innerData))
 			{
-				$data = $innerData[$source];
+				$data = $innerData.'["'.$source.'"]';
 			}
 			else
 			{
 				$data = self::GetSource($source,$variables);
 			}
-			foreach((array)$data as $item)
-			{
+			$keyChar 	= '$key_'.$level;
+			$itemChar	= '$item_'.$level;
+			$html[]     = str_pad("",($level+1)*4,"\t",STR_PAD_LEFT);
+			$html[] 	= PHP_EOL.'<'.'?php'.' foreach('.$data.' as '.$keyChar.'=>'.$itemChar.') : ?'.'>'.PHP_EOL;
+			$html[]     = '<'.'?php'.' '.$itemChar.'=(array)'.$itemChar.'; ?'.'>'.PHP_EOL;
+			//foreach((array)$data as $item)
+			//{
 				$template = $content;
 				if(strpos($template,":loop=") !== false)
 				{
-					$template = self::Parse($template,$item,$variables);
+					$template = self::Parse($template,$itemChar,$variables,++$level);
 				}
 				$item 	= (array)$item;
-				$html[] = preg_replace('~{#([^@}]+)(@)?(?(2)(\w+))}~e','\3($item["\1"])',$template);
-			}
+				$html[] = preg_replace('~{#([^@}]+)(@)?(?(2)(\w+))}~','<?php echo \3('.$itemChar.'["\1"]);?>',$template);
+			//}
+			$html[]     = str_repeat("\t",$level+1);
+			$html[]     = PHP_EOL.'<?php endforeach;?>'.PHP_EOL;
 		}
 		if(count($html))
 		{
@@ -180,31 +162,37 @@ class DOTemplate
 		}
 		return "";
 	}
-	public static function GetSource($source,$variables)
+	public static function GetSource($source,&$variables)
 	{
 		if(strpos($source,".") !== false)
 		{//Read data from outside
-			list($type,$core,$action) = sscanf($source,"%[^|]|%[^.].%s");
-			$_method 			  = "Get".ucwords(strtolower($type))."Constant";
-			$handler			  = call_user_func(array(__CLASS__,$_method),$core);
-			return $handler->$action();
+			list($type,$core,$action) 	= sscanf($source,"%[^|]|%[^.].%s");
+			$_method 			  		= "Get".ucwords(strtolower($type))."Constant";
+			$handler			  		= call_user_func(array(__CLASS__,$_method),$core);
+			$rs					  		= $handler.'->'.$action.'()';
+			if($type == 'Model')
+			{
+				$variables[$core.".count"]	= $handler.'->'.'Count()';
+			}
+			return $rs;
 		}
 		else
-		{
-			return $variables[trim($source,'{$}')];
+		{;
+			return '<'.'?php echo '.$source.';?'.'>';
+			//return $variables[trim($source,'{$}')];
 		}
 	}
 
 	public static function GetModelConstant($model)
 	{
-		return DOFactory::GetModel(strtolower($model));
+		return "DOFactory::GetModel(strtolower('".$model."'))";
 	}
 
 	public static function GetBlockConstant($pos)
 	{
 		$pos = array_map('strtolower',explode("/",$pos));
 		$pos = implode(".",$pos);
-		return DOBlocks::GetBlock($pos);
+		return "DOBlocks::GetBlock('".$pos."')";
 	}
 }
 ?>

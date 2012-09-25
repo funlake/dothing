@@ -41,6 +41,11 @@ class DOModel
 		$myDb	= DOFactory::GetTable($this->GetName(),$this->pk);
 		return call_user_func_array(array($myDb,$name),$args);
 	}
+
+	public function Count()
+	{
+		return DOFactory::GetTable($this->GetName())->Count();
+	}
 	/**
 	 * Load model
 	 *
@@ -57,6 +62,7 @@ class DOModel
 			$where = array($this->pk => $where);
 		}
 		$searchs = (array)$session->Get(DORouter::GetSearchIndex());
+		/** People is searching something in specific page? **/
 		if(!!(array_filter($searchs)))
 		{
 			$where   = array_merge((array)$where,$searchs);

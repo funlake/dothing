@@ -1,6 +1,12 @@
 <?php
 class DOView
 {
+	public $controller = null;
+
+	public function DOView()
+	{
+		$this->controller = DOController::GetController();
+	}
 	public function Grid($config)
 	{
 
@@ -25,51 +31,27 @@ class DOView
 	{
 		$this->tplBase = $dir;
 	}
-}
-class DOView
-{
-	public function __construct($type)
-	{
 
-	}
-	function display()
+	public function Display($vFile,$variables = array())
 	{
-		
-	}
-	
-	function loadExtJs()
-	{
-		$root = DOUri::getRoot();
-		echo <<<js
-<script type='text/javascript' src='{$root}/resources/js/ext/adapter/ext/ext-base.js'></script>
-<script type='text/javascript' src='{$root}/resources/js/ext/ext-all.js'></script>
-<script type='text/javascript'>
-Ext.BLANK_IMAGE_URL = '{$root}/resources/js/ext/resources/images/default/s.gif';
-</script>
-js;
-	}
-	function loadExtPlg()
-	{
-		$plgs = func_get_args();
-		$root = DOUri::getRoot();
-		foreach((array)$plgs as $v)
-		{//ux/TabCloseMenu.js
-			$scripts[] = "<script type='text/javascript' src='{$root}/resources/js/ext/ux/{$v}.js'></script>";
-		}
-		if(!!$scripts)
+		if(!!$variables)
 		{
-			echo implode('',$scripts);
+			extract($variables);
 		}
-	}
-	function loadCalendarJs()
-	{
-		
+		$view 	= basename($vFile);
+		$cFile = VIEWBASE.DS.'modules'.DS.DORouter::GetModule().DS.DORouter::GetController().DS.$view;
+		if(DO_TEMPLATE_PARSE /*AND !file_exists($cFile)*/)
+		{//parse the content ,and store it into compile dir
+			$content 		= DOTemplate::ParseHtml($vFile,$variables);
+			$fileHandler	= DOFactory::GetTool('file.basic');
+			$fileHandler->Store($cFile,$content);
+		}
+		include $cFile;
 	}
 
-	public function _table()
+	public function C()
 	{
-
+		return $this->controller;
 	}
-	
 }
 ?>

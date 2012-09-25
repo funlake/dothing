@@ -224,13 +224,13 @@ class DOController
 		$layout     = APPBASE.DS.DORouter::$module
 					 .DS.'view'
 					 .DS.DORouter::$controller
-					 .DS.'layout.'.$view.'.php';
+					 .DS.$view.DO_TEMPLATE_EXT;
 		if(!file_exists($layout))
 		{
 			throw new Exception("{$layout} is not exists!");
 		}
-		//include_once $layout;
-		echo DOTemplate::ParseHtml($layout,$variables);
+		$view = new DOView();
+		$view->Display($layout,$variables);
 	}
 	/**
 	 * load model object

@@ -102,14 +102,14 @@ class DOBlocks
 	public static function GetLayout($block,$layout)
 	{
 		$path 			= str_replace('.',DS,$block);
-		$blockCover     = DO_THEME_DIR.DS.'blocks'.DS.$path.DS.$layout.'.php';
+		$blockCover     = DO_THEME_DIR.DS.'blocks'.DS.$path.DS.$layout.DO_TEMPLATE_EXT;
 		if(file_exists($blockCover))
 		{
 			return $blockCover;
 		}
 		else
 		{
-			return BLKBASE.DS.$path.DS.'layout'.DS.$layout.'.php';
+			return BLKBASE.DS.$path.DS.'layout'.DS.$layout.DO_TEMPLATE_EXT;
 		}
 	}
 	/** Implement this later **/

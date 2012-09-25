@@ -79,7 +79,7 @@ class DOTable
 	{
 		return call_user_func_array(
 			 array($this,"GetCol")
-			,array('*',$condition,$vals,$orderby,$groupby)
+			,array('SQL_CALC_FOUND_ROWS *',$condition,$vals,$orderby,$groupby)
 		);
 	}
 	
@@ -141,7 +141,7 @@ class DOTable
 	 * @param $condition //conditions for searching
 	 * @return total's num 
 	 **/
-	 function GetTotal(array $condition = null)
+	 function Total(array $condition = null,array $vals = array())
 	 {
 	 	foreach(array_slice(func_get_args(),1) as $val)
 	 	{
@@ -155,6 +155,16 @@ class DOTable
 		$db = call_user_func_array(array($db,'Values'),$vals);
 		$db->Read();
 		return $this->_db->GetOne('totalrows');
+	 }
+
+	 public function Count()
+	 {
+	 	$db = $this->_db;
+	 	$db->Clean();
+	 	$db->From($this->_tb)
+	 	->Select('found_rows()')
+	 	->Read();
+	 	return $db->GetFoundRows();
 	 }
 }
 ?>

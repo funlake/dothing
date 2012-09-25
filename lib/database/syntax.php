@@ -37,7 +37,10 @@ class DOSyntax
 	/** What field we want to fetch **/
 	public function Select( $fields )
 	{
-		if(is_string($fiendls)) $fields = explode(',',$fields);
+		if(is_string($fields))
+		{
+			$fields = explode(',',$fields);
+		}
 		foreach( (array)$fields as $k=>$v)
 		{
 			$sf = preg_split('#(?<=\s)as(?=\s+)#i',$v);
