@@ -170,8 +170,16 @@ class DOSyntax
 		return $this;
 	}
 	/** Set limit **/
-	function Limit($s,$e){
-		$this->limit = array($s,$e);
+	function Limit($s = 0,$e = null)
+	{
+		if(is_array($s) and $s[1])
+		{
+			$this->limit = $s;
+		}
+		else if($e)
+		{
+			$this->limit = array($s,$e);
+		}
 		return $this;
 	}
 	/** Set order by **/

@@ -1,11 +1,11 @@
 <?php
 class DOPaginate
 {
-	public function DOPaginate( $totalRow , $rowPerPage = 20 , $curPageNo = 1)
+	public function DOPaginate( $totalRow , $rowPerPage = 20)
 	{
 		$this->totalRow 	= (int)$totalRow;
 		$this->rowPerPage	= (int)$rowPerPage;
-		$this->curPageNo	= (int)$curPageNo;
+		$this->curPageNo	= (int)DOHelper::GetCurPage();
 	}
 
 	/** Get total pages according to total rows and rows in per page.**/	

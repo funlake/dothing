@@ -54,22 +54,38 @@ class DOModel
 	{
 		return DOController::GetModel( $model );
 	}
-	public function Find($where = null)
+	/**
+	 * A method basically use in table list page
+	 */
+	public function Data($limit = null)
 	{
-		$session = DOFactory::GetSession();//session_start would happen here
-		if(!empty($where) and !is_array($where))
-		{
-			$where = array($this->pk => $where);
-		}
-		$searchs = (array)$session->Get(DORouter::GetSearchIndex());
+		$searchs = (array)SG(DORouter::GetSearchIndex());
 		/** People is searching something in specific page? **/
 		if(!!(array_filter($searchs)))
 		{
 			$where   = array_merge((array)$where,$searchs);
 		}
-		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby);
+		/** Get limit page **/
+		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,DOHelper::GetDataLimit());	
 	}
-	public function Select($where = null,$compare = '=',$orderby = array(),$groupby = null)
+	public function Find($where = null)
+	{
+		//$session = DOFactory::GetSession();//session_start would happen here
+		if(!empty($where) and !is_array($where))
+		{
+			$where = array($this->pk => $where);
+		}
+		$searchs = (array)SG(DORouter::GetSearchIndex());
+		/** People is searching something in specific page? **/
+		if(!!(array_filter($searchs)))
+		{
+			$where   = array_merge((array)$where,$searchs);
+		}
+
+		/** Get limit page **/
+		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$offset);
+	}
+	public function Select($where = null,$compare = '=',$orderby = array(),$groupby = null,$limit = null)
 	{
 		$this->action = __FUNCTION__;
 		if(empty($this->name))
@@ -112,7 +128,7 @@ class DOModel
 				//array_unshift($params,$condition);
 			}
 			$caller = DOFactory::GetTable($this->name);
-			$R      = call_user_func_array(array($caller,'GetAll'),array($condition,$params,$orderby,$groupby));
+			$R      = call_user_func_array(array($caller,'GetAll'),array($condition,$params,$orderby,$groupby,$limit));
 			$this->SetFieldsValue($R,$R[0],$this->action);
 			return $R;
 		}

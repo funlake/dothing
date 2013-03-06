@@ -47,10 +47,13 @@ class DOLoader
 			if( !self::$loaded[ $file ] )
 			{
 				$f  = str_replace('.',DS,$file);
-				
+				$ef = SYSTEM_ROOT.DS.'lib'.$f.'.php';
 				$fs = FRAMEWORK_ROOT.DS.$f.'.php';
-
-				if( file_exists($fs) )
+				if(file_exists($ef))
+				{
+					include $ef;
+				}
+				else if( file_exists($fs) )
 				{
 					include $fs;
 				}

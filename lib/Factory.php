@@ -25,7 +25,11 @@ class DOFactory
 		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		if( !is_object(self::$_load['tables'][$table] ) )
 		{
-			self::$_load['tables'][$table]  = new DOTable( $table,$key,$db);
+			if(DOLoader::Import('lib.database.tables.'.DO_DBDRIVE.'_table'))
+			{
+				$class = 'DO'.ucwords(DO_DBDRIVE).'Table';
+				self::$_load['tables'][$table]  = new $class( $table,$key,$db);
+			}
 		}
 		return self::$_load['tables'][$table] ;
 	}

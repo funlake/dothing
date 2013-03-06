@@ -36,27 +36,42 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			DOTemplate::SetTemplate(DO_ADMIN_TEMPLATE);
 		}
 		/** Search handler **/
-		$this->SearchPrepare($mca);
+		$this->ListPrepare($mca);
 	}
 
-	public function SearchPrepare($mca)
+	public function ListPrepare($mca)
 	{
-		//params were useless here
-		if(isset($_POST['DO']['search']))
+		//If people searching somthing?
+		$urlQuery 			= $mca;
+		array_pop($urlQuery);
+		$urlQuery['params'] = null;
+		$pagekey 			= implode('/',$urlQuery);
+		$pagekey 			= rtrim($pagekey,"/");
+		$searchKey 			= "DOSearch/".$pagekey;
+		$limitKey   		= "DOLimit/".$mca['module'];
+		if(isset($_REQUEST['DO']['search']))
 		{
-			array_pop($mca);
-			$mca['params'] = null;
-			$session = DOFactory::GetSession();
-			$pagekey = "DOSearch.".implode('/',$mca);
-			$pagekey = rtrim($pagekey,"/");
 			if(!empty($_POST['DO']['search']))
 			{
-				$session->Set($pagekey,$_POST['DO']['search']);
+				SS($searchKey,$_POST['DO']['search']);
 			}
 			else
 			{
-				$session->Clean($pagekey,$_POST['DO']['search']);
+				//Clean session
+				SS($searchKey,null);
 			}
+		}
+		if(!SG($limitKey))
+		{
+			SS($limitKey,DO_LIST_ROWS);
+		}
+		if(isset($_REQUEST['limit']))
+		{
+			SS($limitKey,(int)$_REQUEST['limit']);
+		}
+		else
+		{
+			SS($limitKey,max((int)SG($limitKey),5));
 		}
 	}
 }

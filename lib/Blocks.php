@@ -37,11 +37,25 @@ class DOBlocks
 		//Get current page
 		$pages   = DOBlocksHelper::GetBlocksIndex();
 		//Display blocks with it's specific layout according to current page.
-		foreach( $pages as $page) 
+		foreach( array_keys($blocks) as $page) 
 		{
-			if($page{0} !== '!' AND strpos(DORouter::GetPageIndex(),substr($page,1)) === false )
-			{//Invoke blocks
-				$blocks[$page] && self::Invoke( explode(',',$blocks[$page]) );
+			//Nagative jugdement
+			if($page{0} === '!')
+			{
+				$reg  = substr($page,1);
+				if(preg_match('#'.$reg.'#is',DORouter::GetPageIndex()))
+				{
+					continue;
+				}
+			}
+			else
+			{
+				$reg  = $page;
+				if(preg_match('#'.$reg.'#is',DORouter::GetPageIndex()))
+				{
+					//Invoke blocks
+					self::Invoke( explode(',',$blocks[$page]) );
+				}
 			}
 		}
 		return ;	
@@ -162,10 +176,10 @@ class DOBlocksHelper
 	public static function GetBlocksIndex()
 	{	
 		return array(
-		    DORouter::$module.":".DORouter::$controller.":".DORouter::$action
-		   ,DORouter::$module.":".DORouter::$controller.":*"
-		   ,DORouter::$module.":*"
-		   ,"*"
+		    DORouter::$module."/".DORouter::$controller."/".DORouter::$action
+		   ,DORouter::$module."/".DORouter::$controller."/*"
+		   ,DORouter::$module."/*"
+		   ,".*"
 		); 
 	}
 }

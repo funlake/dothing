@@ -1,7 +1,7 @@
 <?php
 class DOPaginateGoogle extends DOPaginate
 {
-	public $halfMax		= 0;
+	public $halfMax		= 10;
 	public function GetHalfMax()
 	{
 		if($this->halfMax == 0)
@@ -13,8 +13,8 @@ class DOPaginateGoogle extends DOPaginate
 	public function GetMaxNoPerPage()
 	{
 		$totalPages 	= $this->GetTotalPages();
-		$rightSideMax   = $this->curPageNo + $this->rowPerPage;
-		return ($rightSideMax >= $totalPages) ? $totalPages : $rightSideMax;
+		$rightSideMax   = $this->curPageNo + $this->GetHalfMax();
+		return min($totalPages,$rightSideMax);
 	}
 
 	public function SetCurPageNo( $pageNo)
@@ -29,10 +29,19 @@ class DOPaginateGoogle extends DOPaginate
 		$tpl[]	= "<div class='pagination'>";
 		$tpl[]	= "<ul>";
 		$tpl[]  = "<li><a href='#'>«</a></li>";
+		$params = DORouter::GetParams();
+		//we can not use GetPageIndex from DORouter here.
+		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
 		for($i,$max = $this->GetMaxNoPerPage();$i <= $max;$i++)
 		{
+			if(defined('DO_PAGE_INDEX'))
+			{
+				$params[DO_PAGE_INDEX] = $i;
+			}
+			else $params['page'] = $i;
+			$url   = Url($page,$params);
 			$tpl[] = "<li>"
-					."<a href='?page={$i}'>".$i."</a>"
+					."<a href='{$url}'>".$i."</a>"
 					."</li>";
 		}
 		$tpl[]  = "<li><a href='#'>»</a></li>";

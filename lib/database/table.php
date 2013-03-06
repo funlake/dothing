@@ -34,7 +34,7 @@ class DOTable
 		return $this->_db->query( $sql );
 	} */
 	/** Get one field according to conditions */
-	function GetOne($field,$condition = null,$vals = array(),$orderby = array(),$groupby = null)
+	function GetOne($field,$condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
 		$db = $this->_db;
 		$db->Clean();
@@ -46,7 +46,7 @@ class DOTable
 		return $db->GetOne($field);
 	}
 	/** Get row according to conditions */
-	function GetRow(array $condition = null,$vals = array(),$orderby = array(),$groupby = null)
+	function GetRow(array $condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
 
 		$db = $this->_db;
@@ -60,7 +60,7 @@ class DOTable
 	}
 	
 	/** Get col in all rows we fetch according to conditions */
-	function GetCol($fields,array $condition = null,$vals = array(),$orderby = array(),$groupby = null)
+	function GetCol($fields,array $condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
 		$db = $this->_db;
 		$db->Clean();
@@ -70,16 +70,17 @@ class DOTable
 		->Groupby($groupby)
 		->Where($condition)
 		->Values($vals)
+		->Limit($limit)
 		->Read();
 		return $db->GetCol($fields);
 	}
 	
 	/** Get all short way calling **/
-	function GetAll(array $condition = null,$vals = array(),$orderby = array(),$groupby = null)
+	function GetAll(array $condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
 		return call_user_func_array(
 			 array($this,"GetCol")
-			,array('SQL_CALC_FOUND_ROWS *',$condition,$vals,$orderby,$groupby)
+			,array('SQL_CALC_FOUND_ROWS *',$condition,$vals,$orderby,$groupby,$limit)
 		);
 	}
 	
@@ -162,7 +163,7 @@ class DOTable
 	 	$db = $this->_db;
 	 	$db->Clean();
 	 	$db->From($this->_tb)
-	 	->Select('found_rows()')
+	 	->Select('FOUND_ROWS()')
 	 	->Read();
 	 	return $db->GetFoundRows();
 	 }

@@ -41,4 +41,5 @@ if(error_reporting() AND ini_get('display_errors'))
 } */
 /** Shutdown event **/
 register_shutdown_function(array('DOHook','HangPlugin'),'shutdown',array());
+
 ?>

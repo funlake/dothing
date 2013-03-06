@@ -13,6 +13,8 @@ class DOModelGroup extends DOModel
 	);
 
 	public $defaultGroupby = null;
+
+	public $defaultLimit  = array(0,5);
 	/** What to be where conditions when we update a record **/
 	public $updateKey = array(
 		'id'	=> '=?'		

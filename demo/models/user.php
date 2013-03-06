@@ -16,7 +16,7 @@ class DOModelUser extends DOModel
 		'user_id'	=> '=?'		
 	);
 	public $updateVal = 0;
-
+	public $defaultLimit = array(0,5);
 	/** What to be where conditions when we update a record **/
 	public $deleteKey = array(
 		'user_id'	=> '=?'

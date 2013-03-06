@@ -188,9 +188,12 @@ class DORouter
 
 	public static function GetSearchIndex()
 	{
-		return "DOSearch.".self::GetPageIndex();
+		return "DOSearch/".self::GetPageIndex();
 	}
-
+	public static function GetLimitIndex()
+	{
+		return "DOLimit/".self::GetPageIndex();
+	}
 	public static function GetMca()
 	{
 		return array(self::$module,self::$controller,self::$action,self::$params);
@@ -213,7 +216,7 @@ class DORouter
 
 	public static function GetParams()
 	{
-
+		return self::$params;
 	}
 }
 ?>

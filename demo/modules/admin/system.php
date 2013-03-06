@@ -46,6 +46,7 @@ class DOControllerSystem extends DOController
 				$flag	= 0;
 			}
 			$db->Clean();
+			
 			DOUri::Redirect(
 				Url(DO_ADMIN_INTERFACE.'/system/setting')
 			   ,$msg
