@@ -58,7 +58,7 @@ class DOExtData
 				}
 			break;
 		}
-		$json = & DOFactory::get('com',array('json'));
+		$json = & DOFactory::GetJson();
 		
 		echo $json->encode($data);
 		

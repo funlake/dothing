@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Single table object
+ * @author lake
+ *
+ */
 class DOTable
 {
 	/** Database instance **/
@@ -30,64 +34,54 @@ class DOTable
 		return $this->_db->query( $sql );
 	} */
 	/** Get one field according to conditions */
-	function GetOne($field,array $condition = null)
+	function GetOne($field,$condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
-		$vals = array();
-		foreach(array_slice(func_get_args(),2) as $val)
-		{
-			$vals[] = $val;
-		}
 		$db = $this->_db;
 		$db->Clean();
 		$db->From( $this->_tb)
-		   ->Select($field)
-		   ->Where($condition);
-		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Read();
-		return $this->_db->GetOne($field);
+		->Select($field)
+		->Where($condition)
+		->Values($vals)
+		->Read();
+		return $db->GetOne($field);
 	}
 	/** Get row according to conditions */
-	function GetRow(array $condition = null)
+	function GetRow(array $condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
-		$vals = array();
-		foreach(array_slice(func_get_args(),1) as $val)
-		{
-			$vals[] = $val;
-		}
+
 		$db = $this->_db;
 		$db->Clean();
-		$db->From( $this->_tb)
-		   ->Select('*')
-		   ->Where($condition);
-		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Read();
-		return $this->_db->GetRow();
+		$db->From( $this->_tb )
+	   	->Select('*')
+	   	->Where($condition)
+	   	->Values($vals)
+	   	->Read();
+		return $db->GetRow();
 	}
 	
 	/** Get col in all rows we fetch according to conditions */
-	function GetCol($fields,array $condition = null)
+	function GetCol($fields,array $condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
-		$vals = array();
-		foreach(array_slice(func_get_args(),2) as $val)
-		{
-			$vals[] = $val;
-		}
 		$db = $this->_db;
 		$db->Clean();
-		$db->From( $this->_tb)
+		$db->From( $this->_tb )
 		->Select($fields)
-		->Where($condition);
-		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Read();
-		return $this->_db->GetCol($fields);
+		->Orderby($orderby)
+		->Groupby($groupby)
+		->Where($condition)
+		->Values($vals)
+		->Limit($limit)
+		->Read();
+		return $db->GetCol($fields);
 	}
 	
 	/** Get all short way calling **/
-	function GetAll(array $condition = null)
+	function GetAll(array $condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
-		$args = func_get_args();
-		array_unshift($args,'*');
-		return call_user_func_array(array($this,"GetCol"),$args);
+		return call_user_func_array(
+			 array($this,"GetCol")
+			,array('SQL_CALC_FOUND_ROWS *',$condition,$vals,$orderby,$groupby,$limit)
+		);
 	}
 	
 	/** Single table update **/
@@ -110,11 +104,11 @@ class DOTable
 		$db = call_user_func_array(array($db,'Values'), $vals);
 		$db->Update();
 		/** Can not use $db direcitly here,quite strange**/
-		return $this->_db->Execute()->affect_rows;
+		return $this->_db->Execute();
 	}
 	
-	/** Single table update **/
-	function Create(array $insarray )
+	/** Single table Insert **/
+	function Insert(array $insarray )
 	{
 		foreach($insarray as $k=>$v)
 		{
@@ -126,21 +120,19 @@ class DOTable
 		$db->Clean();
 		$db->From($this->_tb)->Set($sets);
 		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Create();
+		$db->Insert();
 		/** Can not use $db direcitly here,quite strange**/
 		return $this->_db->Execute();
 	}
 	
 	/** Single table delete function **/
-	function Delete( array $condition = null)
+	function Delete( array $condition = null , $vals = array())
 	{
-		$args = func_get_args();
-		array_unshift($args);
 		$db = $this->_db;
 		$db->Clean();
 		$db->From($this->_tb)
 		->Where($condition)
-		->Values($args)
+		->Values($vals)
 		->Delete();
 		return $db->Execute();
 	}
@@ -150,7 +142,7 @@ class DOTable
 	 * @param $condition //conditions for searching
 	 * @return total's num 
 	 **/
-	 function GetTotal(array $condition = null)
+	 function Total(array $condition = null,array $vals = array())
 	 {
 	 	foreach(array_slice(func_get_args(),1) as $val)
 	 	{
@@ -164,6 +156,16 @@ class DOTable
 		$db = call_user_func_array(array($db,'Values'),$vals);
 		$db->Read();
 		return $this->_db->GetOne('totalrows');
+	 }
+
+	 public function Count()
+	 {
+	 	$db = $this->_db;
+	 	$db->Clean();
+	 	$db->From($this->_tb)
+	 	->Select('FOUND_ROWS()')
+	 	->Read();
+	 	return $db->GetFoundRows();
 	 }
 }
 ?>

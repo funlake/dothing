@@ -1,5 +1,4 @@
 <?php
-
 class DORequest extends DOBase
 {
 	public static $serverVars = array('_get','_post','_request','_env','_server','_files','_cookie','_session');
@@ -10,13 +9,14 @@ class DORequest extends DOBase
 	#
 	#[Warning] Do not call twice in a same process(page)!!!
 	#
-	function Clean()
+	public function Clean()
 	{
 		$DO_GET    		= $_GET;
 		$DO_POST   		= $_POST;
 		$DO_REQUEST   	= $_REQUEST;
 		$DO_FILES   	= $_FILES;
 		$DO_COOKIE  	= $_COOKIE;
+		$DO_SERVER	    = $_SERVER;
 		/** Strip any unsafe variables**/ 
 		foreach( $GLOBALS as $k=>$v)
 		{
@@ -27,6 +27,7 @@ class DORequest extends DOBase
 		$_REQUEST		= self::StripVar($DO_REQUEST);
 		$_COOKIE		= self::StripVar($DO_COOKIE);
 		$_FILES			= self::StripVar($DO_FILES);
+		$_SERVER		= self::StripVar($DO_SERVER);
 	}
 	/**
 	 * strip dangerous request variables

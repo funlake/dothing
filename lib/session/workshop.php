@@ -8,11 +8,12 @@ class DOSessionWS
 	public static $sessionHandler;
 	/** What drive we using **/
 	public static $drive;
-	
+	/** Engine **/
+	public static $engine;
 	function DOSessionWS( )
 	{
 		self::$drive		  = DO_SESSHANDLER;
-		self::$sessionHandler = 'DOSession'.ucwords(strtolower($drive));
+		self::$sessionHandler = 'DOSession'.ucwords(strtolower(self::$drive));
 	
 		if( self::CheckEngine( $drive ))
 		{
@@ -22,21 +23,14 @@ class DOSessionWS
 	
 	function CheckEngine( $drive )
 	{
-
-		DOLoader::Import('lib.session.'.$drive.'.sess_'.$drive); 
-		
-		if( class_exists(self::$sessionHandler) )
-		{
-			return true;
-		}
-		return false;
+		return DOLoader::Import('lib.session.'.$drive.'.sess_'.$drive); 
 	}
 	
 	function LoadEngine( )
 	{
 		$handler = self::$sessionHandler;
 		$drive	 = self::$drive;			
-		if( $drive != 'file')
+		if( $drive != 'files')
 		{
 			ini_set('session.save_handler',$drive);
 			session_set_save_handler(
@@ -52,7 +46,11 @@ class DOSessionWS
 	
 	function GetEngine()
 	{
-		return DOFactory::GetTool('session',self::$drive);
+		if(!self::$engine)
+		{
+			self::$engine = DOFactory::GetTool('session',self::$drive);
+		}
+		return self::$engine;
 	}
 	
 }

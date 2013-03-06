@@ -1,7 +1,7 @@
 <?php
-class DORouter extends DOBase
+class DORouter
 {
-	public $sep 		= '-';
+	static $sep 		= ':';
 	static $maps 		= array();
 	static $proj		= '';
 	static $module      = '';
@@ -15,19 +15,20 @@ class DORouter extends DOBase
 		,':action'		=>'#[a-z]+#i'	
 	);
 	static $queryPath      = array();
+	/**Contents of specific controller**/
+	static $content      = null;
 	
-	function DORouter(){}
-	function Dispatch()
+	public static function Dispatch(array $mca = null)
 	{
 		self::Prepare();
+
 		#self::hasMap(DOUri::GetPathInfo());
-		/** Trigger beforeroute event and see what we want to do**/
-		DOHook::TriggerPlugin('system','prepareRoute',array());
-		/**Initiate controller object **/
-		DOLoader::Import('mvc.controller');
+		/** Trigger plugin before all module route**/
+		DOHook::HangPlugin('prepareRoute',array(self::GetMca()));
+		
 		if( ! ($CTR = DOController::GetController()) )
 		{
-			return;
+			throw new DORouterException("Unknown controller::action", 404);
 		}
 		//Whether controller class exist
 		$method = self::$action.'Action';
@@ -36,48 +37,37 @@ class DORouter extends DOBase
 		{
  			DOHook::TriggerEvent(
 				array(
-				    'beforeRequest' => array(self::$params)
+				    'beforeRequest' => array(self::GetMca())
 				)
 			);
-			ob_start();
-			call_user_func_array(array($CTR,$method),self::$params);
-			DOTemplate::SetParam('module', $content = ob_get_contents());
-			ob_end_clean();
+			/** Set some constants for template usage**/
+			DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
+			/** No cache then update cache **/
+			if(!DOTemplate::GetModule() )
+			{
+				ob_start();
+				call_user_func(array($CTR,$method),(object)array(
+					'get'		=> self::$params
+				   ,'post'  	=> $_POST
+				   ,'cookie'	=> $_COOKIE
+				   ,'session'	=> $_SESSION
+				));
+				DOTemplate::SetModule(ob_get_clean());
+			}
  			DOHook::TriggerEvent(
 				array(
-				    'afterRequest' => array($content)
+				    'afterRequest' => array(self::GetMca(),DOTemplate::GetModule())
 				)
 			);
 		}
 		else 
 		{
-			throw new Exception("Route fail!");
-			//DOUri::redirect($_404Page);
+			throw new DORouterException("Unknown controller::action", 404);
 		}
-		DOHook::TriggerPlugin('system','afterRoute',array());
+		DOHook::HangPlugin('afterRoute',array(self::GetMca()));
 	}
-	
-	function page_404( )
-	{
-		$module		= $this->uri->getModule();
-		$controller = $this->uri->getController();
-		$action     = $this->uri->getAction();
-		$params		= $this->uri->getParams();
-		$p = array(
-			    'error'			=> '404'
-			   ,'module'		=> $module
-			   ,'controller'	=> $controller
-			   ,'action'		=> $action
-		);
-		//uniqe parames
-		$u = array_merge($p,$params);
-		//generate url string
-		$_404Page = DOUri::BuildQuery('error','error','index',$u);
-		
-		return $_404Page;
-	}
-	
-	public static function map()
+
+	public static function Map()
 	{
 		$args   = func_get_args();
 		$regexp = $args[0];
@@ -99,13 +89,27 @@ class DORouter extends DOBase
 	 *
 	 * @param unknown_type $pathinfo
 	 */
-	function Prepare()
+	public static function Prepare(array $mca = null)
 	{
 		$pathinfo			= DOUri::GetPathInfo();
+
 		self::$module	  	= DOUri::GetModule();
 		self::$controller 	= DOUri::GetController();
 		self::$action     	= DOUri::GetAction();
 		self::$params	 	= DOUri::GetParams();
+		
+		//Wanna hide the admin interface?
+		if(DO_ADMIN_INTERFACE)
+		{
+			if(DO_ADMIN_INTERFACE == self::$module)
+			{
+				self::$module   = 'admin';
+			}
+			elseif("admin" == self::$module)
+			{
+				throw new DORouterException("Page Not Found!", 404);
+			}
+		}
 		if(DO_SEO)
 		{
 			foreach((array)self::$maps as $k=>$v)
@@ -137,7 +141,7 @@ class DORouter extends DOBase
 						//match mvc string in url
 						if(self::$mvcHash[':'.$mk])
 						{
-							self::${$mk} = $mv; 
+							self::${$mk} 	= $mv; 
 							$ignoreNextLoop = true;
 						}
 						//params format
@@ -175,6 +179,44 @@ class DORouter extends DOBase
 				)
 			)] = $v;
 		}
+	}
+	
+	public static function GetPageIndex()
+	{
+		return DORouter::$module.'/'.self::$controller.'/'.self::$action;
+	}
+
+	public static function GetSearchIndex()
+	{
+		return "DOSearch/".self::GetPageIndex();
+	}
+	public static function GetLimitIndex()
+	{
+		return "DOLimit/".self::GetPageIndex();
+	}
+	public static function GetMca()
+	{
+		return array(self::$module,self::$controller,self::$action,self::$params);
+	}
+
+	public static function GetModule()
+	{
+		return self::$module;
+	}
+
+	public static function GetController()
+	{
+		return self::$controller;
+	}
+
+	public static function GetAction()
+	{
+		return self::$action;
+	}
+
+	public static function GetParams()
+	{
+		return self::$params;
 	}
 }
 ?>

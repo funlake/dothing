@@ -1,18 +1,12 @@
 <?php
-DOLoader::import('lib.paginate.paginate');
-class DOPaginate_google extends DOPaginate
+class DOPaginateGoogle extends DOPaginate
 {
-	public $maxItemsPerPage	= 20;
-	public $halfMax		= 0;
-	public function SetMaxItemsPerPage( $num )
-	{
-		$this->maxItemsPerPage = $num;
-	}
+	public $halfMax		= 10;
 	public function GetHalfMax()
 	{
 		if($this->halfMax == 0)
 		{
-			$this->halfMax = ceil( $this->maxItemsPerPage / 2);
+			$this->halfMax = ceil( $this->rowPerPage / 2);
 		}
 		return $this->halfMax;
 	}
@@ -20,7 +14,7 @@ class DOPaginate_google extends DOPaginate
 	{
 		$totalPages 	= $this->GetTotalPages();
 		$rightSideMax   = $this->curPageNo + $this->GetHalfMax();
-		return $rightSideMax >= $totalPages ? $totalPages : $rightSideMax;
+		return min($totalPages,$rightSideMax);
 	}
 
 	public function SetCurPageNo( $pageNo)
@@ -28,19 +22,32 @@ class DOPaginate_google extends DOPaginate
 		$this->curPageNo = $pageNo;
 	}
 
-	public function Display()
+	public function Render()
 	{
 		$haftMax= $this->GetHalfMax();
 		$i 	= $this->curPageNo > $haftMax ? ($this->curPageNo - $haftMax) : 1;
-		$tpl[]	= "<div class='pn'>";
-		for($max = $this->GetMaxNoPerPage();$i <= $max;$page=$i++)
+		$tpl[]	= "<div class='pagination'>";
+		$tpl[]	= "<ul>";
+		$tpl[]  = "<li><a href='#'>«</a></li>";
+		$params = DORouter::GetParams();
+		//we can not use GetPageIndex from DORouter here.
+		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
+		for($i,$max = $this->GetMaxNoPerPage();$i <= $max;$i++)
 		{
-			$tpl[] = "<span style='width:40px;border:1px solid ".(($this->curPageNo == $page) ? '#ff0000' : '#000').";margin:2px'>"
-				."<a href='?page={$page}'>".$page."</a>"
-				."</span>";
-		}	
+			if(defined('DO_PAGE_INDEX'))
+			{
+				$params[DO_PAGE_INDEX] = $i;
+			}
+			else $params['page'] = $i;
+			$url   = Url($page,$params);
+			$tpl[] = "<li>"
+					."<a href='{$url}'>".$i."</a>"
+					."</li>";
+		}
+		$tpl[]  = "<li><a href='#'>»</a></li>";
+		$tpl[]  = "</ul>";
 		$tpl[]  = "</div>";
-		echo implode('',$tpl);
+		return implode('',$tpl);
 	}
 }
 ?>

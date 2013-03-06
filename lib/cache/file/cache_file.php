@@ -10,21 +10,25 @@ class DOCacheFileEntity
 	{
 		$this->obj = (array)$obj;
 	}
-	public function Update( $var , $content)
+	public function Update( $var , $content ,$expire = 0)
 	{
 		$this->obj[$var]		  = new stdClass();
 		$this->obj[$var]->content = $content;
+		$this->obj[$var]->expire  = $expire;
 	}
 	public function Read( $var = '' )
 	{
 		if(!empty($var))
 		{
-			if(!$this->obj[$var])
+			if(!isset($this->obj[$var]))
 			{
 				/** Did not set **/
-				trigger_error("Cache [$var] did not set",E_USER_WARNING);
-				return DOCACHE_ERROR_NOTSET; 
+				return DOCACHE_NOTSET; 
 			}
+			else if($this->obj[$var]->expire < time())
+			{
+				return DOCACHE_EXPIRE;
+			}	
 			return $this->obj[$var]->content;
 		}
 		return $this->obj;
@@ -49,10 +53,10 @@ class DOCacheFile extends DOCache
 	/**
 	*get cache operation class
 	*/
-	public function GetCache($type='system')
+	public function GetCache($type)
 	{
-		$ck = $type ? $type : 'system';
-		if(!self::$entity[$ck])
+		if($type == '') $type = 'system';
+		if(!self::$entity[$type])
 		{
 			$file = CACHEROOT.DS.$type.".cache";
 			if(!file_exists( $file) )
@@ -62,9 +66,9 @@ class DOCacheFile extends DOCache
 			$vars = file_get_contents( $file );
 			if(!empty( $vars )) $obj  = json_decode( $vars );
 			else $obj = array();
-			self::$entity[$ck] = new DOCacheFileEntity($obj);	
+			self::$entity[$type] = new DOCacheFileEntity($obj);	
 		}
-		return self::$entity[$ck];
+		return self::$entity[$type];
 	}
 	/**
 	*save cache file
@@ -97,11 +101,11 @@ class DOCacheFile extends DOCache
 	* $varname.system/module/plugin/event...
 	*============================================
 	*/
-	public function Set( $hashkey , $content)
+	public function Set( $hashkey , $content , $expire = 0)
 	{
 		list($var,$type) 	= explode('.',$hashkey);
 		$type				= !empty($type) ? $type : 'system';
-		self::GetCache($type)->Update($var,$content);
+		self::GetCache($type)->Update($var,$content,time()+$expire);
 		return self::Save($type);
 		#DOEvent::trigger('onDestry',)
 	}
@@ -127,7 +131,6 @@ class DOCacheFile extends DOCache
 		list($var,$type) = explode('.',$hashkey);
 		self::GetCache($type)->Delete($var);
 		return self::Save($type);
-		#DOEvent::trigger('onDestry',)
 	}
 	/**
 	*remove a cache file

@@ -3,15 +3,12 @@
 class DOSyntax
 {
 	const tableFileSep = '___';
-	private $asset = array('join'	,'joinField'	,'fields'
-			      ,'orderby'	,'groupby'	,'where'
-			      ,'limit'		,'coreTable'	,'coreTableAs'
-			      ,'sqlQuery'	,'params'	,'sets');
+	private $asset = array('join'		,'joinField'	,'fields'
+			      		 ,'orderby'		,'groupby'		,'where'
+			      		 ,'limit'		,'coreTable'	,'coreTableAs'
+			      		 ,'sqlQuery'	,'params'		,'sets');
 	function DOSyntax( ){}
 	
-	function __construct(){
-		
-	}
 	function Quote( $t ){
 		if(strpos($t,'.') > 0) list($table,$field)=sscanf('%[^.].%[^.]',$t);
 		if(strpos($table,'#__') === 0) 
@@ -27,18 +24,23 @@ class DOSyntax
 	{
 		return '`'.$field.'`';
 	}	
-	/** replace table prefix,trim */
+	/** Replace table prefix,trim */
 	function FormatSql( $sql )
 	{
-		return preg_replace(
+		$sql = preg_replace(
 			array('~(?<=\s)(`)?(?(1)#__(\w+)`|#__(\w+))(?=\s+|$)~is','#^\s+|\s+$#')
-		       ,array('`'.DO_TABLEPRE.'\2\3`','')
-		       ,$sql);
+		   ,array('`'.DO_TABLEPRE.'\2\3`','')
+		   ,$sql
+		);
+		return $sql;
 	}
-	
+	/** What field we want to fetch **/
 	public function Select( $fields )
 	{
-		if(is_string($fiendls)) $fields = explode(',',$fields);
+		if(is_string($fields))
+		{
+			$fields = explode(',',$fields);
+		}
 		foreach( (array)$fields as $k=>$v)
 		{
 			$sf = preg_split('#(?<=\s)as(?=\s+)#i',$v);
@@ -46,7 +48,7 @@ class DOSyntax
 		}
 		return $this;
 	}
-
+	/** Add or modify what field in update/replace/insert sql **/
 	public function Set( )
 	{
 		$args = func_get_args();
@@ -68,6 +70,7 @@ class DOSyntax
 		return $this;
 
 	}
+	/** What table we need to handle **/
 	public function From( $tables,$as = '',$fields='')
 	{
 		$this->coreTable 	= $this->Quote($tables); 
@@ -75,6 +78,7 @@ class DOSyntax
 		!empty($fields) && $this->Select( $fields );
 		return $this;
 	}
+	/** Set where **/
 	public function Where( )
 	{
 		$args = func_get_args();
@@ -100,20 +104,26 @@ class DOSyntax
 	{
 		call_user_func_array(array($this,'Values'),func_get_args());
 	}
+	/** Params for prepare sql **/
 	public function Values()
 	{
 		$this->values = array();
 		foreach(func_get_args() as $values) 
 		{
-			if(!is_array($values)) $values = array($values);
-			foreach ($values as $value)
+			if(!is_array($values)) $this->values[] = $values;
+			else
 			{
-				$this->values[] = $value;
+				//$this->values[] = "'".implode("','",$values)."'";
+				foreach ($values as $value)
+				{
+					$this->values[] = $value;
+				}
 			}
 		}
 		
 		return $this;
 	}
+	/** Clean all used containers **/
 	public function Clean()
 	{
 		foreach($this->asset as $asset)
@@ -123,13 +133,13 @@ class DOSyntax
 		return $this;
 	}
 	/**
-	 * join query
+	 * sql join query
 	 *
-	 * @param unknown_type $table
+	 * @param string $table
 	 * @param array $joinField // what fields need to be connected to core table
 	 * @param string|array $fetchField //what field need to be fetch 
 	 */
-	private function joinField( $table , $as,$joinField , $fetchField='')
+	private function JoinField( $table , $as,$joinField , $fetchField='')
 	{
 		if(is_array($joinField))
 		{
@@ -146,31 +156,42 @@ class DOSyntax
 	}
 	function LeftJoin($table,$as,$joinField, $fetchField=''){
 		$this->join[$table]['type'] = 'left join';
-		$this->joinField( $table , $as,$joinField , $fetchField);
+		$this->JoinField( $table , $as,$joinField , $fetchField);
 		return $this;
 	}
 	function InnerJoin($table,$as,$joinField, $fetchField=''){
 		$this->join[$table]['type'] = 'inner join';
-		$this->joinField( $table , $as,$joinField , $fetchField);
+		$this->JoinField( $table , $as,$joinField , $fetchField);
 		return $this;
 	}
 	function RightJoin($table,$as,$joinField, $fetchField){
 		$this->join[$table]['type'] = 'right join';
-		$this->joinField( $table , $as,$joinField, $fetchField );
+		$this->JoinField( $table , $as,$joinField, $fetchField );
 		return $this;
 	}
-	function Limit($s,$e){
-		$this->limit = array($s,$e);
+	/** Set limit **/
+	function Limit($s = 0,$e = null)
+	{
+		if(is_array($s) and $s[1])
+		{
+			$this->limit = $s;
+		}
+		else if($e)
+		{
+			$this->limit = array($s,$e);
+		}
 		return $this;
 	}
+	/** Set order by **/
 	function Orderby()
 	{
 		$args = func_get_args();
+		if(!$args) return $this;
 		switch(count($args))
 		{
 			case 1:
 				$orderList = $args[0];
-				foreach($orderList as $k=>$v)
+				foreach((array)$orderList as $k=>$v)
 				{
 					$this->orderby[$k] = $v; 
 				}
@@ -182,15 +203,20 @@ class DOSyntax
 		}
 		return $this;
 	}
-
+	/** Set Group by **/
 	function Groupby( )
 	{
-		foreach(func_get_args() as $k=>$v)
+		$args = func_get_args();
+		if(!array_filter($args)) return $this;
+		foreach($args as $k=>$v)
 		{
 			$this->groupby[$k] = $v; 
 		}
 		return $this;
 	}
+	/**
+	 * Get fetched fields
+	 */
 	private function GetField()
 	{
 		$get = array();
@@ -200,12 +226,16 @@ class DOSyntax
 		}
 		return implode(',',$get);
 	}	
-	private function GetWhere()
+	/**
+	 * Get conditions
+	 */
+	public function GetWhere()
 	{
 		$wheres = array();
 		foreach((array)$this->where as $k=>$v)
 		{
-			$wheres[] 	= $k." ".$v;
+			/** Field of database table should not be a numeric name **/
+			$wheres[] 	= (!is_numeric($k) ? $k : '')." ".$v;
 		}
 		if(!!$wheres)
 		{
@@ -213,7 +243,10 @@ class DOSyntax
 		}
 		return '';
 	}
-	private function GetGroupby()
+	/**
+	 * Get Group by params
+	 */
+	public function GetGroupby()
 	{
 		$groupby = '';
 		if( !!$this->groupby)
@@ -229,6 +262,9 @@ class DOSyntax
 		return $groupby;
 		
 	}
+	/**
+	 * Get Order by params
+	 */
 	private function GetOrderby()
 	{
 		$orderby = '';
@@ -244,6 +280,9 @@ class DOSyntax
 		}
 		return $orderby;
 	}
+	/**
+	 * Get Update/Replace/Insert sets
+	 */
 	private function GetSets()
 	{
 		foreach($this->sets as $field=>$value)
@@ -253,6 +292,9 @@ class DOSyntax
 		}
 		return implode(',',$set);
 	}
+	/**
+	 * Get limit params;
+	 */
 	private function GetLimit()
 	{
 		if(!!$this->limit)
@@ -261,6 +303,9 @@ class DOSyntax
 		}
 
 	}
+	/**
+	 * Get all joiner tables
+	 */
 	private function GetJoiner()
 	{
 		$joins = array();
@@ -274,9 +319,16 @@ class DOSyntax
 		}
 		return implode("\n",$joins);	
 	}
-
 	/**
-	*Generate 'SELECT' statements
+	 * Set query directly
+	 * @param sring $rawSql
+	 */
+	public function SetQuery( $rawSql )
+	{
+		$this->sqlQuery = $this->FormatSql($rawSql);
+	}
+	/**
+	*Packed select sql;
 	*/	
 	public function Read()
 	{
@@ -301,8 +353,8 @@ class DOSyntax
 
 		return $this->FormatSql(implode("\n",$query));
 	}
-
-	public function Create( $type = 'INSERT')
+	/** Packed insert sql **/
+	public function Insert( $type = 'INSERT')
 	{
 		$query 		= array($type.' INTO');	
 		$query[]	= $this->coreTable;
@@ -312,10 +364,12 @@ class DOSyntax
 		$this->sqlQuery	= implode("\n",$query);
 		return $this->FormatSql( $this->sqlQuery );
 	}
+	/** Packed replace sql **/
 	public function Replace()
 	{
-		return $this->Create('REPLACE');
+		return $this->Insert('REPLACE');
 	}
+	/** Packed update sql **/
 	public function Update()
 	{
 		$query 		= array('UPDATE');
@@ -343,7 +397,7 @@ class DOSyntax
 		
 		return $this->FormatSql( $this->sqlQuery );
 	}
-
+	/** Packed delete sql **/
 	public function Delete()
 	{
 		$query 	 = array('DELETE');
@@ -369,40 +423,5 @@ class DOSyntax
 		return $this->FormatSql( $this->sqlQuery );
 	}
 }
-/**
- * mysql syntax
- *
- */
-class MysqlSyntax extends DOSyntax 
-{
-	/**
-	 * idea from csdn,not really tested ,just mark it.
-	 *
-	 * @param unknown_type $table
-	 * @param unknown_type $fileds
-	 * @param unknown_type $condition
-	 * @param unknown_type $start
-	 * @param unknown_type $limit
-	 * @param unknown_type $keyid
-	 * @return unknown
-	 */
-	function QuickLimit( $table,$fileds,$condition,$start,$limit,$keyid)
-	{
-		//model
-/*		select module_id,module_pid,module_name from module m 
-		INNER JOIN ( 
-				select module_id as my_id from ( 
-						select module_id from module order by module_id desc limit 0,100 
-				) as tmp 
-		) as temp ON my_id=module_id */
 
-		$sql = "select {$fileds} from `{$table}` \n"
-		      ."inner join( \n"
-		      ." select `{$keyid}` as key_id from ( \n"
-		      ."	select `{$keyid}` from `{$table}` order by `{$key}` desc limit {$start},{$limit} \n"
-		      ." ) as tmp \n"
-		      .") as temp on key_id=`{$key}`";
-		 return $sql;
-	}
-}
 ?>

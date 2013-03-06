@@ -115,4 +115,65 @@ function DOStripslashes(&$item)
 	}
 	return $item;
 }
+
+function GetMessageType($type)
+{
+	$types = array(
+		0 => 'error'
+	   ,1 => 'success'
+	   ,2 => 'info'
+	   ,3 => 'warning'
+	);
+	return $types[$type];
+}
+
+
+function M($mod)
+{
+	return DOFactory::GetModel($mod);
+}
+
+function T($type,$pos)
+{
+	return DOTemplate::_($type,$pos);
+}
+
+function L($langVar)
+{
+	return DOLang::Get($langVar);
+}
+
+function Url($dir,$params = array())
+{
+	if(!!$params)
+	{
+		if(is_array($params))
+		{
+			$query = http_build_query($params);
+		}
+		else
+		{
+			$query = $params;
+		}
+	}
+	$args 	= explode('/',$dir);
+	$args[] = $query;
+	return call_user_func_array(array(DOUri,"BuildQuery"),$args);
+}
+//Session Set
+function SS($var,$val)
+{
+	$session = DOFactory::GetSession();
+	if($val === null)
+	{
+		$session->Clean($var);
+	}
+	else $session->Set($var,$val);
+}
+//Session Get
+function SG($var)
+{
+	$session = DOFactory::GetSession();
+	return $session->Get($var);
+}
 ?>

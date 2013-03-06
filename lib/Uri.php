@@ -2,10 +2,12 @@
 class DOUri
 {
 	public $project;
-	private static $module	   = 'welcome';
+	/** MVC separator **/
+	private static $separator  = ':';
+	private static $module	   = DO_MODULE;
 	private static $controller = 'index';
 	private static $action     = 'index';
-	private static $params = array();
+	private static $params 	   = array();
 	private function DOUri(){}
 	
 	/**
@@ -24,32 +26,40 @@ class DOUri
 	 * path info parsing
 	 *
 	 */
-	function ParsePathInfo()
+	public static function ParsePathInfo()
 	{
 		$pinfo 	= self::GetPathInfo();
 		$pinfo 	= ltrim($pinfo,'/');
-		$ps    	= explode('/',$pinfo);
-		$param  = array_slice(self::SafeValue( $ps ),3);
-		if(!empty($param[0]))
+		$ps    	= explode('@',$pinfo,2);
+		list(,$param) = $ps;
+		$ps  	= explode('/',$ps[0]);
+		//$param  = array_slice(self::SafeValue( $ps ),3);
+		if(!empty($param))
 		{
-			parse_str($param[0],$params);
+			parse_str($param,$params);
 			self::$params		=  $_GET = $params;
 		}
+		$_REQUEST 				= array_merge($_REQUEST,$_GET);
 		self::$module	  		= $ps[0] ? $ps[0] : self::$module;
 		self::$controller 		= $ps[1] ? $ps[1] : self::$controller;
 		self::$action     		= $ps[2] ? $ps[2] : self::$action;
-		return true;
+		return array(self::$module,self::$controller,self::$action,self::$params);
 	}
-	public function ParseNormal()
+	public static function ParseNormal()
 	{
-		/** Prevent user parse same key as DOC_CKEY we configured */
+		/** Prevent user parse same key as DOC_CKEY we configure before */
 		$parsed = false;
+		/** Set default module **/
+		if(!$_GET)
+		{
+			$parsed = true;
+		}
 		/** Get pramse from either POST or GET **/
 		foreach( $_GET as $key=>$val)
 		{
 			if( $key == DO_CKEY && !$parsed )
 			{
-				list(self::$module,$controller,$action) = explode('-',$val);
+				list(self::$module,$controller,$action) = explode(self::$separator,$val);
 				if($controller != '') self::$controller = $controller;
 				if($action     != '') self::$action	    = $action;
 				$parsed = true;
@@ -59,17 +69,20 @@ class DOUri
 				self::$params[ $key ] = self::SafeValue( $val );
 			}
 		}
-		if(!$parsed) throw new UriException("Did not find param '".DO_CKEY."' in uri",'000');
-		return true;
+		if(!$parsed) 
+		{
+			throw new DOUriException("Did not find param '".DO_CKEY."' in uri",'000');
+		}
+		return array(self::$module,self::$controller,self::$action,self::$params);
 	}	
 
-	public function SafeValue( $value )
+	public static function SafeValue( $value )
 	{
 		return $value;
 		//$filter = DOFactory::GetFilter();
 		//return $filter->process( $value );
 	}
-	function GetPathInfo()
+	public static function GetPathInfo()
 	{
 		$dirname = str_replace(self::GetScheme().'://'.self::GetHost(),'',self::GetRoot());
 		if($_SERVER['PATH_INFO'])
@@ -103,7 +116,7 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetRoot()
+	public static function GetRoot()
 	{
 		static $root;
 		if(!$root)
@@ -122,18 +135,22 @@ class DOUri
 	            **/
 				$mca	  = str_replace('%2F','/',$_SERVER['PATH_INFO']);
 				$info 	  = preg_replace('#'.preg_quote($mca).'$#','',$info);
-				$info     = preg_replace('#/index$#','',$info);
+				//$info     = preg_replace('#/index(\.php)?$#','',$info);
 			}
 			else 
 			{
 				$info = $_SERVER['SCRIPT_NAME'] ? $_SERVER['SCRIPT_NAME'] : $_SERVER['PHP_SELF'];
-				
-				$info     = preg_replace('#/index\.php$#','',$info);
+				//$info     = preg_replace('#/index\.php$#','',$info);
 			}
 			$root     = $protocol.'://'.$host.$info;
 		}
 
 		return $root;
+	}
+
+	public static function GetBase()
+	{
+		return preg_replace('#/index\.php$#i','',self::GetRoot());
 	}
 	public static function GetScheme( )
 	{
@@ -159,18 +176,18 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetModule()
+	public static function GetModule()
 	{
-		return self::$module;
+		return !empty($_POST['__M']) ? $_POST['__M'] : self::$module;
 	}
 	/**
 	 * get controllers name
 	 *
 	 * @return unknown
 	 */
-	function GetController()
+	public static function GetController()
 	{
-		return self::$controller;
+		return !empty($_POST['__C']) ? $_POST['__C'] : self::$controller;
 	}
 	
 	/**
@@ -178,24 +195,30 @@ class DOUri
 	 *
 	 * @return unknown
 	 */
-	function GetAction()
+	public static function GetAction()
 	{
-		return self::$action;	
+		return !empty($_POST['__A']) ? $_POST['__A'] : self::$action;	
 	}
 	/**
 	 * get params
 	 *
 	 * @return unknown
 	 */
-	function GetParams()
+	public static function GetParams()
 	{
 		return self::$params;
 	}
 	
-	function Redirect($url,$msg='',$type=0)
+	public static function Redirect($url,$msg='',$type=0)
 	{
-		setcookie("__DOMSG",$msg,time()+20);
-		setcookie("__DOMSG_TYPE",$type,time()+20);
+		if(!empty($msg))
+		{
+			$session = DOFactory::GetSession();
+			$session->Set("__DOMSG"			,$msg);
+			$session->Set("__DOMSG_TYPE"	,$type);
+		}
+		//setcookie("__DOMSG",$msg,time()+20);
+		//setcookie("__DOMSG_TYPE",$type,time()+20);
 		if(headers_sent())
 		{
 			echo "<script type='text/javascript'>location.href='{$url}';</script>";
@@ -205,6 +228,8 @@ class DOUri
 			$response = DOFactory::GetTool('http.response');
 			$response->SetHeader('Location',$url);
 		}
+		//we have to do this before redirection.
+		exit;
 	}
 	/**
 	 * Format seo url.
@@ -212,11 +237,11 @@ class DOUri
 	 * @param unknown_type $url
 	 * @return unknown
 	 */
-	function Format( $url )
+	public static function Format( $url )
 	{
 		if(DO_SEO)
 		{
-			$url = preg_replace('#\?'.DO_CKEY.'=([^&]+&?)#ie','strtr("$1","-&","//");',$url);
+			$url = preg_replace('#\?'.DO_CKEY.'=([^&]+&?)#ie','strtr("$1",":&","//");',$url,1);
 		}
 		return $url;
 	}
@@ -228,15 +253,22 @@ class DOUri
 	 * @param string $params
 	 * @return string
 	 */
-	function BuildQuery($module,$controller,$action,$params='')
+	public static function BuildQuery($module,$controller='index',$action='index',$params='')
 	{
 		if(is_array($params))
 		{
 			$params = str_replace('&amp;','&',http_build_query($params));
 		}
-
-		$link = '?'.DO_CKEY.'='.$module.'-'.$controller.'-'.$action.($params ? '&'.$params : '');
-
+		if(!DO_SEO)
+		{
+			$link = '?'.DO_CKEY.'='.implode(self::$separator,array($module,$controller,$action))
+				    .(!empty($params) ? '&'.$params : '');
+		}
+		else
+		{
+			$link = '/'.implode('/',array($module,$controller,$action))
+				  . (!empty($params)?('@'.$params):'');
+		}
 		return self::RealUrl($link);
 	}
 	
@@ -246,10 +278,10 @@ class DOUri
 	 * @param unknown_type $query
 	 * @return unknown
 	 */
-	function RealUrl( $query )
+	public static function RealUrl( $query )
 	{
-		$query = self::Format($query);
-		return self::GetRoot()."/".$query;
+		//$query = self::Format($query);
+		return self::GetRoot().$query;
 	}
 	/**
 	 * handle _GET params in path info url.
@@ -260,7 +292,7 @@ class DOUri
 	 * @param string $key
 	 * @param string $value
 	 */
-	function SetParams( $key,$value)
+	public static function SetParams( $key,$value)
 	{
 		$filter = & DOFactory::get( 'class',array('filter') );
 		//filter
@@ -276,7 +308,6 @@ class DOUri
 				$this->params[ $m[1] ][] =  $arr[$arrk];
 			}
 			$this->params[ $m[1] ][$arrk] =  $arr[$arrk];
-
 		}
 		else
 		{
@@ -288,7 +319,7 @@ class DOUri
 		}
 	}
 	
-	function SetParam($v)
+	public static function SetParam($v)
 	{
 		$this->params[] = $v;
 	}

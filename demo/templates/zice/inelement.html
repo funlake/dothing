@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+        <meta name="description" content=""/>
+        <meta name="keywords" content=""/>
+        
+        <title>ziceinclude&trade; admin version 1.1 online</title>
+
+        <!-- Link shortcut icon-->
+        <link rel="shortcut icon" type="image/ico" href="images/favicon2.ico"/> 
+
+        <!-- Link css-->
+        <link rel="stylesheet" type="text/css" href="css/zice.style.css"/>
+        <link rel="stylesheet" type="text/css" href="css/icon.css"/>
+        <link rel="stylesheet" type="text/css" href="css/ui-custom.css"/>
+        <link rel="stylesheet" type="text/css" href="css/timepicker.css"/>
+        <link rel="stylesheet" type="text/css" href="components/colorpicker/css/colorpicker.css"/>
+        <link rel="stylesheet" type="text/css" href="components/elfinder/css/elfinder.css"/>
+        <link rel="stylesheet" type="text/css" href="components/datatables/dataTables.css"/>
+        <link rel="stylesheet" type="text/css" href="components/validationEngine/validationEngine.jquery.css"/>     
+        <link rel="stylesheet" type="text/css" href="components/jscrollpane/jscrollpane.css"/>
+        <link rel="stylesheet" type="text/css" href="components/fancybox/jquery.fancybox.css"/>
+        <link rel="stylesheet" type="text/css" href="components/tipsy/tipsy.css"/>
+        <link rel="stylesheet" type="text/css" href="components/editor/jquery.cleditor.css"/>
+        <link rel="stylesheet" type="text/css" href="components/chosen/chosen.css"/>
+        <link rel="stylesheet" type="text/css" href="components/confirm/jquery.confirm.css"/>
+        <link rel="stylesheet" type="text/css" href="components/sourcerer/sourcerer.css"/>
+        <link rel="stylesheet" type="text/css" href="components/fullcalendar/fullcalendar.css"/>
+        <link rel="stylesheet" type="text/css" href="components/Jcrop/jquery.Jcrop.css"/>   
+		
+        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="components/flot/excanvas.min.js"></script><![endif]-->  
+		
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="components/ui/jquery.ui.min.js"></script> 
+        <script type="text/javascript" src="components/ui/jquery.autotab.js"></script>
+        <script type="text/javascript" src="components/ui/timepicker.js"></script>
+        <script type="text/javascript" src="components/colorpicker/js/colorpicker.js"></script>
+        <script type="text/javascript" src="components/checkboxes/iphone.check.js"></script>
+        <script type="text/javascript" src="components/elfinder/js/elfinder.full.js"></script>
+        <script type="text/javascript" src="components/datatables/dataTables.min.js"></script>
+        <script type="text/javascript" src="components/datatables/ColVis.js"></script>
+        <script type="text/javascript" src="components/scrolltop/scrolltopcontrol.js"></script>
+        <script type="text/javascript" src="components/fancybox/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="components/jscrollpane/mousewheel.js"></script>
+        <script type="text/javascript" src="components/jscrollpane/mwheelIntent.js"></script>
+        <script type="text/javascript" src="components/jscrollpane/jscrollpane.min.js"></script>
+        <script type="text/javascript" src="components/spinner/ui.spinner.js"></script>
+        <script type="text/javascript" src="components/tipsy/jquery.tipsy.js"></script>
+        <script type="text/javascript" src="components/editor/jquery.cleditor.js"></script>
+        <script type="text/javascript" src="components/chosen/chosen.js"></script>
+        <script type="text/javascript" src="components/confirm/jquery.confirm.js"></script>
+        <script type="text/javascript" src="components/validationEngine/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="components/validationEngine/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="components/vticker/jquery.vticker-min.js"></script>
+        <script type="text/javascript" src="components/sourcerer/sourcerer.js"></script>
+        <script type="text/javascript" src="components/fullcalendar/fullcalendar.js"></script>
+        <script type="text/javascript" src="components/flot/flot.js"></script>
+        <script type="text/javascript" src="components/flot/flot.pie.min.js"></script>
+        <script type="text/javascript" src="components/flot/flot.resize.min.js"></script>
+        <script type="text/javascript" src="components/flot/graphtable.js"></script>
+        <script type="text/javascript" src="components/uploadify/swfobject.js"></script>
+        <script type="text/javascript" src="components/uploadify/uploadify.js"></script>        
+        <script type="text/javascript" src="components/checkboxes/customInput.jquery.js"></script>
+        <script type="text/javascript" src="components/effect/jquery-jrumble.js"></script>
+        <script type="text/javascript" src="components/filestyle/jquery.filestyle.js"></script>
+        <script type="text/javascript" src="components/placeholder/jquery.placeholder.js"></script>
+		<script type="text/javascript" src="components/Jcrop/jquery.Jcrop.js"></script>
+        <script type="text/javascript" src="components/imgTransform/jquery.transform.js"></script>
+        <script type="text/javascript" src="components/webcam/webcam.js"></script>
+		<script type="text/javascript" src="components/rating_star/rating_star.js"></script>
+		<script type="text/javascript" src="components/dualListBox/dualListBox.js"></script>
+		<script type="text/javascript" src="components/smartWizard/jquery.smartWizard.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/zice.custom.js"></script>    
+		<script type="text/javascript">
+        
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-29497072-1']);
+          _gaq.push(['_trackPageview']);
+        
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        
+        </script>    
+   
+           
+        </head>        
+        <body class="dashborad">        
+        <div id="alertMessage" class="error"></div>
+		<!-- Header -->
+        <div id="header">
+                <div id="account_info"> 
+                    <img src="images/avatar.png" alt="Online" class="avatar"/>
+					<div class="setting" title="Profile Setting"><b>Welcome,</b> <b class="red">John Doe</b><img src="images/gear.png" class="gear"  alt="Profile Setting" ></div>
+					<div class="logout" title="Disconnect"><b >Logout</b> <img src="images/connect.png" name="connect" class="disconnect" alt="disconnect" ></div> 
+                </div>
+            </div><!-- End Header -->
+			<div id="shadowhead"></div>
+
+              <div id="left_menu">
+                    <ul id="main_menu" class="main_menu">
+                      <li class="limenu" ><a href="dashboard.html"><span class="ico gray shadow home" ></span><b>Dashboard</b></a></li>
+                      <li class="limenu" ><a href="#" ><span class="ico gray shadow window"></span><b>Form elements</b></a>
+                        <ul>
+                          <li ><a href="form.html"> basic form </a></li>
+                          <li ><a href="vform.html"> validation </a></li>
+                          <li ><a href="wizard.html"> wizard </a></li>
+                        </ul>
+                      </li>
+                      <li class="limenu" ><a href="#"><span class="ico gray  dimensions" ></span><b>Sample pages</b></a>
+                        <ul>
+                          <li ><a href="profile.html"> Profile setting </a></li>
+                          <li ><a href="conversation.html"> conversation</a></li>
+                          <li ><a href="imagesEditor.html"> Images Editor </a></li>
+                          <li ><a href="grid.html"> Grid System </a></li>
+                        </ul>
+                      </li>
+                      <li class="limenu" ><a href="table.html"><span class="ico gray shadow  spreadsheet"></span><b>Tables</b> </a></li>
+                      <li class="limenu" ><a href="gallery.html"><span class="ico gray shadow pictures_folder"></span><b>Gallery </b></a></li>
+                      <li class="limenu" ><a href="#"><span class="ico gray shadow stats_lines"></span><b>Graph and Charts</b> </a>
+                        <ul>
+                          <li><a href="modalchartLive.html" class="pop_box">live chart </a></li>
+                          <li><a href="chart.html">all chart</a></li>
+                        </ul>
+                      </li>
+                      <li class="limenu" ><a href="filemanager.html"><span class="ico gray shadow  file"></span><b>File manager </b></a></li>
+                      <li class="limenu" ><a href="calendar.html"><span class="ico gray shadow calendar"></span><b>Calendar </b></a></li>
+                      <li class="limenu" ><a href="typography.html"><span class="ico gray  shadow paragraph_align_left"></span><b>Typography</b></a></li>
+                      <li class="limenu select" ><a href="inelement.html"><span class="ico gray shadow abacus"></span><b>Interface elements </b></a></li>
+                      <li class="limenu" ><a href="map.html"><span class="ico gray shadow  location"></span><b>Map location </b></a></li>
+                      <li class="limenu" ><a href="icon.html"><span class="ico gray  shadow satellite"></span><b>Icon and Button </b></a></li>
+					  <li class="limenu" ><a href="404.html"><span class="ico gray  shadow firewall"></span><b>Error Pages</b></a></li>
+
+                        
+                    </ul>
+              </div>
+
+            
+            <div id="content">
+                <div class="inner">
+					<div class="topcolumn">
+						<div class="logo"></div>
+                            <ul  id="shortcut">
+                                <li> <a href="#" title="Back To home"> <img src="images/icon/shortcut/home.png" alt="home"/><strong>Home</strong> </a> </li>
+                                <li> <a href="#" title="Website Graph"> <img src="images/icon/shortcut/graph.png" alt="graph"/><strong>Graph</strong> </a> </li>
+                                <li> <a href="#" title="Setting" > <img src="images/icon/shortcut/setting.png" alt="setting" /><strong>Setting</strong></a> </li> 
+                                <li> <a href="#" title="Messages"> <img src="images/icon/shortcut/mail.png" alt="messages" /><strong>Message</strong></a><div class="notification" >10</div></li>
+                            </ul>
+					</div>
+                    <div class="clear"></div>          
+
+					<!-- full width -->
+					<div class="widget ">
+                    <div class="header"><span ><span class="ico gray fill"></span>Interfact Element</span></div>
+                    <div class="content" >
+                         <h3><span class="icon"></span>tipsy  </h3>
+						<!-- Half width column-->
+						<div class="widgets">
+                            <div class="oneTwo">
+                                        <ul class="uibutton-group">
+                                              <li><span class="tip"><a class="uibutton icon prev normal" title="top" >button</a></span></li>
+                                              <li><span class="ntip"><a class="uibutton icon next normal" title="bottom"  >button </a></span></li>
+                                        </ul>
+                                        <ul class="uibutton-group">
+                                              <li><span class="netip"><a class="uibutton icon add normal"  title="bottom left" >button </a></span></li>
+                                              <li><span class="swtip"><a  class="uibutton  icon secure normal"   title="top right">button </a></span></li>
+                                        </ul><br /><br />
+                                        <ul class="uibutton-group">
+                                              <li><span class="wtip"><a class="uibutton icon prev normal " title="right" >button</a></span></li>
+                                        </ul><br /><br />
+                                        <ul class="uibutton-group">
+                                              <li><span class="etip"><a class="uibutton icon next normal " title="left" >button</a></span></li>
+                                        </ul>
+                           </div>
+                           
+                           <div class="oneTwo">
+                                    <form action="">
+                                        <div class="section">
+                                              <label>onFocus input <small>Text custom</small></label>   
+                                              <div> 
+                                                  <span class="wtip">
+                                                      <input type="text" name="menu" id="menu"  class=" medium" title="right" />
+                                                   </span><span class="f_help">Text custom help</span>
+                                              </div>
+                                              <div> 
+                                                  <span class="etip"><input type="text" name="menu" id="menu2"  class=" medium"  title="left"  />
+                                                  </span><span class="f_help">Text custom help</span>
+                                             </div>
+                                       </div>
+                                        <div class="section last">
+                                              <label> button <small>Text custom</small></label>   
+                                              <div>
+                                                  <ul class="uibutton-group">
+                                                        <li><span class="setip"><a  class="uibutton  icon secure normal"   title="top left">button</a></span></li>
+                                                        <li><span class="nwtip"><a class="uibutton icon next normal"  title="bottom right">button</a></span></li>
+                                                  </ul>
+                                              </div>                    
+                                       </div>
+                                </form>
+                         </div>
+                        <!-- clear fix -->
+                        <div class="clear"></div>
+                       </div>
+                           
+						<!-- Half width column-->
+						<div class="widgets">
+                           <div class="oneTwo">
+								<h3><span class="icon"></span>loading Custom Text </h3>
+<pre class="showCodeJS overHiden">
+$('.loading').live('click',function() { 
+      var str=$(this).attr('title'); 
+      var overlay=$(this).attr('rel'); 
+      loading(str,overlay);
+      setTimeout("unloading()",1500); 
+});</pre><br />
+                                        <ul class="uibutton-group">
+                                              <li><a  class="uibutton special loading"  title="Loading" >loading</a></li>
+                                              <li><a  class="uibutton special loading"  title="Loading"  rel="1" > with overlay</a></li>
+                                        </ul>
+                                        <ul class="uibutton-group">
+                                              <li><a  class="uibutton confirm loading"  title="Checking" >checking</a></li>
+                                              <li><a  class="uibutton confirm loading"  title="Checking"  rel="1" > with overlay</a></li>
+                                        </ul><br />
+                                        <span class="f_help">Easy to chang string with " <strong>title</strong> " </span>
+										
+										
+                               </div> </div>
+
+<div class="widgets">
+						  <div class="oneTwo">    
+                                <h3><span class="icon"></span>notify message   </h3>
+<pre class="showCodeJS overHiden">
+function showSuccess(str,delay){
+if(delay){
+    $('#alertMessage').removeClass('error')
+        .html(str).stop(true,true).fadeIn()
+        .delay(delay).fadeOut(); return false;
+}</pre><br />
+                                        <ul class="uibutton-group">
+                                              <li><a  class="uibutton normal " onclick="showError('error();  //ex.php  line105 ',3000);"  >error </a></li>
+                                              <li><a  class="uibutton normal " onclick="showSuccess('save in shopping bag',3000);" > Success </a></li>
+                                        </ul>
+                                        <ul class="uibutton-group">
+											  <li><a  class="uibutton normal " onclick="showWarning('Warning ! bug in CSS Tester ',3000);" > Warning </a></li>
+											  <li><a  class="uibutton normal " onclick="showInfo('Info please complete a security check',3000);" > Info </a></li>
+                                        </ul><br />
+                                        <span class="f_help">Auto hide  with config   "<strong>delay</strong>"  ,and chang string.</span>
+                      </div>
+                      <!-- clear fix -->
+                      <div class="clear"></div>
+                    </div><!-- End Half width column-->
+                       
+                               <h3><span class="icon"></span>Confirm Detete    </h3>
+                                        <ul class="uibutton-group">
+                                              <li><a class="uibutton icon prev disable" >Prev</a></li>
+                                              <li><a class="uibutton icon next disable"  >New </a></li>
+                                        </ul>
+                                        <ul class="uibutton-group">
+                                              <li><a class="uibutton   special DeleteAll"  >Confirm delete </a></li>
+                                        </ul>
+
+                            <!-- clear fix -->
+							<div class="clear"></div>
+
+                        </div><!-- End content -->
+                    </div><!-- End full width -->
+                    
+					<!-- full width -->
+					<div class="widget ">
+                    <div class="header"><span ><span class="ico gray volume_control"></span>Slider UI </span></div>
+                    <div class="content" >
+                    
+                          <form  action="">
+                          <div class="section">
+                          <label> Graphic EQ <small>Text custom</small></label>   
+                                <div id="eq">
+                                          <span>88</span>
+                                          <span>77</span>
+                                          <span>55</span>
+                                          <span>44</span>
+                                          <span>55</span>
+                                          <span>77</span>
+                                          <span>88</span>
+                                      <br class="clear" />
+                                </div>
+                          </div>
+                          <div class="section">
+                          <label> slider-range <small>Text custom</small></label>   
+                              <div>
+                                      <p>
+                                          <label >Maximum price:</label>
+                                          <span id="amount" ></span>
+                                      </p>
+                                      <div id="slider-range-min"></div>
+                                      <span class="f_help">Slider-range-min </span>
+                                      <p>
+                                          <label>Price range:</label>
+                                          <span id="amount2" ></span>
+                                      </p>
+                                      <div id="slider-range"></div>
+                                      <span class="f_help">Range slider</span>                  
+                                      <p>
+                                          <label >Donation amount ($50 increments):</label>
+                                          <span id="amount3" ></span>
+                                      </p>
+                                      <div id="slider"></div>
+                                      <span class="f_help">Default slider</span>
+                              </div>
+                          </div>
+                          <div class="section last">
+                              <label>Vertical multiple sliders <small>Text custom </small></label>
+                              <div>  
+                              <p > Exampel : <strong >Simple Colorpicker </strong></p>
+                                      <span id="red"></span>
+                                      <span id="green"></span>
+                                      <span id="blue"></span>
+                                       <div id="swatch" ></div>
+                                      <span class="f_help">Default slider</span>
+                              </div>
+                          </div>                     
+                          </form>
+                          
+                        </div><!-- End content -->
+                    </div><!-- End full width -->
+                    
+                    
+					<!-- full width -->
+					<div class="widget ">
+                    <div class="header"><span ><span class="ico gray paragraph_align_left"></span>Drag and Drop</span></div>
+                    <div class="content" >
+                    
+						<!-- Deletezone-->
+                        <div class="deletezone"><img src="images/icon/bin.png"  alt="bin" /> Drop Images To Delete</div>
+                        
+                   <!-- Title Box-->
+                    <div class="boxtitle"><span class="ico gray hand_point"></span> Drag images ,Drop  deletezone to delete</div>		
+                    
+                              <ul id="sortable">
+                                  <li class="albumImage">
+                                      <div class="picHolder">
+                                          <span class="image_highlight"></span><!--// Highlight Images -->
+                                          <img src="exampic/07.jpg" title="Drag Image to delete"/><!--//  Images -->
+                                          <div class="picTitle">DSC00251.jpg</div><!--//  Images Title-->
+                                          <ul class="dataImg"><!--// This data images with your call to php or SQL -->
+                                                  <li>12</li><!--// This id images-->
+                                                  <li>DSC00251.jpg</li><!--// This name images-->
+                                          </ul>  
+                                      </div>
+                                  </li>
+                                  
+                                  <li class="albumImage">
+                                      <div class="picHolder">
+                                          <span class="image_highlight"></span><!--// Highlight Images -->
+                                          <img src="exampic/30.jpg" title="Drag Image to delete"/><!--//  Images -->
+                                          <div class="picTitle">DSC00252.jpg</div><!--//  Images Title-->
+                                          <ul class="dataImg"><!--// This data images with your call to php or SQL -->
+                                                  <li>13</li><!--// This id images-->
+                                                  <li>DSC00252.jpg</li><!--// This name images-->
+                                          </ul>  
+                                      </div>
+                                  </li>
+                                  
+                                  <li class="albumImage">
+                                      <div class="picHolder">
+                                          <span class="image_highlight"></span><!--// Highlight Images -->
+                                          <img src="exampic/06.jpg" title="Drag Image to delete"/><!--//  Images -->
+                                          <div class="picTitle">DSC00253.jpg</div><!--//  Images Title-->
+                                          <ul class="dataImg"><!--// This data images with your call to php or SQL -->
+                                                  <li>14</li><!--// This id images-->
+                                                  <li>DSC00253.jpg</li><!--// This name images-->
+                                          </ul>  
+                                      </div>
+                                  </li>
+                                  
+                                  <li class="albumImage">
+                                      <div class="picHolder">
+                                          <span class="image_highlight"></span><!--// Highlight Images -->
+                                          <img src="exampic/02.jpg" title="Drag Image to delete"/><!--//  Images -->
+                                          <div class="picTitle">DSC00254.jpg</div><!--//  Images Title-->
+                                          <ul class="dataImg"><!--// This data images with your call to php or SQL -->
+                                                  <li>15</li><!--// This id images-->
+                                                  <li>DSC00254.jpg</li><!--// This name images-->
+                                          </ul>  
+                                      </div>
+                                  </li>
+                            </ul>
+                            
+                            <!-- clear fix -->
+							<div class="clear"></div>
+
+                        </div><!-- End content -->
+                    </div><!-- End full width -->
+                    
+					<!-- full width -->
+					<div class="widget ">
+                    <div class="header"><span ><span class="ico gray photo_album"></span>Images and  Album </span></div>
+                    <div class="content" >
+                    
+                    <div class="boxtitle"> <span class="ico gray brush"></span>  Images style  ,double click to viwe large images</div>		
+                        <ul id="sortable">
+                            <li class="albumImage" >
+                              <div class="picHolder">
+                                <span class="image_highlight"></span><!--// Highlight Images -->
+                                <a href="images/demo.jpg" rel='glr'></a><!--// Hide Double Click Link Images -->
+                                <img src="exampic/25.jpg" title="Drag Image to delete"/><!--//  Images -->
+                                <div class="picTitle">DSC00251.jpg</div><!--//  Images Title-->
+                              </div>
+                            </li>
+                            
+                        <li class="albumImage">
+                          <div class="picHolder">
+                            <span class="image_highlight"></span><!--// Highlight Images -->
+                            <a href="images/demo-size2.jpg" rel='glr'></a><!--// Hide Double Click Link Images -->
+                            <img src="exampic/22.jpg" title="Drag Image to delete"/><!--//  Images -->
+                            <div class="picTitle">DSC00252.jpg</div><!--//  Images Title-->
+                          </div>
+                        </li>
+                        
+                        <li class="albumImage">
+                          <div class="picHolder">
+                            <span class="image_highlight"></span><!--// Highlight Images -->
+                            <a href="images/demo-size3.jpg" rel='glr'></a><!--// Hide Double Click Link Images -->
+                            <img src="exampic/24.jpg" title="Drag Image to delete"/><!--//  Images -->
+                            <div class="picTitle">DSC00253.jpg</div> <!--//  Images Title-->
+                          </div>
+                        </li>
+                        
+                        <li class="albumImage">
+                            <div class="picHolder">
+                              <span class="image_highlight"></span><!--// Highlight Images -->
+                              <a href="images/demo-size2.jpg" rel='glr'></a>	<!--// Hide Double Click Link Images -->
+                              <img src="exampic/23.jpg" title="Drag Image to delete"/><!--//  Images -->
+                              <div class="picTitle">DSC00254.jpg</div> <!--//  Images Title-->
+                            </div>
+                        </li>
+                        
+                   </ul>
+                   
+                    <!-- clear fix -->
+					<div class="clear"></div>
+                    <br />
+
+                    <div class="boxtitle"><span class="ico gray pictures_folder"></span> Album  images style ,more Example  go to <span class="netip"><a href="gallery.html" class="red" title="go to Gallery">Gallery</a></span> <img src="images/icon/link.png" alt="link" /></div>		
+                    
+                                      <!-- Album Three -->
+                                      <div class="album float" >
+                                          <div class="preview">
+                                               <img width="130" id="photo1" class="stackphotos" src="exampic/05.jpg" alt="Thumbnail" />
+                                               <img width="130" id="photo2" class="stackphotos" src="exampic/06.jpg" alt="Thumbnail" />
+                                               <img width="130" id="photo3" class="stackphotos" src="exampic/07.jpg" alt="Thumbnail" />
+                                          <div style="clear:both"></div>
+                                          </div>
+                                          <div class="title">02/20/2012</div>
+                                          <div class="stats">Images: <span class="picCount">15</span></div>
+                                          <div class="clear"></div>
+                                     </div>
+                                     
+                                     <!-- Album Two-->
+                                     <div class="album float">
+                                          <div class="preview">
+                                               <img width="130" id="photo1" class="stackphotos" src="exampic/16.jpg" alt="Thumbnail" />
+                                               <img width="130" id="photo3" class="stackphotos" src="exampic/17.jpg" alt="Thumbnail" />
+                                          <div style="clear:both"></div>
+                                          </div>
+                                          <div class="title">02/15/2012</div>
+                                          <div class="stats">Images: <span class="picCount">2</span></div>
+                                          <div class="clear"></div>
+                                     </div>  
+                                     
+                                     <!-- Album One-->
+                                     <div class="album float">
+                                          <div class="preview">
+                                               <img width="130" id="p1" class="stackphotos" src="exampic/25.jpg" alt="Thumbnail" />
+                                          <div style="clear:both"></div>
+                                          </div>
+                                          <div class="title">02/10/2012</div>
+                                          <div class="stats">Images: <span class="picCount">1</span></div>
+                                          <div class="clear"></div>
+                                     </div>  
+                                     
+                            <!-- clear fix -->
+							<div class="clear"></div>
+
+                        </div><!-- End content -->
+                    </div><!-- End full width -->
+
+					<!-- full width -->
+					<div class="widget ">
+                    <div class="header"><span ><span class="ico gray effects"></span>Effect Demo</span></div>
+                    <div class="content" >
+                    
+						<!-- Third width -->
+						<div class="widgets">
+                        
+							<div class="oneThree">
+                                <div class="boxtitle">AlertMessage Effect Demo</div>	
+                                    <div class="alertMessage SE">information</div> 
+                                    <div class="alertMessage error SE">error();</div> 
+                                    <div class="alertMessage success SE">success</div> 
+                                    <div class="alertMessage warning SE">warning !</div> 
+                                </div>
+							</div>
+                            
+							<div class="oneThree">
+                                <div class="boxtitle"> Effect on mouse event</div>
+                                <div style="text-align:center">
+                                      <div class="SEdemo">
+                                          <img src="exampic/01.jpg" class="SE" title="Hover"/>
+                                          <div class="picTitle">Hover</div>
+                                      </div>
+                                      <div class="SEdemo">
+                                          <img src="exampic/03.jpg" class="SEclick" title="Click"/>
+                                          <div class="picTitle">Click</div>
+                                      </div>
+                                      <div class="SEdemo">
+                                          <img src="exampic/04.jpg" class="SEmousedown" title="Mouse Down"/>
+                                          <div class="picTitle">Mouse Down</div>
+                                      </div>
+                                      <div class="SEdemo">
+                                          <img src="exampic/08.jpg" class="SEclicktime" title="Timed (Click)"/>
+                                          <div class="picTitle">Timed (Click)</div>
+                                      </div>	
+									  <br class="clear"/>
+                            	</div>
+							</div>
+                            
+							<div class="oneThree">
+                                <div class="boxtitle"> a, button Effect remote</div>
+                                    <a class="uibutton normal SEremote">button shake</a>
+                                    <a class="uibutton normal SEremote2">remote shake</a>
+									<br class="clear"/>
+                                <div class="boxtitle"> Ex.remote</div>
+                                    <a class="uibutton normal SEremote3">remote alert</a>
+                                    <a class="uibutton normal SEremote4">remote error</a>
+                                </div>
+								<br class="clear"/>
+							</div>
+                        
+                            <!-- clear fix -->
+							<div class="clear"></div>
+
+                        </div><!-- End content -->
+                    </div><!-- End full width -->
+
+ 
+					<!-- clear fix -->
+					<div class="clear"></div>
+
+                    <div id="footer"> &copy; Copyright 2012 <span class="tip"><a  href="#" title="Zice Admin" >Your Company Name</a> </span> </div>
+
+                </div> <!--// End inner -->
+              </div> <!--// End content --> 
+</body>
+</html>

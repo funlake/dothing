@@ -1,41 +1,15 @@
 <?php
 class DOHtml
 {	
-	function Load( $pos,$args = array() )
-	{
-		if(method_exists(array(self,$pos)))
-		{
-			call_user_func_array(array( self,$pos ),$args);			
-		}
-		else
-		{
-			exit(get_class(self)."::{$pos} was undefined!");
-		}
-	}
-	
-	function Nead()
-	{
-
-	}
-	function Title()
-	{
-		
-	}
-	
-	function Footer()
-	{
-		
-	}
-	function W3c()
-	{
-		
-	}
+	/** Constructor **/
+	function __construct(){}
 	//navigation
 	function Nav($total,$rowPerPage,$page = 1)
 	{
 		//include pager template
 		
 	}
+	/** Add a html element **/
 	function AddTag($tag,$attributes,$innerValue='',$endTag=1)
 	{
 

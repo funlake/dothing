@@ -1,9 +1,24 @@
 <?php
-class DOBlocksMessage
+class DOBlocksMessage extends DOBlocksItem
 {
-	public function Display( $tpl='default')
+	public function GetMessage()
 	{
-		include_once dirname(__FILE__).DS.'layout'.DS.$tpl.'.php';
+		$session = DOFactory::GetSession();
+		$msg	 = $session->Get('__DOMSG');
+		$type	 = $session->Get('__DOMSG_TYPE');
+		//$this->CleanMessage();
+		if(!empty($msg))
+		{
+			return array('message' => $msg,'type' => $type);
+		}
+		return array();
+	}
+
+	public function CleanMessage()
+	{
+		$session = DOFactory::GetSession();
+		$msg	 = $session->Set('__DOMSG','');
+		$type	 = $session->Set('__DOMSG_TYPE','');		
 	}
 }
 

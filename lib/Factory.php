@@ -1,9 +1,10 @@
 <?php
 /**
  * Classes Factory 
+ * @author lake
  *
  */
-class DOFactory extends DOBase
+class DOFactory
 {
 	
 	public static $crateEveryTime = array('time'=>true);
@@ -11,42 +12,24 @@ class DOFactory extends DOBase
 	public static $_load = array();
 	
 	/**
-	 * 
-	 *
-	 * @return initObj
-	 */
-/* 	public function & Get( $tool ,$params = array() )
-	{
-		static $tools;
-		
-		$p 	  = $tool;
-		//if get classes..
-		if( $params[0] ) 
-		{
-			$p .= $params[0];
-		}
-		if(!isset( $tools[$p] ) || self::$crateEveryTime[$tool] )
-		{
-			$t 			= ucfirst( $tool );
-			$tools[$p] 		= & call_user_func_array(array(__CLASS__,"_create{$t}"),$params);
-		}
-		return $tools[$p];
-	} */
-	/**
 	 * Create Single Table Handler 
 	 *
 	 * @param String $table
 	 * @param String $key
 	 * @return object
 	 */
-	function GetTable( $table , $key = '' , $db= '')
+	public static function GetTable( $table , $key = '' , $db= '')
 	{
 		DOLoader::Import('lib.database.database');
 		DOLoader::Import('lib.database.table');
-		$table = preg_replace('~^'.DO_TABLEPRE.'~i', '', $table);
+		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		if( !is_object(self::$_load['tables'][$table] ) )
 		{
-			self::$_load['tables'][$table]  = new DOTable( $table,$key,$db);
+			if(DOLoader::Import('lib.database.tables.'.DO_DBDRIVE.'_table'))
+			{
+				$class = 'DO'.ucwords(DO_DBDRIVE).'Table';
+				self::$_load['tables'][$table]  = new $class( $table,$key,$db);
+			}
 		}
 		return self::$_load['tables'][$table] ;
 	}
@@ -54,19 +37,16 @@ class DOFactory extends DOBase
 	 * Get model
 	 * @param string $table
 	 */
-	public function GetModel($table)
+	public static function GetModel($table)
 	{
-		static $modelLoaded = false;
-		if(!$modelLoaded)
-		{
-			DOLoader::Import('mvc.model');
-			$modelLoaded = true;
-		}
-		$table = preg_replace('~^'.DO_TABLEPRE.'~i', '', $table);
-		//echo $table;
+		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		if(!self::$_load['models'][$table])
 		{
-			if(!file_exists(MODELBASE.DS.$table.'.php')) return false;
+			if(!file_exists(MODELBASE.DS.$table.'.php'))
+			{
+				throw new DOException("Unkonw model:".$table, 121);
+				return false;
+			} 
 			include MODELBASE.DS.$table.'.php';
 			$modelClass = 'DOModel'.ucwords(strtolower($table));
 			self::$_load['models'][$table] = new $modelClass();
@@ -76,7 +56,7 @@ class DOFactory extends DOBase
 	/**
 	***Get pagenate handler
 	***/
-	function GetPaginate( )
+	public static function GetPaginate( )
 	{
 		$params = func_get_args();
 		DOLoader::Import('lib.paginate.workshop');
@@ -92,15 +72,21 @@ class DOFactory extends DOBase
 	 *
 	 * @return object
 	 */
-	function GetDatabase( )
+	public static function GetDatabase($driver = null)
 	{
 		DOLoader::Import('lib.database.workshop');
+		if(!$driver)
+		{
+			$driver = DO_DBDRIVE;
+		}
 		$params = func_get_args();
+		/**Get rid off driver **/
+		array_shift($params);
 		//init 
 		$key = 'pdo'.serialize( $params );
 		if(!self::$_load[$key])
 		{
-			self::$_load[$key] = new DODatabaseWS( DO_DBDRIVE ,$params);
+			self::$_load[$key] = new DODatabaseWS( $driver ,$params);
 		}
 		return self::$_load[$key]->GetEngine();
 	}
@@ -110,7 +96,7 @@ class DOFactory extends DOBase
 	 *
 	 * @return object
 	 */
-	function GetSession( )
+	public static function GetSession( )
 	{
 		DOLoader::Import('lib.session.workshop');
 		if(!self::$_load['session'])
@@ -124,14 +110,14 @@ class DOFactory extends DOBase
 	 * Get php mailer
 	 * @return mailer Object
 	 */
-	function GetMailer()
+	public static function GetMailer()
 	{
 		return self::GetTool('phpmailer');
 	}
 	/**
 	 * Get cache handler
 	 */
-	function GetCache()
+	public static function GetCache()
 	{
 		DOLoader::Import('lib.cache.workshop');
 		if(!self::$_load['cache'])
@@ -140,25 +126,33 @@ class DOFactory extends DOBase
 		}
 		return self::$_load['cache']->GetEngine();
 	}
+
+	public static function GetJson()
+	{
+		if(!self::$_load['json'])
+		{
+			self::$_load['json'] = new DOJson();
+		}
+		return self::$_load['json'];		
+	}
 	/**
 	 * microtime
 	 *
 	 * @return unknown
 	 */
-	function GetTime()
+	public static function GetTime()
 	{
 		$time = explode(' ',microtime() );
 		
-		return $time[0] + $time[1];
+		return (float)($time[0] + $time[1]);
 	}
 	/**
 	 * Get http request filter
 	 */
-	public function GetFilter()
+	public static function GetFilter()
 	{
 		if(!self::$_load['filter'])
 		{
-			DOLoader::Import('lib.dothing.filter');
 			self::$_load['filter'] = new DOFilter();
 		}
 		return self::$_load['filter'];
@@ -168,7 +162,7 @@ class DOFactory extends DOBase
 	 *
 	 * @return unknown
 	 */
-	function GetTool()
+	public static function GetTool()
 	{
 		static $tools = array();
 		$args 			= func_get_args();
@@ -179,28 +173,14 @@ class DOFactory extends DOBase
 			if(!$cn[1]) $cn[1] = $cn[0];
 			DOLoader::Import('lib.'.$cn[0].'.'.$cn[1] );
 			@array_shift( $args );
-			$component 	= 'DO'.ucwords($cn[1]);
-			$ref		= new ReflectionClass( $component );
-			$tools[$class] 	= call_user_func(array($ref,'newInstanceArgs'),$args);
+			$component 		= 'DO'.ucwords($cn[1]);
+ 			/** Create instace with arguments **/
+			$tools[$class] 	= call_user_func_array(
+					array(new ReflectionClass( $component ),'newInstance')
+				   ,$args
+			); 
 		}
 		return $tools[$class];
 	}
-	
-/* 	function GetExtjs()
-	{
-		static $ext = array();
-		$args 			= func_get_args();
-		$class          = $args[0];
-		if( ! $ext[$class]  )
-		{
-			$cn 		= explode('_',$class,2);
-			if(!$cn[1]) $cn[1] = $cn[0];
-			DOLoader::Import('include.extjs.'.$cn[1]);
-			@array_shift( $args );
-			$component 	= 'DOExt'.ucwords($cn[1]);
-			$ext[$class] = new $component( $args );
-		}
-		return $ext[$class];
-	} */
 }
 ?>

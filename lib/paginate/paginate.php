@@ -1,11 +1,11 @@
 <?php
 class DOPaginate
 {
-	public function DOPaginate( $totalRow , $rowPerPage = 20 , $curPageNo = 1)
+	public function DOPaginate( $totalRow , $rowPerPage = 20)
 	{
 		$this->totalRow 	= (int)$totalRow;
 		$this->rowPerPage	= (int)$rowPerPage;
-		$this->curPageNo	= (int)$curPageNo;
+		$this->curPageNo	= (int)DOHelper::GetCurPage();
 	}
 
 	/** Get total pages according to total rows and rows in per page.**/	
@@ -13,13 +13,18 @@ class DOPaginate
 	{
 		return ceil($this->totalRow/$this->rowPerPage);
 	}
+
+	public function GetRowPerPage()
+	{
+		return $this->rowPerPage;
+	}
 	/** Use tpl file for paginate displaying*/
 	public function SetTpl($tpl)
 	{
 		include_once $tpl;
 	}
 	/** Display paginate navigation**/
-	public function Display()
+	public function Render()
 	{
 		$tpl[] = "<div class='pn'>";
 		for($i = 0,$j = $this->GetTotalPages();$i<$j;$i++,$page=$i)
@@ -28,7 +33,7 @@ class DOPaginate
 			$tpl[] = "<span><a>".$page."</a></span>";
 		}
 		$tpl[] = "</div>";
-		echo implode('',$tpl);
+		return implode('',$tpl);
 	}
 }
 

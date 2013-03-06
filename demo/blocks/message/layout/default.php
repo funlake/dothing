@@ -1,14 +1,24 @@
-<span>
-	<?php 
-		$request = DOFactory::GetTool('http.request');
-		$msg	 = $request->Get('__DOMSG','cookie');
-		$type	 = $request->Get('__DOMSG_TYPE','cookie','int');
-		if(!empty($msg))
-		{
-	?>
-			<div class='do_msg<?php echo $type;?>'><?php echo $msg;?></div>
-	<?php		
-			setcookie('__DOMSG','',time()-180);
-		}		
-	?>
-</span>
+<?php 
+!defined('DO_ACCESS') AND DIE("Go Away!");
+$flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
+?>
+<?php if(isset($flashMsg['type'])):?>
+	<div class="row-fluid" id="msg-row">
+		<div class="span12">
+			<div class="alert alert-<?php echo GetMessageType($flashMsg['type']);?>">
+				<a class="close" id="msg-close">x</a>
+				<span>
+					<?php echo $flashMsg['message'];?>
+				</span>
+			</div>
+		</div>
+	</div>
+	<script type='text/javascript'>
+		$(function(){
+			$('#msg-close').click(function(){
+				$('#msg-row').fadeOut();
+			})
+		})
+	</script>
+	<?php $this->CleanMessage();?>
+<?php endif;?>

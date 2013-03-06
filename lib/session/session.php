@@ -2,12 +2,14 @@
 class DOSession
 {	
 	private static $savePath = array(
-		'file' 		=> ''
+		'files' 		=> ''
 	   ,'memcache'	=> 'tcp://127.0.0.1:11211'
 	);
+	private static $called = false;
 	function DOSession($drive)
 	{
 		$this->drive = $drive;
+		$this->Start();
 	}
 	/**
 	 * session start
@@ -15,8 +17,9 @@ class DOSession
 	 */
 	function Start()
 	{
-		if( !headers_sent() )
+		if( !headers_sent() && !self::$called)
 		{	
+			self:$called = true;
 			//session name 
 			session_name( md5(SYSTEM_NAME) );
 			//session id
@@ -106,5 +109,10 @@ class DOSession
 	
 	public function GetName(){return md5(SYSTEM_NAME);}
 	public function GetId(){return session_id();}
+	/** Close session handler **/
+	public function __destruct()
+	{
+		$this->End();
+	}
 }
 ?>

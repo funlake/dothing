@@ -1,12 +1,12 @@
 <?php
 class DOBase
 {
-	public static $_mark;
-	private static $vars = array();
+	public static $_mark = array();
+	public static $_vars = array();
 	
 	public function __construct()
 	{
-		$this->Mark( get_class($this) );
+		//$this->Mark( get_class($this) );
 		
 		if(version_compare(phpversion(),'5.0.0','<') && method_exists($this,'__destruct'))
 		{
@@ -28,28 +28,37 @@ class DOBase
 			self::$_mark[$k] = DOFactory::Get('time') - $v;
 		}
 	}
+	
+	public static function ErrorLog($type,$msg)
+	{
+		
+	}
 	/**
 	 * Set Token
 	 */
-	public function SetToken()
+	public static function SetToken()
 	{
 		$tokens = self::GenToken();
-		setcookie('__token',$tokens,time()+60);
+		$sess   = DOFactory::GetSession();
+		$sess->Set('__token',$tokens);
+		//setcookie('__token',$tokens,time()+60);
 		return $tokens;
 	}
 	/**
 	 * Get token
 	 */
-	public function GetToken()
+	public static function GetToken()
 	{
-		return $_COOKIE['__token'];
+		$sess   = DOFactory::GetSession();
+		return $sess->Get('__token');
+		//return $_COOKIE['__token'];
 	}
 	/**
 	 * Gen token
 	 *
 	 * @return string
 	 */
-	function GenToken()
+	public static function GenToken()
 	{
 		return md5(DO_SITECIPHER.uniqid( rand(),true ) );
 	}

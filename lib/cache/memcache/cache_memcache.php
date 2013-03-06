@@ -33,7 +33,7 @@ class DOCacheMemcache extends DOCache
 	/**
 	 * @see DOCache::Set()
 	 */
-	public function Set($var,$content = '')
+	public function Set($var,$content = '',$expire=0)
 	{
 		/**
 		 * Convert it to array,so we can call setMulti later,
@@ -54,7 +54,8 @@ class DOCacheMemcache extends DOCache
 			}
 			$sets[$key] 		= $var[$okey];
 		}
-	 	return self::$MI->setMulti($sets,0);
+		$expire = time() + $expire;
+	 	return self::$MI->setMulti($sets,$expire);
 	}
 	/**
 	 * @see DOCache::Get()

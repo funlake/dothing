@@ -1,5 +1,5 @@
 <?php
-defined('DO_ACCESS') OR exit('Do not allow visit directly!');
+defined('DO_ACCESS') OR exit('Get Away!');
 /**
  * @class: InputFilter (PHP4 & PHP5, with comments)
  * @project: PHP Input Filter
@@ -15,7 +15,7 @@ defined('DO_ACCESS') OR exit('Do not allow visit directly!');
  * @email: dan@rootcube.com
  * @license: GNU General Public License (GPL)
  */
-class DOFilter extends DOBase
+class DOFilter
 {
 	var $tagsArray; // default = empty array
 	var $attrArray; // default = empty array
@@ -40,7 +40,6 @@ class DOFilter extends DOBase
 	 */
 	function DOFilter($tagsArray = array (), $attrArray = array (), $tagsMethod = 0, $attrMethod = 0, $xssAuto = 1)
 	{
-		parent::__construct();
 		/*
 		 * Make sure user defined arrays are in lowercase
 		 */
@@ -463,14 +462,13 @@ class DOFilter extends DOBase
 	{
 		// utf8-decode
 		//$enctype = explode(";",$_SERVER['CONTENT_TYPE']);
-
 		//if(!($enctype && $enctype[0] == "multipart/form-data")){
 			// url decode
-			$source = html_entity_decode($source, ENT_QUOTES, "utf-8");
-			// convert decimal
-			$source = preg_replace('/&#(\d+);/me', "chr(\\1)", $source); // decimal notation
-			// convert hex
-			$source = preg_replace('/&#x([a-f0-9]+);/mei', "chr(0x\\1)", $source); // hex notation
+		$source = html_entity_decode($source,ENT_QUOTES,DO_CHARSET);
+		// convert decimal
+		$source = preg_replace('/&#(\d+);/me', "chr(\\1)", $source); // decimal notation
+		// convert hex
+		$source = preg_replace('/&#x([a-f0-9]+);/mei', "chr(0x\\1)", $source); // hex notation
 			//$source = utf8_decode($source);
 		//}
 		return $source;
