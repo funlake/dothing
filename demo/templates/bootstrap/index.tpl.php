@@ -57,20 +57,20 @@
       <div class="container-fluid">
         <block:message/>
         <div class="row-fluid">
-          <div class="span3">
-            <block:sidebar/>
-          </div><!--/span-->
           <div class="span9">
             <module:__CURRENT__/>
-          </div><!--/span-->
+          </div><!--/span9-->
+            <div class="span3">
+            <block:sidebar/>
+          </div><!--/span3-->
         </div><!--/row-->
 
         <hr>
-
+        
         <footer>
-          <p>&copy; DOTHING 2012</p>
+          <block:footer/>
         </footer>
-
+<block:bottom/>
       </div><!--/.fluid-container-->
 
     <!-- Le javascript
