@@ -24,6 +24,14 @@ $searchs     = $session->Get($searchIndex);
 		</div>
 	</form>
 </div>
+<div class="well">
+	<div class="row-fluid span3 pull-right">
+	  <button class="btn btn-primary" onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup','');?>'">
+	  	<i class="icon-plus icon-white"></i>
+	  	<?php echo L('Add');?>
+	  </button>
+	</div>
+</div>
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
@@ -41,7 +49,7 @@ $searchs     = $session->Get($searchIndex);
 			<td>{#ordering}</td>
 			<td>{#status}</td>
 			<td>
-				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup@id=');?>{#id}">
+				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup','id=');?>{#id}">
 				</a>
 				<a class="icon-remove" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal_{#id}"></a>
 				<div class="modal" id="DOModal_{#id}" style="display:none">
