@@ -8,8 +8,17 @@ class DOControllerUser extends DOController
 
 	public function editAction($request = null )
 	{
-		$user 			= M('user')->Select($request->get['id']);
-		$var['data']	= $user[0];
+		if($request->get['id'])
+		{
+			$user 			= M('user')->Select($request->get['id']);
+			$var['data']	= $user[0];
+			$var['action']  = 'Update';
+		}
+		else
+		{
+			$var['data']	= null;
+			$var['action']  = 'Add';
+		}
 		$this->Display(null,$var);
 	}
 
@@ -20,9 +29,17 @@ class DOControllerUser extends DOController
 
 	public function editgroupAction($request = null)
 	{
-		$group 			= M('group')->Select($request->get['id']);
-		$var['data']	= $group[0];
-		$var['action']  = 'Update';
+		if($request->get['id'])
+		{
+			$group 			= M('group')->Select($request->get['id']);
+			$var['data']	= $group[0];
+			$var['action']  = 'Update';
+		}
+		else
+		{
+			$var['data'] 	= null;
+			$var['action']	= 'Add';
+		}
 		$this->Display(null,$var);		
 	}
 
