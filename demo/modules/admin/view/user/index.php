@@ -24,11 +24,14 @@ $searchs     = SG($searchIndex);
 	</form>
 </div>
 <div class="well">
-	<div class="row-fluid span3 pull-right">
-	  <button class="btn btn-primary" onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','');?>'">
-	  	<i class="icon-plus icon-white"></i>
-	  	<?php echo L('Add');?>
-	  </button>
+	<div class="btn-group pull-right">
+	  <span class="btn btn-danger"><i class="icon-wrench icon-white"></i> <?php echo L('Action');?></span>
+	  <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+	  <ul class="dropdown-menu">
+	    <li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','');?>'"><i class="icon-plus"></i> <?php echo L('Add');?></a></li>
+	    <li class="divider"></li>
+	    <li><a href="#"><i class="i"></i> Make admin</a></li>
+	  </ul>
 	</div>
 </div>
 <table class="table table-striped table-bordered">
