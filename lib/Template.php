@@ -112,16 +112,35 @@ class DOTemplate
 	}
 	public static function Parse($content,$innerData = '',$variables,$level=0)
 	{
+		/**==<div:paginate=google|<?php echo M('user')->Count();?> />==**/
 		return preg_replace(
 			array(
 				'#<(\w+):loop=([^>]+)>((?:((?![^<]+:loop).)|(?R))*)</\1:loop>#ise'
+			  ,'#<(\w+):paginate(/\w+)?=([^>]+)/>#ise'
 			   ,'#<(module|block):(\w+)\s*/>#is'
+			   
 			)
 		   ,array(
 		   		'self::LoopParse("\2","\3",$innerData,"\1",$variables,$level)'
+		   	   ,'self::PaginateParse("\1","\3","\2")'
 		   	   ,'<?php echo T("\1","\2");?>'
 		   	)
 		,$content);
+	}
+	public static function PaginateParse($tag,$src,$type='')
+	{
+		list($source,$attrs) = preg_split("#\s+#",$src,2);
+		$data = self::GetSource($source,array());
+		$type  = !empty($type) ? trim($type,'/') : 'default';
+		$pageInstance = <<<EOD
+		<?php
+		 \$pager = DOFactory::GetWidget('paginate','{$type}', {$data},DO_LIST_ROWS);
+		 echo \$pager->Render();
+		 ?>
+EOD;
+		return "<".$tag." ".$attrs.">"
+		.$pageInstance.
+		"</".$tag.">";
 	}
 	public static function LoopParse($attr,$content,$innerData = '',$tag,$variables,$level)
 	{
@@ -162,7 +181,7 @@ class DOTemplate
 		}
 		return "";
 	}
-	public static function GetSource($source,&$variables)
+	public static function GetSource($source,$variables)
 	{
 		if(strpos($source,".") !== false)
 		{//Read data from outside
@@ -170,10 +189,10 @@ class DOTemplate
 			$_method 			  		= "Get".ucwords(strtolower($type))."Constant";
 			$handler			  		= call_user_func(array(__CLASS__,$_method),$core);
 			$rs					  		= $handler.'->'.$action.'()';
-			if($type == 'Model')
-			{
-				$variables[$core.".count"]	= $handler.'->'.'Count()';
-			}
+			// if($type == 'Model')
+			// {
+			// 	$variables[$core.".count"]	= $handler.'->'.'Count()';
+			// }
 			return $rs;
 		}
 		else

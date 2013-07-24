@@ -6,6 +6,7 @@ define('FRAMEWORK_ROOT' ,realpath( dirname(__FILE__) ) );
 define('APPBASE'        ,SYSTEM_ROOT.DS.'modules');
 define('VIEWBASE'		,SYSTEM_ROOT.DS.'views'	 );
 define('PLGBASE'        ,SYSTEM_ROOT.DS.'plugins');
+define('WIGBASE'      ,SYSTEM_ROOT.DS.'widgets');
 //define('EVTBASE'        ,SYSTEM_ROOT.DS.'events' );
 define('BLKBASE'        ,SYSTEM_ROOT.DS.'blocks' );
 /** Where we put templates and related files**/

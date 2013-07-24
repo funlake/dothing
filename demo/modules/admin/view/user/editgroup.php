@@ -5,7 +5,7 @@
 		<legend>
 			<a><?php echo L('Group -> Edit');?></a>
 			<div class="pull-right">
-			  <button class="btn btn-success" onclick="jQuery('#Afm').submit()">
+			  <button class="btn btn-primary" onclick="jQuery('#Afm').submit()">
 			  	<i class="icon-ok icon-white"></i>
 			  	<?php echo L('Apply');?>
 			  </button>

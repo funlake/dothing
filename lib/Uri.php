@@ -324,5 +324,19 @@ class DOUri
 		$this->params[] = $v;
 	}
 	
+	public static function InitState()
+	{
+		if(!empty($params[$pageindex]))
+		{
+			$session->Set($page."_p",$params[$pageindex]);
+		}
+		else
+		{
+			if(!$session->Get($page."_p"))
+			{
+				$session->Set($page."_p",1);
+			}
+		}
+	}
 }
 ?>

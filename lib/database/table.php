@@ -162,9 +162,8 @@ class DOTable
 	 {
 	 	$db = $this->_db;
 	 	$db->Clean();
-	 	$db->From($this->_tb)
-	 	->Select('FOUND_ROWS()')
-	 	->Read();
+	 	// $db->Select('FOUND_ROWS()')
+	 	// ->Read();
 	 	return $db->GetFoundRows();
 	 }
 }

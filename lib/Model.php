@@ -8,12 +8,24 @@ class DOModel
 	static  $curdErrors 		= array();
 	public  $connections 		= array();
 	public $pk					= 'id';
+	private  $records             = array();
+	private static $currRecord;
 	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
+		$get 		= DORequest::Get();
+		$session 	= DOFactory::GetSession();
+		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
+
+		$start = $session->Get($page."_p");
+
+		$this->defaultLimit = array(($start-1)*DO_LIST_ROWS,DO_LIST_ROWS);
 	}
+
+
 	public function Init()
 	{
+
 		$tables = func_get_args();
 		
 		if( !!$tables )
@@ -52,7 +64,7 @@ class DOModel
 	 */
 	public function Load( $model )
 	{
-		return DOController::GetModel( $model );
+		return DOFactory::GetModel( $model );
 	}
 	/**
 	 * A method basically use in table list page
@@ -66,7 +78,7 @@ class DOModel
 			$where   = array_merge((array)$where,$searchs);
 		}
 		/** Get limit page **/
-		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,DOHelper::GetDataLimit());	
+		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);	
 	}
 	public function Find($where = null)
 	{
@@ -358,7 +370,7 @@ class DOModel
 		$this->last['fields']			    = array();
 		$this->last['lastAction'] 			= $action;
 		$this->last['fields'][$this->pk] 	= $posts[$this->pk] ? $posts[$this->pk] : $ins->insert_id;
-		$this->last['fields'] 				= array_merge($posts,$this->last['fields']);
+		$this->last['fields'] 				= @array_merge($posts,$this->last['fields']);
 	}
 
 	/** 
@@ -396,6 +408,48 @@ class DOModel
 				DOFactory::GetModel($tb),$this->action
 			),$posts);
 		}
+	}
+
+	public function ARStart($id)
+	{
+		if(!$this->records[$id])
+		{
+			$recordset = $this->Find($id);
+			$this->records[$id] = $recordset;
+		}
+		self::$currRecord  = $this->records[$id];
+		return $this;
+	}
+	public function __get($n)
+	{
+		if(array_key_exists('#__'.$n,$this->connections))
+		{
+			$keys = array_keys($this->connections['#__'.$n]);
+			$finder = $value = array();
+			foreach($keys as $cnt)
+			{
+				$nk 		  = $this->connections['#__'.$n][$cnt];
+				foreach((array)self::$currRecord as $mr)
+				{
+					//print_r($mr);
+					$finder[$cnt] 	  = "=?";
+					$value[]	  = $mr->$nk;
+				}
+			}
+			//print_r($finder);
+			$rs = $this->load($n)->GetAll($finder,$value);
+			self::$currRecord =  $rs;
+			return $this->load($n);
+		}
+		return null;
+	}
+	public function AREnd()
+	{
+		return  self::$currRecord;
+	}
+	public function __toString()
+	{
+		return $this->currRecord;
 	}
 }
 ?>

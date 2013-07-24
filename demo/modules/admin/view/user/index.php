@@ -33,6 +33,7 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</thead>
 	<tbody:loop=Model|User.Data class="adminTable">
+	<!--limit:20,order:{#user_id},group:{#user_name}-->
 		<tr>
 			<td>{#user_id}</td>
 			<td>{#user_name}</td>
@@ -44,7 +45,4 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</tbody:loop>
 </table>
-<?php
-	$pager = DOFactory::GetPaginate('google',M('user')->Count(),DO_LIST_ROWS);
-	echo $pager->Render();
-?>
+<div:paginate/simple=Model|User.Count/>

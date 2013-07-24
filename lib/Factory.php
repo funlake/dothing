@@ -33,6 +33,34 @@ class DOFactory
 		}
 		return self::$_load['tables'][$table] ;
 	}
+	public static function GetWidget($widget,$type)
+	{
+		if(!self::$_load["widget_".$widget])
+		{
+			$params = func_get_args();
+			// if(!file_exists(WIGBASE.DS.$widget.'.php'))
+			// {
+			// 	throw new DOException("Unkonw widget:".$table, 121);
+			// 	return false;
+			// } 
+			// include WIGBASE.DS.$widget.'.php';
+			$file = SYSTEM_ROOT.DS.'widgets'.DS.$widget.DS.$type.".php";
+			if(file_exists($file))
+			{
+				include $file;
+			}
+			else
+			{
+				include FRAMEWORK_ROOT.DS.'widgets'.DS.$widget.DS.$type.".php";
+			}
+			$wigClass = "DO".ucwords(strtolower($widget)).ucwords(strtolower($type));
+			self::$_load["widget_".$widget] = call_user_func_array(
+				array(new ReflectionClass( $wigClass ),'newInstance'),  array_slice($params, 2)
+			);
+		}
+		return self::$_load["widget_".$widget];
+
+	}
 	/**
 	 * Get model
 	 * @param string $table

@@ -240,8 +240,9 @@ class DODatabase implements DORecord
 	**/
 	public function GetFoundRows()
 	{
-		$rs = $this->Query($this->GetQuery(),$this->GetParams());
-		return $rs->affect_row;
+		$rs = $this->Query("SELECT FOUND_ROWS() as amount");
+
+		return $rs->data[0]->amount;
 	}
 	/**
 	 * Pdo bind value

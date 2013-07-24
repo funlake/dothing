@@ -13,7 +13,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			exit($cacheContent);
 		}
 		$request = DOFactory::GetTool('http.request');
-		/** Strip slash since we using pdo **/
+		/** Strip slash since we're using pdo **/
 		if(get_magic_quotes_gpc())
 		{
 			/** Gpc strip slashes **/
@@ -37,6 +37,8 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		}
 		/** Search handler **/
 		$this->ListPrepare($mca);
+		/** Set some session variables **/
+		$this->SetState();
 	}
 
 	public function ListPrepare($mca)
@@ -72,6 +74,33 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		else
 		{
 			SS($limitKey,max((int)SG($limitKey),5));
+		}
+	}
+
+	public function SetState()
+	{
+		/** paginate initialize **/
+		if(defined('DO_PAGE_INDEX'))
+		{
+			$pageindex = DO_PAGE_INDEX;
+		}
+		else
+		{
+			$pageindex = "page";
+		}
+		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
+		$params = DORequest::Get();
+		$session = DOFactory::GetSession();
+		if(!empty($params[$pageindex]))
+		{
+			$session->Set($page."_p",$params[$pageindex]);
+		}
+		else
+		{
+			if(!$session->Get($page."_p"))
+			{
+				$session->Set($page."_p",1);
+			}
 		}
 	}
 }

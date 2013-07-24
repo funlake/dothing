@@ -83,6 +83,6 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 				return $menu;
 			}
 		}
-		return null;
+		return array();
 	}
 }

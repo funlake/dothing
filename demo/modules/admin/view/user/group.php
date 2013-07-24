@@ -71,3 +71,4 @@ $searchs     = $session->Get($searchIndex);
 		</tr>
 	</tbody:loop>
 </table>
+<div:paginate=Model|Group.Count/>

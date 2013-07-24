@@ -6,10 +6,14 @@
 **/
 class DOModelMember extends DOModel
 {
+	public $connections = array(
+		"#__role" => array("id"=>"role_id")
+	);
 	public function __construct()
 	{
 		$this->fields = array(
 			'user_id'		=> true
+		   ,'role_id'		=> true
 		   ,'member_name'	=> true
 		);
 		$this->updateKey = array(

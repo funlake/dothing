@@ -37,6 +37,7 @@ class DOBlocks
 		//Get current page
 		$pages   = DOBlocksHelper::GetBlocksIndex();
 		//Display blocks with it's specific layout according to current page.
+		if(!$blocks) return;
 		foreach( array_keys($blocks) as $page) 
 		{
 			//Nagative jugdement

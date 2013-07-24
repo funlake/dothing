@@ -12,7 +12,6 @@ class DOHtml
 	/** Add a html element **/
 	function AddTag($tag,$attributes,$innerValue='',$endTag=1)
 	{
-
 		$dom[] = "<".$tag ;
 		foreach( $attributes as $k=>$v)
 		{

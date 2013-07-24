@@ -21,8 +21,13 @@ class DOControllerIndex extends DOController
 		}
 	}
 
-	public static function title()
+	public static function titleAction()
 	{
+		$db = DOFactory::GetDatabase();
+		$db->From("C")->Select('*')->Read();
+		echo "<pre/>";
+		print_r($db->GetAll());
+		echo "am i lockedss?";
 		return DOLang::Get("Home");
 	}
 	public function addAction()
@@ -73,6 +78,7 @@ class DOControllerIndex extends DOController
 
 	public function indexAction($request=null)
 	{
+		//echo "hello world!";return;
 		$db             = DOFactory::GetDatabase();
 /* 		$db->Clean();
 		$db->From('#__messages')
@@ -105,16 +111,23 @@ class DOControllerIndex extends DOController
 		$db->Clean();
 		echo "<br/>";	*/
 		$db->Clean();
-		$db->From('#__category','c','c.*')
-			->InnerJoin('#__category_connection'
-				   ,'cc'
-				   ,'cc.category_id=c.category_id'
-			)
-			->Where('c.category_id','in (?,?,?)')
-			->Where(array('c.category_name'=>'=?'))
-			->Values(array('a',2,3),'xxx')
-			->Delete();
-		$db->Execute();
+		// $subq = $db->From('#__category','c','c.*')
+		// 	->InnerJoin('#__category_connection'
+		// 		   ,'cc'
+		// 		   ,'cc.category_id=c.category_id'
+		// 	)
+		// 	->Where('c.category_id','in (?,?,?) and c.category_name=?')
+		// 	->Values(array('a',2,3),'abc')
+		// 	->Read();
+		$subq   = $db->From("#__user",'u','u.*')
+				 ->InnerJoin("#__member",'m','m.user_id=u.user_id')
+				 ->Where("u.user_id=?")
+				 ->Values(1)
+				 ->Read();
+		$db->Clean();
+		echo $db->From("(".$subq.")","a","*")->Read();
+		//$db->Execute();
+		print_r($db->GetAll());
 		//echo "<br/>";
 		$db->Clean();
 /*		echo $db->From('#__category')->Select('count(*) as amount')->Read();
@@ -137,7 +150,7 @@ class DOControllerIndex extends DOController
 
 
 		echo $tb->GetTotal(array('user_id'=>'>?'),1);*/
-		
+		exit;
 		$this->Display(null);
 	}
 

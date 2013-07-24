@@ -58,5 +58,5 @@ define('DO_MAIL_SMTP_PASS','');
 define('DO_MAIL_FROM_NAME','Petition system');
 define('DO_MAIL_SEND_EXE','/usr/bin/sendmail');
 //default row in list page
-define('DO_LIST_ROWS',20);
+define('DO_LIST_ROWS',5);
 define('DO_PAGE_INDEX','_p');

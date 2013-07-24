@@ -1,5 +1,11 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <form action="<?php echo Url(DO_ADMIN_INTERFACE.'/system/savesetting');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
+<div class="pull-right">
+  <button class="btn btn-primary" onclick="jQuery('#Afm').submit()">
+  	<i class="icon-ok icon-white"></i>
+  	<?php echo L('Apply');?>
+  </button>
+</div>
 <fieldset>
 	<legend><a name="baseinfo"><?php echo L('Base Information');?></a></legend>
 	<div class="control-group">
@@ -79,14 +85,5 @@
 		</div>
 		<input type='hidden' name='__A' value='savesetting'/>
 </fieldset>
-<div class="pull-right">
-  <button class="btn btn-primary" onclick="jQuery('#Afm').submit()">
-  	<i class="icon-ok icon-white"></i>
-  	<?php echo L('Apply');?>
-  </button>
-  <button class="btn btn-warning" onclick="return false;">
-  	<i class="icon-remove icon-white"></i>
-  	<?php echo L('Cancel');?>
-  </button>
-</div>
+
 </form>
