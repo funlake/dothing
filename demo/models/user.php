@@ -2,7 +2,7 @@
 class DOModelUser extends DOModel
 {
 	public $fields = array(
-		'@user_id'  => true,
+		'@id'  => true,
 		'user_name'	=> 'VARCHAR(100)',
 		'user_pass'	=> 'VARCHAR(32)',
 		'img_url'   => 'no-image.png',
@@ -13,23 +13,23 @@ class DOModelUser extends DOModel
 	);
 	/** What to be where conditions when we update a record **/
 	public $updateKey = array(
-		'user_id'	=> '=?'		
+		'id'	=> '=?'		
 	);
 	public $updateVal = 0;
 	/** What to be where conditions when we update a record **/
 	public $deleteKey = array(
-		'user_id'	=> '=?'
+		'id'	=> '=?'
 	);
 	public $error_msg  = '';
 
 	public $connections = array(
 /*		'has_one' => array(
-			'#__userinfo' => array('user_id')
+			'#__userinfo' => array('id')
 		)*/
-	   'has_one'=> array(
-	   		'#__member' => array('user_id')
-	   	),
-	   '#__member' => array("user_id" => "user_id")
+	   // 'has_one'=> array(
+	   // 		'#__member' => array('id')
+	   // 	),
+	   // '#__member' => array("user_id" => "id")
 	);
 	//public $defaultLimit = array(0,5);
 	public function __construct()
@@ -37,7 +37,7 @@ class DOModelUser extends DOModel
 		/** Parse fields **/
 		//$this->fields = include TABLEBASE.DS.'table_user.php';
 		/** Set primary key **/
-		$this->pk	  = 'user_id';
+		$this->pk	  = 'id';
 
 		$this->addMsgSuccess 	= DOLang::Get('You have successfully add a new user');
 		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
@@ -52,12 +52,14 @@ class DOModelUser extends DOModel
 	/** Md5 serialize **/	
 	public function Add_adjust_user_pass($value)
 	{
-		return md5($value);
+		$T = DOFactory::GetTool("encrypt");
+		return $T->Encrypt($value);
+		//return md5($value);
 	}
 	/** Keep unique user name **/
 	public function Add_validate_user_name($value)
 	{
-		if(0 !=  $this->GetOne('user_id',array('user_name'=>'=?'),array($value)) )
+		if(0 !=  $this->GetOne('id',array('user_name'=>'=?'),array($value)) )
 		{
 			$this->error_msg = DOLang::Get('Do not allow duplicated users!');
 			return false;
@@ -89,16 +91,16 @@ class DOModelUser extends DOModel
 			$this->error_msg  = DOLang::Get('Empty user name');
 			$flag 		 	  = false;
 		}
-		if(empty($posts['user_pass']))
-		{
-			$this->error_msg .= ' '.DOLang::Get('Empty user pass');
-			$flag 		 	  = false;
-		}
+		// if(empty($posts['user_pass']))
+		// {
+		// 	$this->error_msg .= ' '.DOLang::Get('Empty user pass');
+		// 	$flag 		 	  = false;
+		// }
 		return $flag;
 	}
 	public function Update_validate_user_name($value,$posts)
 	{
-		if(0 !=  $this->GetOne('user_id','user_name=? and user_id<>?',array($value,$posts['user_id'])) )
+		if(0 !=  $this->GetOne('id','user_name=? and id<>?',array($value,$posts['id'])) )
 		{
 			$this->error_msg  = DOLang::Get('Do not allow duplicated users!');
 			return false;
@@ -118,6 +120,11 @@ class DOModelUser extends DOModel
 	public function Add_adjust_img_url($files,$posts)
 	{
 		return basename($files['name']);
+	}
+
+	public function Update_pre_adjust($posts)
+	{
+		unset($this->fields['user_pass']);
 	}
 }
 

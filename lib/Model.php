@@ -326,6 +326,7 @@ class DOModel
 				continue;
 			}
 		}
+
 		if(!!$this->binds)
 		{
 			/** Merge mapper **/
@@ -343,6 +344,8 @@ class DOModel
 		{
 			if($this->action !== 'Select' and $this->action !== 'Delete')
 			{
+				//echo "<pre/>";
+				//print_r(debug_backtrace());exit;
 		 		throw new DOException("Empty parameters!",101);
 			}
 		}
@@ -403,7 +406,6 @@ class DOModel
 			{
 				$posts[$field]  = $this->last['fields'][$field];
 			}
-			print_r($posts);
 			call_user_func(array(
 				DOFactory::GetModel($tb),$this->action
 			),$posts);

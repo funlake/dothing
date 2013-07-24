@@ -1,6 +1,38 @@
 <?php
 class DOControllerUser extends DOController
 {
+	public function loginAction($request = null)
+	{
+		if(!empty($request->post['user_name']) and !empty($request->post['user_pass']))
+		{
+			$user = M('user')->GetRow(
+				array('user_name'=>"=?" ),$request->post['user_name']
+			);
+			if($user->id)
+			{
+				$T = DOFactory::GetTool('encrypt');
+				//successfully verify
+				// echo $request->post['user_pass'];
+				// echo "<br/>";
+				// echo $T->Decrypt($user->user_pass);
+				// exit;
+				if($T->Decrypt($user->user_pass) == $request->post['user_pass'])
+				{
+					$session = DOFactory::GetSession();
+					$session->Set("_adm_user",1);
+					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/index"),"",1);
+					//exit();
+				}
+			}
+			
+			//echo $T->Encrypt($request->post['user_pass']);
+		}
+		$this->Display(null);
+	}
+	public function logoutAction($request = null)
+	{
+
+	}
 	public function indexAction($request = null)
 	{
 		$this->Display(null);
@@ -10,9 +42,13 @@ class DOControllerUser extends DOController
 	{
 		$user 	= M('user')->Select($request->get['id']);
 		$var['data']	= $user[0];
+		$var['action']	= "Update";
 		$this->Display(null,$var);
 	}
-
+	public function addAction($request = null)
+	{
+		$this->Display("edit",array("action"=>"Add"));
+	}
 	public function groupAction($request = null)
 	{
 		$this->Display(null);

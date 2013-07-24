@@ -1,8 +1,7 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <?php 
-$searchIndex = "DOSearch.".DORouter::GetPageIndex();
 $session     = DOFactory::GetSession();
-$searchs     = $session->Get($searchIndex);
+$searchs     = $session->Get("DOSearch.".DORouter::GetPageIndex());
 ?>
 <div class="well">
 	<form class="form-inline" id="Afm" method="post">

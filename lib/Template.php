@@ -8,6 +8,7 @@ class DOTemplate
 {
 	public static $params 	= array();
 	public static $template	= DO_TEMPLATE;
+	public static $layout        = "index";
 	public static function SetPrams($params)
 	{
 		foreach($params as $key=>$val) self::SetParam($key,$val);
@@ -22,22 +23,30 @@ class DOTemplate
 	{
 		self::$template = $template ;
 	}
+	public static function SetLayout($layout)
+	{
+		self::$layout 	= $layout;
+	}
 	public static function SetTemplateUriPath($template)
 	{
 		!defined('DO_URI_BASE') AND define('DO_URI_BASE',DOUri::GetBase());
 	 	!defined('DO_THEME_BASE') AND define('DO_THEME_BASE',DO_URI_BASE.'/templates/'.$template);
-	 	!defined('DO_THEME_DIR') AND define('DO_THEME_DIR',TEMPLATEROOT.DS.$template);	
+	 	!defined('DO_THEME_DIR') AND define('DO_THEME_DIR',TEMPLATE_ROOT.DS.$template);	
 	}
 	public static function GetTemplate()
 	{
 		return self::$template;
 	}
+	public static function GetLayout()
+	{
+		return self::$layout;
+	}
 	public static function LoadTemplate( )
 	{
 		$template = self::GetTemplate();
-		$cFile	= TEMPLATEROOT.DS.$template.DS.'index.php';
-		$vFile  = TEMPLATEROOT.DS.$template.DS.'index.tpl.php';
-		if(!file_exists($parsedFile))
+		$cFile	= TEMPLATE_ROOT.DS.$template.DS.self::GetLayout().'.php';
+		$vFile  = TEMPLATE_ROOT.DS.$template.DS.self::GetLayout().'.tpl.php';
+		if(file_exists($vFile))
 		{
 			$content = file_get_contents($vFile);
 			$content = self::ParseTemplate($content,$cFile);
@@ -170,7 +179,12 @@ EOD;
 					$template = self::Parse($template,$itemChar,$variables,++$level);
 				}
 				$item 	= (array)$item;
-				$html[] = preg_replace('~{#([^@}]+)(@)?(?(2)(\w+))}~','<?php echo \3('.$itemChar.'["\1"]);?>',$template);
+				//===========have to consider 2 situations.===================
+				#1.{#var}
+				#2.{#var|substr(?,0,10)}
+				$html[] = preg_replace('~{#([^@}]+)(@)?(?(2)([^\}]+))}~se'
+					,"self::ReplaceVar('\\1','{$itemChar}','\\3')"
+					,$template);
 			//}
 			$html[]     = str_repeat("\t",$level+1);
 			$html[]     = PHP_EOL.'<?php endforeach;?>'.PHP_EOL;
@@ -180,6 +194,26 @@ EOD;
 			return stripslashes("<".$tag." ".$attrs.">".implode("",$html)."</".$tag.">");
 		}
 		return "";
+	}
+	/** replace tempate var  **/
+	public static function ReplaceVar($var,$itemChar,$func)
+	{
+		if(!empty($func))
+		{
+			if(strpos($func,"?") !== false)
+			{
+				$final = str_replace('?',$itemChar.'['.$var.']',$func);
+			}
+			else
+			{
+				$final = $func."(".$itemChar.'['.$var.']'.")";
+			}
+		}
+		else
+		{
+			$final = $itemChar.'['.$var.']';
+		}
+		return '<?'.'php'.' echo '.$final.'?'.'>';
 	}
 	public static function GetSource($source,$variables)
 	{

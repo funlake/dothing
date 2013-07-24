@@ -2,15 +2,16 @@
 !defined('DO_ACCESS') AND die("How can you see me?");
 return array(
 	'mainmenu' => array(
-		'admin/.*' 	=> 'admin.menu'
+		'!admin/user/login' 	=> 'admin.menu',
+              // 'admin.menu' => array('#(?!^admin/user/login)#i')
 	)
    ,'sidebar' => array(
-   		'^admin/[^\/]*/(?:(?!edit)[a-zA-Z])+$' 	=> 'admin.leftmenu'
+   	'^admin/(?!user/login)(?:[^\/]*/(?:(?!edit)[a-zA-Z])+)$' 	=> 'admin.leftmenu'
    	)
    ,'message' => array(
    		'^admin' 		=> 'message'
    	)
    ,'bottom'  => array(
-   	    '.*'  => 'profiler'
+   	   // '.*'  => 'profiler'
    	)
 );

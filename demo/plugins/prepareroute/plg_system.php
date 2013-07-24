@@ -31,16 +31,30 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		$response = DOFactory::GetTool('http.response');
 		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
 		/** Template Set **/
-		if(DORouter::GetModule() == 'admin')
-		{
-			DOTemplate::SetTemplate(DO_ADMIN_TEMPLATE);
-		}
+		$this->TemplateLayoutUse();
 		/** Search handler **/
 		$this->ListPrepare($mca);
 		/** Set some session variables **/
 		$this->SetState();
 	}
-
+	/** See what template/layout should current page use **/
+	public function TemplateLayoutUse()
+	{
+		if(file_exists(TEMPLATE_ROOT.DS.'usage.php'))
+		{
+			$usage = include TEMPLATE_ROOT.DS.'usage.php';
+			if($template = $usage['template'][DORouter::GetModule()])
+			{
+				DOTemplate::SetTemplate($template);
+			}
+			if($layout 	= $usage['layout'][DORouter::GetPageIndex()])
+			{
+				DOTemplate::SetLayout($layout);
+			}
+			//echo 
+		}
+	}
+	/** Prepare some session things for listing page**/
 	public function ListPrepare($mca)
 	{
 		//If people searching somthing?
@@ -63,18 +77,6 @@ class DOPlgSystemPrepareroute extends DOPlugin
 				SS($searchKey,null);
 			}
 		}
-		if(!SG($limitKey))
-		{
-			SS($limitKey,DO_LIST_ROWS);
-		}
-		if(isset($_REQUEST['limit']))
-		{
-			SS($limitKey,(int)$_REQUEST['limit']);
-		}
-		else
-		{
-			SS($limitKey,max((int)SG($limitKey),5));
-		}
 	}
 
 	public function SetState()
@@ -91,15 +93,23 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
 		$params = DORequest::Get();
 		$session = DOFactory::GetSession();
-		if(!empty($params[$pageindex]))
+		//if people search something,then page will rewind to 1.
+		if(isset($_REQUEST['DO']['search']))
 		{
-			$session->Set($page."_p",$params[$pageindex]);
+			$session->Set($page."_p",1);
 		}
-		else
+		else 
 		{
-			if(!$session->Get($page."_p"))
+			if(!empty($params[$pageindex]))
 			{
-				$session->Set($page."_p",1);
+				$session->Set($page."_p",$params[$pageindex]);
+			}
+			else
+			{
+				if(!$session->Get($page."_p") )
+				{
+					$session->Set($page."_p",1);
+				}
 			}
 		}
 	}

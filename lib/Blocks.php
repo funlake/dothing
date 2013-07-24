@@ -48,6 +48,10 @@ class DOBlocks
 				{
 					continue;
 				}
+				else
+				{
+					self::Invoke( explode(',',$blocks[$page]) );
+				}
 			}
 			else
 			{

@@ -28,7 +28,7 @@ $searchs     = SG($searchIndex);
 	  <span class="btn btn-danger"><i class="icon-wrench icon-white"></i> <?php echo L('Action');?></span>
 	  <a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 	  <ul class="dropdown-menu">
-	    <li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','');?>'"><i class="icon-plus"></i> <?php echo L('Add');?></a></li>
+	    <li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/add','');?>'"><i class="icon-plus"></i> <?php echo L('Add');?></a></li>
 	    <li class="divider"></li>
 	    <li><a href="#"><i class="i"></i> Make admin</a></li>
 	  </ul>
@@ -44,17 +44,16 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</thead>
 	<tbody:loop=Model|User.Data class="adminTable">
-	<!--limit:20,order:{#user_id},group:{#user_name}-->
 		<tr>
-			<td>{#user_id}</td>
+			<td>{#id}</td>
 			<td>{#user_name}</td>
-			<td>{#user_pass}</td>
+			<td>{#user_pass@substr(?,0,30)}...</td>
 			<td>
-				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?>{#user_id}">
+				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?>{#id}">
 				</a>
-				<a class="icon-remove" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal_{#user_id}"></a>
-				<div class="modal" id="DOModal_{#user_id}" style="display:none">
-				  <form id="form{#user_id}" action="<?php echo Url('autocrud/Delete/user');?>" method="post">
+				<a class="icon-remove" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal_{#id}"></a>
+				<div class="modal" id="DOModal_{#id}" style="display:none">
+				  <form id="form{#id}" action="<?php echo Url('autocrud/Delete/user');?>" method="post">
 					  <div class="modal-header">
 					    <a class="close" data-dismiss="modal">×</a>
 					    <h3><?php echo L('Warning');?></h3>
@@ -63,7 +62,7 @@ $searchs     = SG($searchIndex);
 					    <p><?php echo L('Do you want to delete this item?');?></p>
 					  </div>
 					  <div class="modal-footer">
-					  	<a href="javascript:void(0);" onclick="jQuery('#form{#user_id}').submit()" class="btn btn-success">
+					  	<a href="javascript:void(0);" onclick="jQuery('#form{#id}').submit()" class="btn btn-success">
 					  		<i class="icon-ok icon-white"></i>
 					  		<?php echo L('Yes');?>
 					  	</a>
@@ -72,7 +71,7 @@ $searchs     = SG($searchIndex);
 					    	<?php echo L('Cancel');?>
 					   	</a>
 						<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/index');?>"/>
-						<input type="hidden" id="user_id" name="user_id" value="{#user_id}"/>
+						<input type="hidden" id="user_id" name="id" value="{#id}"/>
 					   </div>
 				   </form>
 				</div>

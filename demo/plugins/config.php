@@ -7,7 +7,7 @@ return array(
    		'system'	=> 1
    	)
    ,'prepareroute'		=> array(
-   		'system'	=> 1
+   		'system'	=> 1,'authorize' => true
    	)
    ,'preparesql'		=> array(
    		'system'	=> 1
