@@ -5,9 +5,12 @@ return array(
 		'admin/.*' 	=> 'admin.menu'
 	)
    ,'sidebar' => array(
-   		'admin/.*' 	=> 'admin.leftmenu'
+   		'^admin/[^\/]*/(?:(?!edit)[a-zA-Z])+$' 	=> 'admin.leftmenu'
    	)
    ,'message' => array(
    		'^admin' 		=> 'message'
+   	)
+   ,'bottom'  => array(
+   	    '.*'  => 'profiler'
    	)
 );

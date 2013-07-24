@@ -48,30 +48,33 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			array(
 				'title' => L('Users')
 			   ,'link'  => '#'
-			   ,'class'	=> 'nav-header'
+			   ,'class'	=> 'nav-header active'
+			   ,'iconClass' => 'icon-user icon-white'
 			   ,'child' => array(
 			   		array(
-						'title' => L('All')
+						'title' => L('List')
 					   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index")
-					   ,'class' => ''
-					)
-				   ,array(
-						'title' => L('Administrator')
-					   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index@group=admin")
-					   ,'class' => ''
+					   ,'class' => in_array(
+					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					array('user/index','user/edit')
+					   				) ? '' : ''
 					)
 			   )
 		   )
 		  ,array(
 		  		'title' => L('Groups')
 		  	   ,'link'  => '#'
-		  	   ,'class' => 'nav-header'
+		  	   ,'class' => 'nav-header active'
+		  	   ,'iconClass' => 'icon-th-large icon-white'
 		  	   ,'child' => array(
 		  	   		array(
-		  	   			'title' => L('All')
+		  	   			'title' => L('List')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/group')
-		  	   		   ,'class' => strpos(DORouter::GetAction(),'group') !== false ? 'active' : ''
-		  	   		)
+					   ,'class' => in_array(
+					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					array('user/group','user/editgroup')
+					   				) ? '' : ''		  	   		
+					)
 		  	   	)
 		   )
 		);
