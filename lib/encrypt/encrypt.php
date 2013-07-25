@@ -71,7 +71,7 @@ class DOEncrypt
 		/** Get iv size **/
 		$ivsize		= mcrypt_enc_get_block_size($ofb);
 		/** Create iv,work for windows/linux platforms **/
-		$iv  		= mcrypt_create_iv($ivsize,MCRYPT_RAND);
+		$iv  		= mcrypt_create_iv($ivsize,MCRYPT_DEV_URANDOM);
 		/** Get key **/
 		$key 		= substr($this->GetCipher(),0,$ivsize);
 		/** Init **/
@@ -103,7 +103,7 @@ class DOEncrypt
 		/** Init **/
 		mcrypt_generic_init($ofb, $key, $iv);
 		/** Get paintext **/
-		$decrypted		= mdecrypt_generic($ofb,$rvalue);
+		$decrypted		= trim(mdecrypt_generic($ofb,$rvalue));
 		/** Close **/
 		mcrypt_generic_deinit($ofb);
 		mcrypt_module_close($ofb);

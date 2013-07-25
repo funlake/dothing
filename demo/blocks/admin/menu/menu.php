@@ -7,9 +7,16 @@ class DOBlocksAdminMenu extends DOBlocksItem
 		$cur = DORouter::GetController();
 		return array(
 		   array(
-				'title' => DOLang::Get('Configuration')
-			   ,'link'  => Url(DO_ADMIN_INTERFACE."/system/setting")
-			   ,'class' => ($cur == 'system') ? 'active' : ''
+				'title' => DOLang::Get('Dashboard')."<b class='caret'></b>"
+			   ,'link'  =>'#'
+			   ,'class' => (($cur == 'dashboard') ? ' active' : ''). ' dropdown'
+			   ,'attrs' => ' class="dropdown-toggle" data-toggle="dropdown" '
+			   ,'child' => array(
+			   	array(
+			   		'title' => L('Setting'),
+			   		'link'  => Url(DO_ADMIN_INTERFACE."/dashboard/setting")
+			   	)
+			   )
 			)
 		   ,array(
 				'title' => DOLang::Get('Components')."<b class='caret'></b>"
@@ -39,11 +46,6 @@ class DOBlocksAdminMenu extends DOBlocksItem
 				'title' => DOLang::Get('Blocks')
 			   ,'link'  => DOUri::BuildQuery(DO_ADMIN_INTERFACE,"system","setting")
 			   ,'icon'  => 'icon-menu-tasks.png'
-			)
-		   ,array(
-				'title' => DOLang::Get('Setting')
-			   ,'link'  => DOUri::BuildQuery(DO_ADMIN_INTERFACE,"system","setting")
-			   ,'icon'  => 'icon-menu-settings.png'
 			)
 		);
 	}

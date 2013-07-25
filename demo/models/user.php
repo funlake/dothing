@@ -38,10 +38,6 @@ class DOModelUser extends DOModel
 		//$this->fields = include TABLEBASE.DS.'table_user.php';
 		/** Set primary key **/
 		$this->pk	  = 'id';
-
-		$this->addMsgSuccess 	= DOLang::Get('You have successfully add a new user');
-		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
-		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
 		/** Set name,parent call**/
 		parent::__construct();
 	}	

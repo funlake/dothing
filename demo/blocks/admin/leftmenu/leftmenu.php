@@ -5,11 +5,11 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 	public function GetBackMenu()
 	{
 		$menus = array();
-		$menus['admin/system/setting'] = array(
+		$menus['admin/dashboard/setting'] = array(
 			array(
 				'title'		=> L('Global')
 			   ,'link'		=> '#'
-			   ,'class'		=> 'nav-header'
+			   ,'class'		=> 'nav-header active'
 			   ,'child'	=> array(
 			   		array(
 			   			'title' => L('Basic Info')
@@ -22,7 +22,6 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			   	   ,array(
 				   		'title'	=> L('Database')
 				   	   ,'link'	=> '#database'
-				   	   //,'class'     => 'active'
 		   			)
 			   	)
 			)
@@ -46,36 +45,28 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		);
 		$menus['admin/user/*'] = array(
 			array(
-				'title' => L('Users')
+				'title' => L('Modules')
 			   ,'link'  => '#'
 			   ,'class'	=> 'nav-header active'
 			   ,'iconClass' => 'icon-user icon-white'
 			   ,'child' => array(
 			   		array(
-						'title' => L('List')
+						'title' => L('Users')
 					   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index")
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/index','user/edit')
-					   				) ? '' : ''
-					)
-			   )
-		   )
-		  ,array(
-		  		'title' => L('Groups')
-		  	   ,'link'  => '#'
-		  	   ,'class' => 'nav-header active'
-		  	   ,'iconClass' => 'icon-th-large icon-white'
-		  	   ,'child' => array(
-		  	   		array(
-		  	   			'title' => L('List')
+					   				) ? 'active' : ''
+					),
+					array(
+		  	   			'title' => L('User groups')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/group')
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/group','user/editgroup')
-					   				) ? '' : ''		  	   		
+					   				) ? 'active' : ''		  	   		
 					)
-		  	   	)
+			   )
 		   )
 		);
 		$curIndex = DORouter::GetPageIndex();

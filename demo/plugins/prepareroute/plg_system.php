@@ -51,6 +51,19 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			{
 				DOTemplate::SetLayout($layout);
 			}
+			else
+			{
+				$layouts = array_keys($usage['layout']);
+				foreach($layouts as $lyt)
+				{
+					//small bug in php 5.3.1
+					if(@preg_match($lyt,DORouter::GetPageIndex()))
+					{
+						DOTemplate::SetLayout($usage['layout'][$lyt]);
+						break;
+					}
+				}
+			}
 			//echo 
 		}
 	}

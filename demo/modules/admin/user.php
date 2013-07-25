@@ -12,26 +12,40 @@ class DOControllerUser extends DOController
 			{
 				$T = DOFactory::GetTool('encrypt');
 				//successfully verify
-				// echo $request->post['user_pass'];
-				// echo "<br/>";
-				// echo $T->Decrypt($user->user_pass);
-				// exit;
 				if($T->Decrypt($user->user_pass) == $request->post['user_pass'])
 				{
 					$session = DOFactory::GetSession();
-					$session->Set("_adm_user",1);
+					$session->Set("_adm_user",$user->user_name);
+					$session->Set("_adm_user_id",$user->id);
 					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/index"),"",1);
-					//exit();
+					exit();
+				}
+				else
+				{
+					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login")
+						,L("Wrong user name or password! ")
+						,0
+					);
+					exit();
 				}
 			}
-			
-			//echo $T->Encrypt($request->post['user_pass']);
+			else
+			{
+				DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login")
+					,L("Wrong user name or password! ")
+					,0
+				);
+				exit();			
+			}
 		}
 		$this->Display(null);
 	}
 	public function logoutAction($request = null)
 	{
-
+		$session = DOFactory::GetSession();
+		$session->Clean();
+		DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login"),"",1);
+		exit();
 	}
 	public function indexAction($request = null)
 	{

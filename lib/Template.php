@@ -202,16 +202,17 @@ EOD;
 		{
 			if(strpos($func,"?") !== false)
 			{
-				$final = str_replace('?',$itemChar.'['.$var.']',$func);
+				$final = str_replace('?',$itemChar.'[\''.$var.'\']',$func);
+				$final = preg_replace('~#(\w+)~',$itemChar."['\\1']",$final);
 			}
 			else
 			{
-				$final = $func."(".$itemChar.'['.$var.']'.")";
+				$final = $func."(".$itemChar.'[\''.$var.'\']'.")";
 			}
 		}
 		else
 		{
-			$final = $itemChar.'['.$var.']';
+			$final = $itemChar.'[\''.$var.'\']';
 		}
 		return '<?'.'php'.' echo '.$final.'?'.'>';
 	}

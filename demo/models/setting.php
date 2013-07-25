@@ -22,5 +22,6 @@ class DOModelSetting extends DOModel
 		);
 		$this->name   = 'setting';
 		$this->pk     = 'id';
+		parent::__construct();
 	}
 }

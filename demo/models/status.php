@@ -1,0 +1,28 @@
+<?php
+/**
+**@project:/var/www/dothing
+**@whytodo:
+**@author:Lake
+**/
+class DOModelStatus extends DOModel
+{
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	public function Update($uparray)
+	{
+		$key = $uparray['_k'] ?: 'id';
+		$res = new stdClass();
+		$res->success = 1;
+		 $db = DOFactory::GetDatabase();
+		 $db->SetQuery("update `{$uparray['_m']}` set state=1-state where `{$key}`='{$uparray['_v']}'");
+		if(!$db->Execute())
+		{
+			$res->success = 0;
+			$this->updateMsgFail = "Could not found table '{$uparray['_m']}' or cound not found key '{$key}'";
+		}
+		return $res;
+	}
+}

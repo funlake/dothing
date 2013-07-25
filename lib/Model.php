@@ -20,6 +20,11 @@ class DOModel
 		$start = $session->Get($page."_p");
 
 		$this->defaultLimit = array(($start-1)*DO_LIST_ROWS,DO_LIST_ROWS);
+
+		$this->addMsgSuccess 	= DOLang::Get('You have successfully add an item');
+		$this->addMsgFail 	= DOLang::Get('You fail to add an item');
+		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
+		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
 	}
 
 

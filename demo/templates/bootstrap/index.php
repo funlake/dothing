@@ -32,39 +32,39 @@
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-72-precomposed.png">
       <link rel="apple-touch-icon-precomposed" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-57-precomposed.png">
       <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/jquery.js"></script>    
+        <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/main.css" rel="stylesheet">
     </head>
 
     <body>
-
-      <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container-fluid">
-            <div class="nav-collapse collapse">
-<!--               <p class="navbar-text pull-right">
-                Logged in as <a href="#" class="navbar-link">Username</a>
-              </p> -->
-              <block:mainmenu/>
+      <div class="container">
+        <div class="navbar navbar-fixed-top navbar-inverse">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+              <div class="nav-collapse collapse">
+              <?php echo T("block","mainmenu");?>
             </div><!--/.nav-collapse -->
           </div>
         </div>
       </div>
       <div class="container-fluid">
-        <block:message/>
+        <?php echo T("block","message");?>
         <div class="row-fluid">
-          <div class="span9">
-            <module:__CURRENT__/>
-          </div><!--/span9-->
-            <div class="span3">
-            <block:sidebar/>
+                    <div class="span3">
+            <?php echo T("block","sidebar");?>
           </div><!--/span3-->
+          <div class="span9">
+
+            <?php echo T("module","__CURRENT__");?>
+          </div><!--/span9-->
+
         </div><!--/row-->
         
         <footer>
-          <block:footer/>
+          <?php echo T("block","footer");?>
         </footer>
-            <block:bottom/>
+        <?php echo T("block","bottom");?>
       </div><!--/.fluid-container-->
-
+    </div>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -80,5 +80,23 @@
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-collapse.js"></script>
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-carousel.js"></script>
     <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-typeahead.js"></script>
+
+    <script type="text/javascript">
+    ;(function($){
+        $('.status_trigger').click(function(){
+          var self = $(this);
+          $.getJSON(self.attr("src"),function(data){
+            if(data.flag){
+              //success change status
+              if(self.hasClass('publish')){
+                self.removeClass("publish").addClass("unpublish")
+              }else{
+                self.removeClass("unpublish").addClass("publish")
+              }
+            }
+          })
+        })
+    })(jQuery)
+    </script>
   </body>
   </html>

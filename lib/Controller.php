@@ -73,15 +73,21 @@ class DOController
 	public static function AutoCrud($action,$model,array $posts = null)
 	{
 		$action = ucwords(strtolower($action));
+
 		if(/*!!$posts && */false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
 		{
+
 			if(!method_exists($modelObj, $action))
 			{
 				throw new DORouterException("Unknown controller::action", 404);
 			}
-			if( !in_array($action,array('Select','Delete')) && ($posts['__token'] != DOBase::GetToken() || empty($posts['__token']) ) )
+
+			if( !in_array($action,array('Select','Delete') )) 
 			{
-				throw new DORouterException("Invalid token",102);
+				if($posts['__token'] != DOBase::GetToken() && !isset($posts['_no_token']))
+				{
+					throw new DORouterException("Invalid token",102);
+				}
 			}
 			$action = ucwords(strtolower($action));
 			/** 

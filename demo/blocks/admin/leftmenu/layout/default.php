@@ -6,7 +6,6 @@
     <ul:loop=child class="nav nav-list DOSubnav">
       <li class="{#class}">	
         <a href="{#link}">
-        	<i class="icon-chevron-left"></i>
         	{#title}
        </a>
       </li>

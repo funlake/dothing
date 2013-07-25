@@ -10,7 +10,7 @@ class DOBlocksItem
 			$vFile  = $blocks[$current];
 			$view 	= basename($vFile);
 			$cFile  = VIEWBASE.DS.'blocks'.DS.$current.DS.$view;
-			if(DO_TEMPLATE_PARSE and !file_exists($cFile))
+			if(DO_TEMPLATE_PARSE /*and !file_exists($cFile)*/)
 			{//parse the content ,and store it into compile dir
 				$content 		= DOTemplate::ParseHtml($vFile,$variables);
 				$fileHandler	= DOFactory::GetTool('file.basic');
