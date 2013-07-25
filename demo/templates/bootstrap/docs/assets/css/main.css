@@ -1,0 +1,18 @@
+.sidebar-nav{
+ width:20%;
+}
+footer{
+  text-align:center;
+}
+.publish{
+	background: url("../img/tick_green.png") no-repeat;
+	width:16px;
+	height:16px;
+	display: block;
+}
+.unpublish{
+	background: url("../img/error.png") no-repeat;
+		width:16px;
+	height:16px;
+	display: block;
+}
