@@ -13,8 +13,6 @@ class DOModelGroup extends DOModel
 	);
 
 	public $defaultGroupby = null;
-
-	public $defaultLimit  = array(0,5);
 	/** What to be where conditions when we update a record **/
 	public $updateKey = array(
 		'id'	=> '=?'		
@@ -35,14 +33,6 @@ class DOModelGroup extends DOModel
 		//$this->fields = include TABLEBASE.DS.'table_user.php';
 		/** Set primary key **/
 		$this->pk	  = 'id';
-
-		$this->addMsgSuccess 	= L('You have successfully add a new group');
-		$this->addMsgFail       = L('Fail to add');
-		$this->updateMsgSuccess = L('You have successfully modify it');
-		$this->updateMsgFail	= L('You failed to modify it');
-
-		$this->deleteMsgSuccess = L('You have successfully deleted the item');
-		$this->deleteFail       = L('Fail to delete');
 
 
 		/** Set name,parent call**/

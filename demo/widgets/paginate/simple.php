@@ -41,7 +41,7 @@ class DOPaginateSimple extends DOPaginate
 
 		$session  = DOFactory::GetSession();
 		$current = $session->Get($page."_p");
-		$class     = array($current => "disabled");
+		$class     = array($current => "active");
 
 
 		$i 	= $this->curPageNo > $haftMax ? ($this->curPageNo - $haftMax) : 1;

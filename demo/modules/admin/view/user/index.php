@@ -30,7 +30,7 @@ $searchs     = SG($searchIndex);
 		</div>
 	</form>
 </div>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
 			<th width="5%"><?php echo L('Id');?></th>
@@ -40,7 +40,7 @@ $searchs     = SG($searchIndex);
 			<th><?php echo L('Actions');?></th>
 		</tr>
 	</thead>
-	<tbody:loop=Model|User.Data class="adminTable">
+	<tbody:loop=Model|User.Find class="adminTable">
 	<tr>
 		<td>{#id}</td>
 		<td>{#user_name}</td>

@@ -30,7 +30,7 @@ $searchs     = SG($searchIndex);
 		</div>
 	</form>
 </div>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
 			<th width="5%" ><?php echo L('Id');?></th>

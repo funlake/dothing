@@ -25,6 +25,8 @@ class DOModel
 		$this->addMsgFail 	= DOLang::Get('You fail to add an item');
 		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
 		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
+		$this->deleteMsgSuccess = L('You have successfully deleted the item');
+		$this->deleteFail       	= L('Fail to delete');
 	}
 
 
@@ -100,7 +102,7 @@ class DOModel
 		}
 
 		/** Get limit page **/
-		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$offset);
+		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);
 	}
 	public function Select($where = null,$compare = '=',$orderby = array(),$groupby = null,$limit = null)
 	{

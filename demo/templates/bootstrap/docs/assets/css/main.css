@@ -16,3 +16,7 @@ footer{
 	height:16px;
 	display: block;
 }
+.navbar-inner li.active>a{
+	background-color: #e60033 !important;
+	color:#FFF;
+}

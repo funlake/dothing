@@ -30,7 +30,7 @@ $searchs     = SG($searchIndex);
 		</div>
 	</form>
 </div>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
 			<th width="5%"><?php echo L('Id');?></th>
@@ -41,7 +41,7 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</thead>
 	<tbody class="adminTable">				
-<?php foreach(DOFactory::GetModel(strtolower('User'))->Data() as $key_0=>$item_0) : ?>
+<?php foreach(DOFactory::GetModel(strtolower('User'))->Find() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 	<tr>
