@@ -5,32 +5,28 @@ $searchs     = SG($searchIndex);
 ?>
 <div class="well">
 	<form class="form-inline" id="Afm" method="post">
-		<div class="row-fluid span6">
-			<input type="text" name="DO[search][user_name]" id="user_name" class="span5" 
+		<div class="row-fluid span10 input-appened btn-group">
+			<input type="text" name="DO[search][user_name]" id="user_name" class="span7" 
 			placeholder="<?php echo L('Name');?>"
 			value="<?php echo $searchs['user_name'];?>"
 			/>
-		</div>
-		<div class="row-fluid pull-right span5">
-			<div class="btn-group">
-				<button class="btn btn-success" onclick="jQuery('#Afm').submit()">
+			<button class="btn btn-success" onclick="jQuery('#Afm').submit()">
 					<i class="icon-search icon-white"></i>
 					<?php echo L('Search');?>
-				</button>
-				<button class="btn btn-warning" onclick="jQuery('#user_name').val('');jQuery('#Afm').submit()">
+			</button>
+			<button class="btn btn-warning" onclick="jQuery('#user_name').val('');jQuery('#Afm').submit()">
 					<i class="icon-refresh icon-white"></i>
 					<?php echo L('Reset');?>
-				</button> 
-				<div class="btn-group">
-					<span class="btn btn-danger"><i class="icon-wrench icon-white"></i> <?php echo L('Action');?></span>
-					<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/add','');?>'"><i class="icon-plus"></i> <?php echo L('Add');?></a></li>
-						<!-- 	    <li class="divider"></li> -->
-						<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
-					</ul>
-				</div>
-			</div>
+			</button> 
+		</div>
+		<div class="btn-group pull-right">
+				<span class="btn btn-danger"><i class="icon-wrench icon-white"></i> <?php echo L('Action');?></span>
+				<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/add','');?>'"><i class="icon-plus"></i> <?php echo L('Add');?></a></li>
+					<!-- 	    <li class="divider"></li> -->
+					<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
+				</ul>
 		</div>
 	</form>
 </div>

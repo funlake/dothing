@@ -14,10 +14,20 @@ class DOControllerUser extends DOController
 				//successfully verify
 				if($T->Decrypt($user->user_pass) == $request->post['user_pass'])
 				{
-					$session = DOFactory::GetSession();
-					$session->Set("_adm_user",$user->user_name);
-					$session->Set("_adm_user_id",$user->id);
-					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/index"),"",1);
+					if($user->state)
+					{
+						$session = DOFactory::GetSession();
+						$session->Set("_adm_user",$user->user_name);
+						$session->Set("_adm_user_id",$user->id);
+						DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/index"),"",1);
+					}
+					else
+					{
+						DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login")
+							,L("Your account is not a publish admin ! please contact administrator.")
+							,3
+						);
+					}
 					exit();
 				}
 				else
