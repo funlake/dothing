@@ -35,14 +35,17 @@
 	<?php $p = array((int)$data->state => 'checked');?>
 	<div class="control-group">
 		<label class="control-label" for="group_id">
-			<?php echo L('group');?>
+			<?php echo L('Group');?>
 		</label>
 		<div class="controls">
-			<select data-placeholder="Choose a Country..." class="chzn-select" style="width:350px;" tabindex="2">
-			            <option value=""></option> 
-			            <option value="United States">United States</option> 
-			            <option value="United Kingdom">United Kingdom</option>
-			</select>
+			<select data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2">				
+<?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
+<?php $item_0=(array)$item_0; ?>
+
+				<option value="<?php echo $item_0['id']?>"><?php echo $item_0['name']?></option>
+				
+<?php endforeach;?>
+</select>
 		</div>
 	</div>
 	<div class="control-group">
@@ -64,6 +67,6 @@
 <script type="text/javascript">
 	require(['form'],function(){
 		var $ = jQuery;
-		$('.chzn-select').chosen();
+		$('.chzn-select').chosen()
 	})
 </script>

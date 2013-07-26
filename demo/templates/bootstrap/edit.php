@@ -31,12 +31,13 @@
       <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-114-precomposed.png">
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-72-precomposed.png">
       <link rel="apple-touch-icon-precomposed" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-57-precomposed.png"> 
-        <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/main.css" rel="stylesheet">
+      <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/main.css" rel="stylesheet">
+      <link href="<?php echo DO_THEME_BASE;?>/js/chosen.css" rel="stylesheet">
       <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo DOUri::GetBase();?>/assets/js/require.js"></script>
         <script type="text/javascript">
-      var DOJsBase = '<?php echo DOUri::GetBase();?>/assets/js';
-      var DOJsMod = '<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>';
-    </script>
+          var DOJsBase = '<?php echo DOUri::GetBase();?>/assets/js';
+          var DOJsMod = '<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>';
+      </script>
     </head>
 
     <body>
