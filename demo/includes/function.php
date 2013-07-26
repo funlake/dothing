@@ -5,6 +5,8 @@ if(!function_exists('DOMakeTick'))
 	{
 		if($state)
 		{
+
+			
 			return '<a class="icon-ok" href="javascript:void(0)"></a>';
 		}
 		else
