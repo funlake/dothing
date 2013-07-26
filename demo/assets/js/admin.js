@@ -21,9 +21,11 @@ define(['jquery'],function($){
 
 		},
 		'user_index' : function(){
+			//mod.user();
 
-			mod.user();
-
+		},
+		'user_group' : function(){
+			//mod.user();
 		},
 		'user_login' : function(){
 			//alert($)

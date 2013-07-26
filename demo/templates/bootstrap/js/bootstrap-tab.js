@@ -18,7 +18,7 @@
  * ======================================================== */
 
 
-!function ($) {
+define('jquery',function($){
 
   "use strict"; // jshint ;_;
 
@@ -132,4 +132,4 @@
     })
   })
 
-}(window.jQuery);
+});

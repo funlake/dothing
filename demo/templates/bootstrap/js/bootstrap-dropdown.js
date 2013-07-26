@@ -18,7 +18,7 @@
  * ============================================================ */
 
 
-!function ($) {
+define('jquery',function($){
 
   "use strict"; // jshint ;_;
 
@@ -147,4 +147,4 @@
       .on('keydown.dropdown.data-api touchstart.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
   })
 
-}(window.jQuery);
+});

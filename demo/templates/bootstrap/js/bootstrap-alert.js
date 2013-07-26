@@ -18,7 +18,7 @@
  * ========================================================== */
 
 
-!function ($) {
+define('jquery',function($){
 
   "use strict"; // jshint ;_;
 
@@ -87,4 +87,4 @@
     $('body').on('click.alert.data-api', dismiss, Alert.prototype.close)
   })
 
-}(window.jQuery);
+});

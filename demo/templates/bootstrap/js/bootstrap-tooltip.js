@@ -19,7 +19,7 @@
  * ========================================================== */
 
 
-!function ($) {
+define('jquery',function ($) {
 
   "use strict"; // jshint ;_;
 
@@ -272,4 +272,4 @@
   , html: true
   }
 
-}(window.jQuery);
+});

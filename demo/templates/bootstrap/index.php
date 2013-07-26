@@ -77,6 +77,9 @@
     
     require([DOJsBase+'/admin.js'],function(m){
       if(typeof m[DOJsMod] != "undefined"){
+        if(typeof m[DOJsMod.split('_')[0]] != "undefined"){
+          m[DOJsMod.split('_')[0]].apply(this,[])
+        }
         m[DOJsMod].apply(this,[]);
       }
        //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
