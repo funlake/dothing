@@ -1,12 +1,12 @@
 require.config({
 	catchError : true
           ,paths : {
-	          'jq'		: ['jquery']
+	         // 'jq'		: ['jquery']
 	}
 	//depends config
     ,shim : {
          	         'app' : [
-         	         		'jq',
+         	         		'jquery',
          	         		'bootstrap-transition',
     			'bootstrap-alert',
     			'bootstrap-modal',

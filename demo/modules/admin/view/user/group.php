@@ -49,7 +49,7 @@ $searchs     = SG($searchIndex);
 			<td>
 				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup','id=');?>{#id}">
 				</a>
-				<a class="icon-trash" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal_{#id}"></a>
+				<a class="icon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
 				<div class="modal" id="DOModal_{#id}" style="display:none">
 				  <form id="form{#id}" action="<?php echo Url('autocrud/Delete/group');?>" method="post">
 					  <div class="modal-header">

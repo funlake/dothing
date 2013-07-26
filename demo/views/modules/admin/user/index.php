@@ -52,7 +52,7 @@ $searchs     = SG($searchIndex);
 		<td>
 			<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?><?php echo $item_0['id']?>">
 			</a>
-			<a class="icon-trash" href="javascript:void(0)" data-toggle="modal" data-target="#DOModal_<?php echo $item_0['id']?>"></a>
+			<a class="icon-trash" href="#" data-toggle="modal" data-target="#DOModal_<?php echo $item_0['id']?>"></a>
 			<div class="modal" id="DOModal_<?php echo $item_0['id']?>" style="display:none">
 				<form id="form<?php echo $item_0['id']?>" action="<?php echo Url('autocrud/Delete/user');?>" method="post">
 					<div class="modal-header">

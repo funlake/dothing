@@ -14,10 +14,8 @@ $flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
 		</div>
 	</div>
 	<script type='text/javascript'>
-		$(function(){
-			$('#msg-close').click(function(){
-				$('#msg-row').fadeOut();
-			})
+		require([DOJsBase+'/blocks/message.js'],function(m){
+			m.closeInit();
 		})
 	</script>
 	<?php $this->CleanMessage();?>
