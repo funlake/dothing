@@ -30,9 +30,13 @@
       <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-144-precomposed.png">
       <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-114-precomposed.png">
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-72-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-57-precomposed.png">
-      <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/jquery.js"></script>    
+      <link rel="apple-touch-icon-precomposed" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-57-precomposed.png"> 
         <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/main.css" rel="stylesheet">
+      <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo DOUri::GetBase();?>/assets/js/require.js"></script>
+        <script type="text/javascript">
+      var DOJsBase = '<?php echo DOUri::GetBase();?>/assets/js';
+      var DOJsMod = '<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>';
+    </script>
     </head>
 
     <body>
@@ -41,9 +45,6 @@
           <div class="navbar-inner">
             <div class="container-fluid">
               <div class="nav-collapse collapse">
-<!--               <p class="navbar-text pull-right">
-                Logged in as <a href="#" class="navbar-link">Username</a>
-              </p> -->
               <?php echo T("block","mainmenu");?>
             </div><!--/.nav-collapse -->
           </div>
@@ -64,17 +65,15 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-transition.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-alert.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-modal.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-dropdown.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-tab.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-tooltip.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-popover.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-button.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-collapse.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-carousel.js"></script>
-    <script src="<?php echo DO_THEME_BASE;?>/docs/assets/js/bootstrap-typeahead.js"></script>
+
+    <script type="text/javascript">
+    
+    require([DOJsBase+'/admin.js'],function(m){
+      if(typeof m[DOJsMod] != "undefined"){
+        m[DOJsMod].apply(this,[]);
+      }
+       //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
+    })
+    </script>
   </body>
   </html>

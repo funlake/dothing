@@ -7,6 +7,7 @@ require.config({
     ,shim : {
          	         'app' : [
          	         		'jquery',
+         	         		'text',
          	         		'bootstrap-transition',
     			'bootstrap-alert',
     			'bootstrap-modal',

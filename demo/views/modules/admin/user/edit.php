@@ -34,6 +34,18 @@
 	<?php endif;?>
 	<?php $p = array((int)$data->state => 'checked');?>
 	<div class="control-group">
+		<label class="control-label" for="group_id">
+			<?php echo L('group');?>
+		</label>
+		<div class="controls">
+			<select data-placeholder="Choose a Country..." class="chzn-select" style="width:350px;" tabindex="2">
+			            <option value=""></option> 
+			            <option value="United States">United States</option> 
+			            <option value="United Kingdom">United Kingdom</option>
+			</select>
+		</div>
+	</div>
+	<div class="control-group">
 		<label class="control-label" for="status">
 			<?php echo L('Status');?>
 		</label>
@@ -48,3 +60,10 @@
 	<input type="hidden" id="user_id" name="id" value="<?php echo $data->id;?>"/>
 	<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
 </form>
+
+<script type="text/javascript">
+	require(['form'],function(){
+		var $ = jQuery;
+		$('.chzn-select').chosen();
+	})
+</script>
