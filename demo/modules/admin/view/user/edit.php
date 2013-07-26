@@ -38,8 +38,9 @@
 			<?php echo L('Group');?>
 		</label>
 		<div class="controls">
-			<select:loop=Model|Group.Find data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2" name="group_id">
-				<option value="{#id}">{#name}</option>
+			<?php $selected = array($data->group_id=>"selected");?>
+			<select:loop=Model|Group.Find data-placeholder="<?php echo L('==Please select==');?>" class="chzn-select"  tabindex="2" name="group_id">
+				<option value="{#id}" {#id|@selected} >{#name}</option>
 			</select:loop>
 		</div>
 	</div>

@@ -38,11 +38,12 @@
 			<?php echo L('Group');?>
 		</label>
 		<div class="controls">
-			<select data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2" name="group_id">				
+			<?php $selected = array($data->group_id=>"selected");?>
+			<select data-placeholder="<?php echo L('==Please select==');?>				
 <?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
-
-				<option value="<?php echo $item_0['id']?>"><?php echo $item_0['name']?></option>
+" class="chzn-select"  tabindex="2" name="group_id">
+				<option value="<?php echo $item_0['id']?>" <?php echo $selected[$item_0['id']]?> ><?php echo $item_0['name']?></option>
 				
 <?php endforeach;?>
 </select>
