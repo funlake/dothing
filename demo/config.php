@@ -12,7 +12,7 @@ define('DO_DBDRIVE','mysql');
 define('DO_DATABASE','docms');
 define('DO_DBHOST','127.0.0.1');
 define('DO_DBUSER','root');
-define('DO_DBPASS','123456');
+define('DO_DBPASS','root');
 define('DO_TABLEPRE','');
 define('DO_DEBUG',true);
 define('DO_SQLPCONNECT',false);
