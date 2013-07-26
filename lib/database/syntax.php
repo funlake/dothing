@@ -198,7 +198,10 @@ class DOSyntax
 			break;
 			
 			case 2:
-				$this->orderby[ $args[0] ] = $args[1];
+				if(!empty($args[0]))
+				{
+					$this->orderby[ $args[0] ] = $args[1];
+				}
 			break;
 		}
 		return $this;

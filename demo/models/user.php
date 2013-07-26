@@ -31,6 +31,32 @@ class DOModelUser extends DOModel
 	   // 	),
 	   // '#__member' => array("user_id" => "id")
 	);
+	public function UserGroupList($id='')
+	{
+		$db = DOFactory::GetDatabase();
+		$db->Clean();
+		$where = array();
+		if(!empty($id))
+		{
+			$where['u.id'] = '='.$id;
+		}
+		if(!empty($_REQUEST['DO']['search']['user_name']))
+		{
+			$where['u.user_name'] = "like '%".$_REQUEST['DO']['search']['user_name']."%'";
+		}
+		$sql = $db->From('#__user','u','SQL_CALC_FOUND_ROWS u.*')
+                   	->LeftJoin('#__user_group'
+                          ,'ug'
+                          ,array('ug.user_id'=>'u.id')
+                     )
+                   	->LeftJoin('#__group','g',array('g.id'=>'ug.group_id'),'g.name as `group`,g.id as group_id')
+                   	->Orderby($_REQUEST['_doorder'],$_REQUEST['_dosort'])
+                   	->Limit($this->defaultLimit)
+                   	->Where($where)
+                   	->Read();
+
+		return $db->GetAll();
+	}
 	//public $defaultLimit = array(0,5);
 	public function __construct()
 	{

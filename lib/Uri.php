@@ -271,7 +271,14 @@ class DOUri
 		}
 		return self::RealUrl($link);
 	}
-	
+	/**
+	 * add params to query of current page
+	 */
+	public static function UrlAddParams($params = null)
+	{
+		$params = array_merge(self::GetParams(),$params);
+		return self::BuildQuery(self::GetModule(),self::GetController(),self::GetAction(),$params);
+	}
 	/**
 	 * build the real path url.
 	 *

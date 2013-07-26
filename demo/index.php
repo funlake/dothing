@@ -9,6 +9,7 @@ include '../bootstrap.php';
 /** System config **/
 include 'config.php';
 include 'includes/helper.php';
+include 'includes/function.php';
 try
 {
 	/** Capture request **/

@@ -33,18 +33,18 @@ $searchs     = SG($searchIndex);
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th width="5%"><?php echo L('Id');?></th>
-			<th width="20%"><?php echo L('Name');?></th>
-			<th width="20%"><?php echo L('Password');?></th>
-			<th width="10%"><?php echo L('Status');?></th>
+			<th width="5%"><?php echo DOMakeSortHead('u.id', L('Id'));?></th>
+			<th width="20%"><?php echo DOMakeSortHead('u.user_name',L('Name'));?></th>
+			<th width="20%"><?php echo L('Group');?></th>
+			<th width="10%"><?php echo DOMakeSortHead('u.state',L('Status'));?></th>
 			<th><?php echo L('Actions');?></th>
 		</tr>
 	</thead>
-	<tbody:loop=Model|User.Find class="adminTable">
+	<tbody:loop=Model|User.UserGroupList class="adminTable">
 	<tr>
 		<td>{#id}</td>
 		<td>{#user_name}</td>
-		<td>{#user_pass@substr(?,0,30)}...</td>
+		<td>{#group}</td>
 		<td>{#state@showStatus(?,'user',#id)}</td>
 		<td>
 			<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?>{#id}">
@@ -77,4 +77,5 @@ $searchs     = SG($searchIndex);
 	</tr>
 </tbody:loop>
 </table>
-<div:paginate/simple=Model|User.Count/>
+<?php $total = DOModel::LastTotal();?>
+<div:paginate={#total}/>

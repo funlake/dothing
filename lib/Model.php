@@ -65,6 +65,11 @@ class DOModel
 	{
 		return DOFactory::GetTable($this->GetName())->Count();
 	}
+	public static function LastTotal()
+	{
+		$db = DOFactory::GetDatabase();
+		return $db->GetFoundRows();
+	}
 	/**
 	 * Load model
 	 *

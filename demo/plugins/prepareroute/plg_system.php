@@ -35,7 +35,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		/** Search handler **/
 		$this->ListPrepare($mca);
 		/** Set some session variables **/
-		$this->SetState();
+		$this->SetPageState();
 	}
 	/** See what template/layout should current page use **/
 	public function TemplateLayoutUse()
@@ -77,7 +77,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		$pagekey 			= implode('/',$urlQuery);
 		$pagekey 			= rtrim($pagekey,"/");
 		$searchKey 			= "DOSearch/".$pagekey;
-		$limitKey   		= "DOLimit/".$mca['module'];
+		//$limitKey   		= "DOLimit/".$mca['module'];
 		if(isset($_REQUEST['DO']['search']))
 		{
 			if(!empty($_POST['DO']['search']))
@@ -91,8 +91,11 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			}
 		}
 	}
-
-	public function SetState()
+	public function SetSortState()
+	{
+		
+	}
+	public function SetPageState()
 	{
 		/** paginate initialize **/
 		if(defined('DO_PAGE_INDEX'))

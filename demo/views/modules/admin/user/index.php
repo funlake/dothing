@@ -33,21 +33,21 @@ $searchs     = SG($searchIndex);
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th width="5%"><?php echo L('Id');?></th>
-			<th width="20%"><?php echo L('Name');?></th>
-			<th width="20%"><?php echo L('Password');?></th>
-			<th width="10%"><?php echo L('Status');?></th>
+			<th width="5%"><?php echo DOMakeSortHead('u.id', L('Id'));?></th>
+			<th width="20%"><?php echo DOMakeSortHead('u.user_name',L('Name'));?></th>
+			<th width="20%"><?php echo L('Group');?></th>
+			<th width="10%"><?php echo DOMakeSortHead('u.state',L('Status'));?></th>
 			<th><?php echo L('Actions');?></th>
 		</tr>
 	</thead>
 	<tbody class="adminTable">				
-<?php foreach(DOFactory::GetModel(strtolower('User'))->Find() as $key_0=>$item_0) : ?>
+<?php foreach(DOFactory::GetModel(strtolower('User'))->UserGroupList() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 	<tr>
 		<td><?php echo $item_0['id']?></td>
 		<td><?php echo $item_0['user_name']?></td>
-		<td><?php echo substr($item_0['user_pass'],0,30)?>...</td>
+		<td><?php echo $item_0['group']?></td>
 		<td><?php echo showStatus($item_0['state'],'user',$item_0['id'])?></td>
 		<td>
 			<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?><?php echo $item_0['id']?>">
@@ -82,7 +82,8 @@ $searchs     = SG($searchIndex);
 <?php endforeach;?>
 </tbody>
 </table>
+<?php $total = DOModel::LastTotal();?>
 <div >		<?php
-		 $pager = DOFactory::GetWidget('paginate','simple', DOFactory::GetModel(strtolower('User'))->Count(),DO_LIST_ROWS);
+		 $pager = DOFactory::GetWidget('paginate','default', $total,DO_LIST_ROWS);
 		 echo $pager->Render();
 		 ?></div>

@@ -230,10 +230,18 @@ EOD;
 			// }
 			return $rs;
 		}
+		else if(strpos($source,"|") !== false)
+		{
+			list($class,$method) = sscanf($source,"%[^|]|%s");
+			$className		   = "DO".ucwords(strtolower($class));
+			if(class_exists($className))
+			{
+				return $className."::".$method."()";
+			}
+		}
 		else
-		{;
-			return '<'.'?php echo '.$source.';?'.'>';
-			//return $variables[trim($source,'{$}')];
+		{
+			return preg_replace('~\{#([^{}]+)\}~','$\1',$source);
 		}
 	}
 
