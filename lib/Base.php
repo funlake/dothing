@@ -62,12 +62,12 @@ class DOBase
 	{
 		return md5(DO_SITECIPHER.uniqid( rand(),true ) );
 	}
-	public function Set($p,$v)
+	public static function Set($p,$v)
 	{
 		self::$vars[$p] = $v;
 	}
 	
-	public function Get( $p ,$object='')
+	public static function Get( $p ,$object='')
 	{
 		if(!is_object( $object ))
 		{

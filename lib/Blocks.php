@@ -142,7 +142,7 @@ class DOBlocks
 		/** Do we have included configuration file before ? **/
 		if(!self::$config)
 		{//No for include action
-			$path = TEMPLATEROOT.DS.DOTemplate::GetTemplate().DS.'block.config.php';
+			$path = TEMPLATE_ROOT.DS.DOTemplate::GetTemplate().DS.'block.config.php';
 			/**Do we have blocks configuration file for specify template?**/
 			if(file_exists($path))
 			{/**Yes then use this one**/

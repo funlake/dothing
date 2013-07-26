@@ -6,7 +6,7 @@ class DOModelGroup extends DOModel
 		'name' => 'VARCHAR(100)',
 		'ordering'	 => 'VARCHAR(32)',
 		'description'=> true,
-		'status'		 => '1'
+		'state'		 => '1'
 	);
 	public $defaultOrderby = array(
 		'ordering' => 'DESC'

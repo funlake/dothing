@@ -231,11 +231,14 @@ class DOController
 					 .DS.'view'
 					 .DS.DORouter::$controller
 					 .DS.$view.DO_TEMPLATE_EXT;
+
 		if(!file_exists($layout))
 		{
 			throw new Exception("{$layout} is not exists!");
 		}
+
 		$view = new DOView();
+
 		$view->Display($layout,$variables);
 	}
 	/**

@@ -4,7 +4,8 @@
  *
  */
 //time zone
-date_default_timezone_set('Aisa/Shanghai');
+error_reporting(~E_NOTICE);
+date_default_timezone_set('Asia/Shanghai');
 //database
 //define('DO_DBDRIVE','sqlite');
 //define('DO_DATABASE','/var/www/demo/docms.sqlite');

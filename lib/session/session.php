@@ -19,7 +19,7 @@ class DOSession
 	{
 		if( !headers_sent() && !self::$called)
 		{	
-			self:$called = true;
+			self::$called = true;
 			//session name 
 			session_name( md5(SYSTEM_NAME) );
 			//session id

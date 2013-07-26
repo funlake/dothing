@@ -11,7 +11,7 @@ class DOModelStatus extends DOModel
 		parent::__construct();
 	}
 
-	public function Update($uparray)
+	public function Update(array $uparray = null)
 	{
 		$key = $uparray['_k'] ?: 'id';
 		$res = new stdClass();

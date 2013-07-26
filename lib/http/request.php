@@ -1,5 +1,5 @@
 <?php
-class DORequest extends DOBase
+class DORequest
 {
 	public static $serverVars = array('_get','_post','_request','_env','_server','_files','_cookie','_session');
 	public static $requestVar = array('_post','_get','_cookie');
@@ -60,7 +60,7 @@ class DORequest extends DOBase
 		return array_map(array($filter,'process'),$sv);
 	}
 	
-	function Get( $var='',$gvar='get',$type='string')
+	public static function Get( $var='',$gvar='get',$type='string')
 	{
 		//1 get value from gvar(get,post,cookie....)
 		$GV = $GLOBALS['_'.strtoupper($gvar)];

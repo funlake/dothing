@@ -10,14 +10,14 @@ class DOCache
 	#create cache
 	public function Create($hashkey){}
 	#update cache
-	public function Set($hashkey,$content,$expire){}
+	public function Set($hashkey,$content,$expire=0){}
 	#read cache
-	public function Get($hashkey){}
+	public function Get($hashkey=''){}
 	#delete cache
 	public function Delete($hashkey){}
 	public function GetTime($object){}
 	public function SetTime($time){}
-	public function IfExpire($object){}
+	public function IfExpire($object='system'){}
 	public function GetCache($type)
 	{
 		return $this->Get($name.".".$type);
@@ -116,6 +116,6 @@ class DOCache
 		}
 		return $cacheModule;
 	}
-	public function Save( $type ){}
+	public function Save( $type ='system'){}
 }
 ?>

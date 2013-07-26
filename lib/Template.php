@@ -3,7 +3,8 @@
 **Template render class
 **@author lake
 **/
-
+ini_set("pcre.backtrack_limit", "23001337");
+ini_set("pcre.recursion_limit", "23001337");
 class DOTemplate
 {
 	public static $params 	= array();
@@ -124,7 +125,7 @@ class DOTemplate
 		/**==<div:paginate=google|<?php echo M('user')->Count();?> />==**/
 		return preg_replace(
 			array(
-				'#<(\w+):loop=([^>]+)>((?:((?![^<]+:loop).)|(?R))*)</\1:loop>#ise'
+				'#<(\w+):loop=([^>]+)>(.*)</\1:loop>#ise'
 			  ,'#<(\w+):paginate(/\w+)?=([^>]+)/>#ise'
 			   ,'#<(module|block):(\w+)\s*/>#is'
 			   

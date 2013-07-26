@@ -1,5 +1,5 @@
-<?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <?php 
+!defined('DO_ACCESS') AND DIE("Go Away!"); 
 $searchIndex = "DOSearch/".DORouter::GetPageIndex();
 $searchs     = SG($searchIndex);
 ?>
