@@ -29,6 +29,15 @@ define(['jquery'],function($){
 		},
 		'user_login' : function(){
 			//alert($)
+		},
+		'run' : function(route){
+			var t = route.split('_'),c = t[0];
+			if(typeof mod[c] != "undefined"){
+				mod[c].apply(mod,[]);
+			}
+			if(typeof mod[route] != "undefined"){
+				mod[route].apply(mod,[]);
+			}
 		}
 	}
 	return mod;

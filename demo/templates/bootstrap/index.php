@@ -75,13 +75,8 @@
 
     <script type="text/javascript">
     
-    require([DOJsBase+'/admin.js'],function(m){
-      if(typeof m[DOJsMod] != "undefined"){
-        if(typeof m[DOJsMod.split('_')[0]] != "undefined"){
-          m[DOJsMod.split('_')[0]].apply(this,[])
-        }
-        m[DOJsMod].apply(this,[]);
-      }
+    require(['jquery',DOJsBase+'/admin.js'],function($,m){
+      m.run(DOJsMod);
        //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
     })
     </script>

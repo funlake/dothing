@@ -23,6 +23,7 @@ class DOModelUser extends DOModel
 	public $error_msg  = '';
 
 	public $connections = array(
+		'#__user_group' => array('user_id' => 'id','group_id'=>'group_id')
 /*		'has_one' => array(
 			'#__userinfo' => array('id')
 		)*/

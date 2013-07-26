@@ -5,22 +5,25 @@ require.config({
 	}
 	//depends config
     ,shim : {
+                          'bootstrap' : ['jquery'],
          	         'app' : [
          	         		'jquery',
          	         		'text',
-         	         		'bootstrap-transition',
-    			'bootstrap-alert',
-    			'bootstrap-modal',
-    			'bootstrap-dropdown',
-    			'bootstrap-scrollspy',
-    			'bootstrap-tab',
-    			'bootstrap-tooltip',
-    			'bootstrap-popover',
-    			'bootstrap-button',
-    			'bootstrap-collapse',
-    			'bootstrap-carousel',
-    			'bootstrap-typeahead'
-    		]
+                                            'bootstrap'
+       //   	         		'bootstrap-transition',
+    			// 'bootstrap-alert',
+    			// 'bootstrap-modal',
+    			// 'bootstrap-dropdown',
+    			// 'bootstrap-scrollspy',
+    			// 'bootstrap-tab',
+    			// 'bootstrap-tooltip',
+    			// 'bootstrap-popover',
+    			// 'bootstrap-button',
+    			// 'bootstrap-collapse',
+    			// 'bootstrap-carousel',
+    			// 'bootstrap-typeahead'
+    		],
+
          }
     ,waitSeconds: 15
 });
