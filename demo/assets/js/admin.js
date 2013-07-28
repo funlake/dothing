@@ -1,4 +1,22 @@
-define(['jquery'],function($){
+define(['jquery','plugin/validation_jquery'],function($){
+	var rules ={
+		'([^_]+)_edit[^_]*$' : function(_,$1){
+			if(typeof mod[$1] !== "undefined"){
+				mod[$1].apply(mod,[]);
+			}
+			//require(['plugin/validation_jquery'],function(){
+			$(function(){
+				$('#submitForm').click(function(){
+					if($('#Afm').validate()){
+						$('#Afm').submit();
+					}
+				});
+			})	
+				
+			//})
+		}
+
+	}
 	var mod = {
 		'__construct' : function(){
 			/** List page status change **/
@@ -14,7 +32,7 @@ define(['jquery'],function($){
 					  }
 					}
 				})
-			})
+			});
 		},
 		'user' : function(){
 			mod.__construct();
@@ -37,6 +55,11 @@ define(['jquery'],function($){
 			}
 			if(typeof mod[route] != "undefined"){
 				mod[route].apply(mod,[]);
+			}
+			else{
+				for(var i in rules){
+					route.replace(new RegExp(i),rules[i]);
+				}
 			}
 		}
 	}

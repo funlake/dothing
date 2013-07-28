@@ -4,7 +4,7 @@
 	<legend>
 		<a><?php echo L('User > '.L($action));?></a>
 		<div class="pull-right btn-group">
-		  <button class="btn btn-success" onclick="jQuery('#Afm').submit()">
+		  <button class="btn btn-success" id="submitForm">
 		  	<i class="icon-ok icon-white"></i>
 		  	<?php echo L('Apply');?>
 		  </button>
@@ -19,7 +19,7 @@
 			<?php echo L('Name');?>
 		</label>
 		<div class="controls">
-			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="<?php echo $data->user_name;?>" />
+			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="<?php echo $data->user_name;?>" required/>
 		</div>
 	</div>
 	<?php if($action != "Update") : ?>
@@ -28,7 +28,7 @@
 			<?php echo L('Password');?>
 		</label>
 		<div class="controls">
-			<input type="password" id="user_pass" name="user_pass" class="input-xlarge" value="<?php echo $data->user_pass;?>" />
+			<input type="password" id="user_pass" name="user_pass" class="input-xlarge" value="<?php echo $data->user_pass;?>" required/>
 		</div>
 	</div>
 	<?php endif;?>
