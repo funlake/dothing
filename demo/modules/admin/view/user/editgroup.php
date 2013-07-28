@@ -31,6 +31,17 @@
 				<input type="text" id="ordering" name="ordering" class="input-xlarge" value="<?php echo $data->ordering;?>" />
 			</div>
 		</div>
+		<div class="control-group">
+			<label class="control-label" for="group_id">
+				<?php echo L('Parent');?>
+			</label>
+			<div class="controls">
+				<?php $selected = array($data->pid=>"selected");?>
+				<select:loop=Model|Group.Find data-placeholder="<?php echo L('==Please select==');?>" class="chzn-select"  tabindex="2" name="pid">
+					<option value="{#id}" {#id|@selected} >{#name}</option>
+				</select:loop>
+			</div>
+		</div>
 		<?php $p = array((int)$data->status => 'checked');?>
 		<div class="control-group">
 			<label class="control-label" for="status">

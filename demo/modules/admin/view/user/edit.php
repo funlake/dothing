@@ -1,9 +1,10 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
+<div class="well">
 <form action="<?php echo Url('autocrud/'.$action.'/user');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
 <fieldset>
 	<legend>
 		<a><?php echo L('User > '.L($action));?></a>
-		<div class="pull-right btn-group">
+		<div class="pull-right">
 		  <button class="btn btn-success" id="submitForm">
 		  	<i class="icon-ok icon-white"></i>
 		  	<?php echo L('Apply');?>
@@ -66,3 +67,4 @@
 		$('.chzn-select').chosen()
 	})
 </script>
+</div>

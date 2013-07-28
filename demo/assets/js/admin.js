@@ -1,6 +1,6 @@
 define(['jquery','plugin/validation_jquery'],function($){
 	var rules ={
-		'([^_]+)_edit[^_]*$' : function(_,$1){
+		'([^_]+)_(edit|add)[^_]*$' : function(_,$1){
 			if(typeof mod[$1] !== "undefined"){
 				mod[$1].apply(mod,[]);
 			}
@@ -11,6 +11,9 @@ define(['jquery','plugin/validation_jquery'],function($){
 						$('#Afm').submit();
 					}
 				});
+				require(['form'],function(){
+					$('.chzn-select').chosen()
+				})
 			})	
 				
 			//})

@@ -3,6 +3,7 @@ class DOModelGroup extends DOModel
 {
 	public $fields = array(
 		'@id'  => true,
+		'pid'   => true,
 		'name' => 'VARCHAR(100)',
 		'ordering'	 => 'VARCHAR(32)',
 		'description'=> true,
