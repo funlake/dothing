@@ -52,7 +52,7 @@ EOD;
 	public function Delete(array $params = null)
 	{
 		if($this->Select(array("pid"=>$params['id']))){
-			$this->error_msg = L("Can not delete a group having some sub groups");
+			$this->error_msg = L("Can not delete a group which having some sub groups");
 			return false;
 		}
 		else return parent::Delete($params);
