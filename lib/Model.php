@@ -105,7 +105,12 @@ class DOModel
 		{
 			$where   = array_merge((array)$where,$searchs);
 		}
-
+		$rorder = DORequest::Get('_doorder');
+		if(!empty($rorder)){
+			$this->defaultOrderby = array(
+				DORequest::Get('_doorder') => DORequest::Get('_dosort')
+			);
+		}
 		/** Get limit page **/
 		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);
 	}
