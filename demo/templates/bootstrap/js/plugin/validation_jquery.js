@@ -1,5 +1,5 @@
 /*!
- * jQuery Validation Plugin 1.11.1
+ * $ Validation Plugin 1.11.1
  *
  * http://bassistance.de/jquery-plugins/jquery-plugin-validation/
  * http://docs.jquery.com/Plugins/Validation
@@ -8,12 +8,10 @@
  * Released under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  */
-define('jquery',function($){
-(function($) {
-
-$.extend($.fn, {
-	// http://docs.jquery.com/Plugins/Validation/validate
-	validate: function( options ) {
+ define('jquery',function($){
+ 	$.extend($.fn, {
+		// http://docs.jquery.com/Plugins/Validation/validate
+		validate: function( options ) {
 
 		// if nothing is selected, return nothing; can't chain anyway
 		if ( !this.length ) {
@@ -91,10 +89,10 @@ $.extend($.fn, {
 					return false;
 				}
 			});
-		}
+}
 
-		return validator;
-	},
+return validator;
+},
 	// http://docs.jquery.com/Plugins/Validation/valid
 	valid: function() {
 		if ( $(this[0]).is("form")) {
@@ -111,7 +109,7 @@ $.extend($.fn, {
 	// attributes: space seperated list of attributes to retrieve and remove
 	removeAttrs: function( attributes ) {
 		var result = {},
-			$element = this;
+		$element = this;
 		$.each(attributes.split(/\s/), function( index, value ) {
 			result[value] = $element.attr(value);
 			$element.removeAttr(value);
@@ -127,7 +125,7 @@ $.extend($.fn, {
 			var staticRules = settings.rules;
 			var existingRules = $.validator.staticRules(element);
 			switch(command) {
-			case "add":
+				case "add":
 				$.extend(existingRules, $.validator.normalizeRule(argument));
 				// remove messages from rules, but allow them to be set separetely
 				delete existingRules.messages;
@@ -136,7 +134,7 @@ $.extend($.fn, {
 					settings.messages[element.name] = $.extend( settings.messages[element.name], argument.messages );
 				}
 				break;
-			case "remove":
+				case "remove":
 				if ( !argument ) {
 					delete staticRules[element.name];
 					return existingRules;
@@ -151,13 +149,13 @@ $.extend($.fn, {
 		}
 
 		var data = $.validator.normalizeRules(
-		$.extend(
-			{},
-			$.validator.classRules(element),
-			$.validator.attributeRules(element),
-			$.validator.dataRules(element),
-			$.validator.staticRules(element)
-		), element);
+			$.extend(
+				{},
+				$.validator.classRules(element),
+				$.validator.attributeRules(element),
+				$.validator.dataRules(element),
+				$.validator.staticRules(element)
+				), element);
 
 		// make sure required is at front
 		if ( data.required ) {
@@ -328,19 +326,19 @@ $.extend($.validator, {
 
 			function delegate(event) {
 				var validator = $.data(this[0].form, "validator"),
-					eventType = "on" + event.type.replace(/^validate/, "");
+				eventType = "on" + event.type.replace(/^validate/, "");
 				if ( validator.settings[eventType] ) {
 					validator.settings[eventType].call(validator, this[0], event);
 				}
 			}
 			$(this.currentForm)
-				.validateDelegate(":text, [type='password'], [type='file'], select, textarea, " +
-					"[type='number'], [type='search'] ,[type='tel'], [type='url'], " +
-					"[type='email'], [type='datetime'], [type='date'], [type='month'], " +
-					"[type='week'], [type='time'], [type='datetime-local'], " +
-					"[type='range'], [type='color'] ",
-					"focusin focusout keyup", delegate)
-				.validateDelegate("[type='radio'], [type='checkbox'], select, option", "click", delegate);
+			.validateDelegate(":text, [type='password'], [type='file'], select, textarea, " +
+				"[type='number'], [type='search'] ,[type='tel'], [type='url'], " +
+				"[type='email'], [type='datetime'], [type='date'], [type='month'], " +
+				"[type='week'], [type='time'], [type='datetime-local'], " +
+				"[type='range'], [type='color'] ",
+				"focusin focusout keyup", delegate)
+			.validateDelegate("[type='radio'], [type='checkbox'], select, option", "click", delegate);
 
 			if ( this.settings.invalidHandler ) {
 				$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
@@ -470,7 +468,7 @@ $.extend($.validator, {
 
 		elements: function() {
 			var validator = this,
-				rulesCache = {};
+			rulesCache = {};
 
 			// select all valid inputs inside the form (no submit or reset buttons)
 			return $(this.currentForm)
@@ -522,7 +520,7 @@ $.extend($.validator, {
 
 		elementValue: function( element ) {
 			var type = $(element).attr("type"),
-				val = $(element).val();
+			val = $(element).val();
 
 			if ( type === "radio" || type === "checkbox" ) {
 				return $("input[name='" + $(element).attr("name") + "']:checked").val();
@@ -611,12 +609,12 @@ $.extend($.validator, {
 				!this.settings.ignoreTitle && element.title || undefined,
 				$.validator.messages[method],
 				"<strong>Warning: No message defined for " + element.name + "</strong>"
-			);
+				);
 		},
 
 		formatAndAdd: function( element, rule ) {
 			var message = this.defaultMessage( element, rule.method ),
-				theregex = /\$?\{(\d+)\}/g;
+			theregex = /\$?\{(\d+)\}/g;
 			if ( typeof message === "function" ) {
 				message = message.call(this, rule.parameters, element);
 			} else if (theregex.test(message)) {
@@ -685,9 +683,9 @@ $.extend($.validator, {
 			} else {
 				// create label
 				label = $("<" + this.settings.errorElement + ">")
-					.attr("for", this.idOrName(element))
-					.addClass(this.settings.errorClass)
-					.html(message || "");
+				.attr("for", this.idOrName(element))
+				.addClass(this.settings.errorClass)
+				.html(message || "");
 				if ( this.settings.wrapper ) {
 					// make sure the element is visible, even in IE
 					// actually showing the wrapped element is handled elsewhere
@@ -741,9 +739,9 @@ $.extend($.validator, {
 
 		getLength: function( value, element ) {
 			switch( element.nodeName.toLowerCase() ) {
-			case "select":
+				case "select":
 				return $("option:selected", element).length;
-			case "input":
+				case "input":
 				if ( this.checkable( element) ) {
 					return this.findByName(element.name).filter(":checked").length;
 				}
@@ -884,7 +882,7 @@ $.extend($.validator, {
 
 	dataRules: function( element ) {
 		var method, value,
-			rules = {}, $element = $(element);
+		rules = {}, $element = $(element);
 		for (method in $.validator.methods) {
 			value = $element.data("rule-" + method.toLowerCase());
 			if ( value !== undefined ) {
@@ -914,10 +912,10 @@ $.extend($.validator, {
 			if ( val.param || val.depends ) {
 				var keepRule = true;
 				switch (typeof val.depends) {
-				case "string":
+					case "string":
 					keepRule = !!$(val.depends, element.form).length;
 					break;
-				case "function":
+					case "function":
 					keepRule = val.depends.call(element, element);
 					break;
 				}
@@ -1052,8 +1050,8 @@ $.extend($.validator, {
 				return false;
 			}
 			var nCheck = 0,
-				nDigit = 0,
-				bEven = false;
+			nDigit = 0,
+			bEven = false;
 
 			value = value.replace(/\D/g, "");
 
@@ -1179,7 +1177,7 @@ $.extend($.validator, {
 // deprecated, use $.validator.format instead
 $.format = $.validator.format;
 
-}(jQuery));
+}($));
 
 // ajax mode: abort
 // usage: $.ajax({ mode: "abort"[, port: "uniqueport"]});
@@ -1202,7 +1200,7 @@ $.format = $.validator.format;
 		var ajax = $.ajax;
 		$.ajax = function( settings ) {
 			var mode = ( "mode" in settings ? settings : $.ajaxSettings ).mode,
-				port = ( "port" in settings ? settings : $.ajaxSettings ).port;
+			port = ( "port" in settings ? settings : $.ajaxSettings ).port;
 			if ( mode === "abort" ) {
 				if ( pendingRequests[port] ) {
 					pendingRequests[port].abort();
@@ -1213,20 +1211,18 @@ $.format = $.validator.format;
 			return ajax.apply(this, arguments);
 		};
 	}
-}(jQuery));
+}($));
 
 // provides delegate(type: String, delegate: Selector, handler: Callback) plugin for easier event delegation
 // handler is only called when $(event.target).is(delegate), in the scope of the jquery-object for event.target
 (function($) {
-	$.extend($.fn, {
-		validateDelegate: function( delegate, type, handler ) {
-			return this.bind(type, function( event ) {
-				var target = $(event.target);
-				if ( target.is(delegate) ) {
-					return handler.apply(target, arguments);
-				}
-			});
-		}
-	});
-}(jQuery));
+	$.extend($.fn,{validateDelegate: function( delegate, type, handler ) {
+		return this.bind(type, function( event ) {
+			var target = $(event.target);
+			if ( target.is(delegate) ) {
+				return handler.apply(target, arguments);
+			}
+		});
+	}
+});
 });

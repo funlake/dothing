@@ -39,19 +39,16 @@
 			<?php echo L('Group');?>
 		</label>
 		<div class="controls">
-<<<<<<< HEAD
-			<select data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2" name="group_id">				
-=======
 			<?php $selected = array($data->group_id=>"selected");?>
-			<select data-placeholder="<?php echo L('==Please select==');?>				
->>>>>>> 7708a9b54af06fcf19427fa24984a02c3b804690
-<?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
-<?php $item_0=(array)$item_0; ?>
-" class="chzn-select"  tabindex="2" name="group_id">
-				<option value="<?php echo $item_0['id']?>" <?php echo $selected[$item_0['id']]?> ><?php echo $item_0['name']?></option>
-				
-<?php endforeach;?>
-</select>
+			<select data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select"  tabindex="2" name="group_id" default="<?php echo $data->group_id;?>">
+				<option value="0"></option>
+								
+<?php $tree_0=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_0->Render('
+					<option value=\"{#id}\">[prefix]{#name}</option>
+				'); ?>
+
+			</select>
 		</div>
 	</div>
 	<div class="control-group">
@@ -70,10 +67,4 @@
 	<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
 </form>
 
-<script type="text/javascript">
-	require(['form'],function(){
-		var $ = jQuery;
-		$('.chzn-select').chosen()
-	})
-</script>
 </div>

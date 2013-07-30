@@ -36,15 +36,19 @@
 				<?php echo L('Parent');?>
 			</label>
 			<div class="controls">
-				<?php $selected = array($data->pid=>"selected");?>
-				<select data-placeholder="<?php echo L('==Please select==');?>				
-<?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
-<?php $item_0=(array)$item_0; ?>
-" class="chzn-select"  tabindex="2" name="pid">
-					<option value="<?php echo $item_0['id']?>" <?php echo $selected[$item_0['id']]?> ><?php echo $item_0['name']?></option>
-					
-<?php endforeach;?>
-</select>
+				<?php 
+					$selected = array($data->pid=>"selected");
+					$ignored   = array($data->id => "disabled");
+				?>
+				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
+					<option value="0"></option>
+									
+<?php $tree_0=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_0->Render("
+						<option value=\"{#id}\">[prefix]{#name}</option>
+					"); ?>
+
+				</select>
 			</div>
 		</div>
 		<?php $p = array((int)$data->status => 'checked');?>

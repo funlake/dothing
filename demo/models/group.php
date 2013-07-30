@@ -39,6 +39,12 @@ class DOModelGroup extends DOModel
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
+	/** make the recored to be a tree structure array**/
+	public function TreeData()
+	{
+		$data = $this->Find();
+		
+	}
 	/** Keep unique user name **/
 	public function Add_validate_name($value)
 	{

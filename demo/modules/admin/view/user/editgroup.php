@@ -36,10 +36,16 @@
 				<?php echo L('Parent');?>
 			</label>
 			<div class="controls">
-				<?php $selected = array($data->pid=>"selected");?>
-				<select:loop=Model|Group.Find data-placeholder="<?php echo L('==Please select==');?>" class="chzn-select"  tabindex="2" name="pid">
-					<option value="{#id}" {#id|@selected} >{#name}</option>
-				</select:loop>
+				<?php 
+					$selected = array($data->pid=>"selected");
+					$ignored   = array($data->id => "disabled");
+				?>
+				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
+					<option value="0"></option>
+					<notag:tree=Model|Group.Find>
+						<option value="{#id}">[prefix]{#name}</option>
+					</notag:tree>
+				</select>
 			</div>
 		</div>
 		<?php $p = array((int)$data->status => 'checked');?>

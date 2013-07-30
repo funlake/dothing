@@ -1,6 +1,6 @@
 <?php
 DOLoader::Import('widgets.paginate.class');
-class DOPaginateDefault extends DOPaginate
+class DOWidgetPaginateDefault extends DOWidgetPaginate
 {
 	public $halfMax		= 10;
 	public function GetHalfMax()

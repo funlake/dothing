@@ -1,7 +1,7 @@
 <?php
-class DOPaginate
+class DOWidgetPaginate
 {
-	public function DOPaginate( $totalRow , $rowPerPage = 20)
+	public function DOWidgetPaginate( $totalRow , $rowPerPage = 20)
 	{
 		$this->totalRow 	= (int)$totalRow;
 		$this->rowPerPage	= (int)$rowPerPage;

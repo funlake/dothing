@@ -40,9 +40,12 @@
 		</label>
 		<div class="controls">
 			<?php $selected = array($data->group_id=>"selected");?>
-			<select:loop=Model|Group.Find data-placeholder="<?php echo L('==Please select==');?>" class="chzn-select"  tabindex="2" name="group_id">
-				<option value="{#id}" {#id|@selected} >{#name}</option>
-			</select:loop>
+			<select data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select"  tabindex="2" name="group_id" default="<?php echo $data->group_id;?>">
+				<option value="0"></option>
+				<notag:tree=Model|Group.Find>
+					<option value="{#id}">[prefix]{#name}</option>
+				</notag:tree>
+			</select>
 		</div>
 	</div>
 	<div class="control-group">
@@ -61,10 +64,4 @@
 	<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
 </form>
 
-<script type="text/javascript">
-	require(['form'],function(){
-		var $ = jQuery;
-		$('.chzn-select').chosen()
-	})
-</script>
 </div>

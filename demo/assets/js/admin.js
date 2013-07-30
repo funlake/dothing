@@ -12,27 +12,35 @@ define(['jquery','plugin/validation_jquery'],function($){
 					}
 				});
 				require(['form'],function(){
-					$('.chzn-select').chosen()
+					var chosenSelect = $('.chzn-select');
+
+					chosenSelect.each(function(_,v){
+						var self = $(this);
+						var sid     = self.attr('default');
+						var opt     = self.find("option[value="+sid+"]");
+						opt.attr("selected","selected");
+						self.chosen({
+							allow_single_deselect: true
+						});
+					})
 				})
-			})	
-				
-			//})
+			})
 		}
 
 	}
 	var mod = {
 		'__construct' : function(){
 			/** List page status change **/
-			$('.status_trigger').click(function(){
+			$('.status_trigger').click(function(e){
 				var self = $(this);
 				$.getJSON(self.attr("src"),function(data){
 					if(data.flag){
-					  //success change status
-					  if(self.hasClass('publish')){
-					  	self.removeClass("publish").addClass("unpublish")
-					  }else{
-					  	self.removeClass("unpublish").addClass("publish")
-					  }
+						  //success change status
+						  if(self.hasClass('publish')){
+						  	self.removeClass("publish").addClass("unpublish")
+						  }else{
+						  	self.removeClass("unpublish").addClass("publish")
+						  }
 					}
 				})
 			});
@@ -40,17 +48,6 @@ define(['jquery','plugin/validation_jquery'],function($){
 		'user' : function(){
 			mod.__construct();
 
-		},
-		'user_index' : function(){
-<<<<<<< HEAD
-			mod.user();
-=======
-			//mod.user();
->>>>>>> 7708a9b54af06fcf19427fa24984a02c3b804690
-
-		},
-		'user_group' : function(){
-			//mod.user();
 		},
 		'user_login' : function(){
 			//alert($)
@@ -63,10 +60,8 @@ define(['jquery','plugin/validation_jquery'],function($){
 			if(typeof mod[route] != "undefined"){
 				mod[route].apply(mod,[]);
 			}
-			else{
-				for(var i in rules){
-					route.replace(new RegExp(i),rules[i]);
-				}
+			for(var i in rules){
+				route.replace(new RegExp(i),rules[i]);
 			}
 		}
 	}

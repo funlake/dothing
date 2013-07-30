@@ -7,11 +7,12 @@ class DOControllerIndex extends DOController
 	}
 	public function indexAction()
 	{
-		$user = DOFactory::getModel('user');
-		print_r($user->ARStart(1)->member->role->AREnd());
-		//print_r($user->Read(1));
-		//print_r($user->member);
-		//$
+		$array = DOFactory::GetModel('#__group')->Find();
+		$tree   = DOFactory::GetWidget('tree','default',array($array));
+		$tpl     = <<<EOD
+		<h1>[prefix]{#name}</h1>
+EOD;
+		echo $tree->Render($tpl);
 	}
 
 	public function settingAction()

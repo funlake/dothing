@@ -53,7 +53,7 @@ class DOFactory
 			{
 				include FRAMEWORK_ROOT.DS.'widgets'.DS.$widget.DS.$type.".php";
 			}
-			$wigClass = "DO".ucwords(strtolower($widget)).ucwords(strtolower($type));
+			$wigClass = "DOWidget".ucwords(strtolower($widget)).ucwords(strtolower($type));
 			self::$_load["widget_".$widget] = call_user_func_array(
 				array(new ReflectionClass( $wigClass ),'newInstance'),  array_slice($params, 2)
 			);

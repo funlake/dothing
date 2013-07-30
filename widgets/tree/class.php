@@ -1,5 +1,5 @@
 <?php
-class DOTree extends DOBase
+class DOWidgetTree
 {
 	public $idName 		 = 'id';
 	public $pidName		 = 'pid';
@@ -16,9 +16,9 @@ class DOTree extends DOBase
 	public $format		 = '';
 	public function __construct( Array $initArray )
 	{
-		call_user_func_array(array($this,'init'),$initArray);
+		call_user_func_array(array($this,'Init'),$initArray);
 	}
-	public function Init( $data,$idn,$pidn )
+	public function Init( $data,$idn='',$pidn='' )
 	{
 		if(!$data)      {print('Could not generate tree without data!');return;}
 		if($idn) 	$this->idName = $idn;
@@ -36,6 +36,7 @@ class DOTree extends DOBase
 		$tree = array();
 		foreach((array)$data as $k=>$v)
 		{
+			$v = (array)$v;
 			$tree[$v[$this->pidName]][] = $v;
 		}
 		return  $tree;
@@ -46,7 +47,7 @@ class DOTree extends DOBase
 	*$deep // what is the level of current node
 	*$lcf  // binary flags of node's prefix.something like --> 0100 , it means we would replace 1 to '|' , 0 to '&nbsp';  
 	*/
-	public function Render($root = 0,$deep = 0 , $lcf  = '0')
+	public function Render($tpl,$root = 0,$deep = 0 , $lcf  = '0')
 	{
 		if( $this->treeArray[$root] )
 		{
@@ -66,12 +67,11 @@ class DOTree extends DOBase
 								      				  : ( $isLastChild ? ($deep == 0 ? $this->rootChar:$this->nendChar) 
 										        					   : $this->nodeChar) );
 				
-				
-				$html[] = $this->RenderNode($this->format,$v,$prefix);    
+				$html[] = $this->RenderNode($tpl,$v,$prefix);    
 				if( $this->treeArray[$t] ) 
 				{
 					$dp	   = $deep + 1;
-					$html[]    = $this->catopen.$this->Render( $t,$dp , $lcf.(!$isLastChild ? '1' : '0') ).$this->catend;
+					$html[]    = $this->catopen.$this->Render( $tpl,$t,$dp , $lcf.(!$isLastChild ? '1' : '0') ).$this->catend;
 				}
 			}
 
@@ -83,7 +83,8 @@ class DOTree extends DOBase
 	*/	
 	function RenderNode( $format , $v , $prefix)
 	{
-		return preg_replace(array('#\[prefix\]#','#\{(\w+)\}#e'),array($prefix,'$v["\1"]'),$format);
+		$nomal =  preg_replace(array('#\[prefix\]#','#\{\#(\w+)\}#e'),array($prefix,'$v["\1"]'),$format);
+		return $nomal;
 	}
 }
 ?>
