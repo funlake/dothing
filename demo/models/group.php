@@ -49,6 +49,14 @@ class DOModelGroup extends DOModel
 EOD;
 		return $tree->FormatItem('name',$tpl);
 	}
+	public function Delete(array $params = null)
+	{
+		if($this->Select(array("pid"=>$params['id']))){
+			$this->error_msg = L("Can not delete a group having some sub groups");
+			return false;
+		}
+		else return parent::Delete($params);
+	}
 	/** Keep unique user name **/
 	public function Add_validate_name($value)
 	{

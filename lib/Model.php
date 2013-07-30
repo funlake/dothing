@@ -26,7 +26,7 @@ class DOModel
 		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
 		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
 		$this->deleteMsgSuccess = L('You have successfully deleted the item');
-		$this->deleteFail       	= L('Fail to delete');
+		$this->deleteMsgFail       	= L('Fail to delete');
 	}
 
 
