@@ -18,7 +18,7 @@ try
 	$request->Clean();
 	
 	/** Parse Uri then dispatch **/
-	DORouter::Dispatch(	DOUri::Parse() );
+	DORouter::Dispatch( DOUri::Parse() );
 	/** Generate response **/
 	$response	= DOFactory::GetTool('http.response');
 	/** Http response **/

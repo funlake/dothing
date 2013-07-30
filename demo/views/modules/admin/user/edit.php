@@ -38,7 +38,7 @@
 			<?php echo L('Group');?>
 		</label>
 		<div class="controls">
-			<select data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2">				
+			<select data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2" name="group_id">				
 <?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 

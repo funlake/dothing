@@ -21,7 +21,6 @@ define(['jquery'],function($){
 
 		},
 		'user_index' : function(){
-
 			mod.user();
 
 		},
