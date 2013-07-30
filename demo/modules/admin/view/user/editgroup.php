@@ -43,7 +43,7 @@
 				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
 					<option value="0"></option>
 					<notag:tree=Model|Group.Find>
-						<option value="{#id}">[prefix]{#name}</option>
+						<option value="{#id}" parent="{#pid}">[prefix]{#name}</option>
 					</notag:tree>
 				</select>
 			</div>

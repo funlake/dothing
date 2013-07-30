@@ -45,7 +45,7 @@
 									
 <?php $tree_0=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
 <?php echo $tree_0->Render("
-						<option value=\"{#id}\">[prefix]{#name}</option>
+						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
 				</select>
