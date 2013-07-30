@@ -23,6 +23,7 @@ class DOModelUser extends DOModel
 	public $error_msg  = '';
 
 	public $connections = array(
+		'#__user_group' => array('user_id' => 'id','group_id'=>'group_id')
 /*		'has_one' => array(
 			'#__userinfo' => array('id')
 		)*/
@@ -56,6 +57,35 @@ class DOModelUser extends DOModel
                    	->Read();
 
 		return $db->GetAll();
+	}
+	public function Add(array $insArray = null)
+	{
+		$R = parent::Add($insArray);
+		if($R->success)
+		{
+			return DOFactory::GetTable('#__user_group')->Insert(
+				array(
+					'user_id' => $R->insert_id,
+					'group_id' => $insArray['group_id']
+				)
+			);
+		}
+		return $R;
+	}
+	public function Update(array $upArray = null)
+	{
+		$R = parent::Update($insArray);
+		if($R->success)
+		{
+			return DOFactory::GetTable('#__user_group')->Update(
+				array(
+					'group_id' => $upArray['group_id']
+				),
+				array('user_id'=>'=?'),
+				$upArray['id']
+			);
+		}
+		return $R;
 	}
 	//public $defaultLimit = array(0,5);
 	public function __construct()

@@ -400,28 +400,32 @@ class DOModel
 			return ;
 		}
 		$posts = $post;
-		foreach((array)$this->connections['has_one'] as $tb => $fields)
+		foreach((array)$this->connections as $tb=>$fields)
 		{
-			foreach($fields as $field)
-			{
-				$posts[$field]  = $this->last['fields'][$field];
-			}
-			call_user_func(array(
-				DOFactory::GetModel($tb),$this->action
-			),$posts);
+			
 		}
+		// foreach((array)$this->connections['has_one'] as $tb => $fields)
+		// {
+		// 	foreach($fields as $field)
+		// 	{
+		// 		$posts[$field]  = $this->last['fields'][$field];
+		// 	}
+		// 	call_user_func(array(
+		// 		DOFactory::GetModel($tb),$this->action
+		// 	),$posts);
+		// }
 
-		$posts = $post;
-		foreach((array)$this->connections['has_many'] as $tb => $fields)
-		{
-			foreach($fields as $field)
-			{
-				$posts[$field]  = $this->last['fields'][$field];
-			}
-			call_user_func(array(
-				DOFactory::GetModel($tb),$this->action
-			),$posts);
-		}
+		// $posts = $post;
+		// foreach((array)$this->connections['has_many'] as $tb => $fields)
+		// {
+		// 	foreach($fields as $field)
+		// 	{
+		// 		$posts[$field]  = $this->last['fields'][$field];
+		// 	}
+		// 	call_user_func(array(
+		// 		DOFactory::GetModel($tb),$this->action
+		// 	),$posts);
+		// }
 	}
 
 	public function ARStart($id)

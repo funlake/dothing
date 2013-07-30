@@ -70,9 +70,7 @@
     <script type="text/javascript">
     
     require([DOJsBase+'/admin.js'],function(m){
-      if(typeof m[DOJsMod] != "undefined"){
-        m[DOJsMod].apply(this,[]);
-      }
+      m.run(DOJsMod);
        //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
     })
     </script>

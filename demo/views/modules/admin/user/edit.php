@@ -1,10 +1,11 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
+<div class="well">
 <form action="<?php echo Url('autocrud/'.$action.'/user');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
 <fieldset>
 	<legend>
 		<a><?php echo L('User > '.L($action));?></a>
-		<div class="pull-right btn-group">
-		  <button class="btn btn-success" onclick="jQuery('#Afm').submit()">
+		<div class="pull-right">
+		  <button class="btn btn-success" id="submitForm">
 		  	<i class="icon-ok icon-white"></i>
 		  	<?php echo L('Apply');?>
 		  </button>
@@ -19,7 +20,7 @@
 			<?php echo L('Name');?>
 		</label>
 		<div class="controls">
-			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="<?php echo $data->user_name;?>" />
+			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="<?php echo $data->user_name;?>" required/>
 		</div>
 	</div>
 	<?php if($action != "Update") : ?>
@@ -28,7 +29,7 @@
 			<?php echo L('Password');?>
 		</label>
 		<div class="controls">
-			<input type="password" id="user_pass" name="user_pass" class="input-xlarge" value="<?php echo $data->user_pass;?>" />
+			<input type="password" id="user_pass" name="user_pass" class="input-xlarge" value="<?php echo $data->user_pass;?>" required/>
 		</div>
 	</div>
 	<?php endif;?>
@@ -38,11 +39,16 @@
 			<?php echo L('Group');?>
 		</label>
 		<div class="controls">
+<<<<<<< HEAD
 			<select data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2" name="group_id">				
+=======
+			<?php $selected = array($data->group_id=>"selected");?>
+			<select data-placeholder="<?php echo L('==Please select==');?>				
+>>>>>>> 7708a9b54af06fcf19427fa24984a02c3b804690
 <?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
-
-				<option value="<?php echo $item_0['id']?>"><?php echo $item_0['name']?></option>
+" class="chzn-select"  tabindex="2" name="group_id">
+				<option value="<?php echo $item_0['id']?>" <?php echo $selected[$item_0['id']]?> ><?php echo $item_0['name']?></option>
 				
 <?php endforeach;?>
 </select>
@@ -70,3 +76,4 @@
 		$('.chzn-select').chosen()
 	})
 </script>
+</div>

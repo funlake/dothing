@@ -31,6 +31,22 @@
 				<input type="text" id="ordering" name="ordering" class="input-xlarge" value="<?php echo $data->ordering;?>" />
 			</div>
 		</div>
+		<div class="control-group">
+			<label class="control-label" for="group_id">
+				<?php echo L('Parent');?>
+			</label>
+			<div class="controls">
+				<?php $selected = array($data->pid=>"selected");?>
+				<select data-placeholder="<?php echo L('==Please select==');?>				
+<?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
+<?php $item_0=(array)$item_0; ?>
+" class="chzn-select"  tabindex="2" name="pid">
+					<option value="<?php echo $item_0['id']?>" <?php echo $selected[$item_0['id']]?> ><?php echo $item_0['name']?></option>
+					
+<?php endforeach;?>
+</select>
+			</div>
+		</div>
 		<?php $p = array((int)$data->status => 'checked');?>
 		<div class="control-group">
 			<label class="control-label" for="status">

@@ -183,7 +183,7 @@ EOD;
 				//===========have to consider 2 situations.===================
 				#1.{#var}
 				#2.{#var|substr(?,0,10)}
-				$html[] = preg_replace('~{#([^@}]+)(@)?(?(2)([^\}]+))}~se'
+				$html[] = preg_replace('~{#([^\|}]+)(\|)?(?(2)([^\}]+))}~se'
 					,"self::ReplaceVar('\\1','{$itemChar}','\\3')"
 					,$template);
 			//}
@@ -201,10 +201,17 @@ EOD;
 	{
 		if(!empty($func))
 		{
+			//function
 			if(strpos($func,"?") !== false)
 			{
 				$final = str_replace('?',$itemChar.'[\''.$var.'\']',$func);
+				//replace variable in function
 				$final = preg_replace('~#(\w+)~',$itemChar."['\\1']",$final);
+			}
+			//array
+			else if(strpos($func,"@") === 0)
+			{
+				$final = '$'.substr($func,1)."[".$itemChar.'[\''.$var.'\']'."]";
 			}
 			else
 			{

@@ -1,10 +1,11 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
+<div class="well">
 <form action="<?php echo Url('autocrud/'.$action.'/user');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
 <fieldset>
 	<legend>
 		<a><?php echo L('User > '.L($action));?></a>
-		<div class="pull-right btn-group">
-		  <button class="btn btn-success" onclick="jQuery('#Afm').submit()">
+		<div class="pull-right">
+		  <button class="btn btn-success" id="submitForm">
 		  	<i class="icon-ok icon-white"></i>
 		  	<?php echo L('Apply');?>
 		  </button>
@@ -19,7 +20,7 @@
 			<?php echo L('Name');?>
 		</label>
 		<div class="controls">
-			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="<?php echo $data->user_name;?>" />
+			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="<?php echo $data->user_name;?>" required/>
 		</div>
 	</div>
 	<?php if($action != "Update") : ?>
@@ -28,7 +29,7 @@
 			<?php echo L('Password');?>
 		</label>
 		<div class="controls">
-			<input type="password" id="user_pass" name="user_pass" class="input-xlarge" value="<?php echo $data->user_pass;?>" />
+			<input type="password" id="user_pass" name="user_pass" class="input-xlarge" value="<?php echo $data->user_pass;?>" required/>
 		</div>
 	</div>
 	<?php endif;?>
@@ -38,8 +39,9 @@
 			<?php echo L('Group');?>
 		</label>
 		<div class="controls">
-			<select:loop=Model|Group.Find data-placeholder="Choose a Country..." class="chzn-select"  tabindex="2" name="group_id">
-				<option value="{#id}">{#name}</option>
+			<?php $selected = array($data->group_id=>"selected");?>
+			<select:loop=Model|Group.Find data-placeholder="<?php echo L('==Please select==');?>" class="chzn-select"  tabindex="2" name="group_id">
+				<option value="{#id}" {#id|@selected} >{#name}</option>
 			</select:loop>
 		</div>
 	</div>
@@ -65,3 +67,4 @@
 		$('.chzn-select').chosen()
 	})
 </script>
+</div>
