@@ -5,7 +5,7 @@
 		<legend>
 			<a><?php echo L('Group > Edit');?></a>
 			<div class="pull-right">
-			  <button class="btn btn-primary" onclick="jQuery('#Afm').submit()">
+			  <button class="btn btn-primary" id="submitForm">
 			  	<i class="icon-ok icon-white"></i>
 			  	<?php echo L('Apply');?>
 			  </button>
@@ -20,7 +20,7 @@
 				<?php echo L('Name');?>
 			</label>
 			<div class="controls">
-				<input type="text" id="name" name="name" class="input-xlarge" value="<?php echo $data->name;?>" />
+				<input type="text" id="name" name="name" class="input-xlarge" value="<?php echo $data->name;?>" required/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -48,14 +48,14 @@
 				</select>
 			</div>
 		</div>
-		<?php $p = array((int)$data->status => 'checked');?>
+		<?php $p = array((int)$data->state => 'checked');?>
 		<div class="control-group">
 			<label class="control-label" for="status">
 				<?php echo L('Status');?>
 			</label>
 			<div class="controls">
-				<input id="status" name="status" value="0" type="radio" <?php echo $p[0];?>/>No
-				<input id="status" name="status" value="1" type="radio" <?php echo $p[1];?>/>Yes
+				<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/>No
+				<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/>Yes
 			</div>
 		</div>
 	</fieldset>

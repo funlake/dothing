@@ -43,7 +43,11 @@ class DOModelGroup extends DOModel
 	public function TreeData()
 	{
 		$data = $this->Find();
-		
+		$tree   = DOFactory::GetWidget('tree','default',array($data));
+		$tpl     = <<<EOD
+		[prefix]{#name}
+EOD;
+		return $tree->FormatItem('name',$tpl);
 	}
 	/** Keep unique user name **/
 	public function Add_validate_name($value)

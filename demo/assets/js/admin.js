@@ -7,8 +7,14 @@ define(['jquery','plugin/validation_jquery'],function($){
 			//require(['plugin/validation_jquery'],function(){
 			$(function(){
 				$('#submitForm').click(function(){
+
 					if($('#Afm').validate()){
+						//return false;
 						$('#Afm').submit();
+					}
+					else
+					{
+						return;
 					}
 				});
 				require(['form'],function(){

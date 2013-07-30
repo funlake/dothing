@@ -57,15 +57,14 @@ class DOWidgetTree
 				$isLastChild = !($f-$k-1); 
 				$t = $v[$this->idName];
 				#generate prefix before every node	
-				$prev = '';
-				for($i=0;$i<=$deep;$i++)
-				{	
-					$prev .=  ( ($lcf{$i} == 0 )  ? $this->nodeSpace :  $this->connChar).$this->nodeSpace;
+				if($deep > 0)
+				{
+					$prefix = str_repeat($this->connChar,$deep);
 				}
-				
-				$prefix	= $prev.($this->treeArray[$t] ? ($deep == 0 ? $this->rootChar:($isLastChild ? $this->nendChar:$this->nodeChar) )
-								      				  : ( $isLastChild ? ($deep == 0 ? $this->rootChar:$this->nendChar) 
-										        					   : $this->nodeChar) );
+				else
+				{
+					$prefix = $this->rootChar;
+				}
 				
 				$html[] = $this->RenderNode($tpl,$v,$prefix);    
 				if( $this->treeArray[$t] ) 
@@ -77,6 +76,38 @@ class DOWidgetTree
 
 		}
 		return implode("",$html);
+	}
+
+	public function FormatItem($key,$tpl,$root=0,$deep=0,$lcf='0')
+	{
+		static $flatten = array();
+		if( $this->treeArray[$root] )
+		{
+			$f = count($this->treeArray[$root]);
+			foreach($this->treeArray[$root] as $k=>&$v)
+			{
+				$isLastChild = !($f-$k-1); 
+				$t = &$v[$this->idName];
+				
+				if($deep > 0)
+				{
+					$prefix = str_repeat($this->connChar,$deep);
+				}
+				else
+				{
+					$prefix = $this->rootChar;
+				}
+				$v[$key] = $this->RenderNode($tpl,$v,$prefix);
+				$flatten[] = $v;    
+				if( $this->treeArray[$t] ) 
+				{
+					$dp	   = $deep + 1;
+					$this->FormatItem( $key,$tpl,$t,$dp,$lcf.(!$isLastChild ? '1' : '0') );
+				}
+			}
+
+		}
+		return $flatten;
 	}
 	/**
 	* replace format.

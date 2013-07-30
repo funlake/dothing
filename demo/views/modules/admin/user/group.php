@@ -41,7 +41,7 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</thead>
 	<tbody class="adminTable">				
-<?php foreach(DOFactory::GetModel(strtolower('Group'))->Find() as $key_0=>$item_0) : ?>
+<?php foreach(DOFactory::GetModel(strtolower('Group'))->TreeData() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 		<tr>

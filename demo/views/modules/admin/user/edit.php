@@ -44,9 +44,9 @@
 				<option value="0"></option>
 								
 <?php $tree_0=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_0->Render('
+<?php echo $tree_0->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
-				'); ?>
+				"); ?>
 
 			</select>
 		</div>

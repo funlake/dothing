@@ -40,7 +40,7 @@ $searchs     = SG($searchIndex);
 			<th><?php echo L('Actions');?></th>
 		</tr>
 	</thead>
-	<tbody:loop=Model|Group.Find class="adminTable">
+	<tbody:loop=Model|Group.TreeData class="adminTable">
 		<tr>
 			<td>{#id}</td>
 			<td>{#name}</td>

@@ -12,7 +12,7 @@ class DOControllerIndex extends DOController
 		$tpl     = <<<EOD
 		<h1>[prefix]{#name}</h1>
 EOD;
-		echo $tree->Render($tpl);
+		$tree->FormatItem('name',$tpl);
 	}
 
 	public function settingAction()
