@@ -40,7 +40,7 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</thead>
 	<tbody class="adminTable">				
-<?php foreach(DOFactory::GetModel(strtolower('Role'))->Find() as $key_0=>$item_0) : ?>
+<?php foreach(DOFactory::GetModel(strtolower('Role'))->TreeData() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 		<tr>

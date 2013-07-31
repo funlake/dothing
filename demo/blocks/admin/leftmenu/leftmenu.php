@@ -78,7 +78,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		   )
 		);
 		$curIndex = DORouter::GetPageIndex();
-		foreach($menus as $key=>$menu)
+		foreach((array)$menus as $key=>$menu)
 		{
 			if($key == $curIndex OR preg_match('#'.$key.'#is',$curIndex))
 			{

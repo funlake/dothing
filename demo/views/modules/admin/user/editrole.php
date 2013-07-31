@@ -23,6 +23,22 @@
 				<input type="text" id="name" name="name" class="input-xlarge" value="<?php echo $data->name;?>" required/>
 			</div>
 		</div>
+		<div class="control-group">
+			<label class="control-label" for="group_id">
+				<?php echo L('Parent');?>
+			</label>
+			<div class="controls">
+				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
+					<option value="0"></option>
+									
+<?php $tree_b1bba594c3a2df2cfc5b20e93c045f05=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_b1bba594c3a2df2cfc5b20e93c045f05->Render("
+						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
+					"); ?>
+
+				</select>
+			</div>
+		</div>
 		<?php $p = array((int)$data->state => 'checked');?>
 		<div class="control-group">
 			<label class="control-label" for="status">

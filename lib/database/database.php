@@ -128,6 +128,7 @@ class DODatabase implements DORecord
 		}
 		/** Prepare statement execute **/
 		$statement->execute();
+
 		/** Return dataset**/
 		$rs					= array();
 		/** 

@@ -36,13 +36,22 @@
 				<?php echo L('Parent');?>
 			</label>
 			<div class="controls">
-				<?php 
-					$selected = array($data->pid=>"selected");
-					$ignored   = array($data->id => "disabled");
-				?>
 				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
 					<option value="0"></option>
-					<notag:tree=Model|Group.Find>
+					<notag:tree=Model|Group.Select>
+						<option value="{#id}" parent="{#pid}">[prefix]{#name}</option>
+					</notag:tree>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="role_id">
+				<?php echo L('Role');?>
+			</label>
+			<div class="controls">
+				<select multiple data-placeholder="<?php echo L('=======Choose roles======');?>" class="chzn-select"  tabindex="2" name="role_id[]" default="<?php echo $data->role_id;?>">
+					<option value="0"></option>
+					<notag:tree=Model|Role.Select>
 						<option value="{#id}" parent="{#pid}">[prefix]{#name}</option>
 					</notag:tree>
 				</select>

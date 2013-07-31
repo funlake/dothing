@@ -35,15 +35,9 @@ class DOFactory
 	}
 	public static function GetWidget($widget,$type)
 	{
+		$params = func_get_args();
 		if(!self::$_load["widget_".$widget])
 		{
-			$params = func_get_args();
-			// if(!file_exists(WIGBASE.DS.$widget.'.php'))
-			// {
-			// 	throw new DOException("Unkonw widget:".$table, 121);
-			// 	return false;
-			// } 
-			// include WIGBASE.DS.$widget.'.php';
 			$file = SYSTEM_ROOT.DS.'widgets'.DS.$widget.DS.$type.".php";
 			if(file_exists($file))
 			{
@@ -53,12 +47,12 @@ class DOFactory
 			{
 				include FRAMEWORK_ROOT.DS.'widgets'.DS.$widget.DS.$type.".php";
 			}
-			$wigClass = "DOWidget".ucwords(strtolower($widget)).ucwords(strtolower($type));
-			self::$_load["widget_".$widget] = call_user_func_array(
-				array(new ReflectionClass( $wigClass ),'newInstance'),  array_slice($params, 2)
-			);
+			self::$_load["widget_".$widget] = true;
 		}
-		return self::$_load["widget_".$widget];
+		$wigClass = "DOWidget".ucwords(strtolower($widget)).ucwords(strtolower($type));
+		return call_user_func_array(
+				array(new ReflectionClass( $wigClass ),'newInstance'),  array_slice($params, 2)
+		);
 
 	}
 	/**

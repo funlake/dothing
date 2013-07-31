@@ -128,7 +128,7 @@ class DOTemplate
 				'#<(\w+):loop=(.+?)(?<!\?)>(.*)</\1:loop>#ise'
 			  ,'#<(\w+):paginate(/\w+)?=([^>]+)/>#ise'
 			   ,'#<(module|block):(\w+)\s*/>#is',
-			   '#<(\w+):tree=([^>]+)>(.*)</\1:tree>#ise'
+			   '#<(\w+):tree=([^>]+?)>(.*?)</\1:tree>#ise'
 			   
 			)
 		   ,array(
@@ -169,9 +169,7 @@ EOD;
 			{
 				$data = self::GetSource($source,$variables);
 			}
-			$keyChar 	= '$key_'.$level;
-			$itemChar	= '$item_'.$level;
-			$treeChar    ='$tree_'.$level;
+			$treeChar    ='$tree_'.md5(uniqid(md5(rand()), true));
 			$html[]     = str_pad("",($level+1)*4,"\t",STR_PAD_LEFT);
 			$html[] = PHP_EOL.'<'.'?php '.$treeChar.'=DOFactory::GetWidget("tree","default",array('.$data.'))'.' ?'.'>'.PHP_EOL;
 			//$html[] 	= PHP_EOL.'<'.'?php'.' foreach('.$data.' as '.$keyChar.'=>'.$itemChar.') : ?'.'>'.PHP_EOL;

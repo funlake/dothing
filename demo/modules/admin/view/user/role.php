@@ -39,7 +39,7 @@ $searchs     = SG($searchIndex);
 			<th><?php echo L('Actions');?></th>
 		</tr>
 	</thead>
-	<tbody:loop=Model|Role.Find class="adminTable">
+	<tbody:loop=Model|Role.TreeData class="adminTable">
 		<tr>
 			<td>{#id}</td>
 			<td>{#name}</td>
