@@ -59,7 +59,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					   				) ? 'active' : ''
 					),
 					array(
-		  	   			'title' => L('User groups')
+		  	   			'title' => L('Groups')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/group')
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -67,7 +67,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					   				) ? 'active' : ''		  	   		
 					),
 					array(
-		  	   			'title' => L('User roles')
+		  	   			'title' => L('Roles')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/role')
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
