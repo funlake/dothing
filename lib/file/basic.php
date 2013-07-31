@@ -60,7 +60,7 @@ class DOBasic
 	
 	public function MakeFile($path)
 	{
-		$dir = preg_replace('#/'.basename($path).'$#','',$path);
+		$dir = preg_replace('#'.basename($path).'$#','',$path);
 		self::MakeDir($dir);
 		return touch($path);
 	}

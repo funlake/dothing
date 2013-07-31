@@ -29,10 +29,6 @@ class DOBlocksAdminMenu extends DOBlocksItem
 			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/user/index")
 			   		)
 			   	   ,array(
-			   			'title' => 'Roles'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/role/index")
-			   		)
-			   	   ,array(
 			   			'title' => 'Categories'
 			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/category/index")
 			   		)

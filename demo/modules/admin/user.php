@@ -91,4 +91,22 @@ class DOControllerUser extends DOController
 		$var['action'] 	= 'Add';
 		$this->Display('editgroup',$var);
 	}
+
+	public function roleAction($request = null)
+	{
+		$this->Display(null);
+	}
+
+	public function addroleAction($request = null)
+	{
+		$var['action'] = 'Add';
+		$this->Display('editrole',$var);
+	}
+
+	public function editroleAction($request = null)
+	{
+		$var['data']	= M('role')->GetRow(array('id'=>'='.$request->get['id']));
+		$var['action'] 	= 'Update';
+		$this->Display(null,$var);
+	}
 }
