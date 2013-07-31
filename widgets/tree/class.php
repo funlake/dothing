@@ -59,7 +59,8 @@ class DOWidgetTree
 				#generate prefix before every node	
 				if($deep > 0)
 				{
-					$prefix = str_repeat($this->connChar,$deep);
+					$prefix = str_repeat("&nbsp;", $deep*6);
+					$prefix .= $this->connChar;
 				}
 				else
 				{
@@ -91,7 +92,8 @@ class DOWidgetTree
 				
 				if($deep > 0)
 				{
-					$prefix = str_repeat($this->connChar,$deep);
+					$prefix = str_repeat("&nbsp;", $deep*6);
+					$prefix .= $this->connChar;
 				}
 				else
 				{
