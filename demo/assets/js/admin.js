@@ -1,4 +1,4 @@
-define(['jquery','plugin/validation_jquery'],function($){
+define(['jquery'],function($){
 	var rules ={
 		'([^_]+)_(edit|add)[^_]*$' : function(_,$1){
 			if(typeof mod[$1] !== "undefined"){
@@ -8,43 +8,36 @@ define(['jquery','plugin/validation_jquery'],function($){
 			$(function(){
 				$('#submitForm').click(function(){
 
-					if($('#Afm').validate()){
-						//return false;
-						$('#Afm').submit();
-					}
-					else
-					{
-						return;
-					}
 				});
 				require(['form'],function(){
 					/** Chosen plugin setting **/
 					var chosenSelect = $('.chzn-select');
 					var recursiveSetDisable = function(id){
-						var c = chosenSelect.find("option[value="+id+"]");
-						//console.log(id)
+						var c = this.find("option[value="+id+"]");
+						var self = this;
 						if(c){
 							c.attr("disabled","disabled");
 
-							var d = chosenSelect.find("option[parent="+id+"]")
+							var d = this.find("option[parent="+id+"]")
 							if(d){
 								d.each(function(_,v){
-									recursiveSetDisable($(v).attr("value"));
+									recursiveSetDisable.call(self,$(v).attr("value"));
 									$(v).attr("disabled","disabled");
 									
 								});
 							}
 						}
 					}
-					chosenSelect.each(function(_,v){
-						var self = $(this);
+					chosenSelect.each(function(_,cv){
+						var self = $(cv);
 						var sids    = self.attr('default').split(',');
 						$.each(sids,function(_,v){
 							self.find("option[value="+v+"]").attr("selected","selected");
 						})
 						var dids     = (self.attr('disable')|| "").split(',');
 						$.each(dids,function(_,v){
-							recursiveSetDisable(v);
+							if(v==="") return;
+							recursiveSetDisable.call(self,v);
 						})
 						self.chosen({
 							allow_single_deselect: true

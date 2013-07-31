@@ -120,7 +120,7 @@ class DOTable
 		$db->Clean();
 		$db->From($this->_tb)->Set($sets);
 		$db = call_user_func_array(array($db,'Values'), $vals);
-		$db->Insert();
+		$sql = $db->Insert();
 		/** Can not use $db direcitly here,quite strange**/
 		return $this->_db->Execute();
 	}

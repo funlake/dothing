@@ -39,15 +39,83 @@ class DOModelGroup extends DOModel
 		/** Set name,parent call**/
 		parent::__construct();
 	}	
+	public function GroupRoleList($id='')
+	{
+		$db = DOFactory::GetDatabase();
+		$db->Clean();
+		$where = array();
+		if(!empty($id))
+		{
+			$where['g.id'] = '='.$id;
+		}
+		if(!empty($_REQUEST['DO']['search']['name']))
+		{
+			$where['g.name'] = "like '%".$_REQUEST['DO']['search']['name']."%'";
+		}
+		$sql = $db->From('#__group','g','SQL_CALC_FOUND_ROWS g.*')
+                   	->LeftJoin('#__group_role'
+	                          ,'gr'
+	                          ,array('gr.group_id'=>'g.id')
+                    	)
+                   	->LeftJoin('#__role','r',array('r.id'=>'gr.role_id'),'group_concat(r.name) as `role`,group_concat(r.id) as role_id')
+                   	->Orderby($_REQUEST['_doorder'],$_REQUEST['_dosort'])
+                   	->Limit($this->defaultLimit)
+                   	->Where($where)
+                   	->Groupby('g.id')
+                   	->Read();
+
+		return $db->GetAll();
+	}
 	/** make the recored to be a tree structure array**/
 	public function TreeData()
 	{
-		$data = $this->Find();
+		$data = $this->GroupRoleList();
 		$tree   = DOFactory::GetWidget('tree','default',array($data));
 		$tpl     = <<<EOD
 		[prefix]{#name}
 EOD;
 		return $tree->FormatItem('name',$tpl);
+	}
+/** Add record **/
+	public function Add(array $insArray = null)
+	{
+		$R = parent::Add($insArray);
+		if($R->success)
+		{
+			foreach($insArray['role_id'] as $rid)
+			{
+				DOFactory::GetTable('#__group_role')->Insert(
+					array(
+						'group_id' => $R->insert_id,
+						'role_id' => $rid
+					)
+				);
+			}
+		}
+		return $R;
+	}
+	/** Update record **/
+	public function Update(array $upArray = null)
+	{
+		$R = parent::Update($upArray);
+		if($R->success)
+		{
+			DOFactory::GetTable('#__group_role')->Delete(array(
+				"group_id" => "=?"
+			),$upArray['id']);
+
+			foreach($upArray['role_id'] as $rid)
+			{
+				DOFactory::GetTable('#__group_role')->Insert(
+					array(
+						'group_id' => $upArray['id'],
+						'role_id'  => $rid
+					)
+				);				
+			}
+
+		}
+		return $R;
 	}
 	public function Delete(array $params = null)
 	{
@@ -86,7 +154,7 @@ EOD;
 	}
 	public function Update_validate_name($value,$posts)
 	{
-		if(0 !=  $this->GetOne('id','name=? and id<>?',$value,$posts['id']) )
+		if(0 !=  $this->GetOne('id','name=? and id<>?',array($value,$posts['id'])) )
 		{
 			$this->error_msg  = DOLang::Get('Do not allow duplicated groups!');
 			return false;

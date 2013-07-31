@@ -164,6 +164,20 @@ class DODatabase implements DORecord
 		return $R;			
 	}
 	/**
+	 * Pdo bind value
+	 *
+	 * @param array $params
+	 * @param pdostatementobj $resource
+	 */
+	function BindValue( $params ,$resource )
+	{
+	    if( $params == null || !is_object($resource) ) return;
+	    foreach((array)$params as $k=>$v)
+	    {
+	       $resource->bindValue($k+1,$v,$this->GetType($v));
+	    }
+	}
+	/**
 	* For Create/Update/Delete operation.
 	*/
 	public function Execute()
@@ -245,20 +259,7 @@ class DODatabase implements DORecord
 
 		return $rs->data[0]->amount;
 	}
-	/**
-	 * Pdo bind value
-	 *
-	 * @param array $params
-	 * @param pdostatementobj $resource
-	 */
-    function BindValue( $params ,$resource )
-    {
-        if( $params == null || !is_object($resource) ) return;
-        foreach((array)$params as $k=>$v)
-        {
-           $resource->bindValue($k+1,$v,$this->GetType($v));
-        }
-    }
+	
 	/** 
 	 * Get type of params
 	 * @param notsure $param

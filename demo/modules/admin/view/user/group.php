@@ -34,8 +34,9 @@ $searchs     = SG($searchIndex);
 	<thead>
 		<tr>
 			<th width="5%" ><?php echo L('Id');?></th>
-			<th width="25%"><?php echo L('Name');?></th>
-			<th width="10%"><?php echo DOMakeSortHead('ordering',L('Ordering'));?></th>
+			<th width="25%"><?php echo DOMakeSortHead('g.name',L('Name'));?></th>
+			<th width="25%"><?php echo L('Roles');?></th>
+			<th width="10%"><?php echo DOMakeSortHead('g.ordering',L('Ordering'));?></th>
 			<th width="10%"><?php echo L('Status');?></th>
 			<th><?php echo L('Actions');?></th>
 		</tr>
@@ -44,6 +45,7 @@ $searchs     = SG($searchIndex);
 		<tr>
 			<td>{#id}</td>
 			<td>{#name}</td>
+			<td>{#role|cutStr(?,20)}</td>
 			<td>{#ordering}</td>
 			<td>{#state|showStatus(?,'group',#id)}</td>
 			<td>

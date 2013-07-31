@@ -80,7 +80,7 @@ class DOControllerUser extends DOController
 
 	public function editgroupAction($request = null)
 	{
-		$group 		= M('group')->Select($request->get['id']);
+		$group 		= M('group')->GroupRoleList($request->get['id']);
 		$var['data']		= $group[0];
 		$var['action']  	= 'Update';
 		$this->Display(null,$var);		
