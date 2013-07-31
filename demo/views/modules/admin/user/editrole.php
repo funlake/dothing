@@ -31,8 +31,8 @@
 				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
 					<option value="0"></option>
 									
-<?php $tree_906778ccb85da5956aac7b444412e44b=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_906778ccb85da5956aac7b444412e44b->Render("
+<?php $tree_ece0a3053fc05d01caf9309ecc63778d=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_ece0a3053fc05d01caf9309ecc63778d->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 

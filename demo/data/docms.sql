@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: 127.0.0.1
--- 生成日期: 2013 年 07 月 31 日 16:52
+-- 生成日期: 2013 年 07 月 31 日 18:59
 -- 服务器版本: 5.5.32
 -- PHP 版本: 5.4.16
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `group` (
   `ordering` int(10) unsigned DEFAULT '0',
   `state` tinyint(3) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- 转存表中的数据 `group`
@@ -78,7 +78,8 @@ INSERT INTO `group` (`id`, `pid`, `name`, `description`, `ordering`, `state`) VA
 (1, 0, 'Administrator', '1', 30, 1),
 (4, 1, 'Manager', '1', 22, 1),
 (5, 1, 'Register', '1', 1, 1),
-(6, 5, 'Author', '1', 2, 1);
+(6, 5, 'Author', '1', 2, 1),
+(7, 0, 'Customer', '1', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -101,12 +102,21 @@ CREATE TABLE IF NOT EXISTS `group_module` (
 --
 
 CREATE TABLE IF NOT EXISTS `group_role` (
-  `group_id` int(10) NOT NULL,
+  `group_id` int(10) unsigned NOT NULL,
   `role_id` int(11) NOT NULL,
-  UNIQUE KEY `fk_group_role_un` (`group_id`,`role_id`),
+  UNIQUE KEY `group_role_un` (`group_id`,`role_id`),
   KEY `fk_group_role_group1_idx` (`group_id`),
   KEY `fk_group_role_role1_idx` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `group_role`
+--
+
+INSERT INTO `group_role` (`group_id`, `role_id`) VALUES
+(1, 5),
+(4, 3),
+(4, 5);
 
 -- --------------------------------------------------------
 
@@ -190,18 +200,20 @@ CREATE TABLE IF NOT EXISTS `resource` (
 
 CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pid` int(11) NOT NULL DEFAULT '0',
   `name` varchar(100) NOT NULL,
   `state` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `role`
 --
 
-INSERT INTO `role` (`id`, `name`, `state`) VALUES
-(2, 'Superadmins', 1),
-(3, 'Register', 1);
+INSERT INTO `role` (`id`, `pid`, `name`, `state`) VALUES
+(2, 0, 'Superadmins', 1),
+(3, 0, 'Register', 1),
+(5, 2, 'Department admin', 1);
 
 -- --------------------------------------------------------
 
@@ -267,11 +279,11 @@ INSERT INTO `user` (`id`, `user_name`, `user_pass`, `img_url`, `state`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `user_group` (
-  `user_id` int(10) unsigned NOT NULL,
-  `group_id` int(10) unsigned NOT NULL,
-  UNIQUE KEY `user_groups_index1` (`user_id`,`group_id`),
-  KEY `user_group_FKIndex1` (`user_id`),
-  KEY `user_group_FKIndex2` (`group_id`)
+  `user_id` int(10) NOT NULL,
+  `group_id` int(10) NOT NULL,
+  UNIQUE KEY `un_user_group` (`user_id`,`group_id`),
+  KEY `fk_user_group_user_idx` (`user_id`),
+  KEY `fk_user_group_group1_idx` (`group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -298,25 +310,7 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   `role_id` int(11) NOT NULL,
   KEY `fk_user_role_user1_idx` (`user_id`),
   KEY `fk_user_role_role1_idx` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 限制导出的表
---
-
---
--- 限制表 `group_role`
---
-ALTER TABLE `group_role`
-  ADD CONSTRAINT `fk_group_role_group1` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_group_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- 限制表 `user_role`
---
-ALTER TABLE `user_role`
-  ADD CONSTRAINT `fk_user_role_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_role_role1` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
