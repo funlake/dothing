@@ -18,6 +18,7 @@ define(['jquery','plugin/validation_jquery'],function($){
 					}
 				});
 				require(['form'],function(){
+					/** Chosen plugin setting **/
 					var chosenSelect = $('.chzn-select');
 					var recursiveSetDisable = function(id){
 						var c = chosenSelect.find("option[value="+id+"]");
@@ -37,10 +38,14 @@ define(['jquery','plugin/validation_jquery'],function($){
 					}
 					chosenSelect.each(function(_,v){
 						var self = $(this);
-						var sid     = self.attr('default');
-						self.find("option[value="+sid+"]").attr("selected","selected");
-						var did     = self.attr('disable');
-						recursiveSetDisable(did);
+						var sids    = self.attr('default').split(',');
+						$.each(sids,function(_,v){
+							self.find("option[value="+v+"]").attr("selected","selected");
+						})
+						var dids     = (self.attr('disable')|| "").split(',');
+						$.each(dids,function(_,v){
+							recursiveSetDisable(v);
+						})
 						self.chosen({
 							allow_single_deselect: true
 						});

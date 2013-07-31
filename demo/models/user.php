@@ -50,10 +50,11 @@ class DOModelUser extends DOModel
                           ,'ug'
                           ,array('ug.user_id'=>'u.id')
                      )
-                   	->LeftJoin('#__group','g',array('g.id'=>'ug.group_id'),'g.name as `group`,g.id as group_id')
+                   	->LeftJoin('#__group','g',array('g.id'=>'ug.group_id'),'group_concat(g.name) as `group`,group_concat(g.id) as group_id')
                    	->Orderby($_REQUEST['_doorder'],$_REQUEST['_dosort'])
                    	->Limit($this->defaultLimit)
                    	->Where($where)
+                   	->Groupby('u.id')
                    	->Read();
 
 		return $db->GetAll();
@@ -74,16 +75,26 @@ class DOModelUser extends DOModel
 	}
 	public function Update(array $upArray = null)
 	{
-		$R = parent::Update($insArray);
+		$R = parent::Update($upArray);
 		if($R->success)
 		{
-			return DOFactory::GetTable('#__user_group')->Update(
-				array(
-					'group_id' => $upArray['group_id']
-				),
-				array('user_id'=>'=?'),
-				$upArray['id']
-			);
+			$flag = true;
+			DOFactory::GetTable('#__user_group')->Delete(array(
+				"user_id" => "=?"
+			),$upArray['id']);
+			foreach($upArray['group_id'] as $gid)
+			{
+				$flag &= DOFactory::GetTable('#__user_group')->Insert(
+					array(
+						'group_id' => $gid,
+						'user_id'  => $upArray['id']
+					)
+				);				
+			}
+			$r = new stdClass();
+			$r->success = $flag;
+			return $r;
+
 		}
 		return $R;
 	}

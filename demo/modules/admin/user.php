@@ -64,14 +64,8 @@ class DOControllerUser extends DOController
 
 	public function editAction($request = null )
 	{
-		$db 	       = DOFactory::GetDatabase();	
-		$db->From("#__user",'u','u.*')
-					->LeftJoin("#__user_group","ug",array("ug.user_id"=>"u.id"),"ug.group_id")
-					->Where("u.id","=?")
-					->Values($request->get['id'])
-					->Read();
-
-		$var['data']	= $db->GetRow();
+		$data 		= M('user')->UserGroupList($request->get['id']);
+		$var['data']		= $data[0];
 		$var['action']	= "Update";
 		$this->Display(null,$var);
 	}

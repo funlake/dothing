@@ -125,6 +125,23 @@ class DOTable
 		return $this->_db->Execute();
 	}
 	
+	/** Single table replace **/
+	function Replace( array $insarray)
+	{
+		foreach($insarray as $k=>$v)
+		{
+			$sets[$k] = '?';
+			$vals[]   = $v;
+		}
+		$vals += array_slice(func_get_args(),1);
+		$db = $this->_db;
+		$db->Clean();
+		$db->From($this->_tb)->Set($sets);
+		$db = call_user_func_array(array($db,'Values'), $vals);
+		$db->Replace();
+		/** Can not use $db direcitly here,quite strange**/
+		return $this->_db->Execute();		
+	}
 	/** Single table delete function **/
 	function Delete( array $condition = null , $vals = array())
 	{

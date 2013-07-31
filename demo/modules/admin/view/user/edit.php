@@ -40,7 +40,7 @@
 		</label>
 		<div class="controls">
 			<?php $selected = array($data->group_id=>"selected");?>
-			<select data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select"  tabindex="2" name="group_id" default="<?php echo $data->group_id;?>">
+			<select multiple data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select"  tabindex="2" name="group_id[]" default="<?php echo $data->group_id;?>">
 				<option value="0"></option>
 				<notag:tree=Model|Group.Find>
 					<option value="{#id}">[prefix]{#name}</option>
