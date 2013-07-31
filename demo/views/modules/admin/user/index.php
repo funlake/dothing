@@ -47,7 +47,7 @@ $searchs     = SG($searchIndex);
 	<tr>
 		<td><?php echo $item_0['id']?></td>
 		<td><?php echo $item_0['user_name']?></td>
-		<td><?php echo $item_0['group']?></td>
+		<td><?php echo cutStr($item_0['group'],20)?></td>
 		<td><?php echo showStatus($item_0['state'],'user',$item_0['id'])?></td>
 		<td>
 			<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?><?php echo $item_0['id']?>">

@@ -51,7 +51,8 @@ EOD;
 	}
 	public function Delete(array $params = null)
 	{
-		if($this->Select(array("pid"=>$params['id']))){
+		$R = $this->GetRow(array("pid"=>'=?'),$params['id']);
+		if($R->id){
 			$this->error_msg = L("Can not delete a group which having some sub groups");
 			return false;
 		}

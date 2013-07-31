@@ -59,42 +59,56 @@ class DOModelUser extends DOModel
 
 		return $db->GetAll();
 	}
+	/** Add record **/
 	public function Add(array $insArray = null)
 	{
 		$R = parent::Add($insArray);
 		if($R->success)
 		{
-			return DOFactory::GetTable('#__user_group')->Insert(
-				array(
-					'user_id' => $R->insert_id,
-					'group_id' => $insArray['group_id']
-				)
-			);
+			foreach($insArray['group_id'] as $gid)
+			{
+				DOFactory::GetTable('#__user_group')->Insert(
+					array(
+						'user_id' => $R->insert_id,
+						'group_id' => $gid
+					)
+				);
+			}
 		}
 		return $R;
 	}
+	/** Update record **/
 	public function Update(array $upArray = null)
 	{
 		$R = parent::Update($upArray);
 		if($R->success)
 		{
-			$flag = true;
 			DOFactory::GetTable('#__user_group')->Delete(array(
 				"user_id" => "=?"
 			),$upArray['id']);
+
 			foreach($upArray['group_id'] as $gid)
 			{
-				$flag &= DOFactory::GetTable('#__user_group')->Insert(
+				DOFactory::GetTable('#__user_group')->Insert(
 					array(
 						'group_id' => $gid,
 						'user_id'  => $upArray['id']
 					)
 				);				
 			}
-			$r = new stdClass();
-			$r->success = $flag;
-			return $r;
 
+		}
+		return $R;
+	}
+	/** Delete record **/
+	public function Delete(array $posts = null)
+	{
+		$R = parent::Delete($posts);
+		if($R->success)
+		{
+			DOFactory::GetTable('#__user_group')->Delete(array(
+				"user_id" => "=?"
+			),$posts['id']);
 		}
 		return $R;
 	}

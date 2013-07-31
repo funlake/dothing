@@ -12,3 +12,15 @@ if(!function_exists('showStatus'))
 		."' href='javascript:void(0);'></a>";
 	}
 }
+if(!function_exists('cutStr'))
+{
+	function cutStr($string,$length,$encoding=DO_CHARSET)
+	{
+		$cs = mb_substr($string,0,$length,$encoding);
+		if(strlen($cs) < strlen($string))
+		{
+			$cs .= "...";
+		}
+		return $cs;
+	}
+}
