@@ -7,6 +7,7 @@ class DOPlgAuthorizePrepareroute extends DOPlugin
 {
 	public function Trigger($mca = null)
 	{
+		/** Login check ,for backend **/
 		if($mca[0] == "admin" )
 		{
 			$session = DOFactory::GetSession();
@@ -22,7 +23,6 @@ class DOPlgAuthorizePrepareroute extends DOPlugin
 			}
 			else
 			{
-
 				if($session->Get('_adm_user') != null)
 				{
 					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/index"),"",1);

@@ -42,8 +42,8 @@
 			<select multiple data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select"  tabindex="2" name="group_id[]" default="<?php echo $data->group_id;?>">
 				<option value="0"></option>
 								
-<?php $tree_f33321694b0325f0c8674bcb6124e235=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_f33321694b0325f0c8674bcb6124e235->Render("
+<?php $tree_b88addbd2c100b22fb107441c9130840=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_b88addbd2c100b22fb107441c9130840->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
