@@ -43,10 +43,9 @@
 			<td><?php echo $item_0['name']?></td>
 			<td><?php echo cutStr($item_0['role'],20)?></td>
 			<td><?php echo $item_0['ordering']?></td>
-			<td><?php echo showStatus($item_0['state'],'group',2)?></td>
+			<td><?php echo showStatus($item_0['state'],'group',$item_0['id'])?></td>
 			<td>
-				<a class="icon-edit" href="http://localhost:81/dothing/demo/index.php/ads007/user/editgroup@id=<?php echo $item_0['id']?>">
-				</a>
+				<?php echo showEditLink('id='.$item_0['id'],'ads007/user/editgroup')?>
 				<a class="icon-trash" href="#" data-toggle="modal" data-target="#DOModal_<?php echo $item_0['id']?>"></a>
 				<div class="modal" id="DOModal_<?php echo $item_0['id']?>" style="display:none">
 				  <form id="form<?php echo $item_0['id']?>" action="http://localhost:81/dothing/demo/index.php/autocrud/Delete/group" method="post">
@@ -64,8 +63,8 @@
 					    <a data-dismiss="modal" class="btn btn-warning">
 					    	<i class="icon-remove icon-white"></i>
 					    	Cancel					   	</a>
-						<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/group"/>
-						<input type="hidden" id="group_id" name="id" value="<?php echo $item_0['id']?>"/>
+						<input type="hidden" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/group"/>
+						<input type="hidden" name="id" value="<?php echo $item_0['id']?>"/>
 					   </div>
 				   </form>
 				</div>

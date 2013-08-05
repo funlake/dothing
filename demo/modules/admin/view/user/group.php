@@ -49,8 +49,7 @@ $searchs     = SG($searchIndex);
 			<td>{#ordering}</td>
 			<td>{#state|showStatus(?,'group',#id)}</td>
 			<td>
-				<a class="icon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editgroup','id=');?>{#id}">
-				</a>
+				{#id|showEditLink('id='.?,'<?php echo DO_ADMIN_INTERFACE.'/user/editgroup';?>')}
 				<a class="icon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
 				<div class="modal" id="DOModal_{#id}" style="display:none">
 				  <form id="form{#id}" action="<?php echo Url('autocrud/Delete/group');?>" method="post">
@@ -70,8 +69,8 @@ $searchs     = SG($searchIndex);
 					    	<i class="icon-remove icon-white"></i>
 					    	<?php echo L('Cancel');?>
 					   	</a>
-						<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/group');?>"/>
-						<input type="hidden" id="group_id" name="id" value="{#id}"/>
+						<input type="hidden" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/group');?>"/>
+						<input type="hidden" name="id" value="{#id}"/>
 					   </div>
 				   </form>
 				</div>
