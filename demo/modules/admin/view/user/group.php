@@ -78,4 +78,4 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</tbody:loop>
 </table>
-<div:paginate=Model|Group.Count/>
+<div:paginate=Model|Group.GetTotal/>

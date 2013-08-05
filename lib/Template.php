@@ -138,14 +138,14 @@ class DOTemplate
 				'#<(\w+):loop=(.+?)(?<!\?)>(.*)</\1:loop>#ise'
 			  ,'#<(\w+):paginate(/\w+)?=([^>]+)/>#ise'
 			   ,'#<(module|block):(\w+)\s*/>#is',
-			   '#<(\w+):tree=([^>]+?)>(.*?)</\1:tree>#ise'
+			   '#<(\w+):tree([^=]*)=([^>]+?)>(.*?)</\1:tree>#ise'
 			   
 			)
 		   ,array(
 		   		'self::LoopParse("\2","\3",$innerData,"\1",$variables,$level)'
 		   	   ,'self::PaginateParse("\1","\3","\2")'
 		   	   ,'<?php echo T("\1","\2");?>'
-		   	   ,'self::TreeParse("\2","\3",$innerData,"\1",$variables,$level)'
+		   	   ,'self::TreeParse("\3","\4",$innerData,"\1",$variables,$level,"\2")'
 		   	)
 		,$content);
 	}
@@ -164,9 +164,17 @@ EOD;
 		.$pageInstance.
 		"</".$tag.">";
 	}
-	public static function TreeParse($attr,$content,$innerData = '',$tag,$variables,$level)
+	public static function TreeParse($attr,$content,$innerData = '',$tag,$variables,$level,$treeWidget='')
 	{
 		list($source,$attrs) = preg_split("#\s+#",$attr,2);
+		if(empty($treeWidget))
+		{
+			$treeWidget = 'default';
+		}
+		else
+		{
+			$treeWidget = trim($treeWidget,"/");
+		}
 		//	$innerData 			 = (array)$innerData;
 		$html = array();
 		if(!empty($source))
@@ -181,7 +189,7 @@ EOD;
 			}
 			$treeChar    ='$tree_'.md5(uniqid(md5(rand()), true));
 			$html[]     = str_pad("",($level+1)*4,"\t",STR_PAD_LEFT);
-			$html[] = PHP_EOL.'<'.'?php '.$treeChar.'=DOFactory::GetWidget("tree","default",array('.$data.'))'.' ?'.'>'.PHP_EOL;
+			$html[] = PHP_EOL.'<'.'?php '.$treeChar.'=DOFactory::GetWidget("tree","'.$treeWidget.'",array('.$data.'))'.' ?'.'>'.PHP_EOL;
 			//$html[] 	= PHP_EOL.'<'.'?php'.' foreach('.$data.' as '.$keyChar.'=>'.$itemChar.') : ?'.'>'.PHP_EOL;
 			$content = addslashes($content);
 			$html[]     = '<'.'?php'.' echo '.$treeChar.'->Render("'.$content.'"); ?'.'>'.PHP_EOL;

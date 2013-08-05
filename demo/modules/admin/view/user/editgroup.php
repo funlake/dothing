@@ -38,7 +38,7 @@
 			<div class="controls">
 				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
 					<option value="0"></option>
-					<notag:tree=Model|Group.Select>
+					<notag:tree/default=Model|Group.Select>
 						<option value="{#id}" parent="{#pid}">[prefix]{#name}</option>
 					</notag:tree>
 				</select>

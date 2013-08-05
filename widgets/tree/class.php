@@ -6,10 +6,10 @@ class DOWidgetTree
 	public $treeArray	 = array();
 	/**node ui*/
 	public $rootChar	 = '*';
-	public $nodeChar	 = '├';
-	public $connChar	 = '│';
-	public $nendChar	 = '└';
-	public $nodeSpace    = '&nbsp;';
+	public $nodeChar	 = '  -  ';
+	public $connChar	 = '  |__  ';
+	public $nendChar	 = '  -  ';
+	public $nodeSpace    = '';
 	public $catopen		 = '';
 	public $catend       = '';
 	/**format string*/

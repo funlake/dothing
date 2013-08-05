@@ -74,6 +74,6 @@
 </tbody>
 </table>
 <div >		<?php
-		 $pager = DOFactory::GetWidget('paginate','default', $total,DO_LIST_ROWS);
+		 $pager = DOFactory::GetWidget('paginate','default', DOFactory::GetModel(strtolower('User'))->GetTotal(),DO_LIST_ROWS);
 		 echo $pager->Render();
 		 ?></div>

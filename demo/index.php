@@ -8,7 +8,6 @@ define('SYSTEM_ROOT'	,realpath(dirname(__FILE__)));
 include '../bootstrap.php';
 /** System config **/
 include 'config.php';
-include 'includes/helper.php';
 include 'includes/function.php';
 try
 {

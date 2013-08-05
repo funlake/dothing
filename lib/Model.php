@@ -10,6 +10,7 @@ class DOModel
 	public $pk					= 'id';
 	private  $records             = array();
 	private static $currRecord;
+	public static $total;
 	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
@@ -69,6 +70,14 @@ class DOModel
 	{
 		$db = DOFactory::GetDatabase();
 		return $db->GetFoundRows();
+	}
+	public static function SetTotal()
+	{
+		self::$total = self::LastTotal();
+	}
+	public static function GetTotal()
+	{
+		return self::$total;
 	}
 	/**
 	 * Load model

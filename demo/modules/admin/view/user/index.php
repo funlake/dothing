@@ -77,5 +77,4 @@ $searchs     = SG($searchIndex);
 	</tr>
 </tbody:loop>
 </table>
-<?php $total = DOModel::LastTotal();?>
-<div:paginate={#total}/>
+<div:paginate=Model|User.GetTotal/>

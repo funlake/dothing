@@ -57,7 +57,9 @@ class DOModelUser extends DOModel
                    	->Groupby('u.id')
                    	->Read();
 
-		return $db->GetAll();
+		$rs =  $db->GetAll();
+		$this->SetTotal();
+		return $rs;
 	}
 	/** Add record **/
 	public function Add(array $insArray = null)
