@@ -18,5 +18,7 @@ $flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
 			m.closeInit();
 		})
 	</script>
-	<?php $this->CleanMessage();?>
+	<?php 
+		 DOBlocks::GetBlock('message')->CleanMessage();
+	?>
 <?php endif;?>

@@ -20,7 +20,7 @@
            <button class="btn btn-success">
            	<i class="icon-user icon-white"></i>
 		lake           </button>
-           <button class="btn btn-danger" onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/logout'">
+           <button class="btn btn-danger" onclick="location.href='http://localhost/dothing/demo/index.php/ads007/user/logout'">
 		<i class="icon-share-alt icon-white"></i>
 		Log out	</button> 
 </p>

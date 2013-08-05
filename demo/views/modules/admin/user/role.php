@@ -16,7 +16,7 @@
 				<span class="btn btn-danger"><i class="icon-wrench icon-white"></i> Action</span>
 				<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/addrole'"><i class="icon-plus"></i> Add</a></li>
+					<li><a href='javascript:void(0)' onclick="location.href='http://localhost/dothing/demo/index.php/ads007/user/addrole'"><i class="icon-plus"></i> Add</a></li>
 					<!-- 	    <li class="divider"></li> -->
 					<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 				</ul>
@@ -41,11 +41,11 @@
 			<td><?php echo $item_0['name']?></td>
 			<td><?php echo showStatus($item_0['state'],'role',$item_0['id'])?></td>
 			<td>
-				<a class="icon-edit" href="http://localhost:81/dothing/demo/index.php/ads007/user/editrole@id=<?php echo $item_0['id']?>">
+				<a class="icon-edit" href="http://localhost/dothing/demo/index.php/ads007/user/editrole@id=<?php echo $item_0['id']?>">
 				</a>
 				<a class="icon-trash" href="#" data-toggle="modal" data-target="#DOModal_<?php echo $item_0['id']?>"></a>
 				<div class="modal" id="DOModal_<?php echo $item_0['id']?>" style="display:none">
-				  <form id="form<?php echo $item_0['id']?>" action="http://localhost:81/dothing/demo/index.php/autocrud/Delete/role" method="post">
+				  <form id="form<?php echo $item_0['id']?>" action="http://localhost/dothing/demo/index.php/autocrud/Delete/role" method="post">
 					  <div class="modal-header">
 					    <a class="close" data-dismiss="modal">×</a>
 					    <h3>Warning</h3>
@@ -60,7 +60,7 @@
 					    <a data-dismiss="modal" class="btn btn-warning">
 					    	<i class="icon-remove icon-white"></i>
 					    	Cancel					   	</a>
-						<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/role"/>
+						<input type="hidden" id="__redirect" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/role"/>
 						<input type="hidden" id="id" name="id" value="<?php echo $item_0['id']?>"/>
 					   </div>
 				   </form>
