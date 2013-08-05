@@ -26,8 +26,8 @@
 			<select multiple data-placeholder="=======No group======" class="chzn-select"  tabindex="2" name="group_id[]" default="1">
 				<option value="0"></option>
 								
-<?php $tree_efbe637435aca83df20d05edb81d81f7=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_efbe637435aca83df20d05edb81d81f7->Render("
+<?php $tree_2b2d077e9c8e4d6cf81b8de55dda5e6b=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_2b2d077e9c8e4d6cf81b8de55dda5e6b->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -46,7 +46,7 @@
 
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/index"/>
 	<input type="hidden" id="user_id" name="id" value="12"/>
-	<input type="hidden" id="__token" name="__token" value="8111b2ef5e9445a8458374f48ab2f66d"/>
+	<input type="hidden" id="__token" name="__token" value="9658f136b68fe3535193f1c677e7b004"/>
 </form>
 
 </div>

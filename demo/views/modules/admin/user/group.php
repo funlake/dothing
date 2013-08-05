@@ -75,6 +75,6 @@
 </tbody>
 </table>
 <div >		<?php
-		 $pager = DOFactory::GetWidget('paginate','default', DOFactory::GetModel(strtolower('Group'))->Count(),DO_LIST_ROWS);
+		 $pager = DOFactory::GetWidget('paginate','default', DOFactory::GetModel(strtolower('Group'))->GetTotal(),DO_LIST_ROWS);
 		 echo $pager->Render();
 		 ?></div>
