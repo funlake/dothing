@@ -34,10 +34,6 @@ class DOView
 
 	public function Display($vFile,$variables = array())
 	{
-		if(!!$variables)
-		{
-			extract($variables);
-		}
 		$view 	= basename($vFile);
 		$cFile = VIEWBASE.DS.'modules'.DS.DORouter::GetModule().DS.DORouter::GetController().DS.$view;
 		if(DO_TEMPLATE_PARSE /*AND !file_exists($cFile)*/)

@@ -1,4 +1,3 @@
-<?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <!--Begin Left menu -->
 <div class="well sidebar-nav affix bs-docs-sidenav">
   <ul class="nav nav-list">				

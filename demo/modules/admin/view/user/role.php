@@ -75,4 +75,3 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</tbody:loop>
 </table>
-<div:paginate=Model|Role.Count/>

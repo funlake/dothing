@@ -69,6 +69,7 @@ class DOModelGroup extends DOModel
 	/** make the recored to be a tree structure array**/
 	public function TreeData()
 	{
+		$this->defaultLimit = array(0,10000);
 		$data = $this->GroupRoleList();
 		$tree   = DOFactory::GetWidget('tree','default',array($data));
 		$tpl     = <<<EOD

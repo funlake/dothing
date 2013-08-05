@@ -44,15 +44,18 @@ class DOTemplate
 	}
 	public static function LoadTemplate( )
 	{
-		$template = self::GetTemplate();
-		$cFile	= TEMPLATE_ROOT.DS.$template.DS.self::GetLayout().'.php';
-		$vFile  = TEMPLATE_ROOT.DS.$template.DS.self::GetLayout().'.tpl.php';
-		if(file_exists($vFile))
+		$_do_template = self::GetTemplate();
+		$_do_cFile	= TEMPLATE_ROOT.DS.$_do_template.DS.self::GetLayout().'.php';
+		$_do_vFile  = TEMPLATE_ROOT.DS.$_do_template.DS.self::GetLayout().'.tpl.php';
+		if(file_exists($_do_vFile))
 		{
-			$content = file_get_contents($vFile);
+			ob_start();
+			//$content = file_get_contents($vFile);
+			include $_do_vFile;
+			$content = ob_get_clean();
 			$content = self::ParseTemplate($content,$cFile);
 		}
-		include $cFile;
+		include $_do_cFile;
 		return;
 	}
 
@@ -118,7 +121,14 @@ class DOTemplate
 	}
 	public static function ParseHtml($tplfile,$variables = array())
 	{
-		return self::Parse(file_get_contents($tplfile),null,$variables);
+		if(!empty($variables))
+		{
+			extract($variables);
+		}
+		ob_start();
+			include $tplfile;
+		$content = ob_get_clean();
+		return self::Parse($content,null,$variables);
 	}
 	public static function Parse($content,$innerData = '',$variables,$level=0)
 	{

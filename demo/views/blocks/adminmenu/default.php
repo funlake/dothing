@@ -1,6 +1,3 @@
-<?php 
-	!defined('DO_ACCESS') AND DIE("Go Away!");
-?>
 <ul class="nav">				
 <?php foreach(DOBlocks::GetBlock('admin.menu')->GetMenu() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
@@ -22,10 +19,8 @@
 <p class="navbar-text pull-right">
            <button class="btn btn-success">
            	<i class="icon-user icon-white"></i>
-		<?php echo SG('_adm_user');?>
-           </button>
-           <button class="btn btn-danger" onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/logout');?>'">
+		lake           </button>
+           <button class="btn btn-danger" onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/logout'">
 		<i class="icon-share-alt icon-white"></i>
-		<?php echo L('Log out');?>
-	</button> 
+		Log out	</button> 
 </p>

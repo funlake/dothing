@@ -1,57 +1,50 @@
-<?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <div class="well">
-	<form action="<?php echo Url('autocrud/'.$action.'/role');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
+	<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/role" method="post" id="Afm" name="Afm" class="form-horizontal">
 	<fieldset>
 		<legend>
-			<a><?php echo L('Role > '.$action);?></a>
+			<a>Role > Update</a>
 			<div class="pull-right">
 			  <button class="btn btn-success" id="submitForm">
 			  	<i class="icon-ok icon-white"></i>
-			  	<?php echo L('Apply');?>
-			  </button>
+			  	Apply			  </button>
 			  <button class="btn btn-warning" onclick="location.href=$('#__redirect').val();return false;">
 			  	<i class="icon-remove icon-white"></i>
-			  	<?php echo L('Cancel');?>
-			  </button>
+			  	Cancel			  </button>
 			</div>
 		</legend>
 		<div class="control-group">
 			<label class="control-label" for="name">
-				<?php echo L('Name');?>
-			</label>
+				Name			</label>
 			<div class="controls">
-				<input type="text" id="name" name="name" class="input-xlarge" value="<?php echo $data->name;?>" required/>
+				<input type="text" id="name" name="name" class="input-xlarge" value="Superadmins" required/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="group_id">
-				<?php echo L('Parent');?>
-			</label>
+				Parent			</label>
 			<div class="controls">
-				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
+				<select id="group" data-placeholder="=====No Parent======" class="chzn-select"  tabindex="2" name="pid" default="0" disable="2">
 					<option value="0"></option>
 									
-<?php $tree_adb25e30bb34deb06cda546dba3cab12=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_adb25e30bb34deb06cda546dba3cab12->Render("
+<?php $tree_03aca579c383b269722d3215e9034e98=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_03aca579c383b269722d3215e9034e98->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
 				</select>
 			</div>
 		</div>
-		<?php $p = array((int)$data->state => 'checked');?>
-		<div class="control-group">
+				<div class="control-group">
 			<label class="control-label" for="status">
-				<?php echo L('Status');?>
-			</label>
+				Status			</label>
 			<div class="controls">
-				<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/>No
-				<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/>Yes
+				<input id="status" name="state" value="0" type="radio" />No
+				<input id="status" name="state" value="1" type="radio" checked/>Yes
 			</div>
 		</div>
 	</fieldset>
-		<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/role');?>"/>
-		<input type="hidden" id="role_id" name="id" value="<?php echo $data->id;?>"/>
-		<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
+		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/role"/>
+		<input type="hidden" id="role_id" name="id" value="2"/>
+		<input type="hidden" id="__token" name="__token" value="4526ea6052c61675499a13afc782a597"/>
 	</form>
 </div>

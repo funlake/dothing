@@ -1,49 +1,33 @@
-<?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <div class="well">
-<form action="<?php echo Url('autocrud/'.$action.'/user');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
+<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/user" method="post" id="Afm" name="Afm" class="form-horizontal well">
 <fieldset>
 	<legend>
-		<a><?php echo L('User > '.L($action));?></a>
+		<a>User > Update</a>
 		<div class="pull-right">
 		  <button class="btn btn-success" id="submitForm">
 		  	<i class="icon-ok icon-white"></i>
-		  	<?php echo L('Apply');?>
-		  </button>
+		  	Apply		  </button>
 		  <button class="btn btn-warning" onclick="location.href=$('#__redirect').val();return false;">
 		  	<i class="icon-remove icon-white"></i>
-		  	<?php echo L('Cancel');?>
-		  </button>
+		  	Cancel		  </button>
 		</div>
 	</legend>
 	<div class="control-group">
 		<label class="control-label" for="user_name">
-			<?php echo L('Name');?>
-		</label>
+			Name		</label>
 		<div class="controls">
-			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="<?php echo $data->user_name;?>" required/>
+			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="admin" required/>
 		</div>
 	</div>
-	<?php if($action != "Update") : ?>
-	<div class="control-group">
-		<label class="control-label" for="user_pass">
-			<?php echo L('Password');?>
-		</label>
-		<div class="controls">
-			<input type="password" id="user_pass" name="user_pass" class="input-xlarge" value="<?php echo $data->user_pass;?>" required/>
-		</div>
-	</div>
-	<?php endif;?>
-	<?php $p = array((int)$data->state => 'checked');?>
-	<div class="control-group">
+			<div class="control-group">
 		<label class="control-label" for="group_id">
-			<?php echo L('Group');?>
-		</label>
+			Group		</label>
 		<div class="controls">
-			<select multiple data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select"  tabindex="2" name="group_id[]" default="<?php echo $data->group_id;?>">
+			<select multiple data-placeholder="=======No group======" class="chzn-select"  tabindex="2" name="group_id[]" default="1">
 				<option value="0"></option>
 								
-<?php $tree_b88addbd2c100b22fb107441c9130840=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_b88addbd2c100b22fb107441c9130840->Render("
+<?php $tree_e7f9a2685ae2c70b99486eff56199ac9=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_e7f9a2685ae2c70b99486eff56199ac9->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -52,18 +36,17 @@
 	</div>
 	<div class="control-group">
 		<label class="control-label" for="status">
-			<?php echo L('Status');?>
-		</label>
+			Status		</label>
 		<div class="controls">
-			<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/>No
-			<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/>Yes
+			<input id="status" name="state" value="0" type="radio" />No
+			<input id="status" name="state" value="1" type="radio" checked/>Yes
 		</div>
 	</div>
 </fieldset>
 
-	<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/index');?>"/>
-	<input type="hidden" id="user_id" name="id" value="<?php echo $data->id;?>"/>
-	<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
+	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/index"/>
+	<input type="hidden" id="user_id" name="id" value="12"/>
+	<input type="hidden" id="__token" name="__token" value="4f67f60794a8912ca9e6c95cf8a3d1af"/>
 </form>
 
 </div>

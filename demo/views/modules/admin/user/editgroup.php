@@ -1,46 +1,40 @@
-<?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <div class="well">
-	<form action="<?php echo Url('autocrud/'.$action.'/group');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
+	<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/group" method="post" id="Afm" name="Afm" class="form-horizontal">
 	<fieldset>
 		<legend>
-			<a><?php echo L('Group > Edit');?></a>
+			<a>Group > Edit</a>
 			<div class="pull-right">
 			  <button class="btn btn-success" id="submitForm">
 			  	<i class="icon-ok icon-white"></i>
-			  	<?php echo L('Apply');?>
-			  </button>
+			  	Apply			  </button>
 			  <button class="btn btn-warning" onclick="location.href=$('#__redirect').val();return false;">
 			  	<i class="icon-remove icon-white"></i>
-			  	<?php echo L('Cancel');?>
-			  </button>
+			  	Cancel			  </button>
 			</div>
 		</legend>
 		<div class="control-group">
 			<label class="control-label" for="name">
-				<?php echo L('Name');?>
-			</label>
+				Name			</label>
 			<div class="controls">
-				<input type="text" id="name" name="name" class="input-xlarge" value="<?php echo $data->name;?>" required/>
+				<input type="text" id="name" name="name" class="input-xlarge" value="Manager" required/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="ordering">
-				<?php echo L('Ordering');?>
-			</label>
+				Ordering			</label>
 			<div class="controls">
-				<input type="text" id="ordering" name="ordering" class="input-xlarge" value="<?php echo $data->ordering;?>" />
+				<input type="text" id="ordering" name="ordering" class="input-xlarge" value="22" />
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="group_id">
-				<?php echo L('Parent');?>
-			</label>
+				Parent			</label>
 			<div class="controls">
-				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
+				<select id="group" data-placeholder="=====No Parent======" class="chzn-select"  tabindex="2" name="pid" default="1" disable="4">
 					<option value="0"></option>
 									
-<?php $tree_a7a8955320973169ffdc25496b752933=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
-<?php echo $tree_a7a8955320973169ffdc25496b752933->Render("
+<?php $tree_db2a807952d1e9a775b16d1cad049892=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
+<?php echo $tree_db2a807952d1e9a775b16d1cad049892->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
@@ -49,33 +43,30 @@
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="role_id">
-				<?php echo L('Role');?>
-			</label>
+				Role			</label>
 			<div class="controls">
-				<select multiple data-placeholder="<?php echo L('=======Choose roles======');?>" class="chzn-select"  tabindex="2" name="role_id[]" default="<?php echo $data->role_id;?>">
+				<select multiple data-placeholder="=======Choose roles======" class="chzn-select"  tabindex="2" name="role_id[]" default="3,5">
 					<option value="0"></option>
 									
-<?php $tree_38d413734ab695034da7c2494166d8e2=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_38d413734ab695034da7c2494166d8e2->Render("
+<?php $tree_2092048179690034b039ad29096233e1=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_2092048179690034b039ad29096233e1->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
 				</select>
 			</div>
 		</div>
-		<?php $p = array((int)$data->state => 'checked');?>
-		<div class="control-group">
+				<div class="control-group">
 			<label class="control-label" for="status">
-				<?php echo L('Status');?>
-			</label>
+				Status			</label>
 			<div class="controls">
-				<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/>No
-				<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/>Yes
+				<input id="status" name="state" value="0" type="radio" />No
+				<input id="status" name="state" value="1" type="radio" checked/>Yes
 			</div>
 		</div>
 	</fieldset>
-		<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/group');?>"/>
-		<input type="hidden" id="group_id" name="id" value="<?php echo $data->id;?>"/>
-		<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
+		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/group"/>
+		<input type="hidden" id="group_id" name="id" value="4"/>
+		<input type="hidden" id="__token" name="__token" value="77c498d7e201a312d5ba1d3c52a9bbf0"/>
 	</form>
 </div>
