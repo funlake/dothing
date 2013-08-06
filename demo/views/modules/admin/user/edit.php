@@ -1,5 +1,5 @@
 <div class="well">
-<form action="http://localhost/dothing/demo/index.php/autocrud/Update/user" method="post" id="Afm" name="Afm" class="form-horizontal well">
+<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/user" method="post" id="Afm" name="Afm" class="form-horizontal well">
 <fieldset>
 	<legend>
 		<a>User > Update</a>
@@ -16,18 +16,18 @@
 		<label class="control-label" for="user_name">
 			Name		</label>
 		<div class="controls">
-			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="Emual" required/>
+			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="admin" required/>
 		</div>
 	</div>
 			<div class="control-group">
 		<label class="control-label" for="group_id">
 			Group		</label>
 		<div class="controls">
-			<select multiple data-placeholder="=======No group======" class="chzn-select"  tabindex="2" name="group_id[]" default="5">
+			<select multiple data-placeholder="=======No group======" class="chzn-select"  tabindex="2" name="group_id[]" default="1">
 				<option value="0"></option>
 								
-<?php $tree_b1b6d97594e552f8efb3c217aa22a482=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_b1b6d97594e552f8efb3c217aa22a482->Render("
+<?php $tree_85f3aa06b9c31665d49377c767cfb7f3=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_85f3aa06b9c31665d49377c767cfb7f3->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -44,9 +44,9 @@
 	</div>
 </fieldset>
 
-	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/index"/>
-	<input type="hidden" id="user_id" name="id" value="15"/>
-	<input type="hidden" id="__token" name="__token" value="d2fc913cff93cc0192ca858785c28803"/>
+	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/index"/>
+	<input type="hidden" id="user_id" name="id" value="12"/>
+	<input type="hidden" id="__token" name="__token" value="363d88569da0ff8aa1c3cbf69e18e2ec"/>
 </form>
 
 </div>

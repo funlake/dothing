@@ -1,5 +1,4 @@
 
-
 <div>
 	<div id="error_tabs">
 	<table class="table table-bordered table-striped">

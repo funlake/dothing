@@ -9,9 +9,9 @@ include '../bootstrap.php';
 /** System config **/
 include 'config.php';
 include 'includes/function.php';
+/** Capture request **/
 try
 {
-	/** Capture request **/
 	$request 	= DOFactory::GetTool('http.request');
 	/** Clean dangrous params **/
 	$request->Clean();
@@ -25,13 +25,14 @@ try
 }
 catch(DOException $e)
 {
-	/** Capture request **/
 	$request 	= DOFactory::GetTool('http.request');
+	/** Capture request **/
+	$sess = DOFactory::GetSession();
+	$sess->Set("Error_Msg",$e->_getMessage());
+	//print_r($sess->Get("Error_Msg"));exit;
 	if(!$request->Get('__ajax','request'))
 	{
-		//echo "<pre/>";
-		//print_r(DOException::$msg);
-		include 'error.php';
+		DOUri::Redirect(Url('debug/index/index'));
 	}
 	else
 	{//Dump as json

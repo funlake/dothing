@@ -226,7 +226,7 @@ EOD;
 			$keyChar 	= '$key_'.$level;
 			$itemChar	= '$item_'.$level;
 			$html[]     = str_pad("",($level+1)*4,"\t",STR_PAD_LEFT);
-			$html[] 	= PHP_EOL.'<'.'?php'.' foreach('.$data.' as '.$keyChar.'=>'.$itemChar.') : ?'.'>'.PHP_EOL;
+			$html[] 	= PHP_EOL.'<'.'?php'.' foreach((array)'.$data.' as '.$keyChar.'=>'.$itemChar.') : ?'.'>'.PHP_EOL;
 			$html[]     = '<'.'?php'.' '.$itemChar.'=(array)'.$itemChar.'; ?'.'>'.PHP_EOL;
 			//foreach((array)$data as $item)
 			//{

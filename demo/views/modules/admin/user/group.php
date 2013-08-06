@@ -16,7 +16,7 @@
 				<span class="btn btn-danger"><i class="icon-wrench icon-white"></i> Action</span>
 				<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href='javascript:void(0)' onclick="location.href='http://localhost/dothing/demo/index.php/ads007/user/addgroup'"><i class="icon-plus"></i> Add</a></li>
+					<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/addgroup'"><i class="icon-plus"></i> Add</a></li>
 					<!-- 	    <li class="divider"></li> -->
 					<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 				</ul>
@@ -27,15 +27,15 @@
 	<thead>
 		<tr>
 			<th width="5%" >Id</th>
-			<th width="25%"><a href='http://localhost/dothing/demo/index.php/ads007/user/group@_doorder=g.name&_dosort=desc'>Name</a></th>
+			<th width="25%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/group@_doorder=g.name&_dosort=desc'>Name</a></th>
 			<th width="25%">Roles</th>
-			<th width="10%"><a href='http://localhost/dothing/demo/index.php/ads007/user/group@_doorder=g.ordering&_dosort=desc'>Ordering</a></th>
+			<th width="10%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/group@_doorder=g.ordering&_dosort=desc'>Ordering</a></th>
 			<th width="10%">Status</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody class="adminTable">				
-<?php foreach(DOFactory::GetModel(strtolower('Group'))->TreeData() as $key_0=>$item_0) : ?>
+<?php foreach((array)DOFactory::GetModel(strtolower('Group'))->TreeData() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 		<tr>
@@ -48,7 +48,7 @@
 				<?php echo showEditLink('id='.$item_0['id'],'ads007/user/editgroup')?>
 				<a class="icon-trash" href="#" data-toggle="modal" data-target="#DOModal_<?php echo $item_0['id']?>"></a>
 				<div class="modal" id="DOModal_<?php echo $item_0['id']?>" style="display:none">
-				  <form id="form<?php echo $item_0['id']?>" action="http://localhost/dothing/demo/index.php/autocrud/Delete/group" method="post">
+				  <form id="form<?php echo $item_0['id']?>" action="http://localhost:81/dothing/demo/index.php/autocrud/Delete/group" method="post">
 					  <div class="modal-header">
 					    <a class="close" data-dismiss="modal">×</a>
 					    <h3>Warning</h3>
@@ -63,7 +63,7 @@
 					    <a data-dismiss="modal" class="btn btn-warning">
 					    	<i class="icon-remove icon-white"></i>
 					    	Cancel					   	</a>
-						<input type="hidden" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/group"/>
+						<input type="hidden" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/group"/>
 						<input type="hidden" name="id" value="<?php echo $item_0['id']?>"/>
 					   </div>
 				   </form>
