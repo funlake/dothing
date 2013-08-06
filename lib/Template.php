@@ -173,7 +173,7 @@ EOD;
 		}
 		else
 		{
-			$treeWidget = trim($treeWidget,"/");
+			$treeWidget = trim($treeWidget,".");
 		}
 		//	$innerData 			 = (array)$innerData;
 		$html = array();
