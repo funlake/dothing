@@ -56,7 +56,7 @@
 						<form id="form<?php echo $item_0['id']?>" action="http://localhost:81/dothing/demo/index.php/autocrud/Delete/user" method="post">
 							<div class="modal-header">
 								<a class="close" data-dismiss="modal">×</a>
-								<h4>Warning</h4>
+								<h3>Warning</h3>
 							</div>
 							<div class="modal-body">
 								<p>Do you want to delete this item?</p>
