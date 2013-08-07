@@ -4,16 +4,16 @@
   <div class="col-lg-12">
     <div class="slidebar">
   <ul:loop=Block|Admin/leftmenu.GetBackMenu class="nav nav-pills nav-stacked">
-    <li class="{#class}"><a href="{#link}">{#title}</a></li>
+    <li class="{#class}"><a href="{#link}"><i class="{#iconClass}"></i>{#title}</a></li>
     <ul:loop=child class="nav nav-pills nav-stacked">
       <li class="{#class}">	
         <a href="{#link}">
-        <i class="{#iconClass}"></i>	{#title}
+        	{#title}
        </a>
       </li>
     </ul:loop>
   </ul:loop>
-  </div>
+</div>
  </div>
 </div>
 <!-- End Left menu -->

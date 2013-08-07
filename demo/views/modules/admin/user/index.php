@@ -80,7 +80,7 @@
 <?php endforeach;?>
 </tbody>
 </table>
-<div >		<?php
+<div class="pull-right">		<?php
 		 $pager = DOFactory::GetWidget('paginate','default', DOFactory::GetModel(strtolower('User'))->GetTotal(),DO_LIST_ROWS);
 		 echo $pager->Render();
 		 ?></div>

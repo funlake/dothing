@@ -84,5 +84,5 @@ $searchs     = SG($searchIndex);
 		</tr>
 	</tbody:loop>
 </table>
-<div:paginate=Model|User.GetTotal/>
+<div:paginate=Model|User.GetTotal class="pull-right"/>
 </div>

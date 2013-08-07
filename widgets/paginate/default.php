@@ -45,8 +45,7 @@ class DOWidgetPaginateDefault extends DOWidgetPaginate
 
 
 		$i 	= $this->curPageNo > $haftMax ? ($this->curPageNo - $haftMax) : 1;
-		$tpl[]	= "<div class='pagination'>";
-		$tpl[]	= "<ul>";
+		$tpl[]	= "<ul class='pagination'>";
 		$params[$pageindex] = 1;
 		$tpl[]  = "<li><a href='".Url($page,$params)."'><<</a></li>";
 		if($current != 1)
@@ -78,7 +77,6 @@ class DOWidgetPaginateDefault extends DOWidgetPaginate
 		$params[$pageindex] = $this->GetTotalPages();
 		$tpl[]  = "<li><a href='".Url($page,$params)."'>>></a></li>";
 		$tpl[]  = "</ul>";
-		$tpl[]  = "</div>";
 		return implode('',$tpl);
 	}
 }

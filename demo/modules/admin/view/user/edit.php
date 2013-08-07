@@ -1,6 +1,5 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <form action="<?php echo Url('autocrud/'.$action.'/user');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
-
 	<div class="row well">
 		<div class="col-lg-8"><h4><?php echo L('User / '.L($action));?></h4></div>
 		<div class="col-lg-4 text-right">
@@ -14,41 +13,48 @@
 		  </button>
 		</div>
 	</div>
-	<hr/>
 	<div class="form-group">
-		<label class="control-label" for="user_name">
+		<label class="control-label col-lg-2" for="user_name">
 			<?php echo L('Name');?>
 		</label>
-		<input type="text" id="user_name" name="user_name" class="form-control" value="<?php echo $data->user_name;?>" required/>
-	</div>
+		<div class="col-lg-4">
+			<input type="text" id="user_name" name="user_name" class="form-control" value="<?php echo $data->user_name;?>" required/>
+		</div>
 	<?php if($action != "Update") : ?>
-	<div class="form-group">
-		<label class="control-label" for="user_pass">
+		<label class="control-label col-lg-2" for="user_pass">
 			<?php echo L('Password');?>
 		</label>
-		<div class="controls">
+		<div class="col-lg-4">
 			<input type="password" id="user_pass" name="user_pass" class="form-control"  value="<?php echo $data->user_pass;?>" required/>
 		</div>
-	</div>
 	<?php endif;?>
-	<?php $p = array((int)$data->state => 'checked');?>
+	</div>
 	<div class="form-group">
-		<label class="control-label" for="group_id">
+		<label class="control-label col-lg-2" for="group_id">
 			<?php echo L('Group');?>
 		</label>
-		<select multiple data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="<?php echo $data->group_id;?>">
-			<option value="0"></option>
-			<notag:tree=Model|Group.Find>
-				<option value="{#id}">[prefix]{#name}</option>
-			</notag:tree>
-		</select>
+		<div class="col-lg-4">
+			<select multiple data-placeholder="<?php echo L('=======No group======');?>" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="<?php echo $data->group_id;?>">
+				<option value="0"></option>
+				<notag:tree=Model|Group.Find>
+					<option value="{#id}">[prefix]{#name}</option>
+				</notag:tree>
+			</select>
+		</div>
 	</div>
-	<div class="input-group">
-		<label class="control-label" for="status">
+	<?php $p = array((int)$data->state => 'checked');?>
+	<div class="form-group">
+		<label class="control-label col-lg-2" for="status">
 			<?php echo L('Status');?>
 		</label>
-		<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/>No
-		<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/>Yes
+		<div class="col-lg-4">
+			<label class="radio-inline">
+				<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/><?php echo L('No');?>
+			</label>
+			<label class="radio-inline">
+				<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/><?php echo L('Yes');?>
+			</label>
+		</div>
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/index');?>"/>
 	<input type="hidden" id="user_id" name="id" value="<?php echo $data->id;?>"/>
