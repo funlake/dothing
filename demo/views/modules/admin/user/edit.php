@@ -23,22 +23,20 @@
 		<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="1">
 			<option value="0"></option>
 							
-<?php $tree_3b9158fcd6ce7dae7e3938f6f22a2872=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_3b9158fcd6ce7dae7e3938f6f22a2872->Render("
+<?php $tree_97b9f7693850cdc2e22664467e1fbd34=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_97b9f7693850cdc2e22664467e1fbd34->Render("
 				<option value=\"{#id}\">[prefix]{#name}</option>
 			"); ?>
 
 		</select>
 	</div>
-	<div class="form-group">
+	<div class="input-group">
 		<label class="control-label" for="status">
 			Status		</label>
-		<div class="controls">
-			<input id="status" name="state" value="0" type="radio" />No
-			<input id="status" name="state" value="1" type="radio" checked/>Yes
-		</div>
+		<input id="status" name="state"  value="0" type="radio" />No
+		<input id="status" name="state"  value="1" type="radio" checked/>Yes
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/index"/>
 	<input type="hidden" id="user_id" name="id" value="12"/>
-	<input type="hidden" id="__token" name="__token" value="03cab27ff1d7c274269888b0fdd9179b"/>
+	<input type="hidden" id="__token" name="__token" value="5f72954903a106e432421a27440cb625"/>
 </form>

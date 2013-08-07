@@ -43,14 +43,12 @@
 			</notag:tree>
 		</select>
 	</div>
-	<div class="form-group">
+	<div class="input-group">
 		<label class="control-label" for="status">
 			<?php echo L('Status');?>
 		</label>
-		<div class="controls">
-			<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/>No
-			<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/>Yes
-		</div>
+		<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/>No
+		<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/>Yes
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/index');?>"/>
 	<input type="hidden" id="user_id" name="id" value="<?php echo $data->id;?>"/>
