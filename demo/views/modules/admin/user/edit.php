@@ -16,18 +16,18 @@
 		<label class="control-label" for="user_name">
 			Name		</label>
 		<div class="controls">
-			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="demo" required/>
+			<input type="text" id="user_name" name="user_name" class="input-xlarge" value="lake" required/>
 		</div>
 	</div>
 			<div class="control-group">
 		<label class="control-label" for="group_id">
 			Group		</label>
 		<div class="controls">
-			<select multiple data-placeholder="=======No group======" class="chzn-select"  tabindex="2" name="group_id[]" default="6">
+			<select multiple data-placeholder="=======No group======" class="chzn-select"  tabindex="2" name="group_id[]" default="4,5">
 				<option value="0"></option>
 								
-<?php $tree_20368d9f543157151904dcb00556f43e=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_20368d9f543157151904dcb00556f43e->Render("
+<?php $tree_4cd46b70d9536c7cafc5bced2436b08b=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_4cd46b70d9536c7cafc5bced2436b08b->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -45,8 +45,8 @@
 </fieldset>
 
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/index"/>
-	<input type="hidden" id="user_id" name="id" value="19"/>
-	<input type="hidden" id="__token" name="__token" value="591dd7c55ed9c0bfdd79e51f102f9427"/>
+	<input type="hidden" id="user_id" name="id" value="17"/>
+	<input type="hidden" id="__token" name="__token" value="55b155be587295e24b730076bd3ef092"/>
 </form>
 
 </div>
