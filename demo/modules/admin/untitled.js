@@ -13,6 +13,8 @@ jQuery(function(){
        $('#staff'+v+'sjukrasjodur').keyup(function(){
 
           var val = $(this).val().replace(/[^\d]/,'');
+          //number only
+          $(this).val(val)
           val = (val * 1).toFixed(2);
           if(val != "" && val > 0){
              $('#staff'+v+'orlofssjodur').val((val*0.25/100).toFixed(2));

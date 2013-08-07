@@ -42,27 +42,30 @@
     </head>
 
     <body>
-      <div class="container">
-        <div class="navbar navbar-fixed-top navbar-inverse">
-          <div class="navbar-inner">
-            <div class="container-fluid">
+      <div class="row">
+        <div class="navbar navbar-fixed-top col-lg-12">
+            <div class="container">
               <div class="nav-collapse collapse">
               <?php echo T("block","mainmenu");?>
-            </div><!--/.nav-collapse -->
-          </div>
-        </div>
+              </div>
+           </div>
       </div>
-      <div class="container-fluid">
-        <?php echo T("block","message");?>
-        <div class="row-fluid">
-            <?php echo T("module","__CURRENT__");?>
-        </div><!--/row-->
-        
-        <footer>
+    </div>
+    <div class="row">
+       <?php echo T("block","message");?>
+    </div>
+      <div class="row">
+          <div class="container">
+              <div class="col-lg-12">
+              <?php echo T("module","__CURRENT__");?>
+              </div>
+        </div>
+      </div><!--/.fluid-container-->
+      <div class="row">
+              <footer>
           <?php echo T("block","footer");?>
         </footer>
         <?php echo T("block","bottom");?>
-      </div><!--/.fluid-container-->
     </div>
     <!-- Le javascript
     ================================================== -->
