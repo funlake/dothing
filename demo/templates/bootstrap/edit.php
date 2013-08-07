@@ -43,7 +43,7 @@
 
     <body>
       <div class="row">
-        <div class="navbar navbar-fixed-top col-lg-12">
+        <div class="navbar navbar-fixed-top col-lg-12 navbar-inverse">
             <div class="container">
               <div class="nav-collapse collapse">
               <?php echo T("block","mainmenu");?>
@@ -52,7 +52,9 @@
       </div>
     </div>
     <div class="row">
+      <div class="container">
        <?php echo T("block","message");?>
+      </div>
     </div>
       <div class="row">
           <div class="container">
@@ -62,10 +64,12 @@
         </div>
       </div><!--/.fluid-container-->
       <div class="row">
+        <div class="container">
               <footer>
           <?php echo T("block","footer");?>
         </footer>
         <?php echo T("block","bottom");?>
+      </div>
     </div>
     <!-- Le javascript
     ================================================== -->

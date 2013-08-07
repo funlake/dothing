@@ -16,17 +16,17 @@
 					<th>Function</th>
 				</tr>
 				<tr>
-						<td>/Applications/MAMP/htdocs/dothing/lib/Controller.php</td>
+						<td>D:\develope\htdocs\dothing\lib\Controller.php</td>
 						<td>31</td>
 						<td>&nbsp;</td>
 				</tr>
 									<tr>
-						<td>/Applications/MAMP/htdocs/dothing/lib/Router.php</td>
+						<td>D:\develope\htdocs\dothing\lib\Router.php</td>
 						<td>29</td>
 						<td>DOController::GetController</td>
 					</tr>
 									<tr>
-						<td>/Applications/MAMP/htdocs/dothing/demo/index.php</td>
+						<td>D:\develope\htdocs\dothing\demo\index.php</td>
 						<td>20</td>
 						<td>DORouter::Dispatch</td>
 					</tr>

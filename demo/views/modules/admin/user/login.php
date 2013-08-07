@@ -1,7 +1,7 @@
 <div class="row">    
   <div class="col-lg-3"></div>
  <div class="col-lg-6">
- <form id="signup" class="form-horizontal" method="post" action="http://localhost:81/dothing/demo/index.php/ads007/user/login">
+ <form id="signup" class="form-horizontal" method="post" action="http://localhost/dothing/demo/index.php/ads007/user/login">
   <fieldset>
     <legend>Sign in</legend>		
     <div class="form-group">

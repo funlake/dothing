@@ -51,27 +51,29 @@
       </div>
     </div>
       <div class="row">
-       <?php echo T("block","message");?>
+        <div class="container">
+            <?php echo T("block","message");?>
+        </div>
       </div>
         <div class="row">
-          <div class="col-lg-3">
-            <?php echo T("block","sidebar");?>
-          </div><!--/span3-->
-          <div class="col-lg-8">
+          <div class="container">
+            <div class="col-lg-3">
+              <?php echo T("block","sidebar");?>
+            </div><!--/span3-->
+            <div class="col-lg-9 pull-right">
 
-            <?php echo T("module","__CURRENT__");?>
-          </div><!--/span9-->
-
+              <?php echo T("module","__CURRENT__");?>
+            </div><!--/span8-->
+          </div>
         </div><!--/row-->
-        
-        <footer>
-          <?php echo T("block","footer");?>
-        </footer>
-        <?php echo T("block","bottom");?>
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
+        <div class="row">
+          <div class="container">
+            <footer>
+              <?php echo T("block","footer");?>
+            </footer>
+            <?php echo T("block","bottom");?>
+          </div>
+        </div>
     <script type="text/javascript">
     
     require(['jquery',DOJsBase+'/admin.js'],function($,m){

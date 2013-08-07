@@ -47,24 +47,26 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			array(
 				'title' => L('Modules')
 			   ,'link'  => '#'
-			   ,'class'	=> 'disabled'
-			   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
+			   ,'class'	=> 'active'
+			//   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
 			   ,'child' => array(
 			   		array(
 						'title' => L('Users')
 					   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index")
+					   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/index','user/edit')
-					   				) ? 'active' : ''
+					   				) ? 'item-active' : ''
 					),
 					array(
 		  	   			'title' => L('Groups')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/group')
+		  	   		    ,'iconClass' => 'glyphicon glyphicon-grid glyphicon-white'
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/group','user/editgroup')
-					   				) ? 'active' : ''		  	   		
+					   				) ? 'item-active' : ''		  	   		
 					),
 					array(
 		  	   			'title' => L('Roles')
@@ -72,7 +74,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/role','user/editrole')
-					   				) ? 'active' : ''		  	   		
+					   				) ? 'item-active' : ''		  	   		
 					)
 			   )
 		   )

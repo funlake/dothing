@@ -3,7 +3,7 @@
 $searchIndex = "DOSearch/".DORouter::GetPageIndex();
 $searchs     = SG($searchIndex);
 ?>
-<div class="row">
+<div class="row well">
 	<form class="form-horizontal" id="Afm" method="post">
 		<div class="col-lg-5">
 			<input type="text" name="DO[search][name]" id="group_name_search" 
@@ -32,7 +32,6 @@ $searchs     = SG($searchIndex);
 		</div>
 	</form>
 </div>
-<hr/>
 <div class="row">
 	<table class="table table-striped table-bordered table-hover">
 		<thead>

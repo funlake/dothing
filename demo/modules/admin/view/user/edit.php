@@ -1,8 +1,8 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <form action="<?php echo Url('autocrud/'.$action.'/user');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
 
-	<div class="row">
-		<div class="col-lg-8"><a><?php echo L('User > '.L('Modify'));?></a></div>
+	<div class="row well">
+		<div class="col-lg-8"><h4><?php echo L('User / '.L($action));?></h4></div>
 		<div class="col-lg-4 text-right">
 		  <button class="btn btn-success" id="submitForm">
 		  	<i class="glyphicon glyphicon-ok glyphicon-white"></i>

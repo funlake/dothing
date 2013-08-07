@@ -1,5 +1,5 @@
 <div class="well">
-	<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/group" method="post" id="Afm" name="Afm" class="form-horizontal">
+	<form action="http://localhost/dothing/demo/index.php/autocrud/Update/group" method="post" id="Afm" name="Afm" class="form-horizontal">
 	<fieldset>
 		<legend>
 			<a>Group > Edit</a>
@@ -33,8 +33,8 @@
 				<select id="group" data-placeholder="=====No Parent======" class="chzn-select"  tabindex="2" name="pid" default="0" disable="1">
 					<option value="0"></option>
 									
-<?php $tree_d26285e64f79c67a1022c5df8817bb83=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
-<?php echo $tree_d26285e64f79c67a1022c5df8817bb83->Render("
+<?php $tree_418e5acdf324adf059358190c1e9c9e4=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
+<?php echo $tree_418e5acdf324adf059358190c1e9c9e4->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
@@ -48,8 +48,8 @@
 				<select multiple data-placeholder="=======Choose roles======" class="chzn-select"  tabindex="2" name="role_id[]" default="5">
 					<option value="0"></option>
 									
-<?php $tree_e6db8b1661d79b7efd8e25a5650bd3da=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_e6db8b1661d79b7efd8e25a5650bd3da->Render("
+<?php $tree_b3c4a1c10102724e0e900f546cd5e3b4=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_b3c4a1c10102724e0e900f546cd5e3b4->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
@@ -65,8 +65,8 @@
 			</div>
 		</div>
 	</fieldset>
-		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/group"/>
+		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/group"/>
 		<input type="hidden" id="group_id" name="id" value="1"/>
-		<input type="hidden" id="__token" name="__token" value="7490702e44aa25ee2a5f0a4f5759036c"/>
+		<input type="hidden" id="__token" name="__token" value="1e2e56bbe0ad58d8fe07faf8bac117ee"/>
 	</form>
 </div>
