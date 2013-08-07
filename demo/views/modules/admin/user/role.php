@@ -27,7 +27,7 @@
 	<thead>
 		<tr>
 			<th width="5%" >Id</th>
-			<th width="25%">Name</th>
+			<th width="40%">Name</th>
 			<th width="10%">Status</th>
 			<th>Actions</th>
 		</tr>

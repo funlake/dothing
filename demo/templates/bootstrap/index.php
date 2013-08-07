@@ -19,6 +19,7 @@
   }
   </style>
   <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -40,23 +41,23 @@
     </head>
 
     <body>
-      <div class="container">
-        <div class="navbar navbar-fixed-top">
-          <div class="navbar-inner">
-            <div class="container-fluid">
+      <div class="row">
+        <div class="navbar navbar-fixed-top col-lg-12 navbar-inverse">
+            <div class="container">
               <div class="nav-collapse collapse">
               <?php echo T("block","mainmenu");?>
-            </div><!--/.nav-collapse -->
-          </div>
-        </div>
+              </div>
+           </div>
       </div>
-      <div class="container-fluid">
-        <?php echo T("block","message");?>
-        <div class="row-fluid">
-                    <div class="span3">
+    </div>
+      <div class="row">
+       <?php echo T("block","message");?>
+      </div>
+        <div class="row">
+          <div class="col-lg-3">
             <?php echo T("block","sidebar");?>
           </div><!--/span3-->
-          <div class="span9">
+          <div class="col-lg-8">
 
             <?php echo T("module","__CURRENT__");?>
           </div><!--/span9-->
@@ -67,8 +68,6 @@
           <?php echo T("block","footer");?>
         </footer>
         <?php echo T("block","bottom");?>
-      </div><!--/.fluid-container-->
-    </div>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

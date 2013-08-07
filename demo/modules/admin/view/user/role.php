@@ -34,7 +34,7 @@ $searchs     = SG($searchIndex);
 	<thead>
 		<tr>
 			<th width="5%" ><?php echo L('Id');?></th>
-			<th width="25%"><?php echo L('Name');?></th>
+			<th width="40%"><?php echo L('Name');?></th>
 			<th width="10%"><?php echo L('Status');?></th>
 			<th><?php echo L('Actions');?></th>
 		</tr>

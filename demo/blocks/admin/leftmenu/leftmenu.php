@@ -47,8 +47,8 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			array(
 				'title' => L('Modules')
 			   ,'link'  => '#'
-			   ,'class'	=> 'nav-header active'
-			   ,'iconClass' => 'icon-user icon-white'
+			   ,'class'	=> 'disabled'
+			   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
 			   ,'child' => array(
 			   		array(
 						'title' => L('Users')

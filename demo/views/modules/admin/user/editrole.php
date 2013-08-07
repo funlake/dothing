@@ -26,8 +26,8 @@
 				<select id="group" data-placeholder="=====No Parent======" class="chzn-select"  tabindex="2" name="pid" default="0" disable="2">
 					<option value="0"></option>
 									
-<?php $tree_6e4b207f41ea66dbda9c9edef432a960=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_6e4b207f41ea66dbda9c9edef432a960->Render("
+<?php $tree_6ee68210c7c882604e708ac0e1e52bec=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_6ee68210c7c882604e708ac0e1e52bec->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
@@ -45,6 +45,6 @@
 	</fieldset>
 		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/role"/>
 		<input type="hidden" id="role_id" name="id" value="2"/>
-		<input type="hidden" id="__token" name="__token" value="f289ef05802b4a5ef4998f13ea9f8060"/>
+		<input type="hidden" id="__token" name="__token" value="619c695301b556f2c515d5fb1a45e3ec"/>
 	</form>
 </div>

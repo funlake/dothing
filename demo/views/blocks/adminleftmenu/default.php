@@ -1,11 +1,13 @@
 <!--Begin Left menu -->
-<div class="well sidebar-nav affix bs-docs-sidenav">
-  <ul class="nav nav-list">				
+<div class="row">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-10">
+  <ul class="nav nav-pills nav-stacked">				
 <?php foreach((array)DOBlocks::GetBlock('admin.leftmenu')->GetBackMenu() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
     <li class="<?php echo $item_0['class']?>"><a href="<?php echo $item_0['link']?>"><i class="<?php echo $item_0['iconClass']?>"></i><?php echo $item_0['title']?></a></li>
-    <ul class="nav nav-list DOSubnav">								
+    <ul class="nav nav-pills nav-stacked">								
 <?php foreach((array)$item_0["child"] as $key_1=>$item_1) : ?>
 <?php $item_1=(array)$item_1; ?>
 
@@ -20,5 +22,6 @@
   		
 <?php endforeach;?>
 </ul>
+ </div>
 </div>
 <!-- End Left menu -->

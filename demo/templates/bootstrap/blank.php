@@ -19,6 +19,7 @@
   }
   </style>
   <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/bootstrap-glyphicons.css" rel="stylesheet">
 
   <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>

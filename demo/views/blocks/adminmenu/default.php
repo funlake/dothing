@@ -1,4 +1,4 @@
-<ul class="nav">				
+<ul class="nav navbar-nav">				
 <?php foreach((array)DOBlocks::GetBlock('admin.menu')->GetMenu() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
@@ -16,11 +16,13 @@
 		
 <?php endforeach;?>
 </ul>
-<p class="navbar-text pull-right">
-           <button class="btn btn-success">
-           	<i class="icon-user icon-white"></i>
-		lake           </button>
-           <button class="btn btn-danger" onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/logout'">
-		<i class="icon-share-alt icon-white"></i>
-		Log out	</button> 
-</p>
+<ul class="nav navbar-nav pull-right">
+  <li><a href="#"><i class="glyphicon glyphicon-user glyphicon-white"></i>&nbsp;lake</a></li>
+  <li class="dropdown">
+
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class=" glyphicon glyphicon-setting glyphicon-white"></i>Actions <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li><a href="http://localhost:81/dothing/demo/index.php/ads007/user/logout">Log out</a></li>
+    </ul>
+  </li>
+</ul>

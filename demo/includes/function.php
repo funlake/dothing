@@ -50,7 +50,7 @@ if(!function_exists('showEditLink'))
 	{
 		$link = Url($baseurl,$query);
 		$final =  <<<editlink
-		<a class="icon-edit" href="{$link}">
+		<a class="glyphicon glyphicon-edit" href="{$link}">
 		</a>
 editlink;
 		return $final;
