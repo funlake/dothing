@@ -1,7 +1,7 @@
 <?php 
 !defined('DO_ACCESS') AND DIE("Go Away!");
 ?>
-<ul:loop=Block|Admin/menu.GetMenu class="nav navbar-nav">
+<ul:loop=Block|Admin/menu.GetMenu class="nav navbar-nav fixed">
 	<li class="{#class}">
 		<a href="{#link}" {#attrs}>{#title}</a>
 		<ul:loop=child class="dropdown-menu">

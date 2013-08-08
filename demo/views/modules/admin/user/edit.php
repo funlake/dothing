@@ -14,18 +14,18 @@
 		<label class="control-label col-lg-2" for="user_name">
 			Name		</label>
 		<div class="col-lg-4">
-			<input type="text" id="user_name" name="user_name" class="form-control" value="lake" required/>
+			<input type="text" id="user_name" name="user_name" class="form-control" value="admin" required/>
 		</div>
 		</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="group_id">
 			Group		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="4,5">
+			<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="1">
 				<option value="0"></option>
 								
-<?php $tree_8d28369d78e9f69aefdcebf4976e146d=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_8d28369d78e9f69aefdcebf4976e146d->Render("
+<?php $tree_bd7525e02d0f883bc09d6ba592947b22=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_bd7525e02d0f883bc09d6ba592947b22->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -36,11 +36,11 @@
 		<label class="control-label col-lg-2" for="role_id">
 			Role		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder=" " class="chzn-select form-control"  tabindex="2" name="role_id[]" default="3,2">
+			<select multiple data-placeholder=" " class="chzn-select form-control"  tabindex="2" name="role_id[]" default="2">
 				<option value="0"></option>
 								
-<?php $tree_131efd5e543f44672376e200b09aabed=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_131efd5e543f44672376e200b09aabed->Render("
+<?php $tree_9733ffc64c56265dbe0659b298b39d7a=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_9733ffc64c56265dbe0659b298b39d7a->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -59,6 +59,6 @@
 		</div>
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/index"/>
-	<input type="hidden" id="user_id" name="id" value="17"/>
-	<input type="hidden" id="__token" name="__token" value="3021c8e1ff88bec323cff9d8e2b0e045"/>
+	<input type="hidden" id="user_id" name="id" value="12"/>
+	<input type="hidden" id="__token" name="__token" value="84c8be470859f3777a7f33c9c3d5a9c5"/>
 </form>

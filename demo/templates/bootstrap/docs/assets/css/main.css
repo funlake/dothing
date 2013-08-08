@@ -26,9 +26,25 @@ footer{
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	min-width:250px;
 }
 .item-active{
 	background: #f9f9f9;
 	font-weight: bold;
 	font-size:18px
+}
+/** masonry **/
+.masonry img {
+    max-width: 100%;
+}
+.masonry .box {
+  width: .5px;
+}
+.masonry p {
+    font-size: 12px;
+    line-height: 18px;
+    color: #555555;
+}
+.masonry a {
+    white-space: nowrap;
 }

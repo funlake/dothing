@@ -1,4 +1,4 @@
-<ul class="nav navbar-nav">				
+<ul class="nav navbar-nav fixed">				
 <?php foreach((array)DOBlocks::GetBlock('admin.menu')->GetMenu() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 

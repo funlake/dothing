@@ -57,8 +57,10 @@
       </div>
         <div class="row">
           <div class="container">
-            <div class="col-lg-3">
+            <div class="col-lg-3 ">
+              <div class="affix">
               <?php echo T("block","sidebar");?>
+            </div>
             </div><!--/span3-->
             <div class="col-lg-9 pull-right">
 

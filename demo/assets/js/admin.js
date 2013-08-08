@@ -72,6 +72,35 @@ define(['jquery'],function($){
 		'user_login' : function(){
 			//alert($)
 		},
+		'user_permission' : function(){
+			require(['plugin/masonry_jquery'],function(){
+				var $container = $('.masonry');
+				var gutter = 30;
+				var min_width = 300;
+				$container.imagesLoaded( function(){
+				    $container.masonry({
+				        itemSelector : '.box',
+				        gutterWidth: gutter,
+				        isAnimated: true,
+				          columnWidth: function( containerWidth ) {
+				            var box_width = (((containerWidth - 2*gutter)/3) | 0) ;
+
+				            if (box_width < min_width) {
+				                box_width = (((containerWidth - gutter)/2) | 0);
+				            }
+
+				            if (box_width < min_width) {
+				                box_width = containerWidth;
+				            }
+
+				            $('.box').width(box_width);
+
+				            return box_width;
+				          }
+				    });
+				});
+			})
+		},
 		'run' : function(route){
 			var t = route.split('_'),c = t[0];
 			if(typeof mod[c] != "undefined"){

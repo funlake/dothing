@@ -71,9 +71,9 @@ class DOModel
 		$db = DOFactory::GetDatabase();
 		return $db->GetFoundRows();
 	}
-	public static function SetTotal()
+	public static function SetTotal($total = 0)
 	{
-		self::$total = self::LastTotal();
+		self::$total = $total > 0 ? $total : self::LastTotal();
 	}
 	public static function GetTotal()
 	{
