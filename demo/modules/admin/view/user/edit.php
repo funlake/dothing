@@ -42,6 +42,20 @@
 			</select>
 		</div>
 	</div>
+	<div class="form-group">
+		<label class="control-label col-lg-2" for="role_id">
+			<?php echo L('Role');?>
+		</label>
+		<div class="col-lg-4">
+			<select multiple data-placeholder=" " class="chzn-select form-control"  tabindex="2" name="role_id[]" default="<?php echo $data->role_id;?>">
+				<option value="0"></option>
+				<notag:tree=Model|Role.Select>
+					<option value="{#id}" parent="{#pid}">[prefix]{#name}</option>
+				</notag:tree>
+			</select>
+
+		</div>
+	</div>
 	<?php $p = array((int)$data->state => 'checked');?>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="status">

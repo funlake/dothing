@@ -50,13 +50,14 @@ class DOModelUser extends DOModel
                           ,'ug'
                           ,array('ug.user_id'=>'u.id')
                      )
-                   	->LeftJoin('#__group','g',array('g.id'=>'ug.group_id'),'group_concat(g.name) as `group`,group_concat(g.id) as group_id')
+                   	->LeftJoin('#__group','g',array('g.id'=>'ug.group_id'),'group_concat(distinct g.name) as `group`,group_concat(distinct g.id) as group_id')
+                   	->LeftJoin('#__user_role','ur',array('ur.user_id'=>'u.id'))
+                   	->LeftJoin('#__role','r',array('r.id'=>'ur.role_id'),'group_concat(distinct r.name) as `role`,group_concat(distinct r.id) as role_id')
                    	->Orderby($_REQUEST['_doorder'],$_REQUEST['_dosort'])
                    	->Limit($this->defaultLimit)
                    	->Where($where)
                    	->Groupby('u.id')
                    	->Read();
-
 		$rs =  $db->GetAll();
 		$this->SetTotal();
 		return $rs;
@@ -65,6 +66,7 @@ class DOModelUser extends DOModel
 	public function Add(array $insArray = null)
 	{
 		$R = parent::Add($insArray);
+		//one use may in several group or belong to several roles.
 		if($R->success)
 		{
 			foreach($insArray['group_id'] as $gid)
@@ -73,6 +75,15 @@ class DOModelUser extends DOModel
 					array(
 						'user_id' => $R->insert_id,
 						'group_id' => $gid
+					)
+				);
+			}
+			foreach($insArray['role_id'] as $rid)
+			{
+				DOFactory::GetTable('#__user_role')->Insert(
+					array(
+						'user_id' => $R->insert_id,
+						'role_id' => $rid
 					)
 				);
 			}
@@ -97,6 +108,18 @@ class DOModelUser extends DOModel
 						'user_id'  => $upArray['id']
 					)
 				);				
+			}
+			DOFactory::GetTable('#__user_role')->Delete(array(
+				"user_id" => "=?"
+			),$upArray['id']);
+			foreach($upArray['role_id'] as $rid)
+			{
+				DOFactory::GetTable('#__user_role')->Insert(
+					array(
+						'user_id' => $upArray['id'],
+						'role_id' => $rid
+					)
+				);
 			}
 
 		}

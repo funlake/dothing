@@ -99,7 +99,9 @@ class DOModel
 			$where   = array_merge((array)$where,$searchs);
 		}
 		/** Get limit page **/
-		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);	
+		$rs =  $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);	
+		$this->SetTotal();
+		return $rs;
 	}
 	public function Find($where = null)
 	{
@@ -121,7 +123,9 @@ class DOModel
 			);
 		}
 		/** Get limit page **/
-		return $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);
+		$rs =  $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);
+		$this->SetTotal();
+		return $rs;
 	}
 	public function Select($where = null,$compare = '=',$orderby = array(),$groupby = null,$limit = null)
 	{
@@ -168,6 +172,7 @@ class DOModel
 			$caller = DOFactory::GetTable($this->name);
 			$R      = call_user_func_array(array($caller,'GetAll'),array($condition,$params,$orderby,$groupby,$limit));
 			$this->SetFieldsValue($R,$R[0],$this->action);
+			$this->SetTotal();
 			return $R;
 		}
 		else

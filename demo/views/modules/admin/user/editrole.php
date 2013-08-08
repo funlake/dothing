@@ -1,5 +1,5 @@
 <div class="well">
-	<form action="http://localhost/dothing/demo/index.php/autocrud/Update/role" method="post" id="Afm" name="Afm" class="form-horizontal">
+	<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/role" method="post" id="Afm" name="Afm" class="form-horizontal">
 	<fieldset>
 		<legend>
 			<a>Role > Update</a>
@@ -16,18 +16,18 @@
 			<label class="control-label" for="name">
 				Name			</label>
 			<div class="controls">
-				<input type="text" id="name" name="name" class="input-xlarge" value="Module admin" required/>
+				<input type="text" id="name" name="name" class="input-xlarge" value="Superadmins" required/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="group_id">
 				Parent			</label>
 			<div class="controls">
-				<select id="group" data-placeholder="=====No Parent======" class="chzn-select"  tabindex="2" name="pid" default="2" disable="6">
+				<select id="group" data-placeholder="=====No Parent======" class="chzn-select"  tabindex="2" name="pid" default="0" disable="2">
 					<option value="0"></option>
 									
-<?php $tree_3af5b6652b88bde21e01209e00cc2b82=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_3af5b6652b88bde21e01209e00cc2b82->Render("
+<?php $tree_f0350449c5b7241822f230430b6492a1=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_f0350449c5b7241822f230430b6492a1->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
@@ -43,8 +43,8 @@
 			</div>
 		</div>
 	</fieldset>
-		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/role"/>
-		<input type="hidden" id="role_id" name="id" value="6"/>
-		<input type="hidden" id="__token" name="__token" value="cf0b11d571223a33c8354349c684d761"/>
+		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/role"/>
+		<input type="hidden" id="role_id" name="id" value="2"/>
+		<input type="hidden" id="__token" name="__token" value="f039203473b00c7a4a8648a3d2040f8c"/>
 	</form>
 </div>

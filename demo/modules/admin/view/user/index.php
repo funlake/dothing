@@ -39,6 +39,7 @@ $searchs     = SG($searchIndex);
 				<th width="5%"><?php echo DOMakeSortHead('u.id', L('Id'));?></th>
 				<th width="30%"><?php echo DOMakeSortHead('u.user_name',L('Name'));?></th>
 				<th width="20%"><?php echo L('Group');?></th>
+				<th width="20%"><?php echo L('role');?></th>
 				<th width="10%"><?php echo DOMakeSortHead('u.state',L('Status'));?></th>
 				<th><?php echo L('Actions');?></th>
 			</tr>
@@ -48,6 +49,7 @@ $searchs     = SG($searchIndex);
 			<td>{#id}</td>
 			<td>{#user_name}</td>
 			<td>{#group|cutStr(?,20)}</td>
+			<td>{#role|cutStr(?,20)}</td>
 			<td>{#state|showStatus(?,'user',#id)}</td>
 			<td>
 				<a class="glyphicon glyphicon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?>{#id}">
