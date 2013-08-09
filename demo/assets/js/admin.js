@@ -101,6 +101,9 @@ define(['jquery'],function($){
 				});
 			})
 		},
+		'module':function(){
+			mod.__construct();
+		},
 		'run' : function(route){
 			var t = route.split('_'),c = t[0];
 			if(typeof mod[c] != "undefined"){

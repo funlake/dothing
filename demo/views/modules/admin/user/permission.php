@@ -31,7 +31,7 @@
 		<div class="panel panel-info">
 		  <div class="panel-heading">User</div>
 			<ul class="list-group">
-			  <li class="list-group-item">See</li>
+			  <li class="list-group-item">Access</li>
 			  <li class="list-group-item">Add</li>
 			  <li class="list-group-item">Update</li>
 			  <li class="list-group-item">Remove</li>

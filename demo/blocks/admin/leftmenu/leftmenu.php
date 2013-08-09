@@ -28,17 +28,17 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		);
 		$menus['admin/module/*'] = array(
 		   array(
-				'title' => L('Articles')
+				'title' => L('Types')
 			   ,'link'  => '#'
 			   ,'class' => 'active'
 		   )
 		  ,array(
-				'title' => L('Messages')
+				'title' => L('Cores')
 			   ,'link'  => '#'
 			   ,'class' => ''
 			)
 		  ,array(
-				'title' => L('Travels')
+				'title' => L('Users')
 			   ,'link'  => '#'
 			   ,'class' => ''
 			)
