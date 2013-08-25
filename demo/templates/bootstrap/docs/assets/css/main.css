@@ -34,17 +34,4 @@ footer{
 	font-size:18px
 }
 /** masonry **/
-.masonry img {
-    max-width: 100%;
-}
-.masonry .box {
-  width: .5px;
-}
-.masonry p {
-    font-size: 12px;
-    line-height: 18px;
-    color: #555555;
-}
-.masonry a {
-    white-space: nowrap;
-}
+

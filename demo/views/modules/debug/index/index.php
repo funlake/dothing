@@ -4,7 +4,7 @@
 	<tbody>
 		<tr class="info">
 		<td width='10%'>Error msg</td>
-		<td>Unknown controller::action		</td>
+		<td>Unknown module		</td>
 	</tr>
 	<tr>
 		<td>Traces</td>
@@ -16,12 +16,17 @@
 					<th>Function</th>
 				</tr>
 				<tr>
-						<td>/Applications/MAMP/htdocs/dothing/lib/Router.php</td>
-						<td>65</td>
+						<td>D:\develope\htdocs\dothing\lib\Controller.php</td>
+						<td>31</td>
 						<td>&nbsp;</td>
 				</tr>
 									<tr>
-						<td>/Applications/MAMP/htdocs/dothing/demo/index.php</td>
+						<td>D:\develope\htdocs\dothing\lib\Router.php</td>
+						<td>28</td>
+						<td>DOController::GetController</td>
+					</tr>
+									<tr>
+						<td>D:\develope\htdocs\dothing\demo\index.php</td>
 						<td>20</td>
 						<td>DORouter::Dispatch</td>
 					</tr>

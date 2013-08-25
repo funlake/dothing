@@ -18,7 +18,7 @@
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> Action</span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/addgroup'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='http://localhost/dothing/demo/index.php/ads007/permission/add'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -26,68 +26,27 @@
 	</form>
 </div>
 <div class="row">
-<div class="masonry">
-         <div class="box">
-		<div class="panel panel-info">
-		  <div class="panel-heading">User</div>
-			<ul class="list-group">
-			  <li class="list-group-item">Access</li>
-			  <li class="list-group-item">Add</li>
-			  <li class="list-group-item">Update</li>
-			  <li class="list-group-item">Remove</li>
-			  <li class="list-group-item">Assign</li>
-			</ul>
-		</div>
+        <div class="masonry">				
+<?php foreach((array)DOFactory::GetModel(strtolower('Module'))->Find() as $key_0=>$item_0) : ?>
+<?php $item_0=(array)$item_0; ?>
+
+        <div class="box">
+              <div class="panel <?php echo $item_0['admin_title_class']?>">
+                  <div class="panel-heading"><?php echo $item_0['name']?>(<?php echo $item_0['interface']?>)</div>
+                  <ul class="list-group">
+                    <li class="list-group-item">Access</li>
+                    <li class="list-group-item">Add</li>
+                    <li class="list-group-item">Update</li>
+                    <li class="list-group-item">Remove</li>
+                    <li class="list-group-item">Assign</li>
+                  </ul>
+              </div>
          </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-2.JPG">
-                  <h4>Jaipur picture 02</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-3.JPG">
-                  <h4>Jaipur picture 03</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-4.JPG">
-                  <h4>Jaipur picture 04</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-5.JPG">
-                  <h4>Jaipur picture 05</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-6.JPG">
-                  <h4>Jaipur picture 06</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-      </div> <!-- /container -->
+    	
+<?php endforeach;?>
+</div> <!-- /container -->
+     <div class="pull-right">		<?php
+		 $pager = DOFactory::GetWidget('paginate','default', DOFactory::GetModel(strtolower('Module'))->GetTotal(),DO_LIST_ROWS);
+		 echo $pager->Render();
+		 ?></div>
  </div>

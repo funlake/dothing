@@ -21,8 +21,19 @@ class DOModelModule extends DOModel
 		$this->updateKey = array(
 			'id' => '=?'
 		);
-		$this->name   = 'module';
+	//	$this->name   = 'module';
 		$this->pk     = 'id';
 		parent::__construct();
+	}
+
+	public function Find($where=null)
+	{
+		$result = parent::Find($where);
+		foreach($result as &$rs)
+		{
+			$rs->admin_title_class = $rs->iscore  ? 'panel-primary' : 'panel-info';
+		}
+
+		return $result;
 	}
 }

@@ -25,7 +25,7 @@ $searchs     = SG($searchIndex);
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/addgroup','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/permission/add','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -33,68 +33,24 @@ $searchs     = SG($searchIndex);
 	</form>
 </div>
 <div class="row">
-<div class="masonry">
-         <div class="box">
-		<div class="panel panel-info">
-		  <div class="panel-heading">User</div>
-			<ul class="list-group">
-			  <li class="list-group-item">Access</li>
-			  <li class="list-group-item">Add</li>
-			  <li class="list-group-item">Update</li>
-			  <li class="list-group-item">Remove</li>
-			  <li class="list-group-item">Assign</li>
-			</ul>
-		</div>
+    <?php
+      $titleStyle = array(
+          'panel-warning','panel-primary'
+      );
+    ?>
+    <div:loop=Model|Module.Find class="masonry">
+        <div class="box">
+              <div class="panel {#admin_title_class}">
+                  <div class="panel-heading">{#name}({#interface})</div>
+                  <ul class="list-group">
+                    <li class="list-group-item">Access</li>
+                    <li class="list-group-item">Add</li>
+                    <li class="list-group-item">Update</li>
+                    <li class="list-group-item">Remove</li>
+                    <li class="list-group-item">Assign</li>
+                  </ul>
+              </div>
          </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-2.JPG">
-                  <h4>Jaipur picture 02</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-3.JPG">
-                  <h4>Jaipur picture 03</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-4.JPG">
-                  <h4>Jaipur picture 04</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-5.JPG">
-                  <h4>Jaipur picture 05</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-         <div class="box">
-             <div class="article">
-                <img alt="Jaipure picture" class="thumbnail" src="img/Jaipur-6.JPG">
-                  <h4>Jaipur picture 06</h4>
-                  <p>Donec id elit non mi porta gravida at eget metus. Fusce
-        dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-        fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
-        mollis euismod. Donec sed odio dui. <a class="" href="#">Read more »</a></p>
-             </div>
-         </div>
-      </div> <!-- /container -->
+    </div:loop> <!-- /container -->
+     <div:paginate=Model|Module.GetTotal class="pull-right"/>
  </div>

@@ -73,7 +73,7 @@ class DOModel
 	}
 	public static function SetTotal($total = 0)
 	{
-		self::$total = $total > 0 ? $total : self::LastTotal();
+		self::$total = ($total > 0) ? $total : self::LastTotal();
 	}
 	public static function GetTotal()
 	{
@@ -99,8 +99,7 @@ class DOModel
 			$where   = array_merge((array)$where,$searchs);
 		}
 		/** Get limit page **/
-		$rs =  $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);	
-		$this->SetTotal();
+		$rs =  $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);
 		return $rs;
 	}
 	public function Find($where = null)
@@ -124,7 +123,6 @@ class DOModel
 		}
 		/** Get limit page **/
 		$rs =  $this->Select($where,'like',$this->defaultOrderby,$this->defaultGroupby,$this->defaultLimit);
-		$this->SetTotal();
 		return $rs;
 	}
 	public function Select($where = null,$compare = '=',$orderby = array(),$groupby = null,$limit = null)

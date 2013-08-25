@@ -11,6 +11,9 @@ class DOLoader
 	 */
 	public static function AutoLoadLib($class)
 	{
+		//echo $class."<br/>";
+		// echo "<pre/>";
+		// print_r(debug_backtrace());
 		if(!preg_match('#(?<!Do)Exception$#i',$class))
 		{
 			include_once FRAMEWORK_ROOT.DS

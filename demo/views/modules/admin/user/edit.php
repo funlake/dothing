@@ -1,4 +1,4 @@
-<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/user" method="post" id="Afm" name="Afm" class="form-horizontal">
+<form action="http://localhost/dothing/demo/index.php/autocrud/Update/user" method="post" id="Afm" name="Afm" class="form-horizontal">
 	<div class="row well">
 		<div class="col-lg-8"><h4>User / Update</h4></div>
 		<div class="col-lg-4 text-right">
@@ -24,8 +24,8 @@
 			<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="1">
 				<option value="0"></option>
 								
-<?php $tree_bd7525e02d0f883bc09d6ba592947b22=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_bd7525e02d0f883bc09d6ba592947b22->Render("
+<?php $tree_178f34672c3e7ef21a58d95591890ff7=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_178f34672c3e7ef21a58d95591890ff7->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -39,8 +39,8 @@
 			<select multiple data-placeholder=" " class="chzn-select form-control"  tabindex="2" name="role_id[]" default="2">
 				<option value="0"></option>
 								
-<?php $tree_9733ffc64c56265dbe0659b298b39d7a=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_9733ffc64c56265dbe0659b298b39d7a->Render("
+<?php $tree_1f31dc9bd6832242c0be8272358a0fb8=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_1f31dc9bd6832242c0be8272358a0fb8->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -58,7 +58,7 @@
 				<input id="status" name="state"  value="1" type="radio" checked/>Yes			</label>
 		</div>
 	</div>
-	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/index"/>
+	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/index"/>
 	<input type="hidden" id="user_id" name="id" value="12"/>
-	<input type="hidden" id="__token" name="__token" value="84c8be470859f3777a7f33c9c3d5a9c5"/>
+	<input type="hidden" id="__token" name="__token" value="e739d1145c10de0a75512c376f18b86b"/>
 </form>

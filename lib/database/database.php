@@ -256,7 +256,6 @@ class DODatabase implements DORecord
 	public function GetFoundRows()
 	{
 		$rs = $this->Query("SELECT FOUND_ROWS() as amount");
-
 		return $rs->data[0]->amount;
 	}
 	

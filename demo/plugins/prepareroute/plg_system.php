@@ -12,6 +12,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		{
 			exit($cacheContent);
 		}
+
 		$request = DOFactory::GetTool('http.request');
 		/** Strip slash since we're using pdo **/
 		if(get_magic_quotes_gpc())
@@ -30,10 +31,13 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		**/
 		$response = DOFactory::GetTool('http.response');
 		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
+
 		/** Template Set **/
 		$this->TemplateLayoutUse();
+
 		/** Search handler **/
 		$this->ListPrepare($mca);
+
 		/** Set some session variables **/
 		$this->SetPageState();
 	}
@@ -128,6 +132,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 				}
 			}
 		}
+
 	}
 }
 ?>

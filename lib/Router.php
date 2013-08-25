@@ -20,18 +20,18 @@ class DORouter
 	
 	public static function Dispatch(array $mca = null)
 	{
-		self::Prepare();
 
+		self::Prepare();
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
 		DOHook::HangPlugin('prepareRoute',array(self::GetMca()));
-		
 		if( ! ($CTR = DOController::GetController()) )
 		{
 			throw new DORouterException("Unknown controller::action", 404);
 		}
 		//Whether controller class exist
 		$method = self::$action.'Action';
+
 		//Action exist
 		if( method_exists($CTR,$method) )
 		{
