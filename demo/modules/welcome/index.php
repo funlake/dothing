@@ -4,7 +4,41 @@
 **@whytodo:
 **@author:Lake
 **/
+		class squareArray
+		{
+		    public function swapRowCol($inArr)
+		    {
+		        // $mit = new MultipleIterator(MultipleIterator::MIT_KEYS_ASSOC);
+		        // foreach($inArr as $key => $value) { $temArr = new ArrayIterator($value); $mit->attachIterator($temArr, $key); }
+		        // $arr = array();
+		        // foreach($mit as $item) array_push($arr,$item);
+		        // if (isset($inArr[0])) $arr = array_combine(array_keys($inArr[0]),$arr);
+		        // return $arr;
+		        return call_user_func_array('array_merge_recursive', $inArr);
+		    }
+		 
+		    public function swapRowColWithKey($inArr)
+		    {
+		        foreach($inArr as $k1=>$v1) foreach($v1 as $k2=>$v2) $arr[$k2][$k1] = $v2;
+		        return $arr;
 
+		    }
+		 
+		    public function intersect1st($arr1, $arr2, $key)
+		    {
+		        $arr[$key] = array_intersect($arr1[$key], $arr2[$key]);//match source's $key with target
+		         foreach($arr1 as $k=>$v) { if ($k == $key) continue; $arr[$k] = array_intersect_key($v, $arr[$key]); }
+		        return $arr;
+		    }
+		 
+		    public function intersect2nd($arr1, $arr2, $key)
+		    {
+		        foreach($arr2 as $v) $tmpArr[] = $v[$key];
+		        foreach($arr1 as $k=>$v) if(in_array($v[$key], $tmpArr)) $arr[$k] = $v;
+		        return $arr;
+		    }
+		 
+		}
 class DOControllerIndex extends DOController
 {
 	public function assignTo($obj,$keys,$value)
@@ -78,6 +112,53 @@ class DOControllerIndex extends DOController
 
 	public function indexAction($request=null)
 	{
+		$array = array(
+			array('id' => '001', 'name' => '张三', 'age' => 22,'parent'=>array('dad'=>'zd','mom'=>'zm'))
+			,array('id' => '002', 'name' => '李四', 'age' => 23,'parent'=>array('dad'=>'ld','mom'=>'lm'))
+			,array('id' => '003', 'name' => '王五', 'age' => 11,'parent'=>array('dad'=>'wd','mom'=>'wm'))
+		);  
+		 
+		$a = array(
+		  0 => array('action_id' => 3),
+		  1 => array('action_id' => 2),
+		  2 => array('action_id' => 1),
+		  3 => array('action_id' => 7),
+		  4 => array('action_id' => 11),
+		);
+		 
+		$b = array(
+		  0 => array('action_id' => 3, 'type' => 0, 'order_num' => 67),
+		  1 => array('action_id' => 2, 'type' => 0, 'order_num' => 66),
+		  2 => array('action_id' => 1, 'type' => 0, 'order_num' => 65),
+		  3 => array('action_id' => 7, 'type' => 0, 'order_num' => 64),
+		  8 => array('action_id' => 14, 'type' => 0, 'order_num' => 40),
+		  13 => array('action_id' => 11, 'type' => 0, 'order_num' => 30),
+		);
+		 
+		//交换矩阵数组一维和二维键值例子
+		$obj=new squareArray();
+		$arr=$obj->swapRowCol($array);
+		var_export($arr);
+		 exit;
+		//交换矩阵数组一维和二维键值例子(保留数值键名)
+		$arr=$obj->swapRowColWithKey($b);
+		var_export($arr);
+		 
+		//根据指定key求二维数组矩阵数组交集(一维key)
+		$key='action_id';
+		$aa=$obj->swapRowCol($a);
+		$bb=$obj->swapRowCol($b);
+		$arr = $obj->intersect1st($bb, $aa, $key);//$b和$a自己定义吧，我懒得输入了
+		$arr=$obj->swapRowCol($arr);
+		var_export($arr);
+		 
+		//根据指定key求二维数组矩阵数组交集(二维key)
+		$key='action_id';
+		$arr = $obj->intersect2nd($b, $a, $key);//$b和$a自己定义吧，我懒得输入了
+		var_export($arr);
+		 
+		 
+		exit;
 		//echo "hello world!";return;
 		$db             = DOFactory::GetDatabase();
 /* 		$db->Clean();

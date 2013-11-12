@@ -83,6 +83,14 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/permission','user/editpermission')
 					   				) ? 'item-active' : ''		  	   		
+					),
+					array(
+		  	   			'title' => L('Operations')
+		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/operate')
+					   ,'class' => in_array(
+					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					array('user/operate','user/editoperate')
+					   				) ? 'item-active' : ''		  	   		
 					)
 			   )
 		   )
