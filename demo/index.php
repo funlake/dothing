@@ -48,7 +48,7 @@ catch(DOException $e)
 			Url(
 				'debug/index/index',
 				array(
-					'source' 	=> base64_encode(Url(DOUri::GetPageIndex(),DORouter::GetParams())),
+					//'source' 	=> base64_encode(Url(DOUri::GetPageIndex(),DORouter::GetParams())),
 					'mca'		=> base64_encode(DORouter::GetPageIndex())
 
 				)

@@ -214,7 +214,6 @@
 .chzn-container-multi .chzn-choices li.search-field input {
   margin: 1px 0;
   padding: 5px;
-  height: 15px;
   outline: 0;
   border: 0 !important;
   background: transparent !important;
@@ -222,6 +221,7 @@
   color: #666;
   font-size: 100%;
   font-family: sans-serif;
+  min-height: 20px;
 }
 .chzn-container-multi .chzn-choices li.search-field .default {
   color: #999;

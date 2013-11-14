@@ -6,6 +6,9 @@ class DOControllerIndex extends DOController
 		$sess = DOFactory::GetSession();
 		$variables['source'] 	= base64_decode($request->get['source']);
 		$variables['mca']		= base64_decode($request->get['mca']);
+		$session = DOFactory::GetSession();
+		$pageSession = preg_grep('#'.$request->get['mca'].'#',array_keys($session->get()));
+		array_map(array($session,'Clean'),$pageSession);
 		$variables['errors'] 	= $sess->Get('Error_Msg');
 		$this->Display(null,$variables);
 	}

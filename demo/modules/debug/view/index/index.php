@@ -1,5 +1,5 @@
 <div class="well">
-	<form class="form-horizontal" id="Afm" method="post" action="<?php echo Url('debug/index/clearsession');?>">
+<!-- 	<form class="form-horizontal" id="Afm" method="post" action="<?php echo Url('debug/index/clearsession');?>">
 		<div class="col-lg-5"></div>
 		<div class="col-lg-4"></div>
 		<div class="col-lg-3">
@@ -11,7 +11,7 @@
 		</div>
 		<input type="hidden" value="<?php echo $source;?>" name="source_link"/>
 		<input type="hidden" value="<?php echo $mca;?>" name="mca"/>
-	</form>
+	</form> -->
 <table class="table table-bordered table-striped">
 	<thead></thead>
 	<tbody>

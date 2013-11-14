@@ -27,7 +27,7 @@ class DORouter
 		DOHook::HangPlugin('prepareRoute',array(self::GetMca()));
 		if( ! ($CTR = DOController::GetController()) )
 		{
-			throw new DORouterException("Unknown controller::action", 404);
+			throw new DORouterException("Unknown page://detail:".DOUri::GetPageIndex(), 404);
 		}
 		//Whether controller class exist
 		$method = self::$action.'Action';
@@ -62,7 +62,7 @@ class DORouter
 		}
 		else 
 		{
-			throw new DORouterException("Unknown controller::action", 404);
+			throw new DORouterException("Unknown page://detail:".DOUri::GetPageIndex(), 404);
 		}
 		DOHook::HangPlugin('afterRoute',array(self::GetMca()));
 	}
