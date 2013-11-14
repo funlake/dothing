@@ -2,7 +2,7 @@
 class DOSession
 {	
 	private static $savePath = array(
-		'files' 		=> ''
+		'files' 		=> '/Applications/MAMP/htdocs/tmp'
 	   ,'memcache'	=> 'tcp://127.0.0.1:11211'
 	);
 	private static $called = false;
@@ -60,8 +60,9 @@ class DOSession
 		$_SESSION[ $var ]  = $val;
 		return $val;
 	}
-	function Get( $var )
+	function Get( $var = '' )
 	{
+		if(empty($var)) return $_SESSION;
 		return $_SESSION[ $var ];
 	}
 	/**
@@ -87,14 +88,17 @@ class DOSession
 	{
 		$drive 		= $this->drive;
 		$savePath	= self::$savePath[$drive];
+
 		if(!empty($savePath))
 		{
 			switch($drive)
 			{
-				case 'file':
+				case 'files':
+
 					if(!is_dir( $savePath ))
 					{
-						$fileHandler = & DOFactory::GetTool('file');
+						$fileHandler =  DOFactory::GetTool('file.basic');
+
 						$fileHandler->makeDir($savePath);
 					}
 				break;

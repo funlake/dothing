@@ -28,7 +28,7 @@ define('DO_CHARSET','utf-8');
 //brower cache or not
 define('DO_BROWERCACHE',false);
 //sessio handler
-define('DO_SESSHANDLER','file');
+define('DO_SESSHANDLER','files');
 //cache handler
 #define('DO_CACHEHANDLER','memcache');
 define('DO_CACHEHANDLER','file');

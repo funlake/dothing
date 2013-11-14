@@ -21,7 +21,7 @@ class DOModelModule extends DOModel
 		$this->updateKey = array(
 			'id' => '=?'
 		);
-	//	$this->name   = 'module';
+		$this->name   = 'module';
 		$this->pk     = 'id';
 		parent::__construct();
 	}

@@ -86,7 +86,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Operations')
-		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/operate')
+		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/operation')
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/operate','user/editoperate')

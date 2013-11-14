@@ -33,5 +33,9 @@ footer{
 	font-weight: bold;
 	font-size:18px
 }
+a:hover{
+	text-decoration: none;
+	color:#ff0039;
+}
 /** masonry **/
 

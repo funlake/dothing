@@ -18,7 +18,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		if(get_magic_quotes_gpc())
 		{
 			/** Gpc strip slashes **/
-			$_GET 		= DOStripslashes($_GET	  );
+			$_GET 	= DOStripslashes($_GET	  );
 			$_POST  	= DOStripslashes($_POST	  );
 			$_REQUEST   = DOStripslashes($_REQUEST);
 			$_COOKIE  	= DOStripslashes($_COOKIE );
@@ -84,9 +84,9 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		//$limitKey   		= "DOLimit/".$mca['module'];
 		if(isset($_REQUEST['DO']['search']))
 		{
-			if(!empty($_POST['DO']['search']))
+			if(!empty($_REQUEST['DO']['search']))
 			{
-				SS($searchKey,$_POST['DO']['search']);
+				SS($searchKey,$_REQUEST['DO']['search']);
 			}
 			else
 			{

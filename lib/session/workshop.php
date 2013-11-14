@@ -15,7 +15,7 @@ class DOSessionWS
 		self::$drive		  = DO_SESSHANDLER;
 		self::$sessionHandler = 'DOSession'.ucwords(strtolower(self::$drive));
 	
-		if( self::CheckEngine( $drive ))
+		if( self::CheckEngine( self::$drive ))
 		{
 			self::LoadEngine();
 		}
@@ -29,12 +29,12 @@ class DOSessionWS
 	function LoadEngine( )
 	{
 		$handler = self::$sessionHandler;
-		$drive	 = self::$drive;			
+		$drive	 = self::$drive;;	
 		if( $drive != 'files')
 		{
 			ini_set('session.save_handler',$drive);
 			session_set_save_handler(
-				array($handler,"open")
+			array($handler,"open")
 			   ,array($handler,"close")
 			   ,array($handler,"read")
 			   ,array($handler,"write")
@@ -42,6 +42,7 @@ class DOSessionWS
 			   ,array($handler,"gc")
 			);
 		}
+
 	}
 	
 	function GetEngine()

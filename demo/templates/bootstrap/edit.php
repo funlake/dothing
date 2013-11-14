@@ -37,6 +37,7 @@
       <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo DOUri::GetBase();?>/assets/js/require.js"></script>
         <script type="text/javascript">
           var DOJsBase = '<?php echo DOUri::GetBase();?>/assets/js';
+          var DOJsModule = '<?php echo DORouter::GetModule();?>';
           var DOJsMod = '<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>';
       </script>
     </head>
@@ -77,7 +78,7 @@
 
     <script type="text/javascript">
     
-    require([DOJsBase+'/admin.js'],function(m){
+    require([DOJsBase+'/'+DOJsModule+'.js'],function(m){
       m.run(DOJsMod);
        //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
     })

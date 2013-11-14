@@ -58,6 +58,7 @@ class DOModel
 	/** Go directly to table handler **/
 	public function __call($name,array $args = null)
 	{
+		//echo $this->GetName();exit;
 		$myDb	= DOFactory::GetTable($this->GetName(),$this->pk);
 		return call_user_func_array(array($myDb,$name),$args);
 	}
@@ -130,7 +131,7 @@ class DOModel
 		$this->action = __FUNCTION__;
 		if(empty($this->name))
 		{
-			throw new DOException("Unknow table",102);
+			throw new DODatabaseException("Unknow table",302);
 		}
 		if(!empty($where) and !is_array($where))
 		{
@@ -187,7 +188,7 @@ class DOModel
 		$this->action = __FUNCTION__;
 		if(empty($this->name))
 		{
-			throw new DOException("Unknow table",102);
+			throw new DODatabaseException("Unknow table",302);
 		}
 		if( false != $this->Bind( $insArray ) )
 		{
@@ -212,7 +213,7 @@ class DOModel
 		$this->action = __FUNCTION__;
 		if(empty($this->name))
 		{
-			throw new DOException("Unknow table",102);
+			throw new DODatabaseException("Unknow table",302);
 		}
 		if( false != $this->Bind( $cdtarray ) )
 		{
@@ -241,7 +242,7 @@ class DOModel
 
 		if(empty($this->name))
 		{
-			throw new DOException("Unknow model",102);
+			throw new DODatabaseException("Unknow model",302);
 		}
 		if( false != $this->Bind($uparray) )
 		{
@@ -375,7 +376,7 @@ class DOModel
 			{
 				//echo "<pre/>";
 				//print_r(debug_backtrace());exit;
-		 		throw new DOException("Empty parameters!",101);
+		 		throw new DODatabaseException("Empty parameters for query!",303);
 			}
 		}
 		return array_product($falseFlag);

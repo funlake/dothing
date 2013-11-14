@@ -114,4 +114,22 @@ class DOControllerUser extends DOController
 	{
 		$this->Display(null);
 	}
+
+	public function operationAction($request = null)
+	{
+		$this->Display(null);
+	}
+
+	public function addoperationAction($request = null)
+	{
+		$var['action'] = 'Add';
+		$this->Display('editoperation',$var);
+	}
+
+	public function editoperationAction($request = null)
+	{
+		$var['data']	= M('operation')->GetRow(array('id'=>'='.$request->get['id']));
+		$var['action'] 	= 'Update';
+		$this->Display(null,$var);
+	}
 }

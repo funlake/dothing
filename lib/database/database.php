@@ -151,7 +151,7 @@ class DODatabase implements DORecord
 		$errors				= $statement->errorInfo();
 		if($this->IsError($errors))
 		{
-			throw new DODatabaseException($sql."//detail:{$errors[2]}",301);
+			throw new DODatabaseException($sql."//detail:".$errors[2],301);
 		}
 		else
 		{

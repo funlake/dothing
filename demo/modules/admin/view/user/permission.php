@@ -6,7 +6,7 @@ $searchs     = SG($searchIndex);
 <div class="row well">
 	<form class="form-horizontal" id="Afm" method="post">
 		<div class="col-lg-5">
-			<input type="text" name="DO[search][name]" id="group_name_search" 
+			<input type="text" name="DO[search][name]" id="name_search" 
 			placeholder="<?php echo L('Name');?>"
 			value="<?php echo $searchs['name'];?>" class="form-control "
 			/>
@@ -16,22 +16,35 @@ $searchs     = SG($searchIndex);
 				<i class=" glyphicon glyphicon-search glyphicon-white"></i>
 				<?php echo L('Search');?>
 			</button>
-			<button class="btn btn-warning" onclick="jQuery('#group_name_search').val('');jQuery('#Afm').submit()">
+			<button class="btn btn-warning" onclick="jQuery('#module_name_search').val('');jQuery('#Afm').submit()">
 				<i class="glyphicon glyphicon-refresh glyphicon-white"></i>
 				<?php echo L('Reset');?>
 			</button> 
 		</div>
-		<div class="btn-group  col-lg-3">
-			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
-			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/permission/add','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
-				<!-- 	    <li class="divider"></li> -->
-				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
-			</ul>
-		</div>
 	</form>
 </div>
+<div class="row">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th width="30%"><?php echo DOMakeSortHead('name',L('Name'));?></th>
+				<th><?php echo L('Actions');?></th>
+			</tr>
+		</thead>
+		<tbody:loop=Model|Module.Find class="adminTable">
+		<tr >
+			<td data-toggle="tooltip" title="{#description}"s><a  href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editoperation','id=');?>{#id}">{#name}</a></td>
+			<td>
+				<ul:loop=Model|Operation.Select class="list-group">
+					<li class="list-group-item"><input type="checkbox"/>{#name}</li>
+				</ul:loop>
+			</td>
+		</tr>
+	</tbody:loop>
+</table>
+<div:paginate=Model|Module.GetTotal class="pull-right"/>
+</div>
+<!--
 <div class="row">
     <?php
       $titleStyle = array(
@@ -51,6 +64,6 @@ $searchs     = SG($searchIndex);
                   </ul>
               </div>
          </div>
-    </div:loop> <!-- /container -->
+    </div:loop>
      <div:paginate=Model|Module.GetTotal class="pull-right"/>
- </div>
+ </div>-->

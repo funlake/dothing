@@ -215,7 +215,7 @@ EOD;
 		$html = array();
 		if(!empty($source))
 		{
-			if(!empty($innerData))
+			if(!empty($innerData) AND !preg_match('/^\w+\|/',$source))
 			{
 				$data = $innerData.'["'.$source.'"]';
 			}

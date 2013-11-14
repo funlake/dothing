@@ -1,7 +1,7 @@
 <div class="row well">
 	<form class="form-horizontal" id="Afm" method="post">
 		<div class="col-lg-5">
-			<input type="text" name="DO[search][name]" id="group_name_search" 
+			<input type="text" name="DO[search][name]" id="name_search" 
 			placeholder="Name"
 			value="" class="form-control "
 			/>
@@ -10,21 +10,47 @@
 			<button class="btn  btn-success" onclick="jQuery('#Afm').submit()">
 				<i class=" glyphicon glyphicon-search glyphicon-white"></i>
 				Search			</button>
-			<button class="btn btn-warning" onclick="jQuery('#group_name_search').val('');jQuery('#Afm').submit()">
+			<button class="btn btn-warning" onclick="jQuery('#module_name_search').val('');jQuery('#Afm').submit()">
 				<i class="glyphicon glyphicon-refresh glyphicon-white"></i>
 				Reset			</button> 
 		</div>
-		<div class="btn-group  col-lg-3">
-			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> Action</span>
-			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost/dothing/demo/index.php/ads007/permission/add'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
-				<!-- 	    <li class="divider"></li> -->
-				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
-			</ul>
-		</div>
 	</form>
 </div>
+<div class="row">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th width="30%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/permission@_doorder=name&_dosort=desc'>Name</a></th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody class="adminTable">				
+<?php foreach((array)DOFactory::GetModel(strtolower('Module'))->Find() as $key_0=>$item_0) : ?>
+<?php $item_0=(array)$item_0; ?>
+
+		<tr >
+			<td data-toggle="tooltip" title="<?php echo $item_0['description']?>"s><a  href="http://localhost:81/dothing/demo/index.php/ads007/user/editoperation@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
+			<td>
+				<ul class="list-group">								
+<?php foreach((array)DOFactory::GetModel(strtolower('Operation'))->Select() as $key_1=>$item_1) : ?>
+<?php $item_1=(array)$item_1; ?>
+
+					<li class="list-group-item"><input type="checkbox"/><?php echo $item_1['name']?></li>
+						
+<?php endforeach;?>
+</ul>
+			</td>
+		</tr>
+			
+<?php endforeach;?>
+</tbody>
+</table>
+<div class="pull-right">		<?php
+		 $pager = DOFactory::GetWidget('paginate','default', DOFactory::GetModel(strtolower('Module'))->GetTotal(),DO_LIST_ROWS);
+		 echo $pager->Render();
+		 ?></div>
+</div>
+<!--
 <div class="row">
         <div class="masonry">				
 <?php foreach((array)DOFactory::GetModel(strtolower('Module'))->Find() as $key_0=>$item_0) : ?>
@@ -44,9 +70,9 @@
          </div>
     	
 <?php endforeach;?>
-</div> <!-- /container -->
+</div>
      <div class="pull-right">		<?php
 		 $pager = DOFactory::GetWidget('paginate','default', DOFactory::GetModel(strtolower('Module'))->GetTotal(),DO_LIST_ROWS);
 		 echo $pager->Render();
 		 ?></div>
- </div>
+ </div>-->

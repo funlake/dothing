@@ -134,7 +134,7 @@ class DOUri
 				**(when path was http://project/index.php/index)
 	            **/
 				$mca	  = str_replace('%2F','/',$_SERVER['PATH_INFO']);
-				$info 	  = preg_replace('#'.preg_quote($mca).'$#','',$info);
+				$info 	  = preg_replace('#'.$mca.'$#','',urldecode($info));
 				//$info     = preg_replace('#/index(\.php)?$#','',$info);
 			}
 			else 
@@ -150,7 +150,7 @@ class DOUri
 
 	public static function GetBase()
 	{
-		return preg_replace('#/index\.php$#i','',self::GetRoot());
+		return preg_replace('#/index\.php.*$#i','',self::GetRoot());
 	}
 	public static function GetScheme( )
 	{
@@ -198,6 +198,15 @@ class DOUri
 	public static function GetAction()
 	{
 		return !empty($_POST['__A']) ? $_POST['__A'] : self::$action;	
+	}
+	/**
+	*get page index according url
+	*
+	*
+	**/
+	public static function GetPageIndex()
+	{
+		return self::GetModule()."/".self::GetController()."/".self::GetAction();
 	}
 	/**
 	 * get params
