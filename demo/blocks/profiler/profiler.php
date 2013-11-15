@@ -16,6 +16,12 @@ class DOBlocksProfiler extends DOBlocksItem
 			)
 		);
 	}
+
+	public function GetErrors()
+	{
+		$errors 	= DOFactory::GetSession()->Get('DO_Errorinfo') ;
+		return $errors;
+	}
 }
 
 ?>

@@ -281,6 +281,11 @@ EOD;
 				$final = $func."(".$itemChar.'[\''.$var.'\']'.")";
 			}
 		}
+		else if(strpos($var,"@") === 0)
+		{
+
+			$final = str_replace('@', '$', $var);
+		}
 		else
 		{
 			$final = $itemChar.'[\''.$var.'\']';

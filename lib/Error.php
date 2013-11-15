@@ -161,7 +161,7 @@ class DOError
 		{
 			/** Save in session,we'd better close custom error handler in live enviroment **/
 			$sess = DOFactory::GetSession();
-			print_r(self::$_errorMsg);
+			//print_r(self::$_errorMsg);
 			$sess->Set('DO_Errorinfo',self::$_errorMsg);
 		}
 	}

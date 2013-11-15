@@ -14,25 +14,25 @@
 		<label class="control-label col-lg-2" for="name">
 			Name		</label>
 		<div class="col-lg-4">
-			<input type="text" id="name" name="name" class="form-control" value="Administrators" required/>
+			<input type="text" id="name" name="name" class="form-control" value="Customer" required/>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="ordering">
 			Ordering		</label>
 		<div class="col-lg-4">
-			<input type="text" id="ordering" name="ordering" class="form-control" value="30" />
+			<input type="text" id="ordering" name="ordering" class="form-control" value="0" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="group_id">
 			Parent		</label>
 		<div class="col-lg-4">
-			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="0" disable="1">
+			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="0" disable="7">
 				<option value="0"></option>
 								
-<?php $tree_5b30414aae22ed84bb70dd750cf289e2=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
-<?php echo $tree_5b30414aae22ed84bb70dd750cf289e2->Render("
+<?php $tree_6602d4f354a344cbf02896965abb5007=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
+<?php echo $tree_6602d4f354a344cbf02896965abb5007->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -43,11 +43,11 @@
 		<label class="control-label col-lg-2" for="role_id">
 			Role		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="2">
+			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="3">
 				<option value="0"></option>
 								
-<?php $tree_68ea837c33b72f1b27b13506ab5888b8=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_68ea837c33b72f1b27b13506ab5888b8->Render("
+<?php $tree_9225ea7a6e67116cd932274a46810f23=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_9225ea7a6e67116cd932274a46810f23->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -65,6 +65,6 @@
 		</div>
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/group"/>
-	<input type="hidden" id="group_id" name="id" value="1"/>
-	<input type="hidden" id="__token" name="__token" value="82c394066ba00ee40721a8f8919848df"/>
+	<input type="hidden" id="group_id" name="id" value="7"/>
+	<input type="hidden" id="__token" name="__token" value="6f589e3ed5261a246c04d8be8bd5143f"/>
 </form>
