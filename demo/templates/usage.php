@@ -5,8 +5,8 @@ return array(
 		"debug" => "bootstrap"
 	),
 	"layout" => array(
-		"admin/user/login" => "blank",
+		"#admin/user/login#" => "blank",
 		'#^admin/[^/]+/(edit|add).*$#is' => "edit",
-		"debug/index/index" => "edit"
+		"#debug/index/index#" => "edit"
 	)
 );

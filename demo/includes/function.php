@@ -7,7 +7,7 @@ if(!function_exists('DOMakeSortHead'))
 			'asc' 	=> 'desc',
 			'desc'	=> 'asc'
 		);
-		$sort = $_REQUEST['_dosort'];
+		$sort = isset($_REQUEST['_dosort']) ? $_REQUEST['_dosort'] : '';
 		$sort = !empty($sort) ? $revert[$sort] : 'desc';
 
 		$url  = DOUri::UrlAddParams(array('_doorder'=>$key,'_dosort'=>$sort));

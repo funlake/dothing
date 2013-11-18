@@ -20,7 +20,7 @@ class DOHelper
 		$params = DORouter::GetParams();
 		if(defined('DO_PAGE_INDEX'))
 		{
-			$page = $params[DO_PAGE_INDEX];
+			$page = isset($params[DO_PAGE_INDEX]) ? $params[DO_PAGE_INDEX] : null ;
 		}
 		else
 		{

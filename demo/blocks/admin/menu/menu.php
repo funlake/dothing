@@ -14,34 +14,42 @@ class DOBlocksAdminMenu extends DOBlocksItem
 			   ,'child' => array(
 			   	array(
 			   		'title' => L('Setting'),
-			   		'link'  => Url(DO_ADMIN_INTERFACE."/dashboard/setting")
+			   		'link'  => Url(DO_ADMIN_INTERFACE."/dashboard/setting"),
+			   		'class' => ''
 			   	)
 			   )
 			)
 		   ,array(
 				'title' => DOLang::Get('Components')."<b class='caret'></b>"
 			   ,'link'  => '#'
+			   ,'icon' => ''
 			   ,'class' => 'dropdown '.(in_array($cur,array('module','user','role','category')) ? 'active' : '')
 			   ,'attrs' => ' class="dropdown-toggle" data-toggle="dropdown" '
 			   ,'child' => array(
 			   	   array(
 			   			'title' => 'Users'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/user/index")
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/user/index"),
+			   		   'class' => ''
 			   		)
 			   	   ,array(
 			   			'title' => 'Categories'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/category/index")
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/category/index"),
+			   		   'class' => ''
 			   		)
 			   	   ,array(
 			   			'title' => 'Extensions'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/module/index")
+			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/module/index"),
+			   		   'class' => ''
 			   		)
 			   	)
 			)
 		   ,array(
 				'title' => DOLang::Get('Blocks')
 			   ,'link'  => DOUri::BuildQuery(DO_ADMIN_INTERFACE,"system","setting")
-			   ,'icon'  => 'icon-menu-tasks.png'
+			   ,'attrs'=>''
+			   ,'icon'  => 'icon-menu-tasks.png',
+			   'class' => '',
+			   'child' => array()
 			)
 		);
 	}

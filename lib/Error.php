@@ -55,7 +55,7 @@ class DOError
 			preg_match('~\[###([^#]+)###\]((?:(?!//detail:).)*)(//detail:(.*)$)?~is', $msg,$m);
 			return self::CustomHandler($m[1],$m[2], $file, $line);
 		}
-		self::$_errorMsg['doerror_fatalerror'][] = array(
+		self::$_errorMsg['doerror_error'][] = array(
 				'msg' 	=> $msg
 			   ,'file'	=> $file
 			   ,'line'	=> $line
@@ -160,9 +160,9 @@ class DOError
 		if(DORouter::$module !== 'debug')
 		{
 			/** Save in session,we'd better close custom error handler in live enviroment **/
-			$sess = DOFactory::GetSession();
+			//$sess = DOFactory::GetSession();
 			//print_r(self::$_errorMsg);
-			$sess->Set('DO_Errorinfo',self::$_errorMsg);
+			//$sess->Set('DO_Errorinfo',self::$_errorMsg);
 		}
 	}
 }

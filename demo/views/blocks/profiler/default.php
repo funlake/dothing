@@ -1,24 +1,44 @@
-<fieldset>
+<fieldset class="debug">
 	<legend>Debug</legend>
-	<div class="tabs-left ">
+	<div class="tabs-right ">
 		<ul class="nav nav-tabs">				
 <?php foreach((array)DOBlocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
-		  <li><a href="#<?php echo $item_0['id']?>" data-toggle="tab"><?php echo $item_0['tab']?>/<?php echo $key_0?></a></li>
+		  <li class="<?php echo $item_0['class']?>"><a href="#<?php echo $item_0['id']?>" data-toggle="tab"><?php echo $item_0['tab']?></a></li>
 			
 <?php endforeach;?>
 </ul>
 
-		<div class="tab-content">
-			<div >				
-<?php foreach((array)DOBlocks::GetBlock('profiler')->GetErrors() as $key_0=>$item_0) : ?>
+		<div class="tab-content">				
+<?php foreach((array)DOBlocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
-				<div class='tab-pane' id='<?php echo $item_0['id']?>'><?php echo $key_0?></div>
+			<div class='tab-pane <?php echo $item_0['class']?>' id='<?php echo $item_0['id']?>'>
+				<table class="table table-striped table-hover" style="width:90%">
+					<thead>
+						<tr >
+							<th width="30%">Item</th>
+							<th width="30%">File</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody class="adminTable">								
+<?php foreach((array)$item_0["content"] as $key_1=>$item_1) : ?>
+<?php $item_1=(array)$item_1; ?>
+
+						<tr class="<?php echo $item_1['class']?>">
+							<td><?php echo $item_1['item']?></td>
+							<td><?php echo $item_1['file']?></td>
+							<td><?php echo $item_1['value']?></td>
+						</tr>
+							
+<?php endforeach;?>
+</tbody>
+				</table>
+			</div>
 				
 <?php endforeach;?>
 </div>
-		</div>
 	</div>
 </fieldset>

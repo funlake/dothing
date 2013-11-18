@@ -167,17 +167,20 @@ class DORouter
 					break;
 				}
 			}
-			if( $myroute = self::$maps[$pathinfo.'/*'])
+			if( isset(self::$maps[$pathinfo.'/*']) and $myroute = self::$maps[$pathinfo.'/*'])
 			{
 				self::$module  		= $myroute['M'];
 				self::$controller   = $myroute['C'];
 				self::$action  		= $myroute['A'];
 			}
-			self::$queryPath[serialize(
-				array(
-					self::$proj,self::$module,self::$controller,self::$action,self::$params
-				)
-			)] = $v;
+			if(isset($v))
+			{
+				self::$queryPath[serialize(
+					array(
+						self::$proj,self::$module,self::$controller,self::$action,self::$params
+					)
+				)] = $v;
+			}
 		}
 	}
 	

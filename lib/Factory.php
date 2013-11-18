@@ -23,7 +23,7 @@ class DOFactory
 		DOLoader::Import('lib.database.database');
 		DOLoader::Import('lib.database.table');
 		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
-		if( !is_object(self::$_load['tables'][$table] ) )
+		if( !isset(self::$_load['tables'][$table] ) )
 		{
 			if(DOLoader::Import('lib.database.tables.'.DO_DBDRIVE.'_table'))
 			{
@@ -36,7 +36,7 @@ class DOFactory
 	public static function GetWidget($widget,$type)
 	{
 		$params = func_get_args();
-		if(!self::$_load["widget_".$widget])
+		if(!isset(self::$_load["widget_".$widget]))
 		{
 			$file = SYSTEM_ROOT.DS.'widgets'.DS.$widget.DS.$type.".php";
 			if(file_exists($file))
@@ -62,7 +62,7 @@ class DOFactory
 	public static function GetModel($table)
 	{
 		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
-		if(!self::$_load['models'][$table])
+		if(!isset(self::$_load['models'][$table]))
 		{
 			if(!file_exists(MODELBASE.DS.$table.'.php'))
 			{
@@ -106,7 +106,7 @@ class DOFactory
 		array_shift($params);
 		//init 
 		$key = 'pdo'.serialize( $params );
-		if(!self::$_load[$key])
+		if(!isset(self::$_load[$key]))
 		{
 			self::$_load[$key] = new DODatabaseWS( $driver ,$params);
 		}
@@ -121,7 +121,7 @@ class DOFactory
 	public static function GetSession( )
 	{
 		DOLoader::Import('lib.session.workshop');
-		if(!self::$_load['session'])
+		if(!isset(self::$_load['session']))
 		{
 			self::$_load['session'] = new DOSessionWS();
 		}
@@ -142,7 +142,7 @@ class DOFactory
 	public static function GetCache()
 	{
 		DOLoader::Import('lib.cache.workshop');
-		if(!self::$_load['cache'])
+		if(!isset(self::$_load['cache']))
 		{
 			self::$_load['cache'] = new DOCacheWS();
 		}
@@ -173,7 +173,7 @@ class DOFactory
 	 */
 	public static function GetFilter()
 	{
-		if(!self::$_load['filter'])
+		if(!isset(self::$_load['filter']))
 		{
 			self::$_load['filter'] = new DOFilter();
 		}
@@ -189,10 +189,11 @@ class DOFactory
 		static $tools = array();
 		$args 			= func_get_args();
 		$class          = $args[0];
+		$tools[$class]  = false;
 		if( ! $tools[$class]  )
 		{
 			$cn 		= explode('.',$class,2);
-			if(!$cn[1]) $cn[1] = $cn[0];
+			if(!isset($cn[1])) $cn[1] = $cn[0];
 			DOLoader::Import('lib.'.$cn[0].'.'.$cn[1] );
 			@array_shift( $args );
 			$component 		= 'DO'.ucwords($cn[1]);

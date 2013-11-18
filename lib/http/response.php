@@ -11,7 +11,7 @@ class DOResponse
 	public function __construct(){}
 	function SetHeaders(Array $headers)
 	{
-		if(!!$headers) array_walk($headers,array(self,'SetHeader'));
+		if(!!$headers) array_walk($headers,array(__CLASS__,'SetHeader'));
 	}
 	public function SetHeader($option,$value)
 	{	

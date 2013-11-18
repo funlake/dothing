@@ -45,7 +45,7 @@ class DOModelUser extends DOModel
 		{
 			$where['u.user_name'] = "like '%".$_REQUEST['DO']['search']['user_name']."%'";
 		}
-		$sql = $db->From('#__user','u','SQL_CALC_FOUND_ROWS u.*')
+		$db->From('#__user','u','SQL_CALC_FOUND_ROWS u.*')
                    	->LeftJoin('#__user_group'
                           ,'ug'
                           ,array('ug.user_id'=>'u.id')
@@ -53,7 +53,7 @@ class DOModelUser extends DOModel
                    	->LeftJoin('#__group','g',array('g.id'=>'ug.group_id'),'group_concat(distinct g.name) as `group`,group_concat(distinct g.id) as group_id')
                    	->LeftJoin('#__user_role','ur',array('ur.user_id'=>'u.id'))
                    	->LeftJoin('#__role','r',array('r.id'=>'ur.role_id'),'group_concat(distinct r.name) as `role`,group_concat(distinct r.id) as role_id')
-                   	->Orderby($_REQUEST['_doorder'],$_REQUEST['_dosort'])
+                   	->Orderby(isset($_REQUEST['_doorder']) ? $_REQUEST['_doorder'] : "" ,isset($_REQUEST['_dosort']) ? $_REQUEST['_dosort'] : "" )
                    	->Limit($this->defaultLimit)
                    	->Where($where)
                    	->Groupby('u.id')

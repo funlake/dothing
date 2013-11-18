@@ -53,7 +53,7 @@ class DOHook
 	public static function LoadEvents()
 	{
 		static $loaded = array();
-		if(!$loaded[DORouter::$module])
+		if(!isset($loaded[DORouter::$module]))
 		{
 			$listenerFile = DOController::GetPath('event').DS.'event.listener.php';
 			if(file_exists($listenerFile)) 
@@ -79,7 +79,7 @@ class DOHook
 			$events = include PLGBASE.DS.'config.php';
 		}
 		$event = strtolower($event);
-		if(!self::$listener[$event])
+		if(!isset(self::$listener[$event]))
 		{
 			foreach($events[$event] as $plugin=>$valid)
 			{

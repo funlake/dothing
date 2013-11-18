@@ -51,7 +51,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			{
 				DOTemplate::SetTemplate($template);
 			}
-			if($layout 	= $usage['layout'][DORouter::GetPageIndex()])
+			if(isset($usage['layout'][DORouter::GetPageIndex()]) and ($layout 	= $usage['layout'][DORouter::GetPageIndex()]) )
 			{
 				DOTemplate::SetLayout($layout);
 			}
@@ -61,7 +61,8 @@ class DOPlgSystemPrepareroute extends DOPlugin
 				foreach($layouts as $lyt)
 				{
 					//small bug in php 5.3.1
-					if(@preg_match($lyt,DORouter::GetPageIndex()))
+					//echo $lyt;
+					if(preg_match($lyt,DORouter::GetPageIndex()))
 					{
 						DOTemplate::SetLayout($usage['layout'][$lyt]);
 						break;

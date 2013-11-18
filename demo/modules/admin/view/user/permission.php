@@ -33,7 +33,7 @@ $searchs     = SG($searchIndex);
 		</thead>
 		<tbody:loop=Model|Module.Find class="adminTable">
 		<tr >
-			<td data-toggle="tooltip" title="{#description}"s><a  href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editoperation','id=');?>{#id}">{#name}</a></td>
+			<td ><a  href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editoperation','id=');?>{#id}">{#name}</a></td>
 			<td>
 				<ul:loop=Model|Operation.Select class="list-group">
 					<li class="list-group-item"><input type="checkbox"/>{#name}</li>

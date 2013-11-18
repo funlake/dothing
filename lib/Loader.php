@@ -47,7 +47,7 @@ class DOLoader
 		if($args[0] == '') return;
 		foreach($args as $file)
 		{
-			if( !self::$loaded[ $file ] )
+			if( !isset(self::$loaded[ $file ] ))
 			{
 				$f  = str_replace('.',DS,$file);
 				$ef = SYSTEM_ROOT.DS.'lib'.$f.'.php';

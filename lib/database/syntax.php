@@ -7,11 +7,12 @@ class DOSyntax
 			      		 ,'orderby'		,'groupby'		,'where'
 			      		 ,'limit'		,'coreTable'	,'coreTableAs'
 			      		 ,'sqlQuery'	,'params'		,'sets');
+	public $values;
 	function DOSyntax( ){}
 	
 	function Quote( $t ){
 		if(strpos($t,'.') > 0) list($table,$field)=sscanf('%[^.].%[^.]',$t);
-		if(strpos($table,'#__') === 0) 
+		if(isset($table) and strpos($table,'#__') === 0) 
 		{	
 			return "`".$table."`.".($field == '*' ? $filed : "`".$field."`");
 		}
@@ -44,7 +45,7 @@ class DOSyntax
 		foreach( (array)$fields as $k=>$v)
 		{
 			$sf = preg_split('#(?<=\s)as(?=\s+)#i',$v);
-			$this->fields[  trim($sf[0] ) ] = $sf[1];
+			$this->fields[  trim($sf[0] ) ] = isset($sf[1]) ? $sf[1] : '';
 		}
 		return $this;
 	}

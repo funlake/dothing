@@ -59,7 +59,7 @@
         <div class="row">
           <div class="container">
             <div class="col-lg-3 ">
-              <div class="affix">
+              <div class="aaffix">
               <?php echo T("block","sidebar");?>
             </div>
             </div><!--/span3-->

@@ -10,18 +10,22 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 				'title'		=> L('Global')
 			   ,'link'		=> '#'
 			   ,'class'		=> 'nav-header active'
+			   ,'iconClass' => ''
 			   ,'child'	=> array(
 			   		array(
 			   			'title' => L('Basic Info')
 			   		   ,'link'  => '#baseinfo'
+			   		   ,'iconClass' => ''
 			   		)
 			   	   ,array(
 			   	   		'title' => L('System')
 			   	   	   ,'link'  => '#system'
+			   	   	   ,'iconClass' => ''
 			   	   	)
 			   	   ,array(
 				   		'title'	=> L('Database')
 				   	   ,'link'	=> '#database'
+				   	   ,'iconClass' => ''
 		   			)
 			   	)
 			)
@@ -31,16 +35,19 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 				'title' => L('Types')
 			   ,'link'  => '#'
 			   ,'class' => 'active'
+			   ,'iconClass' => ''
 		   )
 		  ,array(
 				'title' => L('Cores')
 			   ,'link'  => '#'
 			   ,'class' => ''
+			   ,'iconClass' => ''
 			)
 		  ,array(
 				'title' => L('Users')
 			   ,'link'  => '#'
 			   ,'class' => ''
+			   ,'iconClass' => ''
 			)
 		);
 		$menus['admin/user/*'] = array(
@@ -48,6 +55,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 				'title' => L('Modules')
 			   ,'link'  => '#'
 			   ,'class'	=> 'active'
+			   ,'iconClass' => ''
 			//   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
 			   ,'child' => array(
 			   		array(
@@ -71,6 +79,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					array(
 		  	   			'title' => L('Roles')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/role')
+		  	   		   ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/role','user/editrole')
@@ -79,6 +88,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					array(
 		  	   			'title' => L('Permissions')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/permission')
+		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/permission','user/editpermission')
@@ -87,6 +97,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					array(
 		  	   			'title' => L('Operations')
 		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/operation')
+		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
 					   					array('user/operate','user/editoperate')

@@ -63,7 +63,7 @@ class DOSession
 	function Get( $var = '' )
 	{
 		if(empty($var)) return $_SESSION;
-		return $_SESSION[ $var ];
+		return isset($_SESSION[ $var ]) ? $_SESSION[ $var ] : null;
 	}
 	/**
 	 * clean single var or all vars

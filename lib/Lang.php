@@ -37,7 +37,7 @@ class DOLang
 	{
 		$lang = array();
 		/** Load global language file **/
-		if(!self::$ctrLang[DORouter::$controller])
+		if(!isset(self::$ctrLang[DORouter::$controller]))
 		{
 			$ctrLangFile = SYSTEM_ROOT.DS.'languages'
 							  .DS.self::GetLangCode().DS
@@ -45,6 +45,10 @@ class DOLang
 			if(file_exists($ctrLangFile))
 			{
 				self::$ctrLang[DORouter::$controller] = parse_ini_file($ctrLangFile);
+			}
+			else
+			{
+				self::$ctrLang[DORouter::$controller] = null;
 			}
 		}
 		return self::$ctrLang[DORouter::$controller];

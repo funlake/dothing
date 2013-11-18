@@ -9,6 +9,19 @@ include '../bootstrap.php';
 /** System config **/
 include 'config.php';
 include 'includes/function.php';
+/**
+ * User custom error handler 
+ * We should close this function in live enviroment
+ **/
+if(DO_DEBUG)
+{
+	 error_reporting(E_ALL);
+	if(error_reporting() AND ini_get('display_errors'))
+	{
+		$errorRef = new DOError();
+		set_error_handler(array($errorRef,'Capture'));
+	}
+} 
 /** Capture request **/
 try
 {

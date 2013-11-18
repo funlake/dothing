@@ -30,8 +30,12 @@ class DOUri
 	{
 		$pinfo 	= self::GetPathInfo();
 		$pinfo 	= ltrim($pinfo,'/');
+		$params  	= array();
 		$ps    	= explode('@',$pinfo,2);
-		list(,$param) = $ps;
+		if(isset($ps[1]))
+		{
+			$params = $ps[1];
+		}
 		$ps  	= explode('/',$ps[0]);
 		//$param  = array_slice(self::SafeValue( $ps ),3);
 		if(!empty($param))

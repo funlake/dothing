@@ -101,7 +101,7 @@ class DOWidgetTree
 				}
 				$v[$key] = $this->RenderNode($tpl,$v,$prefix);
 				$flatten[] = $v;    
-				if( $this->treeArray[$t] ) 
+				if( isset($this->treeArray[$t] ) )
 				{
 					$dp	   = $deep + 1;
 					$this->FormatItem( $key,$tpl,$t,$dp,$lcf.(!$isLastChild ? '1' : '0') );

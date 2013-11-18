@@ -7,7 +7,7 @@ ini_set("pcre.backtrack_limit", "23001337");
 ini_set("pcre.recursion_limit", "23001337");
 class DOTemplate
 {
-	public static $params 	= array();
+	public static $params 	= array('title'=>'','module'=>'','blocks'=>'');
 	public static $template	= DO_TEMPLATE;
 	public static $layout        = "index";
 	public static function SetPrams($params)
@@ -76,7 +76,7 @@ class DOTemplate
 	{
 		$args 	= func_get_args();
 		$type	= strtolower(array_shift($args));
-		echo call_user_func_array(array(self,'Get'.ucwords($type)),$args);
+		echo call_user_func_array(array(__CLASS__,'Get'.ucwords($type)),$args);
 	}
 	public static function SetTitle( $title )
 	{
@@ -100,6 +100,10 @@ class DOTemplate
 		ob_start();	
 		DOBlocks::Show($pos);
 		$blockContent = ob_get_clean();
+		if(!isset(self::$params["blocks"][$pos]))
+		{
+			self::$params["blocks"][$pos] = '';
+		}
  		self::$params["blocks"][$pos] .= $blockContent;
  		/**We probably need to adjust specific block in a controller**/
 		DOHook::TriggerEvent(
@@ -151,7 +155,10 @@ class DOTemplate
 	}
 	public static function PaginateParse($tag,$src,$type='')
 	{
-		list($source,$attrs) = preg_split("#\s+#",$src,2);
+		$attrs 			= '';
+		$na 				= preg_split("#\s+#",$src,2);
+		if(isset($na[1])) $attrs	= $na[1];
+		$source 			= $na[0];
 		$data = self::GetSource($source,array());
 		$type  = !empty($type) ? trim($type,'/') : 'default';
 		$pageInstance = <<<EOD
@@ -235,7 +242,7 @@ EOD;
 				{
 					$template = self::Parse($template,$itemChar,$variables,++$level);
 				}
-				$item 	= (array)$item;
+				//$item 	= (array)$item;
 				//===========have to consider 2 situations.===================
 				#1.{#var}
 				#2.{#var|substr(?,0,10)}

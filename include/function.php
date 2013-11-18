@@ -145,6 +145,7 @@ function L($langVar)
 
 function Url($dir,$params = array())
 {
+	$query = '';
 	if(!!$params)
 	{
 		if(is_array($params))
@@ -158,7 +159,7 @@ function Url($dir,$params = array())
 	}
 	$args 	= explode('/',$dir);
 	$args[] = $query;
-	return call_user_func_array(array(DOUri,"BuildQuery"),$args);
+	return call_user_func_array(array('DOUri',"BuildQuery"),$args);
 }
 //Session Set
 function SS($var,$val)

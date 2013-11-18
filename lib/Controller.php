@@ -222,11 +222,11 @@ class DOController
 		{//When $view set as null,we would include tpl file which's name as action.
 			$view = $action;
 		}
-		//Mobile view?
-		if($mobileView)
-		{
-			$view .= "_mobile";
-		}
+		// //Mobile view?
+		// if($mobileView)
+		// {
+		// 	$view .= "_mobile";
+		// }
 		$layout     = APPBASE.DS.DORouter::$module
 					 .DS.'view'
 					 .DS.DORouter::$controller

@@ -29,7 +29,7 @@
 <?php $item_0=(array)$item_0; ?>
 
 		<tr >
-			<td data-toggle="tooltip" title="<?php echo $item_0['description']?>"s><a  href="http://localhost:81/dothing/demo/index.php/ads007/user/editoperation@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
+			<td ><a  href="http://localhost:81/dothing/demo/index.php/ads007/user/editoperation@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
 			<td>
 				<ul class="list-group">								
 <?php foreach((array)DOFactory::GetModel(strtolower('Operation'))->Select() as $key_1=>$item_1) : ?>

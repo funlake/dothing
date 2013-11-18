@@ -96,7 +96,10 @@ class DOCache
 		{
 			case 'page' :
 				/** Find page cache file? **/
-				$ifCache = $cacheModule[$mca[0]][$mca[1].":".$mca[2]];
+				if(isset($cacheModule[$mca[0]][$mca[1].":".$mca[2]]))
+				{
+					$ifCache = $cacheModule[$mca[0]][$mca[1].":".$mca[2]];
+				}
 			break;
 
 			case 'controller':

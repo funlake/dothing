@@ -3,14 +3,15 @@ class DOModel
 {
 	public static  $_tbl 		= array();
 	public static  $_mod 		= array();
-	private $binds 		 		= array();
+	private $binds 		 	= array();
 	private $cdts		    	= array();
 	static  $curdErrors 		= array();
 	public  $connections 		= array();
-	public $pk					= 'id';
-	private  $records             = array();
+	public $pk				= 'id';
+	private  $records             		= array();
 	private static $currRecord;
 	public static $total;
+	public $last 				= array();
 	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
@@ -129,6 +130,7 @@ class DOModel
 	public function Select($where = null,$compare = '=',$orderby = array(),$groupby = null,$limit = null)
 	{
 		$this->action = __FUNCTION__;
+		$condition     = array();
 		if(empty($this->name))
 		{
 			throw new DODatabaseException("Unknow table",302);
@@ -402,8 +404,16 @@ class DOModel
 		$posts								= (array)$posts;
 		$this->last['fields']			    = array();
 		$this->last['lastAction'] 			= $action;
-		$this->last['fields'][$this->pk] 	= $posts[$this->pk] ? $posts[$this->pk] : $ins->insert_id;
-		$this->last['fields'] 				= @array_merge($posts,$this->last['fields']);
+		$this->last['fields'][$this->pk] 		= $posts[$this->pk] ? $posts[$this->pk] : $ins->insert_id;
+		if(empty($this->last['fields']))
+		{
+			$this->last['fields'] 		= $posts;
+		}
+		else
+		{
+			$this->last['fields'] 			= array_merge($posts,$this->last['fields']);
+		}
+		
 	}
 
 	/** 

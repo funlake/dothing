@@ -73,8 +73,17 @@ class DOBlocks
 		foreach((array)$blocks as $key=>$block)
 		{
 			/** Get blocks and it's layout for this page**/
-			list($blk,$lyt)	= explode(':',$block);
-			$lyt  			= !empty($lyt) ? $lyt : 'default';
+			$bl  			= explode(':',$block);
+			$blk 			= $bl[0];
+			if(!isset($bl[1]))
+			{
+				//default layout
+				$lyt  			= 'default';
+			}
+			else
+			{
+				$lyt = $bl[1];
+			}
 			/** Include block file **/
 			if(!empty($blk))
 			{
@@ -98,7 +107,7 @@ class DOBlocks
 	public static function Import( $block ,$layout='')
 	{
 		$blkId = preg_replace('#[^a-z]#i','',$block);
-		if(!self::$blocks[$blkId])
+		if(!isset(self::$blocks[$blkId]))
 		{
 			if(strpos($block,'.') !== false)
 			{
@@ -152,7 +161,7 @@ class DOBlocks
 			else self::$config = include BLKBASE.DS.'config.php';
 		}
 		/** Get blocks by specific position **/
-		return self::$config[$pos];
+		return isset(self::$config[$pos]) ? self::$config[$pos] : array();
 	}
 
 	public static function GetBlocks()
@@ -168,7 +177,7 @@ class DOBlocks
 		{
 			throw new Exception("Undefined Blcok:{$pos}");
 		}
-		if(!self::$blocksInstant[$blockClass])
+		if(!isset(self::$blocksInstant[$blockClass]))
 		{
 			self::$blocksInstant[$blockClass] = new $blockClass();
 		}

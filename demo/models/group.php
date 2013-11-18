@@ -58,7 +58,7 @@ class DOModelGroup extends DOModel
 	                          ,array('gr.group_id'=>'g.id')
                     	)
                    	->LeftJoin('#__role','r',array('r.id'=>'gr.role_id'),'group_concat(r.name) as `role`,group_concat(r.id) as role_id')
-                   	->Orderby($_REQUEST['_doorder'],$_REQUEST['_dosort'])
+                   	->Orderby(isset($_REQUEST['_doorder']) ? $_REQUEST['_doorder'] : "" ,isset($_REQUEST['_dosort']) ? $_REQUEST['_dosort'] : "" )
                    	->Limit($this->defaultLimit)
                    	->Where($where)
                    	->Groupby('g.id')

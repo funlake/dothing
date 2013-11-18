@@ -16,6 +16,7 @@ class DODatabase implements DORecord
 
 	public $sqlQuerys = array();
 	public $sqlQuery  = '';
+	public $opt;
 	function DODatabase($host,$user,$pwd,$dbname)	
 	{
 		//set dsn
@@ -147,11 +148,12 @@ class DODatabase implements DORecord
 		$R->success			= false;
 		$R->data 			= $this->data 		= $rs;
 		$R->insert_id		= $this->insert_id  = $this->connFlag->lastInsertId();
-		$R->affect_row  	= $this->affect_row = $statement->rowCount();
-		$errors				= $statement->errorInfo();
+		$R->affect_row  		= $this->affect_row = $statement->rowCount();
+		$errors			= $statement->errorInfo();
 		if($this->IsError($errors))
 		{
-			throw new DODatabaseException($sql."//detail:".$errors[2],301);
+			//throw new DODatabaseException($sql."//detail:".$errors[2],301);
+			trigger_error($errors[2],E_USER_ERROR);
 		}
 		else
 		{
