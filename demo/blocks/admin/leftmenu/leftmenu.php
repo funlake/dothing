@@ -36,18 +36,21 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			   ,'link'  => '#'
 			   ,'class' => 'active'
 			   ,'iconClass' => ''
+			   ,'child' => array()
 		   )
 		  ,array(
 				'title' => L('Cores')
 			   ,'link'  => '#'
 			   ,'class' => ''
 			   ,'iconClass' => ''
+			    ,'child' => array()
 			)
 		  ,array(
 				'title' => L('Users')
 			   ,'link'  => '#'
 			   ,'class' => ''
 			   ,'iconClass' => ''
+			    ,'child' => array()
 			)
 		);
 		$menus['admin/user/*'] = array(

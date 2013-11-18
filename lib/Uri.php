@@ -30,11 +30,11 @@ class DOUri
 	{
 		$pinfo 	= self::GetPathInfo();
 		$pinfo 	= ltrim($pinfo,'/');
-		$params  	= array();
+		$param 	= array();
 		$ps    	= explode('@',$pinfo,2);
 		if(isset($ps[1]))
 		{
-			$params = $ps[1];
+			$param = $ps[1];
 		}
 		$ps  	= explode('/',$ps[0]);
 		//$param  = array_slice(self::SafeValue( $ps ),3);
@@ -43,8 +43,8 @@ class DOUri
 			parse_str($param,$params);
 			self::$params		=  $_GET = $params;
 		}
-		$_REQUEST 				= array_merge($_REQUEST,$_GET);
-		self::$module	  		= $ps[0] ? $ps[0] : self::$module;
+		$_REQUEST 		= array_merge($_REQUEST,$_GET);
+		self::$module	  	= $ps[0] ? $ps[0] : self::$module;
 		self::$controller 		= $ps[1] ? $ps[1] : self::$controller;
 		self::$action     		= $ps[2] ? $ps[2] : self::$action;
 		return array(self::$module,self::$controller,self::$action,self::$params);
