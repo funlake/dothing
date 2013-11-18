@@ -2,10 +2,10 @@
 class DOModelUser extends DOModel
 {
 	public $fields = array(
-		'@id'  => true,
-		'user_name'	=> 'VARCHAR(100)',
-		'user_pass'	=> 'VARCHAR(32)',
-		'img_url'   => 'no-image.png',
+		'@id'  		=> true,
+		'user_name'		=> 'VARCHAR(100)',
+		'user_pass'		=> 'VARCHAR(32)',
+		'img_url'   		=> 'no-image.png',
 		'state'		=> '1'
 	);
 	public $maps = array(

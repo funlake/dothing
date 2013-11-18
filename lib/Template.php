@@ -173,7 +173,10 @@ EOD;
 	}
 	public static function TreeParse($attr,$content,$innerData = '',$tag,$variables,$level,$treeWidget='')
 	{
-		list($source,$attrs) = preg_split("#\s+#",$attr,2);
+		$attrs 			= '';
+		$na 				= preg_split("#\s+#",$attr,2);
+		if(isset($na[1])) $attrs	= $na[1];
+		$source 			= $na[0];
 		if(empty($treeWidget))
 		{
 			$treeWidget = 'default';

@@ -68,7 +68,7 @@ class DOWidgetTree
 				}
 				
 				$html[] = $this->RenderNode($tpl,$v,$prefix);    
-				if( $this->treeArray[$t] ) 
+				if( isset($this->treeArray[$t] ) )
 				{
 					$dp	   = $deep + 1;
 					$html[]    = $this->catopen.$this->Render( $tpl,$t,$dp , $lcf.(!$isLastChild ? '1' : '0') ).$this->catend;

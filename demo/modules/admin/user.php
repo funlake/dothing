@@ -71,7 +71,7 @@ class DOControllerUser extends DOController
 	}
 	public function addAction($request = null)
 	{
-		$this->Display("edit",array("action"=>"Add"));
+		$this->Display("edit",array("action"=>"Add","data" => new stdClass()));
 	}
 	public function groupAction($request = null)
 	{
@@ -89,6 +89,7 @@ class DOControllerUser extends DOController
 	public function addgroupAction($request = null)
 	{
 		$var['action'] 	= 'Add';
+		$var['data']    = new stdClass();
 		$this->Display('editgroup',$var);
 	}
 
@@ -100,6 +101,7 @@ class DOControllerUser extends DOController
 	public function addroleAction($request = null)
 	{
 		$var['action'] = 'Add';
+		$var['data']    = new stdClass();
 		$this->Display('editrole',$var);
 	}
 
@@ -123,6 +125,7 @@ class DOControllerUser extends DOController
 	public function addoperationAction($request = null)
 	{
 		$var['action'] = 'Add';
+		$var['data']    = new stdClass();
 		$this->Display('editoperation',$var);
 	}
 

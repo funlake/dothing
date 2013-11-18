@@ -34,7 +34,7 @@
 				</select>
 			</div>
 		</div>
-		<?php $p = array((int)$data->state => 'checked');?>
+		<?php $p = array((int)$data->state => 'checked',!$data->state=>'');?>
 		<div class="form-group">
 			<label class="control-label col-lg-2" for="status">
 				<?php echo L('Status');?>
