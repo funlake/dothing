@@ -31,7 +31,7 @@
 			<tr>
 				<th width="5%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/operation@_doorder=id&_dosort=desc'>Id</a></th>
 				<th width="30%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/operation@_doorder=name&_dosort=desc'>Name</a></th>
-				<th width="10%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/operation@_doorder=u.state&_dosort=desc'>Status</a></th>
+				<th width="10%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/operation@_doorder=state&_dosort=desc'>Status</a></th>
 				<th>Actions</th>
 			</tr>
 		</thead>

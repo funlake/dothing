@@ -38,7 +38,7 @@ $searchs     = SG($searchIndex);
 			<tr>
 				<th width="5%"><?php echo DOMakeSortHead('id', L('Id'));?></th>
 				<th width="30%"><?php echo DOMakeSortHead('name',L('Name'));?></th>
-				<th width="10%"><?php echo DOMakeSortHead('u.state',L('Status'));?></th>
+				<th width="10%"><?php echo DOMakeSortHead('state',L('Status'));?></th>
 				<th><?php echo L('Actions');?></th>
 			</tr>
 		</thead>
