@@ -72,6 +72,11 @@
         <?php echo T("block","bottom");?>
       </div>
     </div>
+      <div class="row">
+            <div class="container">
+              <?php echo T("block","debug");?>
+            </div>
+       </div>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

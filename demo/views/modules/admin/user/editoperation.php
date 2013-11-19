@@ -43,5 +43,5 @@
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/operation"/>
 	<input type="hidden" id="id" name="id" value=""/>
-	<input type="hidden" id="__token" name="__token" value="02c13964d22f2e47405593d6f4fa03eb"/>
+	<input type="hidden" id="__token" name="__token" value="eb9d69225b8119e6d27f79198a9c60ab"/>
 </form>

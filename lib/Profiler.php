@@ -5,26 +5,27 @@
 **/
 class DOProfiler
 {
-	public static $_loader = array();
+	public static $_timer = array();
+	public static $_ordering = 0;
 	/**It would mark before a chunks of codes**/
-	public static function MarkStart($name)
+	public static function MarkStartTime($name)
 	{
-		$_loader[$name]['start'] 	= DOUnit::GetTime();
-		$_loader[$name]['memory'] 	= DOUnit::GetMemory();
+		self::$_timer[$name] = array();
+		self::$_timer[$name]['start'] 	= DOUnit::GetTime();
+		self::$_timer[$name]['ordering']	= ++self::$_ordering;
+		//$_timer[$name]['memory'] 	= DOUnit::GetMemory();
 	}
 	/**It would mark after a chunks of codes**/
-	public static function MarkEnd($name)
+	public static function MarkEndTime($name,$file='')
 	{
-		$_loader[$name]['end'] 		= DOUnit::GetTime();
-		$_loader[$name]['memory'] 	= DOUnit::GetMemory();
+		self::$_timer[$name]['spent'] 		= round(DOUnit::GetTime() - self::$_timer[$name]['start'],5);
+		self::$_timer[$name]['file'] 		= $file;
+
+		//$_timer[$name]['memory'] 	= DOUnit::GetMemory();
 	}
-	public static function GetSpentTime() 
+	public static function GetTimer() 
 	{
-		return "";
-	}
-	public static function Display()
-	{
-		
+		return self::$_timer;
 	}
 }
 ?>

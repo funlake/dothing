@@ -12,6 +12,9 @@ return array(
    		'^admin' 		=> 'message'
    	)
    ,'bottom'  => array(
-   	    '.*'  => 'profiler'
+   	  //  '.*'  => 'profiler'
    	)
+   ,'debug'  => array(
+          '.*'  => 'profiler'
+      )
 );

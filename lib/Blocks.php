@@ -21,6 +21,7 @@ class DOBlocks
 	**/
 	public static function Show( $pos )
 	{
+		DOProfiler::MarkStartTime("Block:".$pos);
 		/**
 		**	1.Display cache block if we have
 		**	2.Fetch blocks by $pos
@@ -30,6 +31,7 @@ class DOBlocks
 		if(!empty($cache))
 		{
 			include $cache;
+			DOProfiler::MarkEndTime("Block:".$pos,__FILE__);
 			return;
 		}
 		//Fetch blocks by position
@@ -37,7 +39,11 @@ class DOBlocks
 		//Get current page
 		$pages   = DOBlocksHelper::GetBlocksIndex();
 		//Display blocks with it's specific layout according to current page.
-		if(!$blocks) return;
+		if(!$blocks) 
+		{
+			DOProfiler::MarkEndTime("Block:".$pos,__FILE__);
+			return;
+		}
 		foreach( array_keys($blocks) as $page) 
 		{
 			//Nagative jugdement
@@ -63,6 +69,7 @@ class DOBlocks
 				}
 			}
 		}
+		DOProfiler::MarkEndTime("Block:".$pos,__FILE__);
 		return ;	
 	}
 	/**

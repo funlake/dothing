@@ -1,6 +1,6 @@
-	<form action="http://localhost:81/dothing/demo/index.php/autocrud/Add/role" method="post" id="Afm" name="Afm" class="form-horizontal">
+	<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/role" method="post" id="Afm" name="Afm" class="form-horizontal">
 	<div class="row well">
-		<div class="col-lg-8"><h4>Group / Add</h4></div>
+		<div class="col-lg-8"><h4>Group / Update</h4></div>
 		<div class="col-lg-4 text-right">
 		  <button class="btn btn-success" id="submitForm">
 		  	<i class="glyphicon glyphicon-ok glyphicon-white"></i>
@@ -14,18 +14,18 @@
 			<label class="control-label col-lg-2" for="name">
 				Name			</label>
 			<div class="col-lg-4">
-				<input type="text" id="name" name="name" class="form-control" value="" required/>
+				<input type="text" id="name" name="name" class="form-control" value="Register" required/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-lg-2" for="group_id">
 				Parent			</label>
 			<div class="col-lg-4">
-				<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="" disable="">
+				<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="0" disable="3">
 					<option value="0"></option>
 									
-<?php $tree_7ffca40d83f9c0ffe73ac0dbdb241f70=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_7ffca40d83f9c0ffe73ac0dbdb241f70->Render("
+<?php $tree_7fb38e9d990935ee9957d3892488728e=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_7fb38e9d990935ee9957d3892488728e->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
@@ -37,14 +37,14 @@
 				Status			</label>
 			<div class="col-lg-4">
 				<label class="radio-inline">
-					<input id="status" name="state" value="0" type="radio" checked/>No
+					<input id="status" name="state" value="0" type="radio" />No
 				</label>
 				<label class="radio-inline">
-					<input id="status" name="state" value="1" type="radio" />Yes
+					<input id="status" name="state" value="1" type="radio" checked/>Yes
 				</label>
 			</div>
 		</div>
 		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/role"/>
-		<input type="hidden" id="role_id" name="id" value=""/>
-		<input type="hidden" id="__token" name="__token" value="dbce614b6fc417283fcee79ddd9a8df3"/>
+		<input type="hidden" id="role_id" name="id" value="3"/>
+		<input type="hidden" id="__token" name="__token" value="36ca599a016787fd5a4c7a06573814db"/>
 	</form>

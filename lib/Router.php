@@ -40,6 +40,7 @@ class DORouter
 				    'beforeRequest' => array(self::GetMca())
 				)
 			);
+			DOProfiler::MarkStartTime("Controller:".self::GetPageIndex());
 			/** Set some constants for template usage**/
 			DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
 			/** No cache then update cache **/
@@ -54,6 +55,7 @@ class DORouter
 				));
 				DOTemplate::SetModule(ob_get_clean());
 			}
+			DOProfiler::MarkEndTime("Controller:".self::GetPageIndex(),__FILE__);
  			DOHook::TriggerEvent(
 				array(
 				    'afterRequest' => array(self::GetMca(),DOTemplate::GetModule())

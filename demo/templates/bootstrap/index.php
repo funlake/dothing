@@ -77,6 +77,11 @@
             <?php echo T("block","bottom");?>
           </div>
         </div>
+        <div class="row">
+            <div class="container">
+              <?php echo T("block","debug");?>
+            </div>
+        </div>
     <script type="text/javascript">
     
     require([DOJsBase+'/'+DOJsModule+'.js'],function(m){

@@ -25,6 +25,7 @@ class DOHook
 			{
 				/**Do we have registered this event for all action?**/
 				$onEvent = 'On'.ucwords($event);
+				DOProfiler::MarkStartTime('Event:'.$onEvent);
 				/**Event would always call after controller loaded**/
 				$CTR	 = DOController::GetControllerEvent();
 				if(method_exists($CTR,$onEvent))
@@ -34,9 +35,10 @@ class DOHook
 					), $params);
 					// DOEvent::CallChain(DORouter::$controller,strtolower($event),$params);
 				}
+				DOProfiler::MarkEndTime('Event:'.$onEvent,__FILE__);
 				/**Do we have registered this event for specific action?**/
 				$onEvent = 'On'.ucwords($event).ucwords(DORouter::$action);
-
+				DOProfiler::MarkStartTime('Event:'.$onEvent);
 				if(method_exists($CTR,$onEvent))
 				{
 					call_user_func_array(array(
@@ -46,6 +48,8 @@ class DOHook
 					// 	,strtolower($event.DORouter::$action),$params
 					// );
 				}
+				DOProfiler::MarkEndTime('Event:'.$onEvent,__FILE__);
+
 			}
 
 		}
@@ -65,10 +69,12 @@ class DOHook
 	}
 	public static function HangPlugin( $event , array $params = null )
 	{
+		DOProfiler::MarkStartTime('Plugin:'.$event);
 		foreach((array)self::FetchPlugins($event) as $plugin )
 		{
 			call_user_func_array(array($plugin,'Trigger'),$params);
 		}
+		DOProfiler::MarkEndTime('Plugin:'.$event,__FILE__);
 	}
 	
 	public static function FetchPlugins( $event )

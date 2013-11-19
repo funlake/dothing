@@ -7,7 +7,7 @@ class DOBlocksProfiler extends DOBlocksItem
 			array(
 				'tab'  => L('Time'),
 				'id'   => 'time_tab',
-				'class' => '',
+				'class' => 'active',
 				'content' => $this->GetTimes()
 			),
 			array(
@@ -19,20 +19,31 @@ class DOBlocksProfiler extends DOBlocksItem
 			array(
 				'tab'  => L('Error'),
 				'id'   => 'error_tab',
-				'class' => 'active',
+				'class' => '',
 				'content' => $this->GetErrors()
 			)
 		);
 	}
 	public function GetTimes()
 	{
-		return  array(
-			array(
-				'item' => 'Prepare route',
-				'iile'	=> '',
-				'value' => 3600
-			)
-		);
+		$timer = array();
+		
+		foreach(DOProfiler::GetTimer() as $event=>$t):
+			if($event == "Block:debug")  continue; 
+			$class = '';
+			list($type,$tag) = explode(':',$event,2);
+			switch( $type ) :
+				case 'Controller' 	: $class = 'danger'; break;
+				case 'Block'		: $class = 'warning'; break; 
+			endswitch;
+			$timer[] = array(
+				'item' 	=> $event."[".$t['ordering']."]",
+				'file'		=> $t['file'],
+				'value' 	=> $t['spent']."s",
+				'class' 	=> $class
+			);
+		endforeach;
+		return $timer;
 	}
 	public function GetMemory()
 	{
