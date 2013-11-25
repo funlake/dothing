@@ -3,12 +3,18 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 08, 2013 at 11:27 AM
+-- Generation Time: Nov 25, 2013 at 11:07 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `docms`
@@ -67,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `group` (
 --
 
 INSERT INTO `group` (`id`, `pid`, `name`, `description`, `ordering`, `state`) VALUES
-(1, 0, 'Administrator', '1', 30, 1),
+(1, 0, 'Administrators', '1', 30, 1),
 (4, 1, 'Manager', '1', 22, 1),
 (5, 1, 'Register', '1', 15, 1),
 (6, 5, 'Author', '1', 2, 1),
@@ -106,9 +112,8 @@ CREATE TABLE IF NOT EXISTS `group_role` (
 --
 
 INSERT INTO `group_role` (`group_id`, `role_id`) VALUES
-(1, 5),
-(4, 3),
-(4, 5),
+(1, 2),
+(4, 2),
 (5, 5),
 (6, 3),
 (7, 3);
@@ -149,29 +154,55 @@ CREATE TABLE IF NOT EXISTS `member` (
 --
 
 CREATE TABLE IF NOT EXISTS `module` (
-  `module_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `module_pid` int(10) unsigned DEFAULT '0',
-  `module_name` varchar(255) DEFAULT NULL,
-  `module_code` varchar(100) DEFAULT NULL,
-  `module_icon` varchar(100) DEFAULT NULL,
-  `module_url` varchar(255) DEFAULT NULL,
-  `module_target` varchar(20) DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `interface` varchar(100) DEFAULT NULL,
+  `icon` varchar(100) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `target` varchar(20) DEFAULT NULL,
   `iscore` tinyint(3) unsigned DEFAULT '0',
   `attribute` text,
   `ordering` int(10) unsigned DEFAULT NULL,
   `state` tinyint(3) unsigned DEFAULT '1',
-  PRIMARY KEY (`module_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `module`
 --
 
-INSERT INTO `module` (`module_id`, `module_pid`, `module_name`, `module_code`, `module_icon`, `module_url`, `module_target`, `iscore`, `attribute`, `ordering`, `state`) VALUES
-(1, 0, '用户管理', 'user', 'application.png', 'ssfdsf', NULL, 0, NULL, 0, 0),
-(2, 1, '用户列表', 'user', 'backend_user.png', 'user,user,devlist,a=1&b=2', NULL, 0, NULL, 0, 0),
-(3, 1, '用户权限', 'usergroup', NULL, 'user,user,list,a=2&a=3', NULL, 0, NULL, NULL, 1),
-(4, 0, '部门管理', 'deparment_manage', 'event.png', 'user,department,index', NULL, 0, NULL, 2, 0);
+INSERT INTO `module` (`id`, `name`, `interface`, `icon`, `url`, `target`, `iscore`, `attribute`, `ordering`, `state`) VALUES
+(1, 'User', 'admin/user', '', '1', NULL, 0, NULL, 9, 1),
+(5, 'Group', 'admin/user/group', '', '1', NULL, 1, NULL, 1, 1),
+(6, 'Permission', 'admin/user/permission', '', '1', NULL, 1, NULL, 2, 1),
+(7, 'role', 'admin/user/role', '', '1', NULL, 1, NULL, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `operation`
+--
+
+CREATE TABLE IF NOT EXISTS `operation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `description` text NOT NULL,
+  `ordering` int(11) NOT NULL,
+  `state` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `operation`
+--
+
+INSERT INTO `operation` (`id`, `name`, `description`, `ordering`, `state`) VALUES
+(1, 'Access', 'Access module page', 45, 1),
+(2, 'Edit', 'Modify infos of an item', 43, 1),
+(3, 'New', 'Add new item', 44, 1),
+(4, 'Remove', 'Remove item(s)', 43, 0),
+(5, 'Assign', 'Assign permission of specific module', 42, 1);
 
 -- --------------------------------------------------------
 
@@ -181,13 +212,21 @@ INSERT INTO `module` (`module_id`, `module_pid`, `module_name`, `module_code`, `
 
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `module` varchar(100) NOT NULL,
-  `url_pattern` varchar(100) NOT NULL,
+  `module_id` int(11) NOT NULL,
+  `operation_id` int(11) NOT NULL,
+  `url_pattern` varchar(100) CHARACTER SET utf8 NOT NULL,
   `state` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `module_id` (`module_id`),
+  KEY `operation_id` (`operation_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `permission`
+--
+
+INSERT INTO `permission` (`id`, `module_id`, `operation_id`, `url_pattern`, `state`) VALUES
+(1, 1, 1, 'admin/user/index', 1);
 
 -- --------------------------------------------------------
 
@@ -215,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   `name` varchar(100) NOT NULL,
   `state` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `role`
@@ -224,7 +263,8 @@ CREATE TABLE IF NOT EXISTS `role` (
 INSERT INTO `role` (`id`, `pid`, `name`, `state`) VALUES
 (2, 0, 'Superadmins', 1),
 (3, 0, 'Register', 1),
-(5, 2, 'Department admin', 1);
+(5, 2, 'Department admin', 1),
+(6, 2, 'Manager', 1);
 
 -- --------------------------------------------------------
 
@@ -308,7 +348,7 @@ INSERT INTO `user_group` (`user_id`, `group_id`) VALUES
 (17, 4),
 (17, 5),
 (18, 1),
-(19, 6);
+(19, 5);
 
 -- --------------------------------------------------------
 
@@ -345,3 +385,7 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (12, 2),
 (17, 3),
 (17, 2);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
