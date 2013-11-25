@@ -57,11 +57,12 @@ class DOControllerUser extends DOController
 		DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login"),"",1);
 		exit();
 	}
+	//@interface:access
 	public function indexAction($request = null)
 	{
 		$this->Display(null);
 	}
-
+	//@interface:edit
 	public function editAction($request = null )
 	{
 		$data 		= M('user')->UserGroupList($request->get['id']);
@@ -69,6 +70,7 @@ class DOControllerUser extends DOController
 		$var['action']	= "Update";
 		$this->Display(null,$var);
 	}
+	//@interface:add
 	public function addAction($request = null)
 	{
 		$this->Display("edit",array("action"=>"Add","data" => new stdClass()));

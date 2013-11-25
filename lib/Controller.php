@@ -76,7 +76,6 @@ class DOController
 
 		if(/*!!$posts && */false !== ($modelObj = DOFactory::GetModel('#__'.$model)))
 		{
-
 			if(!method_exists($modelObj, $action))
 			{
 				throw new DORouterException("Unknown controller::action", 404);
