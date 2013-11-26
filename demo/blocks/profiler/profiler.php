@@ -1,9 +1,9 @@
 <?php
 class DOBlocksProfiler extends DOBlocksItem
 {
-	public function GetProfiler()
+	public function __construct()
 	{
-		return array(
+		$this->items = array(
 			array(
 				'tab'  => L('Time'),
 				'id'   => 'time_tab',
@@ -21,8 +21,18 @@ class DOBlocksProfiler extends DOBlocksItem
 				'id'   => 'error_tab',
 				'class' => '',
 				'content' => $this->GetErrors()
+			),
+			array(
+				'tab'  => L('Tests'),
+				'id'   => 'tests_tab',
+				'class' => '',
+				'content' => $this->GetTests()
 			)
 		);
+	}
+	public function GetProfiler()
+	{
+		return $this->items;
 	}
 	public function GetTimes()
 	{
@@ -83,6 +93,33 @@ class DOBlocksProfiler extends DOBlocksItem
 		}
 		//array_multisort($errs,array('Error','Warning','Notice'),SORT_DESC);
 		return $errs;
+	}
+
+	public function GetTests()
+	{
+		$testFile 		= SYSTEM_ROOT.'/tests/'.DORouter::GetModule().'/'.DORouter::GetController().'_'.DORouter::GetAction().'.php';
+		$testsContent 	= '';
+		$tests 		= array();
+		if(file_exists($testFile))
+		{
+			ob_start();
+			include $testFile;
+			//ob_end_clean();
+			$testsContent = ob_get_clean();
+			//print_r($GLOBALS);
+		}
+		if(!empty($testsContent))
+		{
+			preg_match_all('#(Pass|Fail)\s*:\s*(.*?)\s+at\s+\[([^\[\]]+)\]#',$testsContent,$items);
+			foreach((array)$items[1] as $key=>$val):
+				$tests[] = array(
+					"item" => $items[2][$key],
+					"file"  => $items[3][$key],
+					"value"=> $val
+				);
+			endforeach;
+		}
+		return $tests;
 	}
 }
 

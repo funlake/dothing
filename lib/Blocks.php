@@ -178,7 +178,7 @@ class DOBlocks
 
 	public static function GetBlock($pos,$layout = '')
 	{
-		self::import($pos,$layout);
+		self::Import($pos,$layout);
 		$blockClass = 'DOBlocks'.self::GetBlockName($pos);
 		if(!class_exists($blockClass))
 		{

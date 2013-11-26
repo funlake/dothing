@@ -18,8 +18,8 @@
 				<table class="table table-striped table-hover" style="width:90%">
 					<thead>
 						<tr >
-							<th width="30%">Item</th>
-							<th width="30%">File</th>
+							<th width="40%">Item</th>
+							<th width="50%">File</th>
 							<th>Value</th>
 						</tr>
 					</thead>

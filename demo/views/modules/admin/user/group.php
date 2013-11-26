@@ -18,7 +18,7 @@
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> Action</span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/addgroup'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='http://localhost/dothing/demo/index.php/ads007/user/addgroup'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -30,9 +30,9 @@
 		<thead>
 			<tr>
 				<th width="5%" >Id</th>
-				<th width="30%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/group@_doorder=g.name&_dosort=desc'>Name</a></th>
+				<th width="30%"><a href='http://localhost/dothing/demo/index.php/ads007/user/group@_doorder=g.name&_dosort=desc'>Name</a></th>
 				<th width="25%">Roles</th>
-				<th width="10%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/group@_doorder=g.ordering&_dosort=desc'>Ordering</a></th>
+				<th width="10%"><a href='http://localhost/dothing/demo/index.php/ads007/user/group@_doorder=g.ordering&_dosort=desc'>Ordering</a></th>
 				<th width="10%">Status</th>
 				<th>Actions</th>
 			</tr>
@@ -43,7 +43,7 @@
 
 		<tr>
 			<td><?php echo $item_0['id']?></td>
-			<td><a href="http://localhost:81/dothing/demo/index.php/ads007/user/editgroup@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
+			<td><a href="http://localhost/dothing/demo/index.php/ads007/user/editgroup@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
 			<td><?php echo cutStr($item_0['role'],20)?></td>
 			<td><?php echo $item_0['ordering']?></td>
 			<td><?php echo showStatus($item_0['state'],'group',$item_0['id'])?></td>
@@ -53,7 +53,7 @@
 				<div class="modal fade" id="DOModal_<?php echo $item_0['id']?>">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<form id="form<?php echo $item_0['id']?>" action="http://localhost:81/dothing/demo/index.php/autocrud/Delete/group" method="post">
+							<form id="form<?php echo $item_0['id']?>" action="http://localhost/dothing/demo/index.php/autocrud/Delete/group" method="post">
 								<div class="modal-header">
 									<a class="close" data-dismiss="modal">×</a>
 									<h3>Warning</h3>
@@ -68,7 +68,7 @@
 									<a data-dismiss="modal" class="btn btn-warning">
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										Cancel									</a>
-									<input type="hidden" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/group"/>
+									<input type="hidden" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/group"/>
 									<input type="hidden" name="id" value="<?php echo $item_0['id']?>"/>
 								</div>
 							</form>

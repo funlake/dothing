@@ -1,4 +1,5 @@
 <?php
+!defined('DO_ACCESS') AND DIE("Go Away!");
 class DOControllerUser extends DOController
 {
 	public function loginAction($request = null)

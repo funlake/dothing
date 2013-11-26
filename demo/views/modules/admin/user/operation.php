@@ -18,7 +18,7 @@
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> Action</span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/addoperation'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='http://localhost/dothing/demo/index.php/ads007/user/addoperation'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -29,9 +29,9 @@
 	<table class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>
-				<th width="5%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/operation@_doorder=id&_dosort=desc'>Id</a></th>
-				<th width="30%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/operation@_doorder=name&_dosort=desc'>Name</a></th>
-				<th width="10%"><a href='http://localhost:81/dothing/demo/index.php/ads007/user/operation@_doorder=state&_dosort=desc'>Status</a></th>
+				<th width="5%"><a href='http://localhost/dothing/demo/index.php/ads007/user/operation@_doorder=id&_dosort=desc'>Id</a></th>
+				<th width="30%"><a href='http://localhost/dothing/demo/index.php/ads007/user/operation@_doorder=name&_dosort=desc'>Name</a></th>
+				<th width="10%"><a href='http://localhost/dothing/demo/index.php/ads007/user/operation@_doorder=state&_dosort=desc'>Status</a></th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -41,14 +41,14 @@
 
 		<tr >
 			<td><?php echo $item_0['id']?></td>
-			<td data-toggle="tooltip" title="<?php echo $item_0['description']?>"s><a  href="http://localhost:81/dothing/demo/index.php/ads007/user/editoperation@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
+			<td data-toggle="tooltip" title="<?php echo $item_0['description']?>"s><a  href="http://localhost/dothing/demo/index.php/ads007/user/editoperation@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
 			<td><?php echo showStatus($item_0['state'],'operation',$item_0['id'])?></td>
 			<td>
 				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_<?php echo $item_0['id']?>"></a>
 				<div class="modal fade" id="DOModal_<?php echo $item_0['id']?>">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<form id="form<?php echo $item_0['id']?>" action="http://localhost:81/dothing/demo/index.php/autocrud/Delete/operation" method="post">
+							<form id="form<?php echo $item_0['id']?>" action="http://localhost/dothing/demo/index.php/autocrud/Delete/operation" method="post">
 								<div class="modal-header">
 									<a class="close" data-dismiss="modal">×</a>
 									<h3>Warning</h3>
@@ -63,7 +63,7 @@
 									<a data-dismiss="modal" class="btn btn-warning">
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										Cancel									</a>
-									<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/operation"/>
+									<input type="hidden" id="__redirect" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/operation"/>
 									<input type="hidden" id="id" name="id" value="<?php echo $item_0['id']?>"/>
 								</div>
 							</form>
