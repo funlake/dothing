@@ -229,5 +229,4 @@ class DOModelUser extends DOModel
 		unset($this->fields['user_pass']);
 	}
 }
-
 ?>
