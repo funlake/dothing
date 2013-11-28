@@ -25,12 +25,12 @@ $searchs     = SG($searchIndex);
         <div class="box">
               <div class="panel {#admin_title_class}">
                   <div class="panel-heading">{#name}({#interface})</div>
-                  <ul:loop=Model|Permission.GetOperationPermission class="list-group">
+                  <ul:loop=Model|Permission.GetOperationPermission({#[id]}) class="list-group">
                     <li class="list-group-item">
 	                    	<div class="input-group">
-	                    		<input type="text" class="form-control" name="action_interface[]" value="{#url_pattern}" placeholder="{#oname}">
+	                    		<input type="text" class="form-control" name="action_interface[{#@item_0['id']}_{#oid}]" value="{#url_pattern}" placeholder="{#oname}">
 	                    		<span class="input-group-btn">
-	                    			<input type="checkbox" class="btn" name="action[]" value="{#@item_0['id']}_{#oid}"> 
+	                    			<input type="checkbox" class="btn" name="action[]" value="{#@item_0['id']}_{#oid}" {#checked}> 
 	                    		</span>
 	                    	</div>
                     </li>

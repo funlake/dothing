@@ -115,7 +115,8 @@ class DOBlocksProfiler extends DOBlocksItem
 				$tests[] = array(
 					"item" => $items[2][$key],
 					"file"  => $items[3][$key],
-					"value"=> $val
+					"value"=> $val,
+					"class" => ($val == "Fail" ? "danger" : "")
 				);
 			endforeach;
 		}

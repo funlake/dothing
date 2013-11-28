@@ -46,7 +46,7 @@ class DOModelPermission extends DOModel
 			$final[] = array(
 				'module_id' 		=> $mid,
 				'operation_id'	=> $oid,
-				'url_pattern'	=> $data['action_interface'][$mk],
+				'url_pattern'	=> $data['action_interface'][$mo],
 				'state'		=> 1
 			);
 		endforeach;
@@ -58,7 +58,7 @@ class DOModelPermission extends DOModel
 		return true;
 	}
 
-	public function GetOperationPermission()
+	public function GetOperationPermission($moduleId = '')
 	{
 		$db = DOFactory::GetDatabase();
 		$db->Clean();
@@ -68,8 +68,21 @@ class DOModelPermission extends DOModel
 		))
 		->Select("p.*")
 		->Read();
-		print_r($db->GetAll());exit;
-		return $db->GetAll();
+		//echo "<pre/>";
+
+		$rs = $db->GetAll();
+
+		foreach($rs as $rk=>&$item):
+			$item->checked = '';
+			if( $item->module_id != $moduleId):
+				foreach(get_object_vars($item) as $k=>$v):
+					if($k != "oid" and $k != "oname") $item->$k = '';
+				endforeach;
+			elseif($item->module_id > 0) : 
+				$item->checked = 'checked';
+			endif;
+		endforeach;
+		return $rs;
 
 	}
 }

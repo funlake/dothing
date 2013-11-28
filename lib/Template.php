@@ -272,6 +272,12 @@ EOD;
 	/** replace tempate var  **/
 	public static function ReplaceVar($var,$itemChar,$func)
 	{
+		//which used in php codes inside,dont need php's start and end tag to declare.
+		if(preg_match('#^\[([^\[\]]+)\]$#',$var,$vm))
+		{
+			return $itemChar."['".$vm[1]."']" ;
+		}
+		//do we have callback for variable?
 		if(!empty($func))
 		{
 			//function
@@ -291,11 +297,13 @@ EOD;
 				$final = $func."(".$itemChar.'[\''.$var.'\']'.")";
 			}
 		}
+		//for php variable access directly
 		else if(strpos($var,"@") === 0)
 		{
 
 			$final = str_replace('@', '$', $var);
 		}
+		//generally usage
 		else
 		{
 			$final = $itemChar.'[\''.$var.'\']';
@@ -309,7 +317,14 @@ EOD;
 			list($type,$core,$action) 	= sscanf($source,"%[^|]|%[^.].%s");
 			$_method 			  		= "Get".ucwords(strtolower($type))."Constant";
 			$handler			  		= call_user_func(array(__CLASS__,$_method),$core);
-			$rs					  		= $handler.'->'.$action.'()';
+			if(strpos($action,")") !== false)
+			{
+				$rs = $handler.'->'.$action;
+			}
+			else
+			{
+				$rs		= $handler.'->'.$action.'()';
+			}
 			// if($type == 'Model')
 			// {
 			// 	$variables[$core.".count"]	= $handler.'->'.'Count()';
@@ -318,11 +333,18 @@ EOD;
 		}
 		else if(strpos($source,"|") !== false)
 		{
-			list($class,$method) = sscanf($source,"%[^|]|%s");
+			list($class,$action) = sscanf($source,"%[^|]|%s");
 			$className		   = "DO".ucwords(strtolower($class));
 			if(class_exists($className))
 			{
-				return $className."::".$method."()";
+				if(strpos($action,")") !== false)
+				{
+					return $className."::".$action."()";
+				}
+				else
+				{
+					return $className."::".$action;
+				}
 			}
 		}
 		else
