@@ -12,6 +12,7 @@ define(['jquery'],function($){
 				require(['form'],function(){
 					/** Chosen plugin setting **/
 					var chosenSelect = $('.chzn-select');
+					chosenSelect.height(20);
 					var recursiveSetDisable = function(id){
 						var c = this.find("option[value="+id+"]");
 						var self = this;

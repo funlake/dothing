@@ -37,7 +37,7 @@ class DOModelPermission extends DOModel
 		parent::__construct();
 	}
 
-	public function Update($data = null)
+	public function Update(array $data = null)
 	{
 		DOFactory::GetDatabase()->Query("truncate #__permission");
 		$final = array();
@@ -67,8 +67,8 @@ class DOModelPermission extends DOModel
 			'p.operation_id' => 'o.id'
 		))
 		->Select("p.*")
+		->Where("o.state=1")
 		->Read();
-		//echo "<pre/>";
 
 		$rs = $db->GetAll();
 
@@ -83,6 +83,5 @@ class DOModelPermission extends DOModel
 			endif;
 		endforeach;
 		return $rs;
-
 	}
 }

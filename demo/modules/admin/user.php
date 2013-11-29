@@ -138,4 +138,9 @@ class DOControllerUser extends DOController
 		$var['action'] 	= 'Update';
 		$this->Display(null,$var);
 	}
+
+	public function rolepermissionAction($request = null)
+	{
+		$this->Display(null);
+	}
 }

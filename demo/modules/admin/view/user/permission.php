@@ -28,10 +28,10 @@ $searchs     = SG($searchIndex);
                   <ul:loop=Model|Permission.GetOperationPermission({#[id]}) class="list-group">
                     <li class="list-group-item">
 	                    	<div class="input-group">
-	                    		<input type="text" class="form-control" name="action_interface[{#@item_0['id']}_{#oid}]" value="{#url_pattern}" placeholder="{#oname}">
-	                    		<span class="input-group-btn">
-	                    			<input type="checkbox" class="btn" name="action[]" value="{#@item_0['id']}_{#oid}" {#checked}> 
-	                    		</span>
+                                 <span class="input-group-addon" >
+                                <input type="checkbox" class="btn" name="action[]" value="{#@item_0['id']}_{#oid}" {#checked}> {#oname}
+                                </span>
+	                    		<input type="text" class="form-control" name="action_interface[{#@item_0['id']}_{#oid}]" value="{#url_pattern}">
 	                    	</div>
                     </li>
                   </ul:loop>

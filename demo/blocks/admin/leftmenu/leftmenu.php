@@ -85,7 +85,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		  	   		   ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
-					   					array('user/role','user/editrole')
+					   					array('user/role','user/editrole','user/rolepermission')
 					   				) ? 'item-active' : ''		  	   		
 					),
 					array(

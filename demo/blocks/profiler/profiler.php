@@ -81,6 +81,7 @@ class DOBlocksProfiler extends DOBlocksItem
 				switch($v) :
 					case 'Error' 		: $class = 'danger';break;
 					case 'Warning' 	: $class = 'warning';break;
+					case 'Strict'		: $class = 'warning';break;
 					default 		: $class = '';break;
 				endswitch;
 				$errs[] = array(
