@@ -44,7 +44,7 @@ class DOModelPermission extends DOModel
 		foreach($data['action'] as $mk=>$mo) :
 			list($mid,$oid) = explode("_",$mo);
 			$final[] = array(
-				'module_id' 		=> $mid,
+				'module_id' 	=> $mid,
 				'operation_id'	=> $oid,
 				'url_pattern'	=> $data['action_interface'][$mo],
 				'state'		=> 1
@@ -58,30 +58,45 @@ class DOModelPermission extends DOModel
 		return true;
 	}
 
-	public function GetOperationPermission($moduleId = '')
+	public function GetOperationPermission($moduleId)
 	{
 		$db = DOFactory::GetDatabase();
 		$db->Clean();
 		$db->From("#__operation","o","o.id as oid,o.name as oname")
-		->LeftJoin("#__permission",'p',array(
-			'p.operation_id' => 'o.id'
-		))
-		->Select("p.*")
 		->Where("o.state=1")
 		->Read();
 
-		$rs = $db->GetAll();
+		$operations = $db->GetAll();
 
-		foreach($rs as $rk=>&$item):
-			$item->checked = '';
-			if( $item->module_id != $moduleId):
-				foreach(get_object_vars($item) as $k=>$v):
-					if($k != "oid" and $k != "oname") $item->$k = '';
-				endforeach;
-			elseif($item->module_id > 0) : 
-				$item->checked = 'checked';
-			endif;
+		$db->Clean();
+		$db->From("#__permission","p","p.*")
+		->Where("p.state=1")
+		->Read();
+
+		$permissions = $db->GetAll();
+		
+		$pers = array();
+
+		foreach($permissions as $per):
+			$pers[$per->module_id."_".$per->operation_id] = $per;
 		endforeach;
-		return $rs;
+
+		$final = array();
+		foreach($operations as $op):
+			//if we have already set something for it
+			if(isset($pers[$moduleId."_".$op->oid]))
+			{
+				$obj = $pers[$moduleId."_".$op->oid];
+				$obj->checked = "checked";
+				$final[] = (object)array_merge((array)$obj,(array)$op);
+			}
+			else
+			{
+				$final[] = $op;
+			}
+
+		endforeach;
+
+		return $final;
 	}
 }
