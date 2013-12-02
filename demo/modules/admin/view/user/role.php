@@ -80,6 +80,7 @@ $searchs     = SG($searchIndex);
 						</div>
 					</div>
 				</div>
+				<a class="glyphicon glyphicon-user" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/rolepermission','id=');?>{#id}"></a>
 			</td>
 		</tr>
 	</tbody:loop>

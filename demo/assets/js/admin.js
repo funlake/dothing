@@ -109,6 +109,21 @@ define(['jquery'],function($){
 		'user_operation': function(){
 			
 		},
+		'user_rolepermission' : function(){
+			$(".panel",$("#accordion")).each(function(){
+				var self = $(this);
+				$(".panel-title",self).click(function(){
+					var cbody = $(".collapse",self)
+					if(!cbody.hasClass("in")){
+						cbody.removeAttr("style").addClass("in");
+					} 
+					else{
+						cbody.css("height",0).removeClass("in");
+					}
+				})
+			})
+
+		},
 		'module':function(){
 			mod.__construct();
 		},

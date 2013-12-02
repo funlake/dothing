@@ -58,7 +58,7 @@ class DOModelPermission extends DOModel
 		return true;
 	}
 
-	public function GetOperationPermission($moduleId)
+	public function GetOperationPermissionSetting($moduleId)
 	{
 		$db = DOFactory::GetDatabase();
 		$db->Clean();

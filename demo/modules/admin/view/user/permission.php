@@ -25,7 +25,7 @@ $searchs     = SG($searchIndex);
         <div class="box">
               <div class="panel {#admin_title_class}">
                   <div class="panel-heading">{#name}({#interface})</div>
-                  <ul:loop=Model|Permission.GetOperationPermission({#[id]}) class="list-group">
+                  <ul:loop=Model|Permission.GetOperationPermissionSetting({#[id]}) class="list-group">
                     <li class="list-group-item">
 	                    	<div class="input-group">
                                  <span class="input-group-addon" >
