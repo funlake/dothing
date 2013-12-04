@@ -6,6 +6,7 @@ $searchs     = SG($searchIndex);
 <form action="<?php echo Url('autocrud/Add/rolepermission');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
 <div class="row well">
 	<div class="col-lg-8">
+       <h4> <?php echo $data->name;?></h4>
 	</div>
 	<div class="col-lg-4 text-right">
         <button class="btn btn-danger" id="backlink" onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/role');?>';return false;">
@@ -36,8 +37,8 @@ $searchs     = SG($searchIndex);
           </div>
           <div id="collapse{#id}" class="panel-collapse collapse in">
             <div class="panel-body">
-                <div:loop=Model|Rolepermission.GetOperationPermission({#[id]},<?php echo $_GET['id'];?>) class="input-group">
-                 <input type="checkbox" class="btn" name="action[]" value="{#module_id}_{#oid}" {#checked}> {#oname}
+                <div:loop=Model|Rolepermission.GetOperationPermission({#[id]},<?php echo $_GET['id'];?>) >
+                 <input type="checkbox" class="btn" name="action[]" value="{#module_id}_{#oid}" {#checked}><label>{#oname}</label>
                </div:loop>
             </div>
           </div>

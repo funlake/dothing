@@ -141,6 +141,7 @@ class DOControllerUser extends DOController
 
 	public function rolepermissionAction($request = null)
 	{
-		$this->Display(null);
+		$var['data']	= M('role')->GetRow(array('id'=>'='.$request->get['id']));
+		$this->Display(null,$var);
 	}
 }

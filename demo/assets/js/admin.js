@@ -1,18 +1,19 @@
 define(['jquery'],function($){
 	var rules ={
-		'([^_]+)_(edit|add)[^_]*$' : function(_,$1){
+		'([^_]+)_(edit|add|rolepermission)[^_]*$' : function(_,$1){
 			if(typeof mod[$1] !== "undefined"){
 				mod[$1].apply(mod,[]);
 			}
 			//require(['plugin/validation_jquery'],function(){
 			$(function(){
 				$('#submitForm').click(function(){
-
+					
 				});
 				require(['form'],function(){
 					/** Chosen plugin setting **/
 					var chosenSelect = $('.chzn-select');
 					chosenSelect.height(20);
+					//disabled parent options
 					var recursiveSetDisable = function(id){
 						var c = this.find("option[value="+id+"]");
 						var self = this;
@@ -29,6 +30,7 @@ define(['jquery'],function($){
 							}
 						}
 					}
+					//set multiple selected options
 					chosenSelect.each(function(_,cv){
 						var self = $(cv);
 						var sids    = self.attr('default').split(',');
@@ -43,7 +45,27 @@ define(['jquery'],function($){
 						self.chosen({
 							allow_single_deselect: true
 						});
-					})
+					});
+					//set checkbox/radio styles
+
+					  $('input').each(function(){
+					    var self = $(this),
+					      label = self.next(),
+					      label_text = label.text();
+
+					    label.remove();
+					    self.iCheck({
+					      checkboxClass: 'icheckbox_line-blue',
+					      radioClass: 'iradio_line-blue',
+					      insert: '<div class="icheck_line-icon"></div>' + label_text
+					    });
+					    self.on('ifChecked',function(){
+					    	//var pc = self.attr("checked") || "";
+					    	//self.attr("checked",!pc)
+					    	self.trigger("click")
+					    })
+					  });
+
 				})
 			})
 		}

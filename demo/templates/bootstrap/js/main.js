@@ -23,7 +23,7 @@ require.config({
     			// 'bootstrap-carousel',
     			// 'bootstrap-typeahead'
     		],
-                  'form' : ['jquery','chosen_jquery','plugin/validation_jquery']
+                  'form' : ['jquery','plugin/chosen_jquery','plugin/validation_jquery','plugin/icheck_jquery']
 
          }
     ,waitSeconds: 15

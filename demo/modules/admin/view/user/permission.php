@@ -6,6 +6,7 @@ $searchs     = SG($searchIndex);
 <form action="<?php echo Url('autocrud/Update/permission');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
 <div class="row well">
 	<div class="col-lg-8">
+          
 	</div>
 	<div class="col-lg-4 text-right">
 		  <button class="btn btn-success" id="submitForm">

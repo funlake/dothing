@@ -40,12 +40,12 @@
 				<?php echo L('Status');?>
 			</label>
 			<div class="col-lg-4">
-				<label class="radio-inline">
-					<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/>No
-				</label>
-				<label class="radio-inline">
-					<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/>Yes
-				</label>
+				<div class="radio-inline">
+					<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/><label>No</label>
+				</div>
+				<div class="radio-inline">
+					<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/><label>Yes</label>
+				</div>
 			</div>
 		</div>
 		<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/role');?>"/>

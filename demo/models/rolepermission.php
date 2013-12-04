@@ -57,14 +57,22 @@ class DOModelRolepermission extends DOModel
 		$final = array();
 		$db = DOFactory::GetDatabase();
 		$db->Clean();
+		//get parent role
+		$role = M('role')->GetRow(array('id'=>'='.$roleId));
+
+		$db->Clean();
 		$db->From("#__permission","p","p.*")
-		->Leftjoin("#__operation","o","o.id=p.operation_id")
-		->Select("o.name as oname,o.id as oid")
+		->Innerjoin("#__operation","o","o.id=p.operation_id");
+		//We must inherit what permissions parent role has.
+		if($role->pid != 0):
+			$db->Innerjoin("#__role_permission","rp","rp.operation_id=o.id and rp.module_id=".(int)$moduleId." and rp.role_id=".$role->pid);
+		endif;
+		$sql = $db->Select("o.name as oname,o.id as oid")
 		->Where("p.state=1 and p.module_id=?")
 		->Values($moduleId)
 		->Read();
-
 		$rs = $db->GetAll();
+		//reconstruct the reocrds,make it easily to access on [#1] proecess
 		foreach($rs as $item):
 			$final[$item->module_id."_".$item->operation_id] = $item;
 		endforeach;
@@ -79,6 +87,7 @@ class DOModelRolepermission extends DOModel
 		//found some assigned permission
 		foreach($rs as $item):
 			if(isset($final[$item->module_id."_".$item->operation_id])):
+				#1
 				$final[$item->module_id."_".$item->operation_id]->checked = "checked";
 			endif;
 		endforeach;
