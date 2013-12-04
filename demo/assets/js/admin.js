@@ -1,6 +1,7 @@
 define(['jquery'],function($){
 	var rules ={
-		'([^_]+)_(edit|add|rolepermission)[^_]*$' : function(_,$1){
+		//'([^_]+)_(edit|add|rolepermission|permission)[^_]*$' : function(_,$1){
+		'.*' : function(_,$1){
 			if(typeof mod[$1] !== "undefined"){
 				mod[$1].apply(mod,[]);
 			}
@@ -47,23 +48,11 @@ define(['jquery'],function($){
 						});
 					});
 					//set checkbox/radio styles
-
-					  $('input').each(function(){
-					    var self = $(this),
-					      label = self.next(),
-					      label_text = label.text();
-
-					    label.remove();
-					    self.iCheck({
-					      checkboxClass: 'icheckbox_line-blue',
-					      radioClass: 'iradio_line-blue',
-					      insert: '<div class="icheck_line-icon"></div>' + label_text
-					    });
-					    self.on('ifChecked',function(){
-					    	//var pc = self.attr("checked") || "";
-					    	//self.attr("checked",!pc)
-					    	self.trigger("click")
-					    })
+					  $('input').iCheck({
+					    checkboxClass: 'icheckbox_square-blue',
+					    radioClass: 'iradio_square-blue',
+					    increaseArea: '20%'// ,// optional
+					  //  insert:"<div class='check_text'>aaa</div>"
 					  });
 
 				})

@@ -148,3 +148,28 @@ form h4{
   font-weight: 800;
   font-style: italic;
 }
+
+.radio-inline{
+  padding-left:0;
+  min-width: 55px;
+}
+.radio-inline label{
+  float:left;
+  margin-top:-20px;
+  padding-left: 30px
+}
+.radio-inline label{
+  font-style: italic;
+}
+.checkbox-inline{
+  padding-left:0;
+  min-width: 55px;
+}
+.checkbox-inline label{
+  float:left;
+  margin-top:-20px;
+  padding-left: 30px
+}
+.checkbox-inline label{
+  font-style: italic;
+}

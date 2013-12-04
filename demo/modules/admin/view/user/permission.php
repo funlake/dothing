@@ -26,16 +26,23 @@ $searchs     = SG($searchIndex);
         <div class="box">
               <div class="panel {#admin_title_class}">
                   <div class="panel-heading">{#name}({#interface})</div>
-                  <ul:loop=Model|Permission.GetOperationPermissionSetting({#[id]}) class="list-group">
-                    <li class="list-group-item">
-	                    	<div class="input-group">
-                                 <span class="input-group-addon" >
-                                <input type="checkbox" class="btn" name="action[]" value="{#@item_0['id']}_{#oid}" {#checked}> {#oname}
-                                </span>
-	                    		<input type="text" class="form-control" name="action_interface[{#@item_0['id']}_{#oid}]" value="{#url_pattern}">
-	                    	</div>
-                    </li>
-                  </ul:loop>
+                    <table class="table table-striped table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th width="5%">#</th>
+                              <th width="30%"><?php echo L("Operation");?></th>
+                              <th><?php echo L('Ineterface');?></th>
+                            </tr>
+                          </thead>
+                          <tbody:loop=Model|Permission.GetOperationPermissionSetting({#[id]}) class="adminTable">
+                                <tr>
+                                          <td><input type="checkbox" class="btn" name="action[]" value="{#@item_0['id']}_{#oid}" {#checked} /></td>
+                                           <td>{#oname}</td>
+          	                    		     <td><input type="text" class="form-control" name="action_interface[{#@item_0['id']}_{#oid}]" value="{#url_pattern}" placeholder="Link..."/></td>
+          	                    	</tr>
+                              </li>
+                            </tbody:loop>
+                  </table>
               </div>
          </div>
     </div:loop>

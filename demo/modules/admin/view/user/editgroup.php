@@ -62,10 +62,10 @@
 		</label>
 		<div class="col-lg-4">
 			<label class="radio-inline">
-				<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/><?php echo L('No');?>
+				<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/><label><?php echo L('No');?></label>
 			</label>
 			<label class="radio-inline">
-				<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/><?php echo L('Yes');?>
+				<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/><label><?php echo L('Yes');?></label>
 			</label>
 		</div>
 	</div>

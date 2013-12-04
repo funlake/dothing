@@ -37,8 +37,10 @@ $searchs     = SG($searchIndex);
           </div>
           <div id="collapse{#id}" class="panel-collapse collapse in">
             <div class="panel-body">
-                <div:loop=Model|Rolepermission.GetOperationPermission({#[id]},<?php echo $_GET['id'];?>) >
-                 <input type="checkbox" class="btn" name="action[]" value="{#module_id}_{#oid}" {#checked}><label>{#oname}</label>
+                <div:loop=Model|Rolepermission.GetOperationPermission({#[id]},<?php echo $_GET['id'];?>)>
+                  <div class="checkbox-inline">
+                  <input type="checkbox" class="btn" name="action[]" value="{#module_id}_{#oid}" {#checked}/><label>{#oname}</label>
+                  </div>
                </div:loop>
             </div>
           </div>

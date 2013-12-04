@@ -1,74 +1,60 @@
-/* iCheck plugin Line skin, grey
+/* iCheck plugin Square skin, grey
 ----------------------------------- */
-.icheckbox_line-grey,
-.iradio_line-grey {
-    position: relative;
+.icheckbox_square-grey,
+.iradio_square-grey {
     display: block;
     margin: 0;
-    padding: 5px 15px 5px 38px;
-    font-size: 13px;
-    line-height: 17px;
-    color: #fff;
-    background: #73716e;
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    background: url(grey.png) no-repeat;
     border: none;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
     cursor: pointer;
 }
-    .icheckbox_line-grey .icheck_line-icon,
-    .iradio_line-grey .icheck_line-icon {
-        position: absolute;
-        top: 50%;
-        left: 13px;
-        width: 13px;
-        height: 11px;
-        margin: -5px 0 0 0;
-        padding: 0;
-        overflow: hidden;
-        background: url(line.png) no-repeat;
-        border: none;
+
+.icheckbox_square-grey {
+    background-position: 0 0;
+}
+    .icheckbox_square-grey.hover {
+        background-position: -24px 0;
     }
-    .icheckbox_line-grey.hover,
-    .icheckbox_line-grey.checked.hover,
-    .iradio_line-grey.hover {
-        background: #8B8986;
+    .icheckbox_square-grey.checked {
+        background-position: -48px 0;
     }
-    .icheckbox_line-grey.checked,
-    .iradio_line-grey.checked {
-        background: #73716e;
-    }
-        .icheckbox_line-grey.checked .icheck_line-icon,
-        .iradio_line-grey.checked .icheck_line-icon {
-            background-position: -15px 0;
-        }
-    .icheckbox_line-grey.disabled,
-    .iradio_line-grey.disabled {
-        background: #D5D4D3;
+    .icheckbox_square-grey.disabled {
+        background-position: -72px 0;
         cursor: default;
     }
-        .icheckbox_line-grey.disabled .icheck_line-icon,
-        .iradio_line-grey.disabled .icheck_line-icon {
-            background-position: -30px 0;
-        }
-    .icheckbox_line-grey.checked.disabled,
-    .iradio_line-grey.checked.disabled {
-        background: #D5D4D3;
+    .icheckbox_square-grey.checked.disabled {
+        background-position: -96px 0;
     }
-        .icheckbox_line-grey.checked.disabled .icheck_line-icon,
-        .iradio_line-grey.checked.disabled .icheck_line-icon {
-            background-position: -45px 0;
-        }
+
+.iradio_square-grey {
+    background-position: -120px 0;
+}
+    .iradio_square-grey.hover {
+        background-position: -144px 0;
+    }
+    .iradio_square-grey.checked {
+        background-position: -168px 0;
+    }
+    .iradio_square-grey.disabled {
+        background-position: -192px 0;
+        cursor: default;
+    }
+    .iradio_square-grey.checked.disabled {
+        background-position: -216px 0;
+    }
 
 /* Retina support */
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
        only screen and (-moz-min-device-pixel-ratio: 1.5),
        only screen and (-o-min-device-pixel-ratio: 3/2),
        only screen and (min-device-pixel-ratio: 1.5) {
-    .icheckbox_line-grey .icheck_line-icon,
-    .iradio_line-grey .icheck_line-icon {
-        background-image: url(line@2x.png);
-        -webkit-background-size: 60px 13px;
-        background-size: 60px 13px;
+    .icheckbox_square-grey,
+    .iradio_square-grey {
+        background-image: url(grey@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
     }
 }
