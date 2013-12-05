@@ -53,8 +53,9 @@ $searchs     = SG($searchIndex);
 			<td>{#state|showStatus(?,'user',#id)}</td>
 			<td>
 				<a class="glyphicon glyphicon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?>{#id}">
+				&nbsp;
 				</a>
-				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
+				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}">&nbsp;</a>
 				<div class="modal fade" id="DOModal_{#id}">
 					<div class="modal-dialog">
 						<div class="modal-content">

@@ -58,7 +58,7 @@ class DOModelRolepermission extends DOModel
 		$db = DOFactory::GetDatabase();
 		$db->Clean();
 		//get parent role
-		$role = M('role')->GetRow(array('id'=>'='.$roleId));
+		$role = M('role')->GetRow(array('id'=>$roleId));
 
 		$db->Clean();
 		$db->From("#__permission","p","p.*")
@@ -74,6 +74,7 @@ class DOModelRolepermission extends DOModel
 		$rs = $db->GetAll();
 		//reconstruct the reocrds,make it easily to access on [#1] proecess
 		foreach($rs as $item):
+			$item->checked = "";
 			$final[$item->module_id."_".$item->operation_id] = $item;
 		endforeach;
 

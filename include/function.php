@@ -119,7 +119,7 @@ function DOStripslashes(&$item)
 function GetMessageType($type)
 {
 	$types = array(
-		0 => 'error'
+	   0 => 'danger'
 	   ,1 => 'success'
 	   ,2 => 'info'
 	   ,3 => 'warning'

@@ -127,7 +127,6 @@ class DOFactory
 		}
 		return self::$_load['session']->GetEngine();
 	}
-	
 	/**
 	 * Get php mailer
 	 * @return mailer Object

@@ -99,7 +99,6 @@ class DOModelUser extends DOModel
 			DOFactory::GetTable('#__user_group')->Delete(array(
 				"user_id" => "=?"
 			),$upArray['id']);
-
 			foreach($upArray['group_id'] as $gid)
 			{
 				DOFactory::GetTable('#__user_group')->Insert(
@@ -112,6 +111,7 @@ class DOModelUser extends DOModel
 			DOFactory::GetTable('#__user_role')->Delete(array(
 				"user_id" => "=?"
 			),$upArray['id']);
+
 			foreach($upArray['role_id'] as $rid)
 			{
 				DOFactory::GetTable('#__user_role')->Insert(

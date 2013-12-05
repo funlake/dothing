@@ -1,7 +1,7 @@
 <form action="http://localhost:81/dothing/demo/index.php/autocrud/Add/rolepermission" method="post" id="Afm" name="Afm" class="form-horizontal">
 <div class="row well">
 	<div class="col-lg-8">
-       <h4> Superadmins</h4>
+       <h4> Department admin</h4>
 	</div>
 	<div class="col-lg-4 text-right">
         <button class="btn btn-danger" id="backlink" onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/role';return false;">
@@ -29,7 +29,7 @@
           <div id="collapse<?php echo $item_0['id']?>" class="panel-collapse collapse in">
             <div class="panel-body">
                 <div >								
-<?php foreach((array)DOFactory::GetModel(strtolower('Rolepermission'))->GetOperationPermission($item_0['id'],2) as $key_1=>$item_1) : ?>
+<?php foreach((array)DOFactory::GetModel(strtolower('Rolepermission'))->GetOperationPermission($item_0['id'],5) as $key_1=>$item_1) : ?>
 <?php $item_1=(array)$item_1; ?>
 
                   <div class="checkbox-inline">
@@ -49,6 +49,6 @@
 		 echo $pager->Render();
 		 ?></div>
  </div>
- <input type="hidden" id="__token" name="__token" value="2c11c3cf464ab72c0e7d9ab570b4a107"/>
- <input type="hidden" name="role_id" value="2"/>
+ <input type="hidden" id="__token" name="__token" value="69049ba031d8f285dea11e2d9aa26263"/>
+ <input type="hidden" name="role_id" value="5"/>
 </form>

@@ -115,7 +115,7 @@ class DODatabase implements DORecord
 	 * @param unknown_type $rsType
 	 * @return unknown
 	 */
-	function Query( $sql,$params=null )
+	function Query( $sql,$params=array() )
 	{
 		$syntax         	= $this->GetSyntax();
 		$this->sqlQuerys[]  = $this->sqlQuery = $syntax->formatSql( $sql );
@@ -150,10 +150,12 @@ class DODatabase implements DORecord
 		$R->insert_id		= $this->insert_id  = $this->connFlag->lastInsertId();
 		$R->affect_row  		= $this->affect_row = $statement->rowCount();
 		$errors			= $statement->errorInfo();
+		//log the query
+		DOError::CustomHandler("sqlquery", $this->sqlQuery,implode(',',$params), __FILE__, __LINE__);
 		if($this->IsError($errors))
 		{
 			//throw new DODatabaseException($sql."//detail:".$errors[2],301);
-			trigger_error($errors[2],E_USER_ERROR);
+			trigger_error($errors[2]."[".$this->sqlQuery."]",E_USER_ERROR);
 		}
 		else
 		{

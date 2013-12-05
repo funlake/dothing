@@ -9,7 +9,8 @@ return array(
    	'^admin/(?!user/login)(?:[^\/]*/(?:(?!edit)[a-zA-Z])+)$' 	=> 'admin.leftmenu'
    	)
    ,'message' => array(
-   		'^admin' 		=> 'message'
+   		'^admin' 		=> 'message',
+             '^debug'     => 'message'
    	)
    ,'bottom'  => array(
    	  //  '.*'  => 'profiler'

@@ -173,3 +173,7 @@ form h4{
 .checkbox-inline label{
   font-style: italic;
 }
+
+.chzn-choices input{
+  min-height: 20px;
+}

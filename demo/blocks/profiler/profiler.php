@@ -20,7 +20,13 @@ class DOBlocksProfiler extends DOBlocksItem
 				'tab'  => L('Error'),
 				'id'   => 'error_tab',
 				'class' => '',
-				'content' => $this->GetErrors()
+				'content' => $this->GetErrors('','sqlquery')
+			),
+			array(
+				'tab'  => L('Sql queries'),
+				'id'   => 'sql_tab',
+				'class' => '',
+				'content' => $this->GetSqlQueries()
 			),
 			array(
 				'tab'  => L('Tests'),
@@ -65,19 +71,26 @@ class DOBlocksProfiler extends DOBlocksItem
 			)
 		);
 	}
-	public function GetErrors()
+	public function GetErrors($specific='',$ignore='')
 	{
 		$errors 	= DOError::$_errorMsg;
 		$errs 		= array();  
 		foreach((array)$errors as $key => $value)
 		{
 			$errType = explode('_',$key);
-			//if($errType[1] == 'notice') continue;
+			if($errType[1] == $ignore) continue;
+			elseif(!empty($specific) and $errType[1] != $specific)
+			{
+				continue;
+			}
 			foreach($value as $v2)
 			{
 				$class = '';
 				$v 	 = ucwords($errType[1]);
-
+				if($v2['detail'])
+				{
+					$v = $v2['detail'];
+				}
 				switch($v) :
 					case 'Error' 		: $class = 'danger';break;
 					case 'Warning' 	: $class = 'warning';break;
@@ -122,6 +135,11 @@ class DOBlocksProfiler extends DOBlocksItem
 			endforeach;
 		}
 		return $tests;
+	}
+
+	public function GetSqlQueries()
+	{
+		return $this->GetErrors('sqlquery');
 	}
 }
 

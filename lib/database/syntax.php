@@ -239,11 +239,17 @@ class DOSyntax
 		foreach((array)$this->where as $k=>$v)
 		{
 			/** Field of database table should not be a numeric name **/
+			if(strpos($v,"|") === 0):
+				$wheres[] = " OR ";
+				$v = substr($v,1);
+			else :
+				if(isset($wheres[0])) $wheres[] = " AND ";
+			endif;
 			$wheres[] 	= (!is_numeric($k) ? $k : '')." ".$v;
 		}
 		if(!!$wheres)
 		{
-			return "WHERE ".implode(" AND ",$wheres);
+			return "WHERE ".implode("",$wheres);
 		}
 		return '';
 	}
@@ -334,7 +340,7 @@ class DOSyntax
 	/**
 	*Packed select sql;
 	*/	
-	public function Read()
+	public function Read($clean = false)
 	{
 		$query   = array('SELECT');
 		$get     = $joins = $wheres = array();
@@ -354,7 +360,7 @@ class DOSyntax
 		//limit
 		$query[] = $this->GetLimit();		
 		$this->sqlQuery = implode("\n",$query);
-
+		if($clean) $this->Clean();
 		return $this->FormatSql(implode("\n",$query));
 	}
 	/** Packed insert sql **/

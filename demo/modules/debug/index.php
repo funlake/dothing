@@ -29,5 +29,10 @@ class DOControllerIndex extends DOController
 			DOUri::Redirect($request->post['source_link'],L('Session variables of page have been cleared'),'warning');
 		}
 	}
+
+	public function nopermissionAction($request = null)
+	{
+		$this->Display(null);
+	}
 }
 ?>

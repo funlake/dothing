@@ -47,12 +47,13 @@ $searchs     = SG($searchIndex);
 		<tbody:loop=Model|Role.TreeData class="adminTable">
 		<tr>
 			<td>{#id}</td>
-			<td>{#name}</td>
+			<td><a href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editrole','id=');?>{#id}">{#name}</a></td>
 			<td>{#state|showStatus(?,'role',#id)}</td>
 			<td>
 				<a class="glyphicon glyphicon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editrole','id=');?>{#id}">
+				&nbsp;
 				</a>
-				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
+				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}">&nbsp;</a>
 				<div class="modal fade" id="DOModal_{#id}">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -80,7 +81,7 @@ $searchs     = SG($searchIndex);
 						</div>
 					</div>
 				</div>
-				<a class="glyphicon glyphicon-user" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/rolepermission','id=');?>{#id}"></a>
+				<a class="glyphicon glyphicon-user" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/rolepermission','id=');?>{#id}"><?php echo L("Assign");?></a>
 			</td>
 		</tr>
 	</tbody:loop>
