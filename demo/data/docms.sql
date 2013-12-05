@@ -1,34 +1,26 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 3.5.7
 -- http://www.phpmyadmin.net
 --
--- 主机: 127.0.0.1
--- 生成日期: 2013 年 12 月 04 日 02:24
--- 服务器版本: 5.5.32-log
--- PHP 版本: 5.4.16
+-- Host: localhost
+-- Generation Time: Dec 05, 2013 at 12:38 PM
+-- Server version: 5.5.29
+-- PHP Version: 5.4.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- 数据库: `docms`
+-- Database: `docms`
 --
-CREATE DATABASE IF NOT EXISTS `docms` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `docms`;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `category`
+-- Table structure for table `category`
 --
 
-CREATE TABLE IF NOT EXISTS `category` (
+CREATE TABLE `category` (
   `category_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `category_pid` int(10) unsigned DEFAULT '0',
   `category_name` varchar(255) NOT NULL,
@@ -42,10 +34,10 @@ CREATE TABLE IF NOT EXISTS `category` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `category_connection`
+-- Table structure for table `category_connection`
 --
 
-CREATE TABLE IF NOT EXISTS `category_connection` (
+CREATE TABLE `category_connection` (
   `category_id` int(10) unsigned NOT NULL,
   `table_name` varchar(50) DEFAULT NULL,
   `table_key_name` varchar(50) DEFAULT NULL,
@@ -57,10 +49,10 @@ CREATE TABLE IF NOT EXISTS `category_connection` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `group`
+-- Table structure for table `group`
 --
 
-CREATE TABLE IF NOT EXISTS `group` (
+CREATE TABLE `group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pid` int(10) unsigned DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
@@ -71,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `group` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- 转存表中的数据 `group`
+-- Dumping data for table `group`
 --
 
 INSERT INTO `group` (`id`, `pid`, `name`, `description`, `ordering`, `state`) VALUES
@@ -84,10 +76,10 @@ INSERT INTO `group` (`id`, `pid`, `name`, `description`, `ordering`, `state`) VA
 -- --------------------------------------------------------
 
 --
--- 表的结构 `group_module`
+-- Table structure for table `group_module`
 --
 
-CREATE TABLE IF NOT EXISTS `group_module` (
+CREATE TABLE `group_module` (
   `group_id` int(10) unsigned NOT NULL,
   `module_id` int(10) unsigned NOT NULL,
   UNIQUE KEY `group_module_index1` (`group_id`,`module_id`),
@@ -98,10 +90,10 @@ CREATE TABLE IF NOT EXISTS `group_module` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `group_role`
+-- Table structure for table `group_role`
 --
 
-CREATE TABLE IF NOT EXISTS `group_role` (
+CREATE TABLE `group_role` (
   `group_id` int(10) unsigned NOT NULL,
   `role_id` int(11) NOT NULL,
   UNIQUE KEY `group_role_un` (`group_id`,`role_id`),
@@ -110,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `group_role` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- 转存表中的数据 `group_role`
+-- Dumping data for table `group_role`
 --
 
 INSERT INTO `group_role` (`group_id`, `role_id`) VALUES
@@ -123,10 +115,10 @@ INSERT INTO `group_role` (`group_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- 表的结构 `language`
+-- Table structure for table `language`
 --
 
-CREATE TABLE IF NOT EXISTS `language` (
+CREATE TABLE `language` (
   `language_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `language_code` varchar(30) NOT NULL,
   `language_name` varchar(50) NOT NULL,
@@ -137,10 +129,10 @@ CREATE TABLE IF NOT EXISTS `language` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `member`
+-- Table structure for table `member`
 --
 
-CREATE TABLE IF NOT EXISTS `member` (
+CREATE TABLE `member` (
   `member_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `member_name` varchar(150) NOT NULL,
@@ -152,10 +144,10 @@ CREATE TABLE IF NOT EXISTS `member` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `module`
+-- Table structure for table `module`
 --
 
-CREATE TABLE IF NOT EXISTS `module` (
+CREATE TABLE `module` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `interface` varchar(100) DEFAULT NULL,
@@ -170,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `module` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- 转存表中的数据 `module`
+-- Dumping data for table `module`
 --
 
 INSERT INTO `module` (`id`, `name`, `interface`, `icon`, `url`, `target`, `iscore`, `attribute`, `ordering`, `state`) VALUES
@@ -182,10 +174,10 @@ INSERT INTO `module` (`id`, `name`, `interface`, `icon`, `url`, `target`, `iscor
 -- --------------------------------------------------------
 
 --
--- 表的结构 `operation`
+-- Table structure for table `operation`
 --
 
-CREATE TABLE IF NOT EXISTS `operation` (
+CREATE TABLE `operation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `description` text NOT NULL,
@@ -193,10 +185,10 @@ CREATE TABLE IF NOT EXISTS `operation` (
   `state` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
--- 转存表中的数据 `operation`
+-- Dumping data for table `operation`
 --
 
 INSERT INTO `operation` (`id`, `name`, `description`, `ordering`, `state`) VALUES
@@ -204,15 +196,17 @@ INSERT INTO `operation` (`id`, `name`, `description`, `ordering`, `state`) VALUE
 (2, 'Edit', 'Modify infos of an item', 43, 1),
 (3, 'New', 'Add new item', 44, 1),
 (4, 'Remove', 'Remove item(s)', 43, 1),
-(5, 'Assign', 'Assign permission of specific module', 42, 1);
+(5, 'Assign', 'Assign permission of specific module', 42, 1),
+(6, 'Save add', 'Save action in backend process', 4, 1),
+(7, 'Save edit', '', 6, 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `permission`
+-- Table structure for table `permission`
 --
 
-CREATE TABLE IF NOT EXISTS `permission` (
+CREATE TABLE `permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `module_id` int(11) NOT NULL,
   `operation_id` int(11) NOT NULL,
@@ -222,10 +216,10 @@ CREATE TABLE IF NOT EXISTS `permission` (
   UNIQUE KEY `mo` (`module_id`,`operation_id`),
   KEY `module_id` (`module_id`),
   KEY `operation_id` (`operation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
--- 转存表中的数据 `permission`
+-- Dumping data for table `permission`
 --
 
 INSERT INTO `permission` (`id`, `module_id`, `operation_id`, `url_pattern`, `state`) VALUES
@@ -233,26 +227,34 @@ INSERT INTO `permission` (`id`, `module_id`, `operation_id`, `url_pattern`, `sta
 (2, 1, 2, 'admin/user/edit', 1),
 (3, 1, 3, 'admin/user/add', 1),
 (4, 1, 4, 'autocrud/Delete/user', 1),
-(5, 5, 1, 'admin/user/group', 1),
-(6, 5, 2, 'admin/user/editgroup', 1),
-(7, 5, 3, 'admin/user/addgroup', 1),
-(8, 5, 4, 'autocrud/Delete/group', 1),
-(9, 6, 1, 'admin/user/permission', 1),
-(10, 6, 2, 'admin/user/editpermission', 1),
-(11, 6, 3, 'admin/user/addpermission', 1),
-(12, 6, 4, 'autocrud/Delete/permission', 1),
-(13, 7, 1, 'admin/user/role', 1),
-(14, 7, 2, 'admin/user/editrole', 1),
-(15, 7, 3, 'admin/user/addrole', 1),
-(16, 7, 4, 'autocrud/Delete/role', 1);
+(5, 1, 6, 'autocrud/Add/user', 1),
+(6, 1, 7, 'autocrud/Update/user', 1),
+(7, 5, 1, 'admin/user/group', 1),
+(8, 5, 2, 'admin/user/editgroup', 1),
+(9, 5, 3, 'admin/user/addgroup', 1),
+(10, 5, 4, 'autocrud/Delete/group', 1),
+(11, 5, 6, 'autocrud/Add/group', 1),
+(12, 5, 7, 'autocrud/Update/group', 1),
+(13, 6, 1, 'admin/user/permission', 1),
+(14, 6, 2, 'admin/user/editpermission', 1),
+(15, 6, 3, 'admin/user/addpermission', 1),
+(16, 6, 4, 'autocrud/Delete/permission', 1),
+(17, 6, 6, 'autocrud/Add/permission', 1),
+(18, 6, 7, 'autocrud/Update/permission', 1),
+(19, 7, 1, 'admin/user/role', 1),
+(20, 7, 2, 'admin/user/editrole', 1),
+(21, 7, 3, 'admin/user/addrole', 1),
+(22, 7, 4, 'autocrud/Delete/role', 1),
+(23, 7, 6, 'autocrud/Add/role', 1),
+(24, 7, 7, 'autocrud/Update/role', 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `resource`
+-- Table structure for table `resource`
 --
 
-CREATE TABLE IF NOT EXISTS `resource` (
+CREATE TABLE `resource` (
   `resource_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `resource_type` varchar(100) DEFAULT NULL,
   `resource_key` int(10) unsigned DEFAULT NULL,
@@ -263,35 +265,35 @@ CREATE TABLE IF NOT EXISTS `resource` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `role`
+-- Table structure for table `role`
 --
 
-CREATE TABLE IF NOT EXISTS `role` (
+CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pid` int(11) NOT NULL DEFAULT '0',
   `name` varchar(100) NOT NULL,
   `state` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- 转存表中的数据 `role`
+-- Dumping data for table `role`
 --
 
 INSERT INTO `role` (`id`, `pid`, `name`, `state`) VALUES
-(2, 0, 'Superadmins', 1),
 (3, 0, 'Register', 1),
-(5, 2, 'Department admin', 1),
-(6, 2, 'Manager', 1),
-(7, 5, 'Project manager', 1);
+(5, 8, 'Department admin', 1),
+(6, 8, 'Manager', 1),
+(7, 5, 'Project manager', 1),
+(8, 0, 'Super admin', 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `role_permission`
+-- Table structure for table `role_permission`
 --
 
-CREATE TABLE IF NOT EXISTS `role_permission` (
+CREATE TABLE `role_permission` (
   `role_id` int(11) NOT NULL,
   `module_id` int(11) NOT NULL,
   `operation_id` int(11) NOT NULL,
@@ -299,36 +301,77 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- 转存表中的数据 `role_permission`
+-- Dumping data for table `role_permission`
 --
 
 INSERT INTO `role_permission` (`role_id`, `module_id`, `operation_id`) VALUES
-(0, 1, 1),
-(0, 1, 2),
-(0, 5, 1),
-(0, 5, 2),
-(0, 5, 3),
-(0, 6, 1),
 (2, 1, 1),
 (2, 1, 2),
 (2, 1, 3),
+(2, 1, 4),
+(2, 1, 6),
+(2, 1, 7),
 (2, 5, 1),
 (2, 5, 2),
 (2, 5, 3),
+(2, 5, 4),
+(2, 5, 6),
+(2, 5, 7),
 (2, 6, 1),
+(2, 6, 2),
+(2, 6, 3),
+(2, 6, 4),
+(2, 6, 6),
+(2, 6, 7),
+(2, 7, 1),
+(2, 7, 2),
+(2, 7, 3),
+(2, 7, 4),
+(2, 7, 6),
+(2, 7, 7),
+(5, 1, 1),
 (5, 1, 2),
 (5, 1, 3),
 (5, 5, 1),
 (5, 5, 2),
-(5, 5, 3);
+(5, 5, 3),
+(5, 7, 1),
+(6, 1, 2),
+(6, 1, 3),
+(7, 1, 1),
+(7, 5, 1),
+(8, 1, 1),
+(8, 1, 2),
+(8, 1, 3),
+(8, 1, 4),
+(8, 1, 6),
+(8, 1, 7),
+(8, 5, 1),
+(8, 5, 2),
+(8, 5, 3),
+(8, 5, 4),
+(8, 5, 6),
+(8, 5, 7),
+(8, 6, 1),
+(8, 6, 2),
+(8, 6, 3),
+(8, 6, 4),
+(8, 6, 6),
+(8, 6, 7),
+(8, 7, 1),
+(8, 7, 2),
+(8, 7, 3),
+(8, 7, 4),
+(8, 7, 6),
+(8, 7, 7);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `setting`
+-- Table structure for table `setting`
 --
 
-CREATE TABLE IF NOT EXISTS `setting` (
+CREATE TABLE `setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) CHARACTER SET utf8 NOT NULL,
   `value` text CHARACTER SET utf8 NOT NULL,
@@ -340,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `setting` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1875 ;
 
 --
--- 转存表中的数据 `setting`
+-- Dumping data for table `setting`
 --
 
 INSERT INTO `setting` (`id`, `name`, `value`, `constant`, `description`, `status`) VALUES
@@ -357,35 +400,35 @@ INSERT INTO `setting` (`id`, `name`, `value`, `constant`, `description`, `status
 -- --------------------------------------------------------
 
 --
--- 表的结构 `user`
+-- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_name` varchar(100) DEFAULT NULL,
   `user_pass` varchar(300) DEFAULT NULL,
   `img_url` varchar(100) NOT NULL,
   `state` tinyint(3) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
--- 转存表中的数据 `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `user_name`, `user_pass`, `img_url`, `state`) VALUES
-(12, 'admin', 'qCZgIcbVhsqLagk9K8EdaNYWzcGfmxT3uG_Vynx-9w2wlh3Qxga4fMHSzmHtxMm2lDbkiZl_cjK0Z5ESFyP5pw~~', 'no-image.png', 1),
+(21, 'Admin', 'fdxSJJ6p0oTqfvOO01xRpV-dLGQFy4rA6lfSD6f-CyMHVLVWUMEiyIGn5gzRNEwZ3J9CLIH9cK9RKho3v2yJJQ~~', 'no-image.png', 1),
 (17, 'lake', 'OV5nImGdF7JFgJTOtztVR2zjSO5fkm1DDC_mpRP_zfQpufcJSxXQjoj15SrEUgIy3-VG8aZ5ry3-0BtHl-uSFg~~', 'no-image.png', 1),
 (15, 'Emual', 'pLhcPvG8w0bGWFjQ4fNlsjJcxppd3QED25qMrPJCNqzhZoeLYqeUVEyjQqi3bzvKkMyFgQ34WTlCIuinAR977w~~', 'no-image.png', 1),
-(19, 'demo', 'cQG_9Yig1sRYw-LmQmqknYR5L6HOBlXR3N-NqsDJBbmRH-wq5NEQOJU3RfEmEJ-6VJbxBSeBYXQdnlAz_WNn3A~~', 'no-image.png', 1);
+(20, 'Demo', 'P59Cbby2aHEh1oML_CZTGuGzEiwDzRzT7t6ZGL40lysWPWjZDGqECTBMUed4WU7JUC7h76T2ZsNy0yHM0tYmMQ~~', 'no-image.png', 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `user_group`
+-- Table structure for table `user_group`
 --
 
-CREATE TABLE IF NOT EXISTS `user_group` (
+CREATE TABLE `user_group` (
   `user_id` int(10) NOT NULL,
   `group_id` int(10) NOT NULL,
   UNIQUE KEY `un_user_group` (`user_id`,`group_id`),
@@ -394,25 +437,24 @@ CREATE TABLE IF NOT EXISTS `user_group` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- 转存表中的数据 `user_group`
+-- Dumping data for table `user_group`
 --
 
 INSERT INTO `user_group` (`user_id`, `group_id`) VALUES
-(12, 1),
 (15, 5),
 (16, 1),
 (17, 4),
-(17, 5),
 (18, 1),
-(19, 5);
+(20, 4),
+(21, 1);
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `user_permission`
+-- Table structure for table `user_permission`
 --
 
-CREATE TABLE IF NOT EXISTS `user_permission` (
+CREATE TABLE `user_permission` (
   `user_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
   UNIQUE KEY `user_per` (`user_id`,`permission_id`),
@@ -423,10 +465,10 @@ CREATE TABLE IF NOT EXISTS `user_permission` (
 -- --------------------------------------------------------
 
 --
--- 表的结构 `user_role`
+-- Table structure for table `user_role`
 --
 
-CREATE TABLE IF NOT EXISTS `user_role` (
+CREATE TABLE `user_role` (
   `user_id` int(10) unsigned NOT NULL,
   `role_id` int(11) NOT NULL,
   KEY `fk_user_role_user1_idx` (`user_id`),
@@ -434,14 +476,11 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- 转存表中的数据 `user_role`
+-- Dumping data for table `user_role`
 --
 
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (12, 2),
-(17, 3),
-(17, 2);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+(21, 8),
+(17, 5),
+(20, 5);
