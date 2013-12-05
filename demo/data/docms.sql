@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2013 at 12:38 PM
+-- Generation Time: Dec 05, 2013 at 01:59 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -159,7 +159,7 @@ CREATE TABLE `module` (
   `ordering` int(10) unsigned DEFAULT NULL,
   `state` tinyint(3) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `module`
@@ -169,7 +169,8 @@ INSERT INTO `module` (`id`, `name`, `interface`, `icon`, `url`, `target`, `iscor
 (1, 'User', 'admin/user', '', '1', NULL, 1, NULL, 9, 1),
 (5, 'Group', 'admin/user/group', '', '1', NULL, 1, NULL, 1, 1),
 (6, 'Permission', 'admin/user/permission', '', '1', NULL, 1, NULL, 2, 1),
-(7, 'role', 'admin/user/role', '', '1', NULL, 1, NULL, 3, 1);
+(7, 'role', 'admin/user/role', '', '1', NULL, 1, NULL, 3, 1),
+(8, 'Operation', 'admin/user/operation', '', '1', NULL, 1, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -185,7 +186,7 @@ CREATE TABLE `operation` (
   `state` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `operation`
@@ -216,7 +217,7 @@ CREATE TABLE `permission` (
   UNIQUE KEY `mo` (`module_id`,`operation_id`),
   KEY `module_id` (`module_id`),
   KEY `operation_id` (`operation_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `permission`
@@ -245,8 +246,15 @@ INSERT INTO `permission` (`id`, `module_id`, `operation_id`, `url_pattern`, `sta
 (20, 7, 2, 'admin/user/editrole', 1),
 (21, 7, 3, 'admin/user/addrole', 1),
 (22, 7, 4, 'autocrud/Delete/role', 1),
-(23, 7, 6, 'autocrud/Add/role', 1),
-(24, 7, 7, 'autocrud/Update/role', 1);
+(23, 7, 5, 'admin/user/rolepermission', 1),
+(24, 7, 6, 'autocrud/Add/role', 1),
+(25, 7, 7, 'autocrud/Update/role', 1),
+(26, 8, 1, 'admin/user/operation', 1),
+(27, 8, 2, 'admin/user/editoperation', 1),
+(28, 8, 3, 'admin/user/addoperation', 1),
+(29, 8, 4, 'autocrud/Delete/operation', 1),
+(30, 8, 6, 'autocrud/Add/operation', 1),
+(31, 8, 7, 'autocrud/Update/operation', 1);
 
 -- --------------------------------------------------------
 
@@ -332,10 +340,18 @@ INSERT INTO `role_permission` (`role_id`, `module_id`, `operation_id`) VALUES
 (5, 1, 1),
 (5, 1, 2),
 (5, 1, 3),
+(5, 1, 6),
+(5, 1, 7),
 (5, 5, 1),
 (5, 5, 2),
 (5, 5, 3),
 (5, 7, 1),
+(5, 7, 2),
+(5, 7, 3),
+(5, 8, 1),
+(5, 8, 2),
+(5, 8, 3),
+(6, 1, 1),
 (6, 1, 2),
 (6, 1, 3),
 (7, 1, 1),
@@ -362,8 +378,15 @@ INSERT INTO `role_permission` (`role_id`, `module_id`, `operation_id`) VALUES
 (8, 7, 2),
 (8, 7, 3),
 (8, 7, 4),
+(8, 7, 5),
 (8, 7, 6),
-(8, 7, 7);
+(8, 7, 7),
+(8, 8, 1),
+(8, 8, 2),
+(8, 8, 3),
+(8, 8, 4),
+(8, 8, 6),
+(8, 8, 7);
 
 -- --------------------------------------------------------
 
