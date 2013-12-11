@@ -35,7 +35,6 @@
       <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/main.css" rel="stylesheet">
       <link href="<?php echo DO_THEME_BASE;?>/js/plugin/css/chosen/chosen.css" rel="stylesheet">
       <link href="<?php echo DO_THEME_BASE;?>/js/plugin/css/icheck/_all.css" rel="stylesheet">
-
       <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo DOUri::GetBase();?>/assets/js/require.js"></script>
         <script type="text/javascript">
       var DOJsBase      = '<?php echo DOUri::GetBase();?>/assets/js';
@@ -43,7 +42,6 @@
       var DOJsMod = '<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>';
     </script>
     </head>
-
     <body>
       <div class="row">
         <div class="navbar navbar-fixed-top col-lg-12 navbar-inverse">
@@ -57,6 +55,11 @@
       <div class="row">
         <div class="container">
             <?php echo T("block","message");?>
+        </div>
+      </div>
+      <div class="row">
+        <div class="container">
+            <?php echo T("block","breadcrumb");?>
         </div>
       </div>
         <div class="row">

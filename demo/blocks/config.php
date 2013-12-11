@@ -16,6 +16,9 @@ return array(
    	  //  '.*'  => 'profiler'
    	)
    ,'debug'  => array(
-          '.*'  => 'profiler'
+          '!^install'  => 'profiler'
       )
+   ,'breadcrumb' => array(
+          '^install/index'   => 'wizard:install'
+    )
 );
