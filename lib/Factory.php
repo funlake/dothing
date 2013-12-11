@@ -178,6 +178,15 @@ class DOFactory
 		}
 		return self::$_load['filter'];
 	}
+
+	public static function GetFileHandler()
+	{
+		if(!isset(self::$_load['filehd']))
+		{
+			self::$_load['filehd'] = self::GetTool('file.basic');
+		}
+		return self::$_load['filehd'];		
+	}
 	/**
 	 * create component classes interface
 	 *
@@ -195,7 +204,11 @@ class DOFactory
 			if(!isset($cn[1])) $cn[1] = $cn[0];
 			DOLoader::Import('lib.'.$cn[0].'.'.$cn[1] );
 			@array_shift( $args );
-			$component 		= 'DO'.ucwords($cn[1]);
+			$component 		= 'DO'.ucwords($cn[0]).ucwords($cn[1]);
+			if(!class_exists($component))
+			{
+				$component = 'DO'.ucwords($cn[1]);
+			}
  			/** Create instace with arguments **/
 			$tools[$class] 	= call_user_func_array(
 					array(new ReflectionClass( $component ),'newInstance')

@@ -40,14 +40,10 @@
 
     <body>
       <div class="container">
-        <div class="row">
-          <div class="container">
-              <?php echo T("block","breadcrumb");?>
-          </div>
-        </div>
       <div class="container-fluid">
         <?php echo T("block","message");?>
         <div class="row-fluid">
+          <?php echo T("block","breadcrumb");?>
             <?php echo T("module","__CURRENT__");?>
         </div><!--/row-->
         

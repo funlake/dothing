@@ -1,11 +1,11 @@
 <?php
-class DORequest
+class DOHttpRequest
 {
 	public static $serverVars = array('_get','_post','_request','_env','_server','_files','_cookie','_session');
 	public static $requestVar = array('_post','_get','_cookie');
 	public static $params;
 	
-	function DORequest(){}
+	function DOHttpRequest(){}
 	#
 	#[Warning] Do not call twice in a same process(page)!!!
 	#

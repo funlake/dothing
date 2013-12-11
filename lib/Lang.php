@@ -7,7 +7,7 @@ class DOLang
 	public static function Get($text)
 	{
 		/** Module language text **/
-		$moduleLang = self::GetModuleLang();
+		$moduleLang = self::GetBlockLang();
 		$textkey	= preg_replace(array('#\s+#','#[[:punct:]]#'),array('_',''),$text);
 		if(isset($moduleLang[$textkey])) return $moduleLang[$textkey];
 		/** Controller language text **/
@@ -18,7 +18,7 @@ class DOLang
 		
 	}	
 	/** Module level language **/
-	public static function GetModuleLang()
+	public static function GetBlockLang()
 	{
 		$lang = array();
 		/** Load global language file **/

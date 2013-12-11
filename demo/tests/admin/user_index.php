@@ -9,7 +9,7 @@ class UserIndexTest extends PHPUnit_TestCase
 	}
 	public function TestLake()
 	{
-		$this->assertNotNull(null, "is lake fall in sleep?");
+		$this->assertNotNull(null, "Has lake fall in sleep?");
 	}
 }
 simpletest_autorun();

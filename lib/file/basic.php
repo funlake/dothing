@@ -1,5 +1,5 @@
 <?php
-class DOBasic
+class DOFileBasic
 {
 	public function __construct( )
 	{

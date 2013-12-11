@@ -129,8 +129,9 @@ class DOTemplate
 		{
 			extract($variables);
 		}
+
 		ob_start();
-			include $tplfile;
+		include $tplfile;
 		$content = ob_get_clean();
 		return self::Parse($content,null,$variables);
 	}
@@ -139,7 +140,7 @@ class DOTemplate
 		/**==<div:paginate=google|<?php echo M('user')->Count();?> />==**/
 		return preg_replace(
 			array(
-				'#<(\w+):loop=(.+?)(?<!\?)>(.*)</\1:loop>#ise'
+				'#<(\w+):loop=(.+?)(?<!\?)>((?:(?!<!--bl-->).)*)</\1:loop>#ise'
 			  ,'#<(\w+):paginate(/\w+)?=([^>]+)/>#ise'
 			   ,'#<(module|block):(\w+)\s*/>#is',
 			   '#<(\w+):tree([^=]*)=([^>]+?)>(.*?)</\1:tree>#ise'

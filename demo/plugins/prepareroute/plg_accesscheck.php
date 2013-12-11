@@ -4,7 +4,7 @@ class DOPlgAccesscheckPrepareroute extends DOPlugin
 	public function Trigger($mca = null)
 	{
 		$interface = DORouter::GetPageIndex();
-		if($interface == "debug/index/nopermission") return;
+		if(in_array(DORouter::GetModule(),array('debug','install'))) return;
 		$permission = M('permission')->GetRow(array("url_pattern"=>$interface));
 		
 		//if we need to check permission for login user

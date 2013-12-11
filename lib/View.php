@@ -42,6 +42,7 @@ class DOView
 			$fileHandler	= DOFactory::GetTool('file.basic');
 			$fileHandler->Store($cFile,$content);
 		}
+		extract($variables);
 		include $cFile;
 	}
 
