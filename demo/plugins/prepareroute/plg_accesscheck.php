@@ -12,7 +12,7 @@ class DOPlgAccesscheckPrepareroute extends DOPlugin
 			$sess = DOFactory::GetSession();
 			$permissions = $sess->Get("permissions");
 			if(!in_array($interface,$permissions)):
-				DOUri::redirect(Url("debug/index/nopermission"),L("You don't have permission for this action"),0);
+				DOUri::redirect(Url("debug/index/nopermission"),null,0);
 				exit();
 			endif;
 		endif;

@@ -7,6 +7,8 @@ return array(
 	"layout" => array(
 		"#admin/user/login#" => "blank",
 		'#^admin/[^/]+/(edit|add|rolepermission).*$#is' => "edit",
-		"#^debug/index#" => "edit"
+		"debug/index/nopermission" => "blank",
+		"#^debug/index#" => "edit",
+
 	)
 );
