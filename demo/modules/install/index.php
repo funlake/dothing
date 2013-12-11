@@ -52,7 +52,12 @@ class DOControllerIndex extends DOController
 	public function savedbsettingAction($request = null)
 	{
 		$fh = DOFactory::GetFileHandler();
-		print_r($fh);
+		$dbCfgStoreFile = dirname(__FILE__)."/assets/dbcfg.json";
+		if(!$fh->Exist($dbCfgStoreFile)):
+			$fh->MakeFile($dbCfgStoreFile);
+		endif;
+		$fh->Store($dbCfgStoreFile,json_encode($request->post));
+
 	}
 }
 ?>

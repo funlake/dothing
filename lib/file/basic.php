@@ -62,7 +62,8 @@ class DOFileBasic
 	{
 		$dir = preg_replace('#'.basename($path).'$#','',$path);
 		self::MakeDir($dir);
-		return touch($path);
+		touch($path);
+		chmod($path,0755);
 	}
 
 	public function Store($file,$content,$flag = LOCK_EX)
