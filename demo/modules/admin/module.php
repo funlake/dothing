@@ -15,7 +15,7 @@ class DOControllerModule extends DOController
 	public function editAction($request = null)
 	{
 		$var['action'] = 'Update';
-		$var['data']    = M('module')->GetRow(array('id'=>'='.$request->get['id']));
+		$var['data']    = M('module')->GetRow(array('id'=>$request->get['id']));
 
 		$this->Display(null,$var);
 	}
