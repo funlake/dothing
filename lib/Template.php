@@ -129,7 +129,6 @@ class DOTemplate
 		{
 			extract($variables);
 		}
-
 		ob_start();
 		include $tplfile;
 		$content = ob_get_clean();
@@ -138,21 +137,26 @@ class DOTemplate
 	public static function Parse($content,$innerData = '',$variables,$level=0)
 	{
 		/**==<div:paginate=google|<?php echo M('user')->Count();?> />==**/
-		return preg_replace(
-			array(
-				'#<(\w+):loop=(.+?)(?<!\?)>((?:(?!<!--bl-->).)*)</\1:loop>#ise'
-			  ,'#<(\w+):paginate(/\w+)?=([^>]+)/>#ise'
-			   ,'#<(module|block):(\w+)\s*/>#is',
-			   '#<(\w+):tree([^=]*)=([^>]+?)>(.*?)</\1:tree>#ise'
-			   
-			)
-		   ,array(
-		   		'self::LoopParse("\2","\3",$innerData,"\1",$variables,$level)'
-		   	   ,'self::PaginateParse("\1","\3","\2")'
-		   	   ,'<?php echo T("\1","\2");?>'
-		   	   ,'self::TreeParse("\3","\4",$innerData,"\1",$variables,$level,"\2")'
-		   	)
-		,$content);
+		$contentBlock 	= explode('<!--bl-->',$content);
+		$cnt 			= '';
+		foreach($contentBlock as $bl):
+			$cnt .= preg_replace(
+				array(
+				   '#<(\w+):loop=([^<>]+)>(.*)</\1:loop>#ise'
+				  ,'#<(\w+):paginate(/\w+)?=([^>]+)/>#ise'
+				   ,'#<(module|block):(\w+)\s*/>#is',
+				   '#<(\w+):tree([^=]*)=([^>]+?)>(.*?)</\1:tree>#ise'
+				   
+				)
+			   ,array(
+			   		'self::LoopParse("\2","\3",$innerData,"\1",$variables,$level)'
+			   	   ,'self::PaginateParse("\1","\3","\2")'
+			   	   ,'<?php echo T("\1","\2");?>'
+			   	   ,'self::TreeParse("\3","\4",$innerData,"\1",$variables,$level,"\2")'
+			   	)
+			,$bl);
+		endforeach;
+		return $cnt;
 	}
 	public static function PaginateParse($tag,$src,$type='')
 	{
@@ -220,7 +224,6 @@ EOD;
 	}
 	public static function LoopParse($attr,$content,$innerData = '',$tag,$variables,$level)
 	{
-
 		list($source,$attrs) = preg_split("#\s+#",$attr,2);
 	//	$innerData 			 = (array)$innerData;
 		$html = array();

@@ -12,7 +12,7 @@
 <?php endforeach;?>
 </ul>
 	</div>
-	<!--bl-->
+	
 	<div class="span4">
 		<ul class="list-group">				
 <?php foreach((array)$serverrelative as $key_0=>$item_0) : ?>
@@ -25,7 +25,7 @@
 	         	
 <?php endforeach;?>
 </ul>
-	</dov>
+	</div>
 </div>
 <div class="row span12 top20">
 	<div class="span4"></div>

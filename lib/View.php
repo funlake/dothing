@@ -36,14 +36,22 @@ class DOView
 	{
 		$view 	= basename($vFile);
 		$cFile = VIEWBASE.DS.'modules'.DS.DORouter::GetModule().DS.DORouter::GetController().DS.$view;
+		if(!empty($variables))
+		{
+			extract($variables);
+		}
+		ob_start();
+		include $vFile;
+		$content = ob_get_clean();
 		if(DO_TEMPLATE_PARSE /*AND !file_exists($cFile)*/)
 		{//parse the content ,and store it into compile dir
-			$content 		= DOTemplate::ParseHtml($vFile,$variables);
-			$fileHandler	= DOFactory::GetTool('file.basic');
+			//$content 		= DOTemplate::ParseHtml($vFile,$variables);
+			$content			= DOTemplate::Parse($content,null,$variables);
+			$fileHandler		= DOFactory::GetFileHandler();
 			$fileHandler->Store($cFile,$content);
 		}
-		extract($variables);
 		include $cFile;
+
 	}
 
 	public function C()

@@ -83,6 +83,7 @@ class DOControllerUser extends DOController
 	//@interface:access
 	public function indexAction($request = null)
 	{
+		//echo 3;
 		$this->Display(null);
 	}
 	//@interface:edit

@@ -2,6 +2,7 @@
 !defined('DO_ACCESS') AND DIE("Go Away!"); 
 $searchIndex = "DOSearch/".DORouter::GetPageIndex();
 $searchs     = SG($searchIndex);
+
 ?>
 <div class="row well">
 	<form class="form-horizontal" id="Afm" method="post">
@@ -88,4 +89,55 @@ $searchs     = SG($searchIndex);
 	</tbody:loop>
 </table>
 <div:paginate=Model|User.GetTotal class="pull-right"/>
+</div>
+<!--bl-->
+<div class="row">
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th width="5%"><?php echo DOMakeSortHead('id', L('Id'));?></th>
+				<th width="30%"><?php echo DOMakeSortHead('name',L('Name'));?></th>
+				<th width="10%"><?php echo DOMakeSortHead('state',L('Status'));?></th>
+				<th><?php echo L('Actions');?></th>
+			</tr>
+		</thead>
+		<tbody:loop=Model|Operation.Find class="adminTable">
+		<tr >
+			<td>{#id}</td>
+			<td data-toggle="tooltip" title="{#description}"s><a  href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editoperation','id=');?>{#id}">{#name}</a></td>
+			<td>{#state|showStatus(?,'operation',#id)}</td>
+			<td>
+				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
+				<div class="modal fade" id="DOModal_{#id}">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form id="form{#id}" action="<?php echo Url('autocrud/Delete/operation');?>" method="post">
+								<div class="modal-header">
+									<a class="close" data-dismiss="modal">×</a>
+									<h3><?php echo L('Warning');?></h3>
+								</div>
+								<div class="modal-body">
+									<p><?php echo L('Do you want to delete this item?');?></p>
+								</div>
+								<div class="modal-footer">
+									<a href="javascript:void(0);" onclick="jQuery('#form{#id}').submit()" class="btn btn-success">
+										<i class=" glyphicon glyphicon-ok glyphicon-white"></i>
+										<?php echo L('Yes');?>
+									</a>
+									<a data-dismiss="modal" class="btn btn-warning">
+										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
+										<?php echo L('Cancel');?>
+									</a>
+									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/operation');?>"/>
+									<input type="hidden" id="id" name="id" value="{#id}"/>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</tbody:loop>
+</table>
+<div:paginate=Model|Operation.GetTotal class="pull-right"/>
 </div>

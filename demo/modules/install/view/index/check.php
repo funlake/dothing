@@ -15,7 +15,7 @@
 	                  	{#item}
 	                </li>
 	         </ul:loop>
-	</dov>
+	</div>
 </div>
 <div class="row span12 top20">
 	<div class="span4"></div>
