@@ -1,5 +1,5 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
-<form action="<?php echo Url(DO_ADMIN_INTERFACE.'/dashboard/savesetting');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
+<form action="<?php echo Url('admin/dashboard/savesetting');?>" method="post" id="Afm" name="Afm" class="form-horizontal well">
 	<div class="pull-right">
 		<button class="btn btn-success" onclick="jQuery('#Afm').submit()">
 			<i class="icon-ok icon-white"></i>

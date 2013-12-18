@@ -35,6 +35,8 @@ class DOView
 	public function Display($vFile,$variables = array())
 	{
 		$view 	= basename($vFile);
+		//set if template cover view exists
+		//$tFile = 
 		$cFile = VIEWBASE.DS.'modules'.DS.DORouter::GetModule().DS.DORouter::GetController().DS.$view;
 		if(!empty($variables))
 		{
@@ -46,7 +48,7 @@ class DOView
 		if(DO_TEMPLATE_PARSE /*AND !file_exists($cFile)*/)
 		{//parse the content ,and store it into compile dir
 			//$content 		= DOTemplate::ParseHtml($vFile,$variables);
-			$content			= DOTemplate::Parse($content,null,$variables);
+			$content		= DOTemplate::Parse($content,null,$variables);
 			$fileHandler		= DOFactory::GetFileHandler();
 			$fileHandler->Store($cFile,$content);
 		}

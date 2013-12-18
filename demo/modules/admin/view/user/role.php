@@ -25,8 +25,8 @@ $searchs     = SG($searchIndex);
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/addrole','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
-				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/rolepermission','');?>'"><i class="glyphicon glyphicon-user"></i> <?php echo L('Assign permission');?></a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url('admin/user/addrole','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url('admin/user/rolepermission','');?>'"><i class="glyphicon glyphicon-user"></i> <?php echo L('Assign permission');?></a></li>
 
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
@@ -47,10 +47,10 @@ $searchs     = SG($searchIndex);
 		<tbody:loop=Model|Role.TreeData class="adminTable">
 		<tr>
 			<td>{#id}</td>
-			<td><a href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editrole','id=');?>{#id}">{#name}</a></td>
+			<td><a href="<?php echo Url('admin/user/editrole','id=');?>{#id}">{#name}</a></td>
 			<td>{#state|showStatus(?,'role',#id)}</td>
 			<td>
-				<a class="glyphicon glyphicon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editrole','id=');?>{#id}">
+				<a class="glyphicon glyphicon-edit" href="<?php echo Url('admin/user/editrole','id=');?>{#id}">
 				&nbsp;
 				</a>
 				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}">&nbsp;</a>
@@ -74,14 +74,14 @@ $searchs     = SG($searchIndex);
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										<?php echo L('Cancel');?>
 									</a>
-									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/role');?>"/>
+									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url('admin/user/role');?>"/>
 									<input type="hidden" id="id" name="id" value="{#id}"/>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-				<a class="glyphicon glyphicon-user" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/rolepermission','id=');?>{#id}"></a>
+				<a class="glyphicon glyphicon-user" href="<?php echo Url('admin/user/rolepermission','id=');?>{#id}"></a>
 			</td>
 		</tr>
 	</tbody:loop>

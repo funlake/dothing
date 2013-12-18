@@ -25,7 +25,7 @@ $searchs     = SG($searchIndex);
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/addoperation','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url('admin/user/addoperation','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -45,7 +45,7 @@ $searchs     = SG($searchIndex);
 		<tbody:loop=Model|Operation.Find class="adminTable">
 		<tr >
 			<td>{#id}</td>
-			<td data-toggle="tooltip" title="{#description}"s><a  href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/editoperation','id=');?>{#id}">{#name}</a></td>
+			<td data-toggle="tooltip" title="{#description}"s><a  href="<?php echo Url('admin/user/editoperation','id=');?>{#id}">{#name}</a></td>
 			<td>{#state|showStatus(?,'operation',#id)}</td>
 			<td>
 				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
@@ -69,7 +69,7 @@ $searchs     = SG($searchIndex);
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										<?php echo L('Cancel');?>
 									</a>
-									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/operation');?>"/>
+									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url('admin/user/operation');?>"/>
 									<input type="hidden" id="id" name="id" value="{#id}"/>
 								</div>
 							</form>

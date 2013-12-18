@@ -14,6 +14,7 @@ class DORouter
 		,':controller'	=>'#[a-z]+#i'
 		,':action'		=>'#[a-z]+#i'	
 	);
+	static $mom = array();
 	static $queryPath      = array();
 	/**Contents of specific controller**/
 	static $content      = null;
@@ -86,6 +87,12 @@ class DORouter
 			self::$format[$regexp]  = $format;
 		}
 	}
+
+	public static function ModuleMap($original,$target)
+	{
+		self::$mom['positive'][$original] 	= $target;
+		self::$mom['negative'][$target]		= $original;
+	}
 	/**
 	 * Maybe we has customize route?
 	 *
@@ -101,19 +108,25 @@ class DORouter
 		self::$params	 	= DOUri::GetParams();
 		
 		//Wanna hide the admin interface?
-		if(DO_ADMIN_INTERFACE)
+		// if(DO_ADMIN_INTERFACE)
+		// {
+		// 	if(DO_ADMIN_INTERFACE == self::$module)
+		// 	{
+		// 		self::$module   = 'admin';
+		// 	}
+		// 	elseif("admin" == self::$module)
+		// 	{
+		// 		throw new DORouterException("Page Not Found!", 404);
+		// 	}
+		// }
+
+		if(DO_SEO and file_exists(SYSTEM_ROOT.'/router.php'))
 		{
-			if(DO_ADMIN_INTERFACE == self::$module)
+			include SYSTEM_ROOT.'/router.php';
+			if(array_key_exists(self::$module, self::$mom['negative']))
 			{
-				self::$module   = 'admin';
+				self::$module = self::$mom['negative'][self::$module];
 			}
-			elseif("admin" == self::$module)
-			{
-				throw new DORouterException("Page Not Found!", 404);
-			}
-		}
-		if(DO_SEO)
-		{
 			foreach((array)self::$maps as $k=>$v)
 			{
 				$rule = preg_replace(
@@ -125,15 +138,17 @@ class DORouter
 							  ,'(.*)'
 							  ,'\`'
 						),$k);
-				//echo $rule."<br/>";
+				//echo $rule;exit;
 				$matches = array();
 				if(preg_match('`^'.$rule.'$`',$pathinfo,$matches))
 				{
-					self::$proj 		= $v['P'];
-					self::$module  		= $v['M'];
-					self::$controller   = $v['C'];
-					self::$action  		= $v['A'];
-					
+					//print_r($matches);
+					//self::$proj 		= $v['P'];
+					// self::$module  		= $v['M'];
+					// self::$controller   = $v['C'];
+					// self::$action  		= $v['A'];
+					list(self::$module,self::$controller,self::$action) = explode("/",$v);
+					//echo self::$module."/".self::$controller."/".self::$action;exit;
 					@array_shift($matches);
 					
 					//set $_GET params
@@ -154,9 +169,11 @@ class DORouter
 						//set $_GET
 						if(!is_numeric($mk))
 						{
-							DOUri::SetParams($mk,$mv);
+							//DOUri::SetParams($mk,$mv);
+							//self::$params[$mk] = $mv;
+							$pas[$mk] = $mv;
  						}
- 						else $pas[] = $mv;
+ 						//else $pas[] = $mv;
 					}
 					if(preg_match('#'.preg_quote('(.*)').'$#',$rule))
 					{
@@ -164,16 +181,14 @@ class DORouter
 					}
 					else  
 					{
-						self::$params       = $pas;
+						self::$params       =  $pas;
 					}
 					break;
 				}
 			}
 			if( isset(self::$maps[$pathinfo.'/*']) and $myroute = self::$maps[$pathinfo.'/*'])
 			{
-				self::$module  		= $myroute['M'];
-				self::$controller   = $myroute['C'];
-				self::$action  		= $myroute['A'];
+				list(self::$module,self::$controller,self::$action) = explode("/",$v);
 			}
 			if(isset($v))
 			{

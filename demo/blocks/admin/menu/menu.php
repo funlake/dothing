@@ -14,7 +14,7 @@ class DOBlocksAdminMenu extends DOBlocksItem
 			   ,'child' => array(
 			   	array(
 			   		'title' => L('Setting'),
-			   		'link'  => Url(DO_ADMIN_INTERFACE."/dashboard/setting"),
+			   		'link'  => Url("admin/dashboard/setting"),
 			   		'class' => ''
 			   	)
 			   )
@@ -28,17 +28,17 @@ class DOBlocksAdminMenu extends DOBlocksItem
 			   ,'child' => array(
 			   	   array(
 			   			'title' => 'Users'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/user/index"),
+			   		   ,'link'	=> Url("admin/user/index"),
 			   		   'class' => ''
 			   		)
 			   	   ,array(
 			   			'title' => 'Categories'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/category/index"),
+			   		   ,'link'	=> Url("admin/category/index"),
 			   		   'class' => ''
 			   		)
 			   	   ,array(
 			   			'title' => 'Extensions'
-			   		   ,'link'	=> Url(DO_ADMIN_INTERFACE."/module/index"),
+			   		   ,'link'	=> Url("admin/module/index"),
 			   		   'class' => ''
 			   		)
 			   	)

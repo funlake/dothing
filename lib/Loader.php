@@ -16,9 +16,11 @@ class DOLoader
 		// print_r(debug_backtrace());
 		if(!preg_match('#(?<!Do)Exception$#i',$class))
 		{
-			include_once FRAMEWORK_ROOT.DS
+			$file = FRAMEWORK_ROOT.DS
 			    .'lib'.DS
 			    .str_replace('_',DS,preg_replace('#^DO#','',$class)).".php";
+
+			file_exists($file) and include_once $file ;
 		}
 	}
 	/**

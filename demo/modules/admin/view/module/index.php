@@ -25,7 +25,7 @@ $searchs     = SG($searchIndex);
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/module/add','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url('admin/module/add','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -52,7 +52,7 @@ $searchs     = SG($searchIndex);
 			<td>{#ordering}</td>
 			<td>{#state|showStatus(?,'module',#id)}</td>
 			<td>
-				{#id|showEditLink('id='.?,'<?php echo DO_ADMIN_INTERFACE.'/module/edit';?>')}
+				{#id|showEditLink('id='.?,'<?php echo 'admin/module/edit';?>')}
 				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
 				<div class="modal fade" id="DOModal_{#id}">
 					<div class="modal-dialog">
@@ -74,7 +74,7 @@ $searchs     = SG($searchIndex);
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										<?php echo L('Cancel');?>
 									</a>
-									<input type="hidden" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/module');?>"/>
+									<input type="hidden" name="__redirect" value="<?php echo Url('admin/module');?>"/>
 									<input type="hidden" name="id" value="{#id}"/>
 								</div>
 							</form>

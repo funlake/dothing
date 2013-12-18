@@ -54,7 +54,7 @@ class DOModelPermission extends DOModel
 		foreach($final as $item):
 			self::Add($item);
 		endforeach;
-		DOUri::Redirect(Url(DO_ADMIN_INTERFACE.'/user/permission'),DOLang::Get('Permissions were successfully saved'),1);
+		DOUri::Redirect(Url('admin/user/permission'),DOLang::Get('Permissions were successfully saved'),1);
 		return true;
 	}
 

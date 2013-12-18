@@ -1,7 +1,7 @@
 <div class="row">    
   <div class="col-lg-3"></div>
  <div class="col-lg-6">
- <form id="signup" class="form-horizontal" method="post" action="<?php echo Url(DO_ADMIN_INTERFACE.'/user/login','');?>">
+ <form id="signup" class="form-horizontal" method="post" action="<?php echo Url('admin/user/login','');?>">
   <fieldset>
     <legend><?php echo L('Sign in');?></legend>		
     <div class="form-group">

@@ -9,7 +9,7 @@ $searchs     = SG($searchIndex);
        <h4> <?php echo $data->name;?></h4>
 	</div>
 	<div class="col-lg-4 text-right">
-        <button class="btn btn-danger" id="backlink" onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/role');?>';return false;">
+        <button class="btn btn-danger" id="backlink" onclick="location.href='<?php echo Url('admin/user/role');?>';return false;">
         <i class="glyphicon glyphicon-chevron-left glyphicon-white"></i>
         <?php echo L('Back');?>
       </button>

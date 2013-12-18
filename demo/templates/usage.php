@@ -9,7 +9,7 @@ return array(
 		"#admin/user/login#" => "blank",
 		"#^install#"                 => "blank",
 		'#^admin/[^/]+/(edit|add|rolepermission).*$#is' => "edit",
-		"debug/index/nopermission" => "blank",
+		"#^debug/index/nopermission$#" => "blank",
 		"#^debug/index#" => "edit",
 
 

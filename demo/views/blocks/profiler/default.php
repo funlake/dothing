@@ -1,7 +1,7 @@
 <fieldset class="debug">
 	<legend>Debug</legend>
 	<div class="tabs-right ">
-		<ul class="nav nav-tabs">				
+		<ul class="nav nav-tabs span2">				
 <?php foreach((array)DOBlocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
@@ -10,12 +10,12 @@
 <?php endforeach;?>
 </ul>
 
-		<div class="tab-content">				
+		<div class="tab-content span9">				
 <?php foreach((array)DOBlocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 			<div class='tab-pane <?php echo $item_0['class']?>' id='<?php echo $item_0['id']?>'>
-				<table class="table table-striped table-hover" style="width:90%">
+				<table class="table table-striped table-hover">
 					<thead>
 						<tr >
 							<th width="40%">Item</th>

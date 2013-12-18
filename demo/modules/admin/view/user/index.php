@@ -26,7 +26,7 @@ $searchs     = SG($searchIndex);
 			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url(DO_ADMIN_INTERFACE.'/user/add','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url('admin/user/add','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -53,7 +53,7 @@ $searchs     = SG($searchIndex);
 			<td>{#role|cutStr(?,20)}</td>
 			<td>{#state|showStatus(?,'user',#id)}</td>
 			<td>
-				<a class="glyphicon glyphicon-edit" href="<?php echo Url(DO_ADMIN_INTERFACE.'/user/edit','id=');?>{#id}">
+				<a class="glyphicon glyphicon-edit" href="<?php echo Url('admin/user/edit','id=');?>{#id}">
 				&nbsp;
 				</a>
 				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}">&nbsp;</a>
@@ -77,7 +77,7 @@ $searchs     = SG($searchIndex);
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										<?php echo L('Cancel');?>
 									</a>
-									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/user/index');?>"/>
+									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url('admin/user/index');?>"/>
 									<input type="hidden" id="user_id" name="id" value="{#id}"/>
 								</div>
 							</form>

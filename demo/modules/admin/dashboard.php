@@ -51,7 +51,7 @@ class DOControllerDashboard extends DOController
 			}
 			$db->Clean();
 			DOUri::Redirect(
-				Url(DO_ADMIN_INTERFACE.'/dashboard/setting')
+				Url('admin/dashboard/setting')
 			   ,$msg
 			   ,$flag
 			);

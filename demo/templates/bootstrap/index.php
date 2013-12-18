@@ -43,6 +43,7 @@
     </script>
     </head>
     <body>
+      <div class="ui-loader">Loading...</div>
       <div class="row">
         <div class="navbar navbar-fixed-top col-lg-12 navbar-inverse">
             <div class="container">
@@ -92,8 +93,11 @@
     
     require([DOJsBase+'/'+DOJsModule+'.js'],function(m){
       m.run(DOJsMod);
+      $(".ui-loader").animate({
+        opacity:0,zIndex:0
+      },1000)
        //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
-    })
+    });
     </script>
   </body>
   </html>

@@ -49,7 +49,7 @@ class DOModelRolepermission extends DOModel
 			$db->Query("insert into #__role_permission (role_id,module_id,operation_id) values ".implode(",",$values));
 		endif;
 
-		DOUri::Redirect(Url(DO_ADMIN_INTERFACE.'/user/rolepermission','id='.$data['role_id']),DOLang::Get('Permissions were assinged successfully'),1);
+		DOUri::Redirect(Url('admin/user/rolepermission','id='.$data['role_id']),DOLang::Get('Permissions were assinged successfully'),1);
 		return true;
 	}
 	public function GetOperationPermission($moduleId,$roleId)

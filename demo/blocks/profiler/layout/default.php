@@ -6,13 +6,13 @@ if(!DO_DEBUG) return "";
 <fieldset class="debug">
 	<legend><?php echo L('Debug');?></legend>
 	<div class="tabs-right ">
-		<ul:loop=Block|Profiler.GetProfiler class="nav nav-tabs">
+		<ul:loop=Block|Profiler.GetProfiler class="nav nav-tabs span2">
 		  <li class="{#class}"><a href="#{#id}" data-toggle="tab">{#tab}</a></li>
 		</ul:loop>
 
-		<div:loop=Block|Profiler.GetProfiler class="tab-content">
+		<div:loop=Block|Profiler.GetProfiler class="tab-content span9">
 			<div class='tab-pane {#class}' id='{#id}'>
-				<table class="table table-striped table-hover" style="width:90%">
+				<table class="table table-striped table-hover">
 					<thead>
 						<tr >
 							<th width="40%">Item</th>

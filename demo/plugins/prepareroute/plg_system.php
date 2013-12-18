@@ -62,7 +62,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 				{
 					//small bug in php 5.3.1
 					//echo $lyt;
-					if(preg_match($lyt,DORouter::GetPageIndex()))
+					if(@preg_match($lyt,DORouter::GetPageIndex()))
 					{
 						DOTemplate::SetLayout($usage['layout'][$lyt]);
 						break;

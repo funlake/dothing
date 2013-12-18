@@ -279,6 +279,10 @@ class DOUri
 		}
 		else
 		{
+			if(array_key_exists($module, DORouter::$mom['positive']))
+			{
+				$module = DORouter::$mom['positive'][$module];
+			}
 			$link = '/'.implode('/',array($module,$controller,$action))
 				  . (!empty($params)?('@'.$params):'');
 		}
@@ -314,28 +318,28 @@ class DOUri
 	 */
 	public static function SetParams( $key,$value)
 	{
-		$filter = & DOFactory::get( 'class',array('filter') );
+		$filter = & DOFactory::getFilter();
 		//filter
 		$value  = $filter->process( $value );
 		if(preg_match('#^([a-z0-9_-]+)(\[([^\[\]]*)\])+$#',$key,$m))
 		{
-			if(isset($this->params[$m[1]]) && !is_array($this->params[$m[1]])) unset($this->params[$m[1]]);
+			if(isset(self::$params[$m[1]]) && !is_array(self::$params[$m[1]])) unset(self::$params[$m[1]]);
 			parse_str($m[0].'='.$value);
 			$arr 	= $$m[1];
 			$arrk 	= key($arr);
 			if($arrk === 0)
 			{
-				$this->params[ $m[1] ][] =  $arr[$arrk];
+				self::$params[ $m[1] ][] =  $arr[$arrk];
 			}
-			$this->params[ $m[1] ][$arrk] =  $arr[$arrk];
+			self::$params[ $m[1] ][$arrk] =  $arr[$arrk];
 		}
 		else
 		{
-			$this->params[$key] = $value;
+			self::$params[$key] = $value;
 		}
-		if(!$_GET && $this->params)
+		if(!$_GET && self::$params)
 		{
-			$_GET = $this->params;
+			$_GET = self::$params;
 		}
 	}
 	

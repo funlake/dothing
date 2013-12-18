@@ -42,11 +42,11 @@ class DOControllerUser extends DOController
 						endforeach;
 						//TODO: save permission from user->group->role->permission
 						$session->Set("permissions",$pers);
-						DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/index"),"",1);
+						DOUri::Redirect(Url("admin/user/index"),"",1);
 					}
 					else
 					{
-						DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login")
+						DOUri::Redirect(Url("admin/user/login")
 							,L("Your account is not a publish admin ! please contact administrator.")
 							,3
 						);
@@ -55,7 +55,7 @@ class DOControllerUser extends DOController
 				}
 				else
 				{
-					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login")
+					DOUri::Redirect(Url("admin/user/login")
 						,L("Wrong user name or password! ")
 						,0
 					);
@@ -64,7 +64,7 @@ class DOControllerUser extends DOController
 			}
 			else
 			{
-				DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login")
+				DOUri::Redirect(Url("admin/user/login")
 					,L("Wrong user name or password! ")
 					,0
 				);
@@ -77,7 +77,7 @@ class DOControllerUser extends DOController
 	{
 		$session = DOFactory::GetSession();
 		$session->Clean();
-		DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login"),"",1);
+		DOUri::Redirect(Url("admin/user/login"),"",1);
 		exit();
 	}
 	//@interface:access

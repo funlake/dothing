@@ -65,7 +65,7 @@
 			</label>
 		</div>
 	</div>
-	<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url(DO_ADMIN_INTERFACE.'/module/');?>"/>
+	<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url('admin/module/');?>"/>
 	<input type="hidden" id="module_id" name="id" value="<?php echo $data->id;?>"/>
 	<input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
 </form>

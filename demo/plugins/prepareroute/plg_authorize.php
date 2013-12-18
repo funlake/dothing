@@ -17,7 +17,7 @@ class DOPlgAuthorizePrepareroute extends DOPlugin
 				if($session->Get('_adm_user') == null)
 				{
 					$msg = L("Please login to access backend modules");
-					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/login"),$msg,0);
+					DOUri::Redirect(Url("admin/user/login"),$msg,0);
 					exit();
 				}
 			}
@@ -25,7 +25,7 @@ class DOPlgAuthorizePrepareroute extends DOPlugin
 			{
 				if($session->Get('_adm_user') != null)
 				{
-					DOUri::Redirect(Url(DO_ADMIN_INTERFACE."/user/index"),"",1);
+					DOUri::Redirect(Url("admin/user/index"),"",1);
 					exit();
 				}
 			}

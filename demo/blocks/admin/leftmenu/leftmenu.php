@@ -63,7 +63,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			   ,'child' => array(
 			   		array(
 						'title' => L('Users')
-					   ,'link'  => Url(DO_ADMIN_INTERFACE."/user/index")
+					   ,'link'  => Url("admin/user/index")
 					   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -72,7 +72,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Groups')
-		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/group')
+		  	   		   ,'link'  => Url('admin/user/group')
 		  	   		    ,'iconClass' => 'glyphicon glyphicon-grid glyphicon-white'
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -81,7 +81,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Roles')
-		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/role')
+		  	   		   ,'link'  => Url('admin/user/role')
 		  	   		   ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -90,7 +90,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Permissions')
-		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/permission')
+		  	   		   ,'link'  => Url('admin/user/permission')
 		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -99,7 +99,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Operations')
-		  	   		   ,'link'  => Url(DO_ADMIN_INTERFACE.'/user/operation')
+		  	   		   ,'link'  => Url('admin/user/operation')
 		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
