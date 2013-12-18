@@ -1,5 +1,5 @@
 <?php
-class DOImage extends DOBase 
+class DOFileImage
 {
 
 	function DOImage()
@@ -55,12 +55,12 @@ class DOImage extends DOBase
 		return $im;		
 	}
 	//resize
-	function _resize($rWidth,$rHeight,$width,$height)
+	function Resize($rWidth,$rHeight,$width,$height)
 	{
 		return array($rWidth,$rHeight,$width,$height);
 	}
 	//cut
-	function _cut( )
+	function Cut( )
 	{
 		//resize ratio
 		$r 	= $this->rWidth/$this->rHeight;
@@ -127,7 +127,7 @@ class DOImage extends DOBase
 	/**
 	 * -h resize_height
 	 *
-	 * @param unknown_type $width
+	 * @param unknown_type $height
 	 */
 	function _h( $height=147 )
 	{

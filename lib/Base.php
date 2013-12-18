@@ -8,31 +8,12 @@ class DOBase
 	{
 		//$this->Mark( get_class($this) );
 		
-		if(version_compare(phpversion(),'5.0.0','<') && method_exists($this,'__destruct'))
-		{
-			register_shutdown_function(array($this,'__destruct'));
-		}
+		// if(version_compare(phpversion(),'5.0.0','<') && method_exists($this,'__destruct'))
+		// {
+		// 	register_shutdown_function(array($this,'__destruct'));
+		// }
 	}
-	public function Mark( $class )
-	{
-		if(!self::$_mark[ $class ])
-		{
-			self::$_mark[ $class ] = DOFactory::Get('time');
-		}
-	}
-	
-	public function Profile()
-	{
-		foreach( self::$_mark as $k=>$v)
-		{
-			self::$_mark[$k] = DOFactory::Get('time') - $v;
-		}
-	}
-	
-	public static function ErrorLog($type,$msg)
-	{
-		
-	}
+
 	/**
 	 * Set Token
 	 */
@@ -100,7 +81,7 @@ class DOBase
 	 */
 	function Run( $command ,$args = array() )
 	{
-		parent::Command( $command );
+		self::Command( $command );
 		/**
 		 * call handler.
 		 */
