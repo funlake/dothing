@@ -88,7 +88,7 @@
     require([DOJsBase+'/'+DOJsModule+'.js'],function(m){
       m.run(DOJsMod);
       $(".ui-loader").animate({
-        top:"-100%"
+        opacity:0,zIndex:0
       },500)
        //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
     })
