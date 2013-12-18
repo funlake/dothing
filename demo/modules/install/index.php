@@ -59,5 +59,10 @@ class DOControllerIndex extends DOController
 		$fh->Store($dbCfgStoreFile,json_encode($request->post));
 
 	}
+	/** -- system configuration --**/
+	public function systemAction($request = null)
+	{
+		$this->Display(null);
+	}
 }
 ?>

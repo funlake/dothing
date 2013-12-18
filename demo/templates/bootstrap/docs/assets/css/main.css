@@ -197,3 +197,6 @@ form h4{
 .form-control{
   height: 35px;
 }
+.input-group-addon{
+  padding:6px 15px;
+}
