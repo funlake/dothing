@@ -266,7 +266,7 @@ class DOUri
 	 * @param string $params
 	 * @return string
 	 */
-	public static function BuildQuery($module,$controller='index',$action='index',$params='')
+	public static function BuildQuery($module,$controller='index',$action='index',$params=null)
 	{
 		if(is_array($params))
 		{
@@ -279,12 +279,18 @@ class DOUri
 		}
 		else
 		{
-			if(array_key_exists($module, DORouter::$mom['positive']))
+			//look up seo link set in router.php under root dir.
+			$link = DORouter::FormatSeoLink($module.'/'.$controller.'/'.$action,$params);
+			//if seo link is invalid
+			if(null === $link)
 			{
-				$module = DORouter::$mom['positive'][$module];
+				if(array_key_exists($module, DORouter::$mom['positive']))
+				{
+					$module = DORouter::$mom['positive'][$module];
+				}
+				$link = '/'.implode('/',array($module,$controller,$action))
+				  	. (!empty($params)?('@'.$params):'');
 			}
-			$link = '/'.implode('/',array($module,$controller,$action))
-				  . (!empty($params)?('@'.$params):'');
 		}
 		return self::RealUrl($link);
 	}

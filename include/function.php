@@ -143,7 +143,7 @@ function L($langVar)
 	return DOLang::Get($langVar);
 }
 
-function Url($dir,$params = array())
+function Url($dir,$params ='')
 {
 	$query = '';
 	if(!!$params)
@@ -157,6 +157,7 @@ function Url($dir,$params = array())
 			$query = $params;
 		}
 	}
+	
 	$args 	= explode('/',$dir);
 	$args[] = $query;
 	return call_user_func_array(array('DOUri',"BuildQuery"),$args);

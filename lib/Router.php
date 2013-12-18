@@ -84,10 +84,28 @@ class DORouter
 		{
 			//$pathInfo   = $this->uri->getPathInfo();
 			self::$maps[$regexp] 	= $target;
-			self::$format[$regexp]  = $format;
+			self::$format[$target]  	= $regexp;
 		}
 	}
-
+	public static function FormatSeoLink($link,$params)
+	{	
+		if(!array_key_exists($link, self::$format))
+		{
+			return null;
+		}
+		else
+		{
+			if(is_array($params))
+			{
+				$query = $params;
+			}
+			else if(!empty($params))
+			{
+				parse_str($params,$query);
+			}
+			return preg_replace("#:([^/\-\|]+)#e",'$query[\1]',self::$format[$link]);
+		}
+	}
 	public static function ModuleMap($original,$target)
 	{
 		self::$mom['positive'][$original] 	= $target;

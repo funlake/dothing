@@ -53,7 +53,7 @@ $searchs     = SG($searchIndex);
 			<td>{#role|cutStr(?,20)}</td>
 			<td>{#state|showStatus(?,'user',#id)}</td>
 			<td>
-				<a class="glyphicon glyphicon-edit" href="<?php echo Url('admin/user/edit','id=');?>{#id}">
+				<a class="glyphicon glyphicon-edit" href="<?php echo Url('admin/user/edit','id={#id}');?>">
 				&nbsp;
 				</a>
 				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}">&nbsp;</a>
