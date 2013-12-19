@@ -1,4 +1,4 @@
-<form action="http://localhost/dothing/demo/index.php/ads007/dashboard/savesetting" method="post" id="Afm" name="Afm" class="form-horizontal well">
+<form action="http://localhost:81/dothing/demo/index.php/ads007/dashboard/savesetting" method="post" id="Afm" name="Afm" class="form-horizontal well">
 	<div class="pull-right">
 		<button class="btn btn-success" onclick="jQuery('#Afm').submit()">
 			<i class="icon-ok icon-white"></i>

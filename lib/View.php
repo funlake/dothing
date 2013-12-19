@@ -35,14 +35,18 @@ class DOView
 	public function Display($vFile,$variables = array())
 	{
 		$view 	= basename($vFile);
-		//set if template cover view exists
-		//$tFile = 
 		$cFile = VIEWBASE.DS.'modules'.DS.DORouter::GetModule().DS.DORouter::GetController().DS.$view;
 		if(!empty($variables))
 		{
 			extract($variables);
 		}
 		ob_start();
+		//if template cover view exists
+		$tFile = TEMPLATE_ROOT."/".DOTemplate::GetTemplate()."/views/modules/".DORouter::GetModule()."/".DORouter::GetController()."/".$view;
+		if(file_exists($tFile))
+		{
+			$vFile = $tFile;
+		}
 		include $vFile;
 		$content = ob_get_clean();
 		if(DO_TEMPLATE_PARSE /*AND !file_exists($cFile)*/)

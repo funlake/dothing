@@ -8,6 +8,12 @@ class DOBlocksItem
 		if(!empty($blocks[$current]))
 		{
 			$vFile  = $blocks[$current];
+			$tFile = str_replace(array("/blocks/","/layout/"),array("/templates/".DOTemplate::GetTemplate()."/views/blocks/","/"),$vFile);
+			//if template cover view exists
+			if(file_exists($tFile))
+			{
+				$vFile = $tFile;
+			}
 			$view 	= basename($vFile);
 			$cFile  = VIEWBASE.DS.'blocks'.DS.$current.DS.$view;
 			$variables = array();

@@ -73,9 +73,9 @@ class DORouter
 	public static function Map()
 	{
 		$args   = func_get_args();
-		$regexp = $args[0];
-		$target = $args[1];
-		$format = $args[2];
+		$regexp = @$args[0];
+		$target = @$args[1];
+		//$format = @$args[2];
 		if(!$regexp || !$target) 
 		{
 			
