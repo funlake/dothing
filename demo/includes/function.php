@@ -10,7 +10,7 @@ if(!function_exists('DOMakeSortHead'))
 		$sort = isset($_REQUEST['_dosort']) ? $_REQUEST['_dosort'] : '';
 		$sort = !empty($sort) ? $revert[$sort] : 'desc';
 
-		$url  = DOUri::UrlAddParams(null);
+		$url  = DOUri::UrlAddParams(array());
 
 		return "<a data-toggle='post' data-link='".$url."' class='sorter' data-key='order,sort' data-value='{$key},{$sort}' href='javascript:void(0);'>".$text."</a>";
 	}

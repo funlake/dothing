@@ -11,5 +11,4 @@ spl_autoload_register(array('DOLoader','AutoLoadException'));
 include FRAMEWORK_ROOT.DS.'include'.DS.'function.php';
 /** Shutdown event **/
 register_shutdown_function(array('DOHook','HangPlugin'),'shutdown',array());
-
 ?>

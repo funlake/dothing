@@ -6,6 +6,7 @@ class DOPlgSystemShutdown extends DOPlugin
 {
 	public function Trigger()
 	{
+
 	}
 }
 ?>

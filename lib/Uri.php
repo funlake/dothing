@@ -297,7 +297,7 @@ class DOUri
 	/**
 	 * add params to query of current page
 	 */
-	public static function UrlAddParams($params = null)
+	public static function UrlAddParams($params = array())
 	{
 		$params = array_merge(self::GetParams(),$params);
 		return self::BuildQuery(DORouter::GetModule(),DORouter::GetController(),DORouter::GetAction(),$params);
