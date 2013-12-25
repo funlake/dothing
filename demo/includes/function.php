@@ -10,11 +10,13 @@ if(!function_exists('DOMakeSortHead'))
 		$sort = isset($_REQUEST['_dosort']) ? $_REQUEST['_dosort'] : '';
 		$sort = !empty($sort) ? $revert[$sort] : 'desc';
 
-		$url  = DOUri::UrlAddParams(array('_doorder'=>$key,'_dosort'=>$sort));
+		$url  = DOUri::UrlAddParams(null);
 
-		return "<a href='".$url."'>".$text."</a>";
+		return "<a data-toggle='post' data-link='".$url."' class='sorter' data-key='order,sort' data-value='{$key},{$sort}' href='javascript:void(0);'>".$text."</a>";
 	}
 }
+//TODO:
+//<a data-toggle='post' data-key='order,sort' data-value='a.id,desc' data-link='url' href='javascript:void(0);'>text</a>
 /** string cuter **/
 if(!function_exists('cutStr'))
 {

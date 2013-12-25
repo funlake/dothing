@@ -54,7 +54,29 @@ define(['jquery'],function($){
 					    increaseArea: '20%'// ,// optional
 					  //  insert:"<div class='check_text'>aaa</div>"
 					  });
-
+				          //
+				          // $('.sorter').click(function(){
+				          // 		var self 	= $(this);
+				          // 		var order 	= self.attr("data-order"),sort = self.attr("data-sort");
+				          // 		var hiddenform = $(
+				          // 			'<form action="'+self.attr("data-href")+'" method="post">'
+				          // 		          +'<input type="hidden" name="_doorder" value="'+order+'"/>'
+				          // 		          +'<input type="hidden" name="_dosort" value="'+sort+'"/>'
+				          // 		          +'</form>'
+				          // 		);
+				          // 		$('body').append(hiddenform);
+				          // 		hiddenform.submit();
+				          // });
+				          $("a[data-toggle='post']").click(function(){
+				          		var self 	= $(this);
+				          		var keys        = self.attr('data-key').split(','),vals = self.attr('data-value').split(',');
+				          		var hiddenform = $('<form action="'+self.attr("data-link")+'" method="post"></form>');
+				          		$(keys).each(function(k,v){
+				          			hiddenform.append($('<input type="hidden" name="_do'+v+'" value="'+vals[k]+'"/>'))
+				          		});
+				          		$('body').append(hiddenform);
+				          		hiddenform.submit();
+				          })
 				})
 			})
 		}

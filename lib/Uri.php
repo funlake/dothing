@@ -300,7 +300,7 @@ class DOUri
 	public static function UrlAddParams($params = null)
 	{
 		$params = array_merge(self::GetParams(),$params);
-		return self::BuildQuery(self::GetModule(),self::GetController(),self::GetAction(),$params);
+		return self::BuildQuery(DORouter::GetModule(),DORouter::GetController(),DORouter::GetAction(),$params);
 	}
 	/**
 	 * build the real path url.

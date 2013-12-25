@@ -14,9 +14,9 @@ $flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
 	<script type='text/javascript'>
 		require([DOJsBase+'/blocks/message.js'],function(m){
 			m.closeInit();
-		})
+		});
 	</script>
 	<?php 
-		 DOBlocks::GetBlock('message')->CleanMessage();
+		DOBlocks::GetBlock('message')->CleanMessage();
 	?>
 <?php endif;?>
