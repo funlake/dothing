@@ -63,7 +63,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			   ,'child' => array(
 			   		array(
 						'title' => L('Users')
-					   ,'link'  => Url("admin/user/index")
+					   ,'link'  => "admin/user/index"
 					   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -72,7 +72,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Groups')
-		  	   		   ,'link'  => Url('admin/user/group')
+		  	   		   ,'link'  => 'admin/user/group'
 		  	   		    ,'iconClass' => 'glyphicon glyphicon-grid glyphicon-white'
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -81,7 +81,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Roles')
-		  	   		   ,'link'  => Url('admin/user/role')
+		  	   		   ,'link'  => 'admin/user/role'
 		  	   		   ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -90,7 +90,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Permissions')
-		  	   		   ,'link'  => Url('admin/user/permission')
+		  	   		   ,'link'  => 'admin/user/permission'
 		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -99,7 +99,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					),
 					array(
 		  	   			'title' => L('Operations')
-		  	   		   ,'link'  => Url('admin/user/operation')
+		  	   		   ,'link'  => 'admin/user/operation'
 		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
 					   					DORouter::GetController()."/".DORouter::GetAction(),
@@ -110,10 +110,26 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		   )
 		);
 		$curIndex = DORouter::GetPageIndex();
+		$sess = DOFactory::GetSession();
+		$permissions = $sess->Get("permissions");
+	//	print_r($permissions);
 		foreach((array)$menus as $key=>$menu)
 		{
 			if($key == $curIndex OR preg_match('#'.$key.'#is',$curIndex))
 			{
+				//see if people has permission for links.
+				foreach($menu as $k1=>&$item):
+					foreach($item['child'] as $k2=>&$child):
+						if(!in_array($child['link'], $permissions))
+						{
+							unset($item['child'][$k2]);
+						}
+						else
+						{
+							$item['child'][$k2]['link'] = Url($item['child'][$k2]['link'] );
+						}
+					endforeach;
+				endforeach;
 				return $menu;
 			}
 		}

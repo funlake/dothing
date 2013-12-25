@@ -99,6 +99,7 @@ class DOControllerUser extends DOController
 	{
 		$this->Display("edit",array("action"=>"Add","data" => new stdClass()));
 	}
+	
 	public function groupAction($request = null)
 	{
 		$this->Display(null);
