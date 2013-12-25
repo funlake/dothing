@@ -95,6 +95,7 @@ class DORouter
 		}
 		else
 		{
+			$query = array();
 			if(is_array($params))
 			{
 				$query = $params;
@@ -103,7 +104,9 @@ class DORouter
 			{
 				parse_str($params,$query);
 			}
-			return preg_replace("#:([^/\-\|]+)#e",'$query[\1]',self::$format[$link]);
+			return preg_replace_callback("#:([^/\-\|]+)#",function($match) use($query){
+				return array_key_exists($match[1], $query) ? $query[$match[1]]  : '';
+			},self::$format[$link]);
 		}
 	}
 	public static function ModuleMap($original,$target)

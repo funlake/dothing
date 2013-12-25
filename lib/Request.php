@@ -68,7 +68,11 @@ class DORequest
 		{
 			if($type) $type = strtolower($type);
 			/** Return specify type we want **/
-			return call_user_func(array(self,"To".ucwords($type)),$GV[$var]);
+			if(array_key_exists($var, $GV))
+			{
+				return call_user_func(array(__CLASS__,"To".ucwords($type)),@$GV[$var]);
+			}
+			return "";
 		}
 		else 
 		{
