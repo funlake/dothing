@@ -92,6 +92,7 @@ class DOControllerUser extends DOController
 		$data 		= M('user')->UserGroupList($request->get['id']);
 		$var['data']		= $data[0];
 		$var['action']	= "Update";
+		$var['request']	= $request;
 		$this->Display(null,$var);
 	}
 	//@interface:add
@@ -99,7 +100,7 @@ class DOControllerUser extends DOController
 	{
 		$this->Display("edit",array("action"=>"Add","data" => new stdClass()));
 	}
-	
+
 	public function groupAction($request = null)
 	{
 		$this->Display(null);
@@ -110,6 +111,7 @@ class DOControllerUser extends DOController
 		$group 		= M('group')->GroupRoleList($request->get['id']);
 		$var['data']		= $group[0];
 		$var['action']  	= 'Update';
+		$var['request']	= $request;
 		$this->Display(null,$var);		
 	}
 
@@ -117,6 +119,7 @@ class DOControllerUser extends DOController
 	{
 		$var['action'] 	= 'Add';
 		$var['data']    = new stdClass();
+		$var['request']	= $request;
 		$this->Display('editgroup',$var);
 	}
 
@@ -129,6 +132,7 @@ class DOControllerUser extends DOController
 	{
 		$var['action'] = 'Add';
 		$var['data']    = new stdClass();
+		$var['request']	= $request;
 		$this->Display('editrole',$var);
 	}
 
@@ -136,6 +140,7 @@ class DOControllerUser extends DOController
 	{
 		$var['data']	= M('role')->GetRow($request->get['id']);
 		$var['action'] 	= 'Update';
+		$var['request']	= $request;
 		$this->Display(null,$var);
 	}
 
@@ -153,6 +158,7 @@ class DOControllerUser extends DOController
 	{
 		$var['action'] = 'Add';
 		$var['data']    = new stdClass();
+		$var['request']	= $request;
 		$this->Display('editoperation',$var);
 	}
 
@@ -160,13 +166,14 @@ class DOControllerUser extends DOController
 	{
 		$var['data']	= M('operation')->GetRow($request->get['id']);
 		$var['action'] 	= 'Update';
+		$var['request']	= $request;
 		$this->Display(null,$var);
 	}
 
 	public function rolepermissionAction($request = null)
 	{
 		$var['data']		= M('role')->GetRow($request->get['id']);
-		$var['roleId']	= $request->get['id'];
+		$var['request']	= $request;
 		$this->Display(null,$var);
 	}
 }

@@ -37,7 +37,7 @@ $searchs     = SG($searchIndex);
           </div>
           <div id="collapse{#id}" class="panel-collapse collapse in">
             <div class="panel-body">
-                <div:loop=Model|Rolepermission.GetOperationPermission({#[id]},<?php echo $roleId;?>)>
+                <div:loop=Model|Rolepermission.GetOperationPermission({#[id]},<?php echo $request->get['id'];?>)>
                   <div class="checkbox-inline">
                   <input type="checkbox" class="btn" name="action[]" value="{#module_id}_{#oid}" {#checked}/><label>{#oname}</label>
                   </div>
@@ -49,5 +49,5 @@ $searchs     = SG($searchIndex);
      <div:paginate=Model|Module.GetTotal class="pull-right"/>
  </div>
  <input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
- <input type="hidden" name="role_id" value="<?php echo $_GET['id'];?>"/>
+ <input type="hidden" name="role_id" value="<?php echo $request->get['id'];?>"/>
 </form>
