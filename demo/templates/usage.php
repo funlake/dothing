@@ -10,8 +10,6 @@ return array(
 		"#^install#"                 => "blank",
 		'#^admin/[^/]+/(edit|add|rolepermission).*$#is' => "edit",
 		"#^debug/index/nopermission$#" => "blank",
-		"#^debug/index#" => "edit",
-
-
+		"#^debug/index#" => "edit"
 	)
 );

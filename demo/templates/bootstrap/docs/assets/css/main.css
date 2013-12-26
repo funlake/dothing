@@ -1,6 +1,7 @@
 .ui-loader{
   position: absolute;
-  background: #007fff;
+  sbackground: #007fff;
+  background: #fff;
       padding-top: 20%;
       padding-left: 45%;
     width: 100% ;
@@ -12,7 +13,7 @@
     z-index: 999999;
     opacity: 1;
     filter:alpha(opacity=100);
-    color: #FFF;
+    color: #ff0039;
     font-size: 30px;
 }
 .sidebar-nav{

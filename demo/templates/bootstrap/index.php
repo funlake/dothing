@@ -95,7 +95,7 @@
       m.run(DOJsMod);
       $(".ui-loader").animate({
         opacity:0,zIndex:0
-      },1000)
+      },500)
        //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
     });
     </script>
