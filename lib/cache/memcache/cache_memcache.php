@@ -17,11 +17,11 @@ class DOCacheMemcache extends DOCache
 		 * define(DO_MEMSERVERS,'127.0.0.1,11211,50;192.11.22.33,11211,50');
 		 *  
 		 **/
-		if(defined(DO_MEMSERVERS) && DO_MEMSERVERS)
+		if(defined('DO_MEMSERVERS') && DO_MEMSERVERS)
 		{
 			foreach(explode(';',DO_MEMSERVERS) as $server)
 			{
-				call_user_func_array(array(self::$MI,"addServer"),explode(','));
+				call_user_func_array(array(self::$MI,"addServer"),explode(',',DO_MEMSERVERS));
 			}
 		}	
 		else
