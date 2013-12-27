@@ -23,13 +23,13 @@ class DOSessionWS
 	
 	function CheckEngine( $drive )
 	{
-		return DOLoader::Import('lib.session.'.$drive.'.sess_'.$drive); 
+		return DOLoader::Import('lib.session.drivers.sess_'.$drive); 
 	}
 	
 	function LoadEngine( )
 	{
 		$handler = self::$sessionHandler;
-		$drive	 = self::$drive;;	
+		$drive	 = self::$drive;	
 		if( $drive != 'files')
 		{
 			ini_set('session.save_handler',$drive);

@@ -2,7 +2,7 @@
 class DOSession
 {	
 	private static $savePath = array(
-		'files' 		=> '/Applications/MAMP/htdocs/tmp'
+		'files' 		=> ''
 	   ,'memcache'	=> 'tcp://127.0.0.1:11211'
 	);
 	private static $called = false;
