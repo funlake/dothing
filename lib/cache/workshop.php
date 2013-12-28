@@ -19,7 +19,7 @@ class DOCacheWS
 	
 	function CheckEngine( $drive )
 	{
-		DOLoader::Import('lib.cache.'.$drive.'.cache_'.$drive); 
+		DOLoader::Import('lib.cache.drivers.'.$drive); 
 		
 		if( class_exists(self::$cacheHandler) )
 		{

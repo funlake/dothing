@@ -23,7 +23,7 @@ class DOSessionWS
 	
 	function CheckEngine( $drive )
 	{
-		return DOLoader::Import('lib.session.drivers.sess_'.$drive); 
+		return DOLoader::Import('lib.session.drivers.'.$drive); 
 	}
 	
 	function LoadEngine( )

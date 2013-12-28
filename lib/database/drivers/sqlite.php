@@ -34,9 +34,8 @@ class DODatabaseSqlite extends DODatabase
 	public function SetNames(){}
 	/** 
 	 * Sqlite would caught exceptions before we prepare a statement
-	 * this is make codes not so consistency.it's ugly implements
-	 * we have to do below or we would saw some error messages which make no sense
-	 * when we execute a wrong sql.
+	 * this is made codes not so consistency between different database drivers
+	 * we have to do below or we would saw some error messages which make no sense when we execute a wrong sql.
 	 **/
 	public function SetAttributes()
 	{
