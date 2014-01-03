@@ -21,7 +21,6 @@ class DORouter
 	
 	public static function Dispatch(array $mca = null)
 	{
-		return;
 		self::Prepare();
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
