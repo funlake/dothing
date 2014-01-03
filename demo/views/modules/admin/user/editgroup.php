@@ -31,8 +31,8 @@
 			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="5" disable="6">
 				<option value="0"></option>
 								
-<?php $tree_6b127422655370a4742cff83008d724e=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
-<?php echo $tree_6b127422655370a4742cff83008d724e->Render("
+<?php $tree_3cf7f430f8937f907cc17bc6a4aff1fb=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
+<?php echo $tree_3cf7f430f8937f907cc17bc6a4aff1fb->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -46,8 +46,8 @@
 			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="3">
 				<option value="0"></option>
 								
-<?php $tree_d7d552480ec663cbeb0acbc1a5006468=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_d7d552480ec663cbeb0acbc1a5006468->Render("
+<?php $tree_949994f8feba2e92a66cfd7f7403520d=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_949994f8feba2e92a66cfd7f7403520d->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -68,5 +68,5 @@
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/manage/group"/>
 	<input type="hidden" id="group_id" name="id" value="6"/>
-	<input type="hidden" id="__token" name="__token" value="4e1c6ec23bac1fc56c7eee246728e63c"/>
+	<input type="hidden" id="__token" name="__token" value="c39b6c2da2504689e15b90ddb634485e"/>
 </form>

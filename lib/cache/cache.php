@@ -27,9 +27,12 @@ class DOCache
 		$mca[3] 	= str_replace('&amp;','&',http_build_query($mca[3]));
 		$pageName 	= implode("_",$mca);  
 		$cachePath  = CACHEROOT.DS.$dir.DS.$pageName.'.html';
-		$fp = fopen($cachePath,'w+');
-		fwrite($fp,$content);
-		fclose($fp);
+		if(!file_exists($cachePath))
+		{
+			$fp = fopen($cachePath,'w+');
+			fwrite($fp,$content);
+			fclose($fp);
+		}
 
 		//$this->Set('page.'.$pageName,$content);
 	}
@@ -81,7 +84,8 @@ class DOCache
 
 			case 'controller':
 				/** controller need to be cache? **/
-				$ifCache = isset($cacheModule[$mca[0]][$mca[1].":".$mca[2]]);	
+				$ifCache = (isset($cacheModule[$mca[0]][$mca[1].":".$mca[2]]) AND ($cacheModule[$mca[0]][$mca[1].":".$mca[2]] == false));
+
 			break;
 		}
 		if($ifCache) return $this->SetTplCache($mca,$content,$type) ;

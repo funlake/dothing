@@ -50,10 +50,11 @@ class DOHttpResponse
 				$this->NoCache();
 			}
 			/** Get template and prepare to display**/
-			$this->SetBody(DOTemplate::LoadTemplate());
+			ob_start();
+			DOTemplate::Render();
+			$this->SetBody(ob_get_clean());
 			/** Do we have any plugin to format this responses?**/
-			$params   = array($this);
-			DOHook::HangPlugin('afterPageRender',$params);
+			DOHook::HangPlugin('afterPageRender',array($this));
 			echo $this->GetBody();
 	}
 	

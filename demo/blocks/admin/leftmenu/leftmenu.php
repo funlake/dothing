@@ -12,7 +12,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 			   ,'class'		=> 'nav-header active'
 			   ,'iconClass' => ''
 			   ,'child'	=> array(
-			   		array(
+			   	     array(
 			   			'title' => L('Basic Info')
 			   		   ,'link'  => '#baseinfo'
 			   		   ,'iconClass' => ''

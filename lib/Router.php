@@ -21,7 +21,7 @@ class DORouter
 	
 	public static function Dispatch(array $mca = null)
 	{
-
+		return;
 		self::Prepare();
 		#self::hasMap(DOUri::GetPathInfo());
 		/** Trigger plugin before all module route**/
@@ -48,12 +48,20 @@ class DORouter
 			if(!DOTemplate::GetModule() )
 			{
 				ob_start();
-				call_user_func(array($CTR,$method),(object)array(
-					'get'		=> self::$params
-				   ,'post'  	=> $_POST
-				   ,'cookie'	=> $_COOKIE
-				   ,'session'	=> $_SESSION
-				));
+				$cache = DOFactory::GetCache();
+				if(false !== ($cacheContent = $cache->GetControllerCache($mca)))
+				{
+					echo $cacheContent;
+				}
+				else
+				{
+					call_user_func(array($CTR,$method),(object)array(
+						'get'		=> self::$params
+					   ,'post'  	=> $_POST
+					   ,'cookie'	=> $_COOKIE
+					   ,'session'	=> $_SESSION
+					));
+				}
 				DOTemplate::SetModule(ob_get_clean());
 			}
 			DOProfiler::MarkEndTime("Controller:".self::GetPageIndex(),__FILE__);

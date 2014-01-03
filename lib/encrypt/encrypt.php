@@ -59,12 +59,17 @@ class DOEncrypt
 	}
 	function GetCipher( $cipher = '')
 	{
-		return $cipher ? $cipher : $this->cipher;
+		return !empty($cipher) ? $cipher : $this->cipher;
+	}
+
+	function SetCipher( $cipher )
+	{
+		$this->cipher = $cipher;
 	}
 	/**
 	** Encrypt method
 	**/
-	public function Encrypt($value)
+	public function Encrypt($value,$cipher = '')
 	{
 		/** Module init **/
 		$ofb 		= mcrypt_module_open(MCRYPT_RIJNDAEL_256,'',DO_ENCRYPT_MODE, '');
@@ -73,7 +78,7 @@ class DOEncrypt
 		/** Create iv,work for windows/linux platforms **/
 		$iv  		= mcrypt_create_iv($ivsize,MCRYPT_DEV_URANDOM);
 		/** Get key **/
-		$key 		= substr($this->GetCipher(),0,$ivsize);
+		$key 		= substr($this->GetCipher($cipher),0,$ivsize);
 		/** Init **/
 		mcrypt_generic_init($ofb, $key, $iv);
 		/** Encode,iv needed to pack in it**/
@@ -87,19 +92,19 @@ class DOEncrypt
 	/**
 	** Decrypt method
 	**/
-	public function Decrypt($value)
+	public function Decrypt($value,$cipher = '')
 	{
-		$value       	= base64_decode(strtr($value,'-_~','+/='));	
+		$value       		= base64_decode(strtr($value,'-_~','+/='));	
 		/** Module init **/
 		$ofb 			= mcrypt_module_open(MCRYPT_RIJNDAEL_256,'',DO_ENCRYPT_MODE, '');
 		/** Get iv size **/
-		$ivsize			= mcrypt_enc_get_block_size($ofb);
+		$ivsize		= mcrypt_enc_get_block_size($ofb);
 		/** Get key **/
-		$key 			= substr($this->GetCipher(),0,$ivsize);
+		$key 			= substr($this->GetCipher($cipher),0,$ivsize);
 		/** Raw encoded value **/
-		$rvalue		 	= substr($value,0,$ivsize * -1);
+		$rvalue		 = substr($value,0,$ivsize * -1);
 		/** IV **/
-		$iv			 	= substr($value,$ivsize * -1);
+		$iv			 = substr($value,$ivsize * -1);
 		/** Init **/
 		mcrypt_generic_init($ofb, $key, $iv);
 		/** Get paintext **/

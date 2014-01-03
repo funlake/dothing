@@ -161,7 +161,7 @@ class DOModelUser extends DOModel
 	/** Keep unique user name **/
 	public function Add_validate_user_name($value)
 	{
-		if(0 !=  $this->GetOne('id',array('user_name'=>'=?'),array($value)) )
+		if(0 !=  $this->GetOne('id',array('user_name'=>'=?'),$value) )
 		{
 			$this->error_msg = DOLang::Get('Do not allow duplicated users!');
 			return false;

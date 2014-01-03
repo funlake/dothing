@@ -10,36 +10,38 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		$cache = DOFactory::GetCache();
 		if(false !== ($cacheContent = $cache->GetPageCache($mca)))
 		{
-			exit($cacheContent);
+			DOTemplate::SetContent($cacheContent);
 		}
-
-		$request = DOFactory::GetTool('http.request');
-		/** Strip slash since we're using pdo **/
-		if(get_magic_quotes_gpc())
+		else
 		{
-			/** Gpc strip slashes **/
-			$_GET 	= DOStripslashes($_GET	  );
-			$_POST  	= DOStripslashes($_POST	  );
-			$_REQUEST   = DOStripslashes($_REQUEST);
-			$_COOKIE  	= DOStripslashes($_COOKIE );
+			$request = DOFactory::GetTool('http.request');
+			/** Strip slash since we're using pdo **/
+			if(get_magic_quotes_gpc())
+			{
+				/** Gpc strip slashes **/
+				$_GET 	= DOStripslashes($_GET	  );
+				$_POST  	= DOStripslashes($_POST	  );
+				$_REQUEST   = DOStripslashes($_REQUEST);
+				$_COOKIE  	= DOStripslashes($_COOKIE );
+			}
+			/** 
+			** Content type for most of pages would be text/html 
+			** So we treat it as a default content-type here.
+			** If people want to orverride this,like going to generate http download headers,
+			** should do that by [beforeRequest] event with controller.
+			**/
+			$response = DOFactory::GetTool('http.response');
+			$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
+
+			/** Template Set **/
+			$this->TemplateLayoutUse();
+
+			/** Search handler **/
+			$this->ListPrepare($mca);
+
+			/** Set some session variables **/
+			$this->SetPageState();
 		}
-		/** 
-		** Content type for most of pages would be text/html 
-		** So we treat it as a default content-type here.
-		** If people want to orverride this,like going to generate http download headers,
-		** should do that by [beforeRequest] event with controller.
-		**/
-		$response = DOFactory::GetTool('http.response');
-		$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
-
-		/** Template Set **/
-		$this->TemplateLayoutUse();
-
-		/** Search handler **/
-		$this->ListPrepare($mca);
-
-		/** Set some session variables **/
-		$this->SetPageState();
 	}
 	/** See what template/layout should current page use **/
 	public function TemplateLayoutUse()

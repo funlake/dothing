@@ -10,6 +10,8 @@ class DOTemplate
 	public static $params 	= array('title'=>'','module'=>'','blocks'=>'');
 	public static $template	= DO_TEMPLATE;
 	public static $layout        = "index";
+	//cache content
+	public static $content      = '';
 	public static function SetPrams($params)
 	{
 		foreach($params as $key=>$val) self::SetParam($key,$val);
@@ -42,8 +44,21 @@ class DOTemplate
 	{
 		return self::$layout;
 	}
-	public static function LoadTemplate( )
+	public static function SetContent( $cachedContent = '')
 	{
+		self::$content = $cachedContent;
+	}
+	public static function GetContent()
+	{
+		return self::$content;
+	}
+	public static function Render( )
+	{
+		if("" != ($cached = self::GetContent()))
+		{
+			echo $cached;
+			return;
+		}
 		$_do_template = self::GetTemplate();
 		$_do_cFile	= TEMPLATE_ROOT.DS.$_do_template.DS.self::GetLayout().'.php';
 		$_do_vFile  = TEMPLATE_ROOT.DS.$_do_template.DS.self::GetLayout().'.tpl.php';

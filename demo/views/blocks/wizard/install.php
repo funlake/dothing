@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="http://localhost/dothing/demo/assets/css/install.css"/>
+<link rel="stylesheet" href="http://localhost:81/dothing/demo/assets/css/install.css"/>
 <div class="row">
 	<h3>Install wizard</h3>
 	<div class="wizard">				

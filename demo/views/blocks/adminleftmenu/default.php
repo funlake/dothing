@@ -1,6 +1,6 @@
 <!--Begin Left menu -->
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-lg-8">
     <div class="slidebar">
       <ul class="nav nav-pills nav-stacked">				
 <?php foreach((array)DOBlocks::GetBlock('admin.leftmenu')->GetBackMenu() as $key_0=>$item_0) : ?>

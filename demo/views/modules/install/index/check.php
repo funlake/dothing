@@ -29,5 +29,5 @@
 </div>
 <div class="row span12 top20">
 	<div class="span4"></div>
-	<div class="span4"><a class="btn btn-medium btn-primary" href="http://localhost/dothing/demo/index.php/install/index/database">Next</a></span>
+	<div class="span4"><a class="btn btn-medium btn-primary" href="http://localhost:81/dothing/demo/index.php/install/index/database">Next</a></span>
 </div>

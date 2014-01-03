@@ -45,9 +45,9 @@
     <body>
       <div class="ui-loader">Loading...</div>
       <div class="row">
-        <div class="navbar navbar-fixed-top col-lg-12 navbar-inverse">
+        <div class="navbar navbar-fixed-top col-lg-12 navbar-default">
             <div class="container">
-              <div class="nav-collapse collapse">
+              <div class="nav">
               <?php echo T("block","mainmenu");?>
               </div>
            </div>
@@ -71,7 +71,6 @@
             </div>
             </div><!--/span3-->
             <div class="col-lg-9 pull-right">
-
               <?php echo T("module","__CURRENT__");?>
             </div><!--/span8-->
           </div>

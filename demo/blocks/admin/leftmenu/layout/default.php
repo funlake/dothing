@@ -1,7 +1,7 @@
 <?php !defined('DO_ACCESS') AND DIE("Go Away!"); ?>
 <!--Begin Left menu -->
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-lg-8">
     <div class="slidebar">
       <ul:loop=Block|Admin/leftmenu.GetBackMenu class="nav nav-pills nav-stacked">
       <li class="{#class}"><a href="{#link}"><i class="{#iconClass}"></i>{#title}</a></li>

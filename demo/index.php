@@ -26,6 +26,7 @@ try
 	/** Clean dangrous params **/
 	$request->Clean();
 	/** Parse Uri then dispatch **/
+	//$uri = DOUri::Parse()
 	DORouter::Dispatch( DOUri::Parse() );
 	/** Generate response **/
 	$response	= DOFactory::GetTool('http.response');
