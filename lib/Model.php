@@ -20,7 +20,10 @@ class DOModel
 		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
 
 		$start = $session->Get($page."_p");
-
+		if(empty($start) or $start < 0) 
+		{
+			$start = 1;
+		}
 		$this->defaultLimit = array(($start-1)*DO_LIST_ROWS,DO_LIST_ROWS);
 
 		$this->addMsgSuccess 	= DOLang::Get('You have successfully add an item');

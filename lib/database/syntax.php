@@ -179,7 +179,7 @@ class DOSyntax
 		}
 		else if($e)
 		{
-			$this->limit = array($s,$e);
+			$this->limit = array($s < 0 ? 0 : $s,$e);
 		}
 		return $this;
 	}
