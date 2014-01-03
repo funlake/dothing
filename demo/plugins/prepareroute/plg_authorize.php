@@ -5,8 +5,9 @@
 **/
 class DOPlgAuthorizePrepareroute extends DOPlugin
 {
-	public function Trigger($mca = null)
+	public function Trigger($params = array())
 	{
+		$mca = $params[0];
 		/** Login check ,for backend **/
 		if($mca[0] == "admin" )
 		{

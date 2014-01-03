@@ -18,7 +18,7 @@ class DOHook
 	{
 		$args 	= func_get_args();
 		if(!DORouter::$module) return;
-		self::LoadEvents();
+		//self::LoadEvents();
 		foreach( $args as $events)
 		{
 			foreach($events as $event=>$params)
@@ -30,9 +30,10 @@ class DOHook
 				$CTR	 = DOController::GetControllerEvent();
 				if(method_exists($CTR,$onEvent))
 				{
-					call_user_func_array(array(
-						$CTR,$onEvent
-					), $params);
+					// call_user_func_array(array(
+					// 	$CTR,$onEvent
+					// ), $params);
+					$CTR->$onEvent($params);
 					// DOEvent::CallChain(DORouter::$controller,strtolower($event),$params);
 				}
 				DOProfiler::MarkEndTime('Event:'.$onEvent,__FILE__);
@@ -41,9 +42,10 @@ class DOHook
 				DOProfiler::MarkStartTime('Event:'.$onEvent);
 				if(method_exists($CTR,$onEvent))
 				{
-					call_user_func_array(array(
-						$CTR,$onEvent
-					), $params);
+					// call_user_func_array(array(
+					// 	$CTR,$onEvent
+					// ), $params);
+					$CTR->$onEvent($params);
 					// DOEvent::CallChain(DORouter::$controller
 					// 	,strtolower($event.DORouter::$action),$params
 					// );
@@ -72,7 +74,9 @@ class DOHook
 		DOProfiler::MarkStartTime('Plugin:'.$event);
 		foreach((array)self::FetchPlugins($event) as $plugin )
 		{
-			call_user_func_array(array($plugin,'Trigger'),$params);
+			//Load slow
+			$plugin->Trigger($params);
+			//call_user_func_array(array($plugin,'Trigger'),$params);
 		}
 		DOProfiler::MarkEndTime('Plugin:'.$event,__FILE__);
 	}

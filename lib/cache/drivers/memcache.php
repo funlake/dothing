@@ -21,7 +21,11 @@ class DOCacheMemcache extends DOCache
 		{
 			foreach(explode(';',DO_MEMSERVERS) as $server)
 			{
-				call_user_func_array(array(self::$MI,"addServer"),explode(',',DO_MEMSERVERS));
+				//call_user_func_array(array(self::$MI,"addServer"),explode(',',DO_MEMSERVERS));
+				foreach(explode(",",DO_MEMSERVERS) as $s)
+				{
+					self::$MI->addServer($s);
+				}
 			}
 		}	
 		else

@@ -1,8 +1,9 @@
 <?php
 class DOPlgAccesscheckPrepareroute extends DOPlugin
 {
-	public function Trigger($mca = null)
+	public function Trigger($params = array())
 	{
+		$mca = $params[0];
 		$interface = DORouter::GetPageIndex();
 		if(in_array(DORouter::GetModule(),array('debug','install'))) return;
 		$permission = M('permission')->GetRow(array("url_pattern"=>$interface));

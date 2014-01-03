@@ -5,12 +5,14 @@
 **/
 class DOPlgSystemPrepareroute extends DOPlugin
 {
-	public function Trigger($mca = null)
+	public function Trigger($params = array())
 	{	
+		$mca = $params[0];
 		$cache = DOFactory::GetCache();
 		if(false !== ($cacheContent = $cache->GetPageCache($mca)))
 		{
-			DOTemplate::SetContent($cacheContent);
+			//DOTemplate::SetContent($cacheContent);
+			exit($cacheContent);
 		}
 		else
 		{
@@ -40,7 +42,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			$this->ListPrepare($mca);
 
 			/** Set some session variables **/
-			$this->SetPageState();
+			//$this->SetPageState();
 		}
 	}
 	/** See what template/layout should current page use **/

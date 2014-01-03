@@ -70,7 +70,9 @@ class DORequest
 			/** Return specify type we want **/
 			if(array_key_exists($var, $GV))
 			{
-				return call_user_func(array(__CLASS__,"To".ucwords($type)),@$GV[$var]);
+				//return call_user_func(array(__CLASS__,"To".ucwords($type)),@$GV[$var]);
+				$method = "To".ucwords($type);
+				return self::$method(@$GV[$var]);
 			}
 			return "";
 		}

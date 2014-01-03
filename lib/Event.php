@@ -21,20 +21,22 @@ class DOEvent
 		return true;
 	}*/
 
-	public function OnBeforeRequest( $mca )
+	public function OnBeforeRequest( $params = array())
 	{//Get controller cache if it has
+		$mca = $params[0];
 		$cache = DOFactory::GetCache();
 		//echo class_exists('DOTemplate');
 		DOTemplate::SetModule($cache->GetControllerCache($mca));
 	}
 
-	public function OnAfterRequest($mca,$content)
+	public function OnAfterRequest($params = array())
 	{//Generate controller cache if needed[see modules/cache/cache.config.php]
+		list($mca,$content) = $params;
 		$cache = DOFactory::GetCache();
 		$cache->SetControllerCache($mca,$content);
 	}
 
-	public function OnAfterRenderBlockMessage($content)
+	public function OnAfterRenderBlockMessage($params = array())
 	{
 
 	}

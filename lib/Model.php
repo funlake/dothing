@@ -171,7 +171,8 @@ class DOModel
 				//array_unshift($params,$condition);
 			}
 			$caller = DOFactory::GetTable($this->name);
-			$R      = call_user_func_array(array($caller,'GetAll'),array($condition,$params,$orderby,$groupby,$limit));
+			//$R      = call_user_func_array(array($caller,'GetAll'),array($condition,$params,$orderby,$groupby,$limit));
+			$R      = $caller->GetAll($condition,$params,$orderby,$groupby,$limit);
 			$this->SetFieldsValue($R,$R[0],$this->action);
 			$this->SetTotal();
 			return $R;

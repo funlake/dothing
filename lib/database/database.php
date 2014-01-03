@@ -20,7 +20,8 @@ class DODatabase implements DORecord
 	function DODatabase($host,$user,$pwd,$dbname)	
 	{
 		//set dsn
-		call_user_func_array(array($this,'SetDsn'),array($host,$dbname));
+	//	call_user_func_array(array($this,'SetDsn'),array($host,$dbname));
+		$this->SetDsn($host,$dbname);
 		//connect
 		$this->Connect($user,$pwd);
 	}

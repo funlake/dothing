@@ -54,7 +54,7 @@ class DORouter
 				}
 				else
 				{
-					call_user_func(array($CTR,$method),(object)array(
+					$CTR->$method((object)array(
 						'get'		=> self::$params
 					   ,'post'  	=> $_POST
 					   ,'cookie'	=> $_COOKIE
