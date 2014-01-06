@@ -120,14 +120,8 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 				//see if people has permission for links.
 				foreach($menu as $k1=>&$item):
 					foreach($item['child'] as $k2=>&$child):
-						if(!in_array($child['link'], $permissions))
-						{
-							unset($item['child'][$k2]);
-						}
-						else
-						{
-							$item['child'][$k2]['link'] = Url($item['child'][$k2]['link'] );
-						}
+						$item['child'][$k2]['link'] = Url($item['child'][$k2]['link'] );
+
 					endforeach;
 				endforeach;
 				return $menu;

@@ -2,10 +2,10 @@
 	<div class="row well">
 		<div class="col-lg-8"><h4>Group / Update</h4></div>
 		<div class="col-lg-4 text-right">
-		  <button class="btn btn-success" id="submitForm">
+		  <button class="btn btn-sm btn-success" id="submitForm">
 		  	<i class="glyphicon glyphicon-ok glyphicon-white"></i>
 		  	Apply		  </button>
-		  <button class="btn btn-danger" onclick="location.href=$('#__redirect').val();return false;">
+		  <button class="btn btn-sm btn-danger" onclick="location.href=$('#__redirect').val();return false;">
 		  	<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 		  	Cancel		  </button>
 		</div>
@@ -14,25 +14,25 @@
 		<label class="control-label col-lg-2" for="name">
 			Name		</label>
 		<div class="col-lg-4">
-			<input type="text" id="name" name="name" class="form-control" value="Register" required/>
+			<input type="text" id="name" name="name" class="form-control" value="Customer" required/>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="ordering">
 			Ordering		</label>
 		<div class="col-lg-4">
-			<input type="text" id="ordering" name="ordering" class="form-control" value="15" />
+			<input type="text" id="ordering" name="ordering" class="form-control" value="0" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="group_id">
 			Parent		</label>
 		<div class="col-lg-4">
-			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="1" disable="5">
+			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="0" disable="7">
 				<option value="0"></option>
 								
-<?php $tree_8523dad1f3a34c14f82071a7e119c21b=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
-<?php echo $tree_8523dad1f3a34c14f82071a7e119c21b->Render("
+<?php $tree_59b08ba50f2ffa316f97b689302997ff=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Group'))->Select())) ?>
+<?php echo $tree_59b08ba50f2ffa316f97b689302997ff->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -43,11 +43,11 @@
 		<label class="control-label col-lg-2" for="role_id">
 			Role		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="5">
+			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="3">
 				<option value="0"></option>
 								
-<?php $tree_8e219db6badcb3f5e61aa1f03f38db6e=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_8e219db6badcb3f5e61aa1f03f38db6e->Render("
+<?php $tree_74494e5e088b1e7696ef5de198bbf601=DOFactory::GetWidget("tree","default",array(DOFactory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_74494e5e088b1e7696ef5de198bbf601->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -67,6 +67,6 @@
 		</div>
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/manage/group"/>
-	<input type="hidden" id="group_id" name="id" value="5"/>
-	<input type="hidden" id="__token" name="__token" value="a83d9925466b927c22f347a4f7a150c5"/>
+	<input type="hidden" id="group_id" name="id" value="7"/>
+	<input type="hidden" id="__token" name="__token" value="8feecde0e8e78427f8ffa281e3100f50"/>
 </form>

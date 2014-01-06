@@ -48,7 +48,7 @@
       <div class="row">
         <div class="navbar navbar-fixed-top col-lg-12 navbar-inverse">
             <div class="container">
-              <div class="nav-collapse collapse">
+              <div class="nav-collapse">
               <?php echo T("block","mainmenu");?>
               </div>
            </div>

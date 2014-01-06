@@ -17,7 +17,7 @@
 <?php endforeach;?>
 </ul>
 <ul class="nav navbar-nav pull-right">
-	<li><a href="#"><i class="glyphicon glyphicon-user glyphicon-white"></i>&nbsp;Admin</a></li>
+	<li><a href="#"><i class="glyphicon glyphicon-user glyphicon-white"></i>&nbsp;lake</a></li>
 	<li>
 		<a href="http://localhost:81/dothing/demo/index.php/ads007/user/logout">
 			<i class=" glyphicon glyphicon-hand-down glyphicon-white"></i>&nbsp;Log out		</a>

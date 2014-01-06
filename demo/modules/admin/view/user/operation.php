@@ -12,18 +12,18 @@ $searchs     = SG($searchIndex);
 			/>
 		</div>
 		<div class="btn-group col-lg-4">
-			<button class="btn  btn-success" onclick="jQuery('#Afm').submit()">
+			<button class="btn btn-sm  btn-success" onclick="jQuery('#Afm').submit()">
 				<i class=" glyphicon glyphicon-search glyphicon-white"></i>
 				<?php echo L('Search');?>
 			</button>
-			<button class="btn btn-warning" onclick="jQuery('#name_search').val('');jQuery('#Afm').submit()">
+			<button class="btn btn-sm btn-warning" onclick="jQuery('#name_search').val('');jQuery('#Afm').submit()">
 				<i class="glyphicon glyphicon-refresh glyphicon-white"></i>
 				<?php echo L('Reset');?>
 			</button> 
 		</div>
 		<div class="btn-group  col-lg-3">
-			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
-			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+			<span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
+			<a class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url('admin/user/addoperation','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
 				<!-- 	    <li class="divider"></li> -->
@@ -61,11 +61,11 @@ $searchs     = SG($searchIndex);
 									<p><?php echo L('Do you want to delete this item?');?></p>
 								</div>
 								<div class="modal-footer">
-									<a href="javascript:void(0);" onclick="jQuery('#form{#id}').submit()" class="btn btn-success">
+									<a href="javascript:void(0);" onclick="jQuery('#form{#id}').submit()" class="btn btn-sm btn-success">
 										<i class=" glyphicon glyphicon-ok glyphicon-white"></i>
 										<?php echo L('Yes');?>
 									</a>
-									<a data-dismiss="modal" class="btn btn-warning">
+									<a data-dismiss="modal" class="btn btn-sm btn-warning">
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										<?php echo L('Cancel');?>
 									</a>

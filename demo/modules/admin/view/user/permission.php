@@ -9,7 +9,7 @@ $searchs     = SG($searchIndex);
           
 	</div>
 	<div class="col-lg-4 text-right">
-		  <button class="btn btn-success" id="submitForm">
+		  <button class="btn btn-sm btn-success" id="submitForm">
 	  		<i class="glyphicon glyphicon-ok glyphicon-white"></i>
 	  		<?php echo L('Save');?>
 	  	</button>
@@ -24,7 +24,7 @@ $searchs     = SG($searchIndex);
     	
     <div:loop=Model|Module.Find class="masonry">
         <div class="box">
-              <div class="panel {#admin_title_class}">
+              <div class="panel panel-info">
                   <div class="panel-heading">{#name}({#interface})</div>
                     <table class="table table-striped table-bordered table-hover">
                           <thead>

@@ -3,11 +3,11 @@
 	<div class="row well">
 		<div class="col-lg-8"><h4><?php echo L('User / '.L($action));?></h4></div>
 		<div class="col-lg-4 text-right">
-		  <button class="btn btn-success" id="submitForm">
+		  <button class="btn btn-sm btn-success" id="submitForm">
 		  	<i class="glyphicon glyphicon-ok glyphicon-white"></i>
 		  	<?php echo L('Apply');?>
 		  </button>
-		  <button class="btn btn-danger" onclick="location.href=$('#__redirect').val();return false;">
+		  <button class="btn btn-sm btn-danger" onclick="location.href=$('#__redirect').val();return false;">
 		  	<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 		  	<?php echo L('Cancel');?>
 		  </button>
