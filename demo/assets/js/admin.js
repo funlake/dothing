@@ -49,8 +49,8 @@ define(['jquery'],function($){
 					});
 					//set checkbox/radio styles
 					  $('input').iCheck({
-					    checkboxClass: 'icheckbox_square-blue',
-					    radioClass: 'iradio_square-blue',
+					    checkboxClass: 'icheckbox_minimal',
+					    radioClass: 'iradio_minimal',
 					    increaseArea: '20%'// ,// optional
 					  //  insert:"<div class='check_text'>aaa</div>"
 					  });

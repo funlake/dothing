@@ -24,7 +24,7 @@ $searchs     = SG($searchIndex);
     	
     <div:loop=Model|Module.Find class="masonry">
         <div class="box">
-              <div class="panel panel-info">
+              <div class="panel panel-warning">
                   <div class="panel-heading">{#name}({#interface})</div>
                     <table class="table table-striped table-bordered table-hover">
                           <thead>
