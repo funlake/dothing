@@ -23,8 +23,8 @@ $searchs     = SG($searchIndex);
 			</button> 
 		</div>
 		<div class="btn-group  col-lg-3">
-			<span class="btn btn-sm btn-sm btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
-			<a class="btn btn-sm btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+			<span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
+			<a class="btn btn-sm  btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href='javascript:void(0)' onclick="location.href='<?php echo Url('admin/user/add','');?>'"><i class="glyphicon glyphicon-plus"></i> <?php echo L('Add');?></a></li>
 				<!-- 	    <li class="divider"></li> -->
@@ -42,7 +42,7 @@ $searchs     = SG($searchIndex);
 				<th width="20%"><?php echo L('Group');?></th>
 				<th width="20%"><?php echo L('role');?></th>
 				<th width="10%"><?php echo DOMakeSortHead('u.state',L('Status'));?></th>
-				<th><?php echo L('Actions');?></th>
+				<th><?php echo L('Action');?></th>
 			</tr>
 		</thead>
 		<tbody:loop=Model|User.UserGroupList class="adminTable">

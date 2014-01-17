@@ -1,4 +1,5 @@
 <?php
+//view model
 class DOModelGroup extends DOModel
 {
 	public $fields = array(

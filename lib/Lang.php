@@ -4,11 +4,12 @@ class DOLang
 	private static $loadGlobal 	= false;
 	private static $moudleLang 	= array();
 	private static $ctrLang 	= array();
+	private static $moduleLang = array();
 	public static function Get($text)
 	{
 		/** Module language text **/
-		$moduleLang = self::GetBlockLang();
-		$textkey	= preg_replace(array('#\s+#','#[[:punct:]]#'),array('_',''),$text);
+		$moduleLang = self::GetModuleLang();
+		$textkey	= preg_replace(array('#\s+#','#[[:punct:]]#'),array('_',''),strtoupper($text));
 		if(isset($moduleLang[$textkey])) return $moduleLang[$textkey];
 		/** Controller language text **/
 		$ctrlLang	= self::GetControllerLang();
@@ -18,18 +19,21 @@ class DOLang
 		
 	}	
 	/** Module level language **/
-	public static function GetBlockLang()
+	public static function GetModuleLang()
 	{
 		$lang = array();
 		/** Load global language file **/
 		if(!self::$moudleLang)
 		{
 			$globalLangFile = SYSTEM_ROOT.DS.'languages'.DS.self::GetLangCode().DS.DORouter::$module.'.ini';
+
 			if(file_exists($globalLangFile))
 			{
 				self::$moudleLang = parse_ini_file($globalLangFile);
 			}
 		}
+		//echo $globalLangFile;
+		//print_r(self::$moduleLang);
 		return self::$moudleLang;
 	}
 	/** Controller level language **/

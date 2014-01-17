@@ -11,7 +11,7 @@ $searchs     = SG($searchIndex);
 			value="<?php echo $searchs['name'];?>" class="form-control "
 			/>
 		</div>
-		<div class="btn btn-sm btn-sm-group col-lg-4">
+		<div class="btn-group col-lg-4">
 			<button class="btn btn-sm btn-success" onclick="jQuery('#Afm').submit()">
 				<i class=" glyphicon glyphicon-search glyphicon-white"></i>
 				<?php echo L('Search');?>
@@ -21,7 +21,7 @@ $searchs     = SG($searchIndex);
 				<?php echo L('Reset');?>
 			</button> 
 		</div>
-		<div class="btn btn-sm btn-sm-group  col-lg-3">
+		<div class="btn-group  col-lg-3">
 			<span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> <?php echo L('Action');?></span>
 			<a class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
@@ -38,10 +38,10 @@ $searchs     = SG($searchIndex);
 			<tr>
 				<th width="5%" ><?php echo L('Id');?></th>
 				<th width="30%"><?php echo DOMakeSortHead('g.name',L('Name'));?></th>
-				<th width="25%"><?php echo L('Roles');?></th>
+				<th width="25%"><?php echo L('Role');?></th>
 				<th width="10%"><?php echo DOMakeSortHead('g.ordering',L('Ordering'));?></th>
 				<th width="10%"><?php echo L('Status');?></th>
-				<th><?php echo L('Actions');?></th>
+				<th><?php echo L('Action');?></th>
 			</tr>
 		</thead>
 		<tbody:loop=Model|Group.TreeData class="adminTable">
