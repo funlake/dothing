@@ -44,11 +44,12 @@
 		</label>
 		<div class="col-lg-4">
 			<div class="radio-inline">
-				<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/><label><?php echo L('No');?></label>
+				<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/><label><?php echo L('choosey');?></label>
 			</div>
 			<div class="radio-inline">
-				<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/><label><?php echo L('Yes');?></label>
+				<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/><label><?php echo L('Choosen');?></label>
 			</div>
+
 		</div>
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url('admin/user/operation');?>"/>

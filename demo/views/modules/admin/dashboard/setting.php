@@ -2,7 +2,7 @@
 	<div class="pull-right">
 		<button class="btn btn-success" onclick="jQuery('#Afm').submit()">
 			<i class="icon-ok icon-white"></i>
-			Save		</button>
+			保存		</button>
 	</div>
 	<fieldset>
 		<legend><a name="baseinfo">Base Information</a></legend>
@@ -46,7 +46,7 @@
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="user">
-				User			</label>
+				用户			</label>
 			<div class="controls">
 				<input type="text" id="user" name="S_DO_DBUSER" class="input-xlarge" value="root" />
 			</div>

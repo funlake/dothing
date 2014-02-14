@@ -26,7 +26,7 @@
 				<?php echo L('Parent');?>
 			</label>
 			<div class="col-lg-4">
-				<select id="group" data-placeholder="<?php echo L('=====No Parent======');?>" class="chzn-select form-control"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
+				<select id="group" data-placeholder="<?php echo L('=======No Parent======');?>" class="chzn-select form-control"  tabindex="2" name="pid" default="<?php echo $data->pid;?>" disable="<?php echo $data->id;?>">
 					<option value="0"></option>
 					<notag:tree=Model|Role.Select>
 						<option value="{#id}" parent="{#pid}">[prefix]{#name}</option>
@@ -41,11 +41,12 @@
 			</label>
 			<div class="col-lg-4">
 				<div class="radio-inline">
-					<input id="status" name="state" value="0" type="radio" <?php echo $p[0];?>/><label>No</label>
+					<input id="status" name="state"  value="1" type="radio" <?php echo $p[1];?>/><label><?php echo L('choosey');?></label>
 				</div>
 				<div class="radio-inline">
-					<input id="status" name="state" value="1" type="radio" <?php echo $p[1];?>/><label>Yes</label>
+					<input id="status" name="state"  value="0" type="radio" <?php echo $p[0];?>/><label><?php echo L('Choosen');?></label>
 				</div>
+
 			</div>
 		</div>
 		<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url('admin/user/role');?>"/>

@@ -29,7 +29,7 @@ class DOLang
 
 			if(file_exists($globalLangFile))
 			{
-				self::$moudleLang = parse_ini_file($globalLangFile);
+				self::$moudleLang = parse_ini_file($globalLangFile,true);
 			}
 		}
 		//echo $globalLangFile;
@@ -48,7 +48,7 @@ class DOLang
 							  .DORouter::$module.'.'.DORouter::$controller.'.ini';
 			if(file_exists($ctrLangFile))
 			{
-				self::$ctrLang[DORouter::$controller] = parse_ini_file($ctrLangFile);
+				self::$ctrLang[DORouter::$controller] = parse_ini_file($ctrLangFile,true);
 			}
 			else
 			{
