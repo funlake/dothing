@@ -42,7 +42,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			$this->ListPrepare($mca);
 
 			/** Set some session variables **/
-			//$this->SetPageState();
+			$this->SetPageState();
 		}
 	}
 	/** See what template/layout should current page use **/

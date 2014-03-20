@@ -53,34 +53,7 @@ $searchs     = SG($searchIndex);
 			<td>{#state|showStatus(?,'group',#id)}</td>
 			<td>
 				{#id|showEditLink('id='.?,'<?php echo 'admin/user/editgroup';?>')}
-				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
-				<div class="modal fade" id="DOModal_{#id}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<form id="form{#id}" action="<?php echo Url('autocrud/Delete/group');?>" method="post">
-								<div class="modal-header">
-									<a class="close" data-dismiss="modal">×</a>
-									<h3><?php echo L('Warning');?></h3>
-								</div>
-								<div class="modal-body">
-									<p><?php echo L('Do you want to delete this item?');?></p>
-								</div>
-								<div class="modal-footer">
-									<a href="javascript:void(0);" onclick="jQuery('#form{#id}').submit()" class="btn btn-sm btn-sm btn btn-sm btn-sm-success">
-										<i class="glyphicon glyphicon-ok glyphicon-white"></i>
-										<?php echo L('Yes');?>
-									</a>
-									<a data-dismiss="modal" class="btn btn-sm btn-sm btn btn-sm btn-sm-warning">
-										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
-										<?php echo L('Cancel');?>
-									</a>
-									<input type="hidden" name="__redirect" value="<?php echo Url('admin/user/group');?>"/>
-									<input type="hidden" name="id" value="{#id}"/>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+				{#id|showCfm(?,'autocrud/Delete/group')}
 			</td>
 		</tr>
 	</tbody:loop>

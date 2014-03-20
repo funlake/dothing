@@ -14,9 +14,7 @@ class DOLang
 		/** Controller language text **/
 		$ctrlLang	= self::GetControllerLang();
 		if(isset($ctrlLang[$textkey])) return $ctrlLang[$textkey];
-		
 		return $text;
-		
 	}	
 	/** Module level language **/
 	public static function GetModuleLang()

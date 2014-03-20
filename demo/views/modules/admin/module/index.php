@@ -9,16 +9,16 @@
 		<div class="btn-group col-lg-4">
 			<button class="btn  btn-success" onclick="jQuery('#Afm').submit()">
 				<i class=" glyphicon glyphicon-search glyphicon-white"></i>
-				Search			</button>
+				搜索			</button>
 			<button class="btn btn-warning" onclick="jQuery('#name').val('');jQuery('#Afm').submit()">
 				<i class="glyphicon glyphicon-refresh glyphicon-white"></i>
-				Reset			</button> 
+				清空			</button> 
 		</div>
 		<div class="btn-group  col-lg-3">
-			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> Action</span>
+			<span class="btn btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> 操作</span>
 			<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/module/add'"><i class="glyphicon glyphicon-plus"></i> Add</a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/module/add'"><i class="glyphicon glyphicon-plus"></i> 添加</a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -33,7 +33,7 @@
 				<th width="30%"><a data-toggle='post' data-link='http://localhost:81/dothing/demo/index.php/ads007/module/index' class='sorter' data-key='order,sort' data-value='name,desc' href='javascript:void(0);'>Name</a></th>
 				<th width="25%">Interface</th>
 				<th width="10%"><a data-toggle='post' data-link='http://localhost:81/dothing/demo/index.php/ads007/module/index' class='sorter' data-key='order,sort' data-value='ordering,desc' href='javascript:void(0);'>Ordering</a></th>
-				<th width="10%">Status</th>
+				<th width="10%">状态</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -67,7 +67,7 @@
 										Yes									</a>
 									<a data-dismiss="modal" class="btn btn-warning">
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
-										Cancel									</a>
+										取消									</a>
 									<input type="hidden" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/module/"/>
 									<input type="hidden" name="id" value="<?php echo $item_0['id']?>"/>
 								</div>

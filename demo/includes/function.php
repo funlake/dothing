@@ -58,3 +58,51 @@ editlink;
 		return $final;
 	}
 }
+/** delete icon in each row **/
+if(!function_exists('showCfm'))
+{
+	function showCfm($id,$action='',$key='id',$redirect='',$message = 'Are you going to delete selected item(s)?')
+	{
+		if(empty($link))
+		{
+			$redirect = Url(DORouter::GetPageIndex());
+		}
+		//Url('autocrud/Delete/group');
+		$yes 		= L('Confirm');
+		$cancel  	= L('Cancel');
+		$warning      = L('Warning');
+		$q 		= L($message);
+		$action 	= Url($action);
+		$tpl = <<<TPL
+		<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{$id}"></a>
+		<div class="modal fade" id="DOModal_{$id}">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id="form{$id}" action="{$action}" method="post">
+						<div class="modal-header">
+							<a class="close" data-dismiss="modal">×</a>
+							<h3>{$warning}</h3>
+						</div>
+						<div class="modal-body">
+							<p>{$q}</p>
+						</div>
+						<div class="modal-footer">
+							<a href="javascript:void(0);" onclick="jQuery('#form{$id}').submit()" class="btn btn-sm btn-sm btn btn-sm btn-sm-success">
+								<i class="glyphicon glyphicon-ok glyphicon-white"></i>
+								{$yes}
+							</a>
+							<a data-dismiss="modal" class="btn btn-sm btn-sm btn btn-sm btn-sm-warning">
+								<i class="glyphicon glyphicon-remove glyphicon-white"></i>
+								{$cancel}
+							</a>
+							<input type="hidden" name="__redirect" value="{$redirect}"/>
+							<input type="hidden" name="id" value="{$id}"/>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+TPL;
+		return $tpl;
+	}
+}

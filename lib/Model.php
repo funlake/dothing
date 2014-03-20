@@ -502,10 +502,10 @@ class DOModel
 		return $this->currRecord;
 	}
 
-	public function GetRow($where)
-	{
-		$rows = $this->Select($where);
-		return $rows[0];
-	}
+	// public function GetRow($where)
+	// {
+	// 	$rows = $this->Select($where);
+	// 	return $rows[0];
+	// }
 }
 ?>

@@ -54,34 +54,7 @@ $searchs     = SG($searchIndex);
 			<td>{#state|showStatus(?,'user',#id)}</td>
 			<td>
 				<a class="glyphicon glyphicon-edit" href="<?php echo Url('admin/user/edit','id={#id}');?>"></a>
-				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_{#id}"></a>
-				<div class="modal fade" id="DOModal_{#id}">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<form id="form{#id}" action="<?php echo Url('autocrud/Delete/user');?>" method="post">
-								<div class="modal-header">
-									<a class="close" data-dismiss="modal">×</a>
-									<h3><?php echo L('Warning');?></h3>
-								</div>
-								<div class="modal-body">
-									<p><?php echo L('Do you want to delete this item?');?></p>
-								</div>
-								<div class="modal-footer">
-									<a href="javascript:void(0);" onclick="jQuery('#form{#id}').submit()" class="btn btn-sm btn-success">
-										<i class=" glyphicon glyphicon-ok glyphicon-white"></i>
-										<?php echo L('Yes');?>
-									</a>
-									<a data-dismiss="modal" class="btn btn-sm btn-warning">
-										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
-										<?php echo L('Cancel');?>
-									</a>
-									<input type="hidden" id="__redirect" name="__redirect" value="<?php echo Url('admin/user/index');?>"/>
-									<input type="hidden" id="user_id" name="id" value="{#id}"/>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+				{#id|showCfm(?,'autocrud/Delete/user')}
 			</td>
 		</tr>
 	</tbody:loop>
