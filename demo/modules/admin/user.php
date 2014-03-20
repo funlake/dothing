@@ -7,7 +7,7 @@ class DOControllerUser extends DOController
 		if(!empty($request->post['user_name']) and !empty($request->post['user_pass']))
 		{
 			$user = M('user')->GetRow(
-				array('user_name'=>$request->post['user_name'])
+				array('user_name'=>'=?'),$request->post['user_name']
 			);
 
 			if($user->id)
