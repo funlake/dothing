@@ -80,7 +80,7 @@ class DOControllerIndex extends DOController
 	}
 	public function indexAction($request=null)
 	{
-		echo "hello world";
+		$this->Display('default');
 	}
 
 	public function mailAction()

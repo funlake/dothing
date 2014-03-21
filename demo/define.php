@@ -30,5 +30,4 @@ define('FILEROOT'		,SYSTEM_ROOT.DS.'data'.DS.'files' );
 define('CACHEROOT'		,SYSTEM_ROOT.DS.'data'.DS.'cache');
 /** Where we put tables files **/
 define('TABLEBASE'		,SYSTEM_ROOT.DS.'tables');
-
 ?>
