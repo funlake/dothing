@@ -1,6 +1,9 @@
 <?php
+namespace Application\Modules\Admin;
 !defined('DO_ACCESS') AND DIE("Go Away!");
-class DOControllerUser extends DOController
+use \Dothing\Lib\Uri;
+use \Dothing\Lib\Factory;
+class User extends \Dothing\Lib\Controller
 {
 	public function loginAction($request = null)
 	{
@@ -9,21 +12,20 @@ class DOControllerUser extends DOController
 			$user = M('user')->GetRow(
 				array('user_name'=>'=?'),$request->post['user_name']
 			);
-
 			if($user->id)
 			{
-				$T = DOFactory::GetTool('encrypt');
+				$T = new \Dothing\Lib\Encrypt\Encrypt();
 				//successfully verify
 				if($T->Decrypt($user->user_pass) == $request->post['user_pass'])
 				{
 					if($user->state)
 					{
-						$session = DOFactory::GetSession();
+						$session = Factory::GetSession();
 						$session->Set("_adm_user",$user->user_name);
 						$session->Set("_adm_user_id",$user->id);
 						$session->Set("login_user",$user);
 						//save permission from user->role->permissions
-						$db    = DOFactory::GetDatabase();
+						$db    = Factory::GetDatabase();
 						$db->Clean();
 						$db->From("#__user_role","ur")
 						->Innerjoin("#__role_permission","rp",array(
@@ -42,11 +44,11 @@ class DOControllerUser extends DOController
 						endforeach;
 						//TODO: save permission from user->group->role->permission
 						$session->Set("permissions",$pers);
-						DOUri::Redirect(Url("admin/user/index"),"",1);
+						Uri::Redirect(Url("admin/user/index"),"",1);
 					}
 					else
 					{
-						DOUri::Redirect(Url("admin/user/login")
+						Uri::Redirect(Url("admin/user/login")
 							,L("Your account is not a publish admin ! please contact administrator.")
 							,3
 						);
@@ -55,7 +57,7 @@ class DOControllerUser extends DOController
 				}
 				else
 				{
-					DOUri::Redirect(Url("admin/user/login")
+					Uri::Redirect(Url("admin/user/login")
 						,L("Wrong user name or password! ")
 						,0
 					);
@@ -64,7 +66,7 @@ class DOControllerUser extends DOController
 			}
 			else
 			{
-				DOUri::Redirect(Url("admin/user/login")
+				Uri::Redirect(Url("admin/user/login")
 					,L("Wrong user name or password! ")
 					,0
 				);
@@ -77,7 +79,7 @@ class DOControllerUser extends DOController
 	{
 		$session = DOFactory::GetSession();
 		$session->Clean();
-		DOUri::Redirect(Url("admin/user/login"),"",1);
+		Uri::Redirect(Url("admin/user/login"),"",1);
 		exit();
 	}
 	//@interface:access
@@ -98,7 +100,7 @@ class DOControllerUser extends DOController
 	//@interface:add
 	public function addAction($request = null)
 	{
-		$this->Display("edit",array("action"=>"Add","data" => new stdClass()));
+		$this->Display("edit",array("action"=>"Add","data" => new \stdClass()));
 	}
 
 	public function groupAction($request = null)
@@ -118,7 +120,7 @@ class DOControllerUser extends DOController
 	public function addgroupAction($request = null)
 	{
 		$var['action'] 	= 'Add';
-		$var['data']    = new stdClass();
+		$var['data']    = new \stdClass();
 		$var['request']	= $request;
 		$this->Display('editgroup',$var);
 	}
@@ -131,14 +133,15 @@ class DOControllerUser extends DOController
 	public function addroleAction($request = null)
 	{
 		$var['action'] = 'Add';
-		$var['data']    = new stdClass();
+		$var['data']    = new \stdClass();
 		$var['request']	= $request;
 		$this->Display('editrole',$var);
 	}
 
 	public function editroleAction($request = null)
 	{
-		$var['data']	= M('role')->GetRow($request->get['id']);
+		//$var['data']	= M('role')->GetRow(array('id'=>'=?'),$request->get['id']);
+		$var['data'] 	= M('role')->GetRowById($request->get['id']);
 		$var['action'] 	= 'Update';
 		$var['request']	= $request;
 		$this->Display(null,$var);

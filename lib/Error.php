@@ -1,10 +1,11 @@
 <?php 
+namespace Dothing\Lib;
 /**
  * Error handler
  * @author lake
  *
  */
-class DOError
+class Error
 {
 	/** Error messages container **/
 	public static $_errorMsg;
@@ -157,7 +158,7 @@ class DOError
 	public function __destruct()
 	{
 		/** Dont save if refresh debug page **/
-		if(DORouter::$module !== 'debug')
+		if(\Dothing\Lib\Router::$module !== 'debug')
 		{
 			/** Save in session,we'd better close custom error handler in live enviroment **/
 			//$sess = DOFactory::GetSession();

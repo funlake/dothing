@@ -1,12 +1,13 @@
 <?php
-class DOSession
+namespace Dothing\Lib\Session;
+class Session
 {	
 	private static $savePath = array(
 		'files' 		=> ''
 	   ,'memcache'	=> 'tcp://127.0.0.1:11211'
 	);
 	private static $called = false;
-	function DOSession($drive)
+	function __construct($drive)
 	{
 		$this->drive = $drive;
 		$this->Start();

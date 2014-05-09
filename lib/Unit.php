@@ -1,5 +1,6 @@
 <?php
-class DOUnit
+namespace Dothing\Lib;
+class Unit
 {
 	public static function GetTime()
 	{

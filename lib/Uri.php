@@ -1,5 +1,8 @@
 <?php
-class DOUri
+namespace Dothing\Lib;
+use \Dothing\Lib\Factory;
+use \Dothing\Lib\Router;
+class Uri
 {
 	public $project;
 	/** MVC separator **/
@@ -83,7 +86,7 @@ class DOUri
 	public static function SafeValue( $value )
 	{
 		return $value;
-		//$filter = DOFactory::GetFilter();
+		//$filter = Factory::GetFilter();
 		//return $filter->process( $value );
 	}
 	public static function GetPathInfo()
@@ -224,9 +227,10 @@ class DOUri
 	
 	public static function Redirect($url,$msg='',$type=0)
 	{
+
 		if(!empty($msg))
 		{
-			$session = DOFactory::GetSession();
+			$session = Factory::GetSession();
 			$session->Set("__DOMSG"			,$msg);
 			$session->Set("__DOMSG_TYPE"	,$type);
 		}
@@ -238,7 +242,7 @@ class DOUri
 		}
 		else
 		{
-			$response = DOFactory::GetTool('http.response');
+			$response = new \Dothing\Lib\Http\Response();
 			$response->SetHeader('Location',$url);
 		}
 		//we have to do this before redirection.
@@ -280,13 +284,13 @@ class DOUri
 		else
 		{
 			//look up seo link set in router.php under root dir.
-			$link = DORouter::FormatSeoLink($module.'/'.$controller.'/'.$action,$params);
+			$link = Router::FormatSeoLink($module.'/'.$controller.'/'.$action,$params);
 			//if seo link is invalid
 			if(null === $link)
 			{
-				if(array_key_exists($module, DORouter::$mom['positive']))
+				if(array_key_exists($module, Router::$mom['positive']))
 				{
-					$module = DORouter::$mom['positive'][$module];
+					$module = Router::$mom['positive'][$module];
 				}
 				$link = '/'.implode('/',array($module,$controller,$action))
 				  	. (!empty($params)?('@'.$params):'');
@@ -300,7 +304,7 @@ class DOUri
 	public static function UrlAddParams($params = array())
 	{
 		$params = array_merge(self::GetParams(),$params);
-		return self::BuildQuery(DORouter::GetModule(),DORouter::GetController(),DORouter::GetAction(),$params);
+		return self::BuildQuery(Router::GetModule(),Router::GetController(),Router::GetAction(),$params);
 	}
 	/**
 	 * build the real path url.
@@ -324,7 +328,7 @@ class DOUri
 	 */
 	public static function SetParams( $key,$value)
 	{
-		$filter = & DOFactory::getFilter();
+		$filter = & Factory::getFilter();
 		//filter
 		$value  = $filter->process( $value );
 		if(preg_match('#^([a-z0-9_-]+)(\[([^\[\]]*)\])+$#',$key,$m))

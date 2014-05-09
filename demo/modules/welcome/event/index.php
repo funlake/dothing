@@ -1,7 +1,8 @@
 <?php
+namespace Application\Modules\Welcome\Event;
 //include dirname(__FILE__).DS.'index.listener.php';
 /** Events for controller index **/
-class DOEventIndex extends DOEvent
+class Index extends \Dothing\Lib\Event
 {
 	public $cache       = null;
 	public $cacheModule = array();

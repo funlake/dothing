@@ -2,7 +2,7 @@
 	<legend>Debug</legend>
 	<div class="tabs-right ">
 		<ul class="nav nav-tabs span2">				
-<?php foreach((array)DOBlocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
+<?php foreach((array)\Dothing\Lib\Blocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 		  <li class="<?php echo $item_0['class']?>"><a href="#<?php echo $item_0['id']?>" data-toggle="tab"><?php echo $item_0['tab']?></a></li>
@@ -11,7 +11,7 @@
 </ul>
 
 		<div class="tab-content span9">				
-<?php foreach((array)DOBlocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
+<?php foreach((array)\Dothing\Lib\Blocks::GetBlock('profiler')->GetProfiler() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
 			<div class='tab-pane <?php echo $item_0['class']?>' id='<?php echo $item_0['id']?>'>

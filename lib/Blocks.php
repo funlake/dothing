@@ -1,11 +1,15 @@
 <?php
+namespace Dothing\Lib;
 /**
 ** @author  : Lake
 ** @package : Block function
 ** @version : 1.0
 **
 **/
-class DOBlocks
+use \Dothing\Lib\Profiler;
+use \Dothing\Lib\Template;
+use \Dothing\Lib\Router;
+class Blocks
 {
 	/** For cache handler **/
 	public $expire = 3600;
@@ -21,7 +25,7 @@ class DOBlocks
 	**/
 	public static function Show( $pos )
 	{
-		DOProfiler::MarkStartTime("Block:".$pos);
+		Profiler::MarkStartTime("Block:".$pos);
 		/**
 		**	1.Display cache block if we have
 		**	2.Fetch blocks by $pos
@@ -31,7 +35,7 @@ class DOBlocks
 		if(!empty($cache))
 		{
 			include $cache;
-			DOProfiler::MarkEndTime("Block:".$pos,__FILE__);
+			Profiler::MarkEndTime("Block:".$pos,__FILE__);
 			return;
 		}
 		//Fetch blocks by position
@@ -41,7 +45,7 @@ class DOBlocks
 		//Display blocks with it's specific layout according to current page.
 		if(!$blocks) 
 		{
-			DOProfiler::MarkEndTime("Block:".$pos,__FILE__);
+			Profiler::MarkEndTime("Block:".$pos,__FILE__);
 			return;
 		}
 		foreach( array_keys($blocks) as $page) 
@@ -50,7 +54,7 @@ class DOBlocks
 			if($page{0} === '!')
 			{
 				$reg  = substr($page,1);
-				if(preg_match('#'.$reg.'#is',DORouter::GetPageIndex()))
+				if(preg_match('#'.$reg.'#is',Router::GetPageIndex()))
 				{
 					continue;
 				}
@@ -62,14 +66,14 @@ class DOBlocks
 			else
 			{
 				$reg  = $page;
-				if(preg_match('#'.$reg.'#is',DORouter::GetPageIndex()))
+				if(preg_match('#'.$reg.'#is',Router::GetPageIndex()))
 				{
 					//Invoke blocks
 					self::Invoke( explode(',',$blocks[$page]) );
 				}
 			}
 		}
-		DOProfiler::MarkEndTime("Block:".$pos,__FILE__);
+		Profiler::MarkEndTime("Block:".$pos,__FILE__);
 		return ;	
 	}
 	/**
@@ -127,7 +131,7 @@ class DOBlocks
 			}
 			if(!file_exists($file))
 			{
-				throw new DORouterException("Unknown block:[{$block}]", 404);
+				throw new RouterException("Unknown block:[{$block}]", 404);
 			}
 			include_once $file;
 			self::$blocks[$blkId] = self::GetLayout($block,$layout);
@@ -158,7 +162,7 @@ class DOBlocks
 		/** Do we have included configuration file before ? **/
 		if(!self::$config)
 		{//No for include action
-			$path = TEMPLATE_ROOT.DS.DOTemplate::GetTemplate().DS.'block.config.php';
+			$path = TEMPLATE_ROOT.DS.Template::GetTemplate().DS.'block.config.php';
 			/**Do we have blocks configuration file for specify template?**/
 			if(file_exists($path))
 			{/**Yes then use this one**/
@@ -197,9 +201,9 @@ class DOBlocksHelper
 	public static function GetBlocksIndex()
 	{	
 		return array(
-		    DORouter::$module."/".DORouter::$controller."/".DORouter::$action
-		   ,DORouter::$module."/".DORouter::$controller."/*"
-		   ,DORouter::$module."/*"
+		    Router::$module."/".Router::$controller."/".Router::$action
+		   ,Router::$module."/".Router::$controller."/*"
+		   ,Router::$module."/*"
 		   ,".*"
 		); 
 	}

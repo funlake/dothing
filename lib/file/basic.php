@@ -1,5 +1,6 @@
 <?php
-class DOFileBasic
+namespace Dothing\Lib\File;
+class Basic
 {
 	public function __construct( )
 	{

@@ -1,10 +1,14 @@
 <?php
+namespace Dothing\Lib;
 /**
  * Event & Plugin hooker
  * @author lake
  *
  */
-class DOHook
+use \Dothing\Lib\Profiler as Profiler;
+use \Dothing\Lib\Router;
+use \Dothing\Lib\Controller;
+class Hook
 {
 	private static $listener 	= array();
 
@@ -17,7 +21,7 @@ class DOHook
 	public static function TriggerEvent()
 	{
 		$args 	= func_get_args();
-		if(!DORouter::$module) return;
+		if(!Router::$module) return;
 		//self::LoadEvents();
 		foreach( $args as $events)
 		{
@@ -25,32 +29,32 @@ class DOHook
 			{
 				/**Do we have registered this event for all action?**/
 				$onEvent = 'On'.ucwords($event);
-				DOProfiler::MarkStartTime('Event:'.$onEvent);
+				Profiler::MarkStartTime('Event:'.$onEvent);
 				/**Event would always call after controller loaded**/
-				$CTR	 = DOController::GetControllerEvent();
+				$CTR	 = Controller::GetControllerEvent();
 				if(method_exists($CTR,$onEvent))
 				{
 					// call_user_func_array(array(
 					// 	$CTR,$onEvent
 					// ), $params);
 					$CTR->$onEvent($params);
-					// DOEvent::CallChain(DORouter::$controller,strtolower($event),$params);
+					// DOEvent::CallChain(Router::$controller,strtolower($event),$params);
 				}
-				DOProfiler::MarkEndTime('Event:'.$onEvent,__FILE__);
+				Profiler::MarkEndTime('Event:'.$onEvent,__FILE__);
 				/**Do we have registered this event for specific action?**/
-				$onEvent = 'On'.ucwords($event).ucwords(DORouter::$action);
-				DOProfiler::MarkStartTime('Event:'.$onEvent);
+				$onEvent = 'On'.ucwords($event).ucwords(Router::$action);
+				Profiler::MarkStartTime('Event:'.$onEvent);
 				if(method_exists($CTR,$onEvent))
 				{
 					// call_user_func_array(array(
 					// 	$CTR,$onEvent
 					// ), $params);
 					$CTR->$onEvent($params);
-					// DOEvent::CallChain(DORouter::$controller
-					// 	,strtolower($event.DORouter::$action),$params
+					// DOEvent::CallChain(Router::$controller
+					// 	,strtolower($event.Router::$action),$params
 					// );
 				}
-				DOProfiler::MarkEndTime('Event:'.$onEvent,__FILE__);
+				Profiler::MarkEndTime('Event:'.$onEvent,__FILE__);
 
 			}
 
@@ -59,26 +63,26 @@ class DOHook
 	public static function LoadEvents()
 	{
 		static $loaded = array();
-		if(!isset($loaded[DORouter::$module]))
+		if(!isset($loaded[Router::$module]))
 		{
 			$listenerFile = DOController::GetPath('event').DS.'event.listener.php';
 			if(file_exists($listenerFile)) 
 			{
 				include $listenerFile;
 			}
-			$loaded[DORouter::$module] = true;
+			$loaded[Router::$module] = true;
 		}
 	}
 	public static function HangPlugin( $event , array $params = null )
 	{
-		DOProfiler::MarkStartTime('Plugin:'.$event);
+		Profiler::MarkStartTime('Plugin:'.$event);
 		foreach((array)self::FetchPlugins($event) as $plugin )
 		{
 			//Load slow
 			$plugin->Trigger($params);
 			//call_user_func_array(array($plugin,'Trigger'),$params);
 		}
-		DOProfiler::MarkEndTime('Plugin:'.$event,__FILE__);
+		Profiler::MarkEndTime('Plugin:'.$event,__FILE__);
 	}
 	
 	public static function FetchPlugins( $event )

@@ -1,8 +1,10 @@
 <?php 
+namespace Dothing\Lib\Session;
 ini_set('session.use_cookies',1);
 ini_set('session.use_only_cookies',1);
 ini_set('session.auto_start',0);
-class DOSessionWS
+use \Dothing\Lib\Loader as Loader;
+class Workshop
 {	
 	/** Session handler,default by 'file' **/
 	public static $sessionHandler;
@@ -10,10 +12,10 @@ class DOSessionWS
 	public static $drive;
 	/** Engine **/
 	public static $engine;
-	function DOSessionWS( )
+	function __construct( )
 	{
 		self::$drive		  = DO_SESSHANDLER;
-		self::$sessionHandler = 'DOSession'.ucwords(strtolower(self::$drive));
+		self::$sessionHandler = '\Dothing\Lib\Session\Drivers\\'.ucwords(self::$drive);
 	
 		if( self::CheckEngine( self::$drive ))
 		{
@@ -23,7 +25,7 @@ class DOSessionWS
 	
 	function CheckEngine( $drive )
 	{
-		return DOLoader::Import('lib.session.drivers.'.$drive); 
+		return Loader::Import('lib.session.drivers.'.$drive); 
 	}
 	
 	function LoadEngine( )
@@ -49,7 +51,8 @@ class DOSessionWS
 	{
 		if(!self::$engine)
 		{
-			self::$engine = DOFactory::GetTool('session',self::$drive);
+			//$handler = '\Dothing\Lib\Session\Drivers\\'.ucwords(self::$drive);
+			self::$engine = new \Dothing\Lib\Session\Session();
 		}
 		return self::$engine;
 	}

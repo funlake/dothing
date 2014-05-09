@@ -1,5 +1,8 @@
 <?php
-class DOPlgSystemPreparesql extends DOPlugin
+use \Dothing\Lib\Factory;
+use \Dothing\Lib\Router;
+use \Dothing\Lib\Uri;
+class DOPlgSystemPreparesql extends \Dothing\Lib\Plugin
 {
 	/**
 	**@$database : Object

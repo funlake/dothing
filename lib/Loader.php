@@ -1,8 +1,9 @@
 <?php
+namespace Dothing\Lib;
 /**
  * loader
  */
-class DOLoader
+class Loader
 {
 	private static $loaded = array();
 	/**
@@ -14,14 +15,42 @@ class DOLoader
 		//echo $class."<br/>";
 		// echo "<pre/>";
 		// print_r(debug_backtrace());
-		if(!preg_match('#(?<!Do)Exception$#i',$class))
+		if(!array_key_exists($class,self::$loaded))
 		{
-			$file = FRAMEWORK_ROOT.DS
-			    .'lib'.DS
-			    .str_replace('_',DS,preg_replace('#^DO#','',$class)).".php";
+			if(strpos($class,'Dothing') === 0 )
+			{
+				$path = str_replace(array('\\','dothing/'),array('/',FRAMEWORK_ROOT.'/'),strtolower($class)).".php";
 
-			file_exists($file) and include_once $file ;
+				//$class = explode('\\',$class);
+
+				//$class = array_pop($class);
+			}
+			if(strpos($class,'Application') === 0)
+			{
+				$path = str_replace(array('\\','application/'),array('/',SYSTEM_ROOT.'/'),strtolower($class)).".php";				
+			}
+			// if(!preg_match('#(?<!Do)Exception$#i',$class))
+			// {
+			// 	$file = FRAMEWORK_ROOT.DS
+			// 	    .'lib'.DS
+			// 	    .str_replace('_',DS,preg_replace('#^DO#','',$class)).".php";
+
+			// 	file_exists($file) and include_once $file ;
+			// 	self::$loaded[$file] = true;
+			// }
+			//echo $path."<br/>";
+
+			if(file_exists($path))
+			{
+				include_once $path;
+				if(class_exists($class))
+				{
+					self::$loaded[$class] = true;
+				}
+
+			}
 		}
+
 	}
 	/**
 	 * Load exception class
@@ -56,11 +85,11 @@ class DOLoader
 				$fs = FRAMEWORK_ROOT.DS.$f.'.php';
 				if(file_exists($ef))
 				{
-					include $ef;
+					include_once $ef;
 				}
 				else if( file_exists($fs) )
 				{
-					include $fs;
+					include_once $fs;
 				}
 				else 
 				{

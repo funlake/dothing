@@ -10,7 +10,7 @@ if(!function_exists('DOMakeSortHead'))
 		$sort = isset($_REQUEST['_dosort']) ? $_REQUEST['_dosort'] : '';
 		$sort = !empty($sort) ? $revert[$sort] : 'desc';
 
-		$url  = DOUri::UrlAddParams(array());
+		$url  = \Dothing\Lib\Uri::UrlAddParams(array());
 
 		return "<a data-toggle='post' data-link='".$url."' class='sorter' data-key='order,sort' data-value='{$key},{$sort}' href='javascript:void(0);'>".$text."</a>";
 	}
@@ -34,7 +34,7 @@ if(!function_exists('cutStr'))
 /** publish/unpublish tick style **/
 if(!function_exists('showStatus'))
 {
-	function showStatus($flag,$model,$idval,$idkey='')
+	function showStatus($flag,$model,$idval,$idkey='id')
 	{
 		$pu = array('unpublish','publish');
 		return "<a class='".$pu[$flag]." status_trigger' src='".Url(
@@ -65,7 +65,7 @@ if(!function_exists('showCfm'))
 	{
 		if(empty($link))
 		{
-			$redirect = Url(DORouter::GetPageIndex());
+			$redirect = Url(\Dothing\Lib\Router::GetPageIndex());
 		}
 		//Url('autocrud/Delete/group');
 		$yes 		= L('Confirm');

@@ -3,20 +3,25 @@
 ** A defualt plugin added by generator,so we call it system plugin.
 ** Do not remove this plugin file unless you know what to do.
 **/
-class DOPlgSystemPrepareroute extends DOPlugin
+use \Dothing\Lib\Factory as Factory;
+use \Dothing\Lib\Router as Router;
+use \Dothing\Lib\Uri as Uri;
+use \Dothing\Lib\Template;
+class DOPlgSystemPrepareroute extends \Dothing\Lib\Plugin
 {
 	public function Trigger($params = array())
 	{	
 		$mca = $params[0];
-		$cache = DOFactory::GetCache();
+		$cache = Factory::GetCache();
+		//print_r($cache);
 		if(false !== ($cacheContent = $cache->GetPageCache($mca)))
 		{
-			//DOTemplate::SetContent($cacheContent);
+			//Template::SetContent($cacheContent);
 			exit($cacheContent);
 		}
 		else
 		{
-			$request = DOFactory::GetTool('http.request');
+			$request = new \Dothing\Lib\Http\Request();
 			/** Strip slash since we're using pdo **/
 			if(get_magic_quotes_gpc())
 			{
@@ -32,7 +37,7 @@ class DOPlgSystemPrepareroute extends DOPlugin
 			** If people want to orverride this,like going to generate http download headers,
 			** should do that by [beforeRequest] event with controller.
 			**/
-			$response = DOFactory::GetTool('http.response');
+			$response = new \Dothing\Lib\Http\Response();
 			$response->SetHeader("Content-type","text/html;charset=".DO_CHARSET);
 
 			/** Template Set **/
@@ -51,13 +56,13 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		if(file_exists(TEMPLATE_ROOT.DS.'usage.php'))
 		{
 			$usage = include TEMPLATE_ROOT.DS.'usage.php';
-			if($template = $usage['template'][DORouter::GetModule()])
+			if($template = $usage['template'][Router::GetModule()])
 			{
-				DOTemplate::SetTemplate($template);
+				Template::SetTemplate($template);
 			}
-			if(isset($usage['layout'][DORouter::GetPageIndex()]) and ($layout 	= $usage['layout'][DORouter::GetPageIndex()]) )
+			if(isset($usage['layout'][Router::GetPageIndex()]) and ($layout 	= $usage['layout'][Router::GetPageIndex()]) )
 			{
-				DOTemplate::SetLayout($layout);
+				Template::SetLayout($layout);
 			}
 			else
 			{
@@ -66,9 +71,9 @@ class DOPlgSystemPrepareroute extends DOPlugin
 				{
 					//small bug in php 5.3.1
 					//echo $lyt;
-					if(@preg_match($lyt,DORouter::GetPageIndex()))
+					if(@preg_match($lyt,Router::GetPageIndex()))
 					{
-						DOTemplate::SetLayout($usage['layout'][$lyt]);
+						Template::SetLayout($usage['layout'][$lyt]);
 						break;
 					}
 				}
@@ -115,9 +120,9 @@ class DOPlgSystemPrepareroute extends DOPlugin
 		{
 			$pageindex = "page";
 		}
-		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
-		$params = DORequest::Get();
-		$session = DOFactory::GetSession();
+		$page   = Uri::GetModule()."/".Uri::GetController()."/".Uri::GetAction();
+		$params = \Dothing\Lib\Request::Get();
+		$session = Factory::GetSession();
 		//if people search something,then page will rewind to 1.
 		if(isset($_REQUEST['DO']['search']))
 		{

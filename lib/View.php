@@ -1,5 +1,9 @@
 <?php
-class DOView
+namespace Dothing\Lib;
+use \Dothing\Lib\Router;
+use \Dothing\Lib\Template;
+use \Dothing\Lib\Factory;
+class View
 {
 	public $controller = null;
 
@@ -35,14 +39,14 @@ class DOView
 	public function Display($vFile,$variables = array())
 	{
 		$view 	= basename($vFile);
-		$cFile = VIEWBASE.DS.'modules'.DS.DORouter::GetModule().DS.DORouter::GetController().DS.$view;
+		$cFile = VIEWBASE.DS.'modules'.DS.Router::GetModule().DS.Router::GetController().DS.$view;
 		if(!empty($variables))
 		{
 			extract($variables);
 		}
 		ob_start();
 		//if template cover view exists
-		$tFile = TEMPLATE_ROOT."/".DOTemplate::GetTemplate()."/views/modules/".DORouter::GetModule()."/".DORouter::GetController()."/".$view;
+		$tFile = TEMPLATE_ROOT."/".Template::GetTemplate()."/views/modules/".Router::GetModule()."/".Router::GetController()."/".$view;
 		if(file_exists($tFile))
 		{
 			$vFile = $tFile;
@@ -51,9 +55,9 @@ class DOView
 		$content = ob_get_clean();
 		if(DO_TEMPLATE_PARSE /*AND !file_exists($cFile)*/)
 		{//parse the content ,and store it into compile dir
-			//$content 		= DOTemplate::ParseHtml($vFile,$variables);
-			$content		= DOTemplate::Parse($content,null,$variables);
-			$fileHandler		= DOFactory::GetFileHandler();
+			//$content 		= Template::ParseHtml($vFile,$variables);
+			$content		= Template::Parse($content,null,$variables);
+			$fileHandler		= Factory::GetFileHandler();
 			$fileHandler->Store($cFile,$content);
 		}
 		include $cFile;

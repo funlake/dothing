@@ -1,11 +1,15 @@
 <?php
+namespace Dothing\Lib;
+use \Dothing\Lib\Uri;
+use \Dothing\Lib\Hook;
+use \Dothing\Lib\Blocks;
 /**
 **Template render class
 **@author lake
 **/
 ini_set("pcre.backtrack_limit", "23001337");
 ini_set("pcre.recursion_limit", "23001337");
-class DOTemplate
+class Template
 {
 	public static $params 	= array('title'=>'','module'=>'','blocks'=>'');
 	public static $template	= DO_TEMPLATE;
@@ -32,7 +36,7 @@ class DOTemplate
 	}
 	public static function SetTemplateUriPath($template)
 	{
-		!defined('DO_URI_BASE') AND define('DO_URI_BASE',DOUri::GetBase());
+		!defined('DO_URI_BASE') AND define('DO_URI_BASE',Uri::GetBase());
 	 	!defined('DO_THEME_BASE') AND define('DO_THEME_BASE',DO_URI_BASE.'/templates/'.$template);
 	 	!defined('DO_THEME_DIR') AND define('DO_THEME_DIR',TEMPLATE_ROOT.DS.$template);	
 	}
@@ -79,7 +83,7 @@ class DOTemplate
 		$content 		= self::Parse($content,null,null);
 		if(!empty($path))
 		{
-			$fileHandler	= DOFactory::GetTool('file.basic');
+			$fileHandler	= new \Dothing\Lib\File\Basic();
 			$fileHandler->Store($path,$content); 
 		}
 		return $content;
@@ -106,14 +110,14 @@ class DOTemplate
 	{
 		$pos = strtolower( $pos );
 		/**We probably need to adjust specific block in a controller**/
- 		DOHook::TriggerEvent(
+ 		Hook::TriggerEvent(
 			array(
 				'beforeRenderBlock'.ucwords($pos) => array(self::$params)
 			)
 		);
 		/** Display blocks according to related position **/
 		ob_start();	
-		DOBlocks::Show($pos);
+		Blocks::Show($pos);
 		$blockContent = ob_get_clean();
 		if(!isset(self::$params["blocks"][$pos]))
 		{
@@ -121,7 +125,7 @@ class DOTemplate
 		}
  		self::$params["blocks"][$pos] .= $blockContent;
  		/**We probably need to adjust specific block in a controller**/
-		DOHook::TriggerEvent(
+		Hook::TriggerEvent(
 			array(
 				'afterRenderBlock'.ucwords($pos) => array($blockContent)
 			)
@@ -183,7 +187,7 @@ class DOTemplate
 		$type  = !empty($type) ? trim($type,'/') : 'default';
 		$pageInstance = <<<EOD
 		<?php
-		 \$pager = DOFactory::GetWidget('paginate','{$type}', {$data},DO_LIST_ROWS);
+		 \$pager = \Dothing\Lib\Factory::GetWidget('paginate','{$type}', {$data},DO_LIST_ROWS);
 		 echo \$pager->Render();
 		 ?>
 EOD;
@@ -219,7 +223,7 @@ EOD;
 			}
 			$treeChar    ='$tree_'.md5(uniqid(md5(rand()), true));
 			$html[]     = str_pad("",($level+1)*4,"\t",STR_PAD_LEFT);
-			$html[] = PHP_EOL.'<'.'?php '.$treeChar.'=DOFactory::GetWidget("tree","'.$treeWidget.'",array('.$data.'))'.' ?'.'>'.PHP_EOL;
+			$html[] = PHP_EOL.'<'.'?php '.$treeChar.'=\Dothing\Lib\Factory::GetWidget("tree","'.$treeWidget.'",array('.$data.'))'.' ?'.'>'.PHP_EOL;
 			//$html[] 	= PHP_EOL.'<'.'?php'.' foreach('.$data.' as '.$keyChar.'=>'.$itemChar.') : ?'.'>'.PHP_EOL;
 			$content = addslashes($content);
 			$html[]     = '<'.'?php'.' echo '.$treeChar.'->Render("'.$content.'"); ?'.'>'.PHP_EOL;
@@ -279,7 +283,7 @@ EOD;
 		{
 			if($tag != "notag")
 			{
-				return stripslashes("<".$tag." ".$attrs.">".implode("",$html)."</".$tag.">");
+				return str_replace(array("\\'",'\\"'),array("'",'"'),"<".$tag." ".$attrs.">".implode("",$html)."</".$tag.">");
 			}
 			else
 			{
@@ -374,14 +378,14 @@ EOD;
 
 	public static function GetModelConstant($model)
 	{
-		return "DOFactory::GetModel(strtolower('".$model."'))";
+		return '\Dothing\Lib\Factory::GetModel(strtolower(\''.$model.'\'))';
 	}
 
 	public static function GetBlockConstant($pos)
 	{
 		$pos = array_map('strtolower',explode("/",$pos));
 		$pos = implode(".",$pos);
-		return "DOBlocks::GetBlock('".$pos."')";
+		return "\\Dothing\\Lib\\Blocks::GetBlock('".$pos."')";
 	}
 }
 ?>

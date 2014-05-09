@@ -1,3 +1,8 @@
+<?php
+use \Dothing\Lib\Uri;
+use \Dothing\Lib\Template;
+use \Dothing\Lib\Router;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,11 +40,11 @@
       <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/main.css" rel="stylesheet">
       <link href="<?php echo DO_THEME_BASE;?>/js/plugin/css/chosen/chosen.css" rel="stylesheet">
       <link href="<?php echo DO_THEME_BASE;?>/js/plugin/css/icheck/_all.css" rel="stylesheet">
-      <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo DOUri::GetBase();?>/assets/js/require.js"></script>
+      <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo Uri::GetBase();?>/assets/js/require.js"></script>
         <script type="text/javascript">
-      var DOJsBase      = '<?php echo DOUri::GetBase();?>/assets/js';
-      var DOJsModule = '<?php echo DORouter::GetModule();?>';
-      var DOJsMod = '<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>';
+      var DOJsBase      = '<?php echo Uri::GetBase();?>/assets/js';
+      var DOJsModule = '<?php echo Router::GetModule();?>';
+      var DOJsMod = '<?php echo Router::GetController();?>_<?php echo Router::GetAction();?>';
     </script>
     </head>
     <body>
@@ -95,7 +100,6 @@
       $(".ui-loader").animate({
         opacity:0,zIndex:0
       },500)
-       //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
     });
     </script>
   </body>

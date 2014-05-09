@@ -1,5 +1,6 @@
 <?php
-class DOHelper
+namespace Dothing\Lib;
+class Helper
 {
 	public static function GetDataLimit()
 	{
@@ -17,7 +18,7 @@ class DOHelper
 
 	public static function GetCurPage()
 	{
-		$params = DORouter::GetParams();
+		$params = \Dothing\Lib\Router::GetParams();
 		if(defined('DO_PAGE_INDEX'))
 		{
 			$page = isset($params[DO_PAGE_INDEX]) ? $params[DO_PAGE_INDEX] : null ;

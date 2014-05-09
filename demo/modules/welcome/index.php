@@ -1,10 +1,11 @@
 <?php
+namespace Application\Modules\Welcome;
 /**
 **@project:/var/www/dothing
 **@whytodo:
 **@author:Lake
 **/
-class DOControllerIndex extends DOController
+class Index extends \Dothing\Lib\Controller
 {
 	public function assignTo($obj,$keys,$value)
 	{

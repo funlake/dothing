@@ -4,7 +4,7 @@ class UserIndexTest extends PHPUnit_TestCase
 {
 	public function TestDb()
 	{
-		$db = DOFactory::GetDatabase();
+		$db = \Dothing\Lib\Factory::GetDatabase();
 		$this->assertNotNull($db, "Database has been connected");
 	}
 	public function TestLake()

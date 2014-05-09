@@ -1,4 +1,5 @@
 <?php
+use \Dothing\Lib\Factory as Factory;
 /**
  * Single table object
  * @author lake
@@ -13,11 +14,11 @@ class DOTable
 	/** Primary key **/
 	public $_key;
 	
-	function DOTable($tableName,$key='',$db)
+	function __construct($tableName,$key='',$db)
 	{
 		if( !is_object( $db ) )
 		{
-			$db = DOFactory::GetDatabase();
+			$db = Factory::GetDatabase();
 		}
 		$this->_db 	= $db;
 		$this->_tb 	= $tableName;
@@ -37,6 +38,7 @@ class DOTable
 	function GetOne($field,$condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
 		$db = $this->_db;
+
 		$db->Clean();
 		$db->From( $this->_tb)
 		->Select($field)
@@ -48,7 +50,6 @@ class DOTable
 	/** Get row according to conditions */
 	function GetRow(array $condition = null,$vals = array(),$orderby = array(),$groupby = null,$limit = array())
 	{
-
 		$db = $this->_db;
 		$db->Clean();
 		$sql = $db->From( $this->_tb )

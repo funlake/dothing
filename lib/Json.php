@@ -1,4 +1,5 @@
 <?php
+namespace Dothing\Lib;
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
@@ -789,7 +790,7 @@ class Services_JSON_Error
 }
 
 //for framework call
-class DOJson extends Services_JSON 
+class Json extends Services_JSON 
 {
 	
 }

@@ -3,7 +3,9 @@
 **
 ** authorize plugin,see people if they can access current action.
 **/
-class DOPlgAuthorizePrepareroute extends DOPlugin
+use \Dothing\Lib\Uri;
+use \Dothing\Lib\Factory;
+class DOPlgAuthorizePrepareroute extends \Dothing\Lib\Plugin
 {
 	public function Trigger($params = array())
 	{
@@ -11,14 +13,14 @@ class DOPlgAuthorizePrepareroute extends DOPlugin
 		/** Login check ,for backend **/
 		if($mca[0] == "admin" )
 		{
-			$session = DOFactory::GetSession();
+			$session = Factory::GetSession();
 
 			if(($mca[1]."/".$mca[2] ) != "user/login")
 			{
 				if($session->Get('_adm_user') == null)
 				{
 					$msg = L("Please login to access backend modules");
-					DOUri::Redirect(Url("admin/user/login"),$msg,0);
+					Uri::Redirect(Url("admin/user/login"),$msg,0);
 					exit();
 				}
 			}
@@ -26,7 +28,7 @@ class DOPlgAuthorizePrepareroute extends DOPlugin
 			{
 				if($session->Get('_adm_user') != null)
 				{
-					DOUri::Redirect(Url("admin/user/index"),"",1);
+					Uri::Redirect(Url("admin/user/index"),"",1);
 					exit();
 				}
 			}

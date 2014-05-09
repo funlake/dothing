@@ -1,10 +1,12 @@
 <?php
+namespace Application\Models;
 /**
 **@project:/var/www/dothing
 **@whytodo:
 **@author:Lake
 **/
-class DOModelStatus extends DOModel
+use \Dothing\Lib\Factory;
+class Status extends \Dothing\Lib\Model
 {
 	public function __construct()
 	{
@@ -14,9 +16,9 @@ class DOModelStatus extends DOModel
 	public function Update(array $uparray = null)
 	{
 		$key = $uparray['_k'] ?: 'id';
-		$res = new stdClass();
+		$res = new \stdClass();
 		$res->success = 1;
-		 $db = DOFactory::GetDatabase();
+		 $db = Factory::GetDatabase();
 		 $db->SetQuery("update `{$uparray['_m']}` set state=1-state where `{$key}`='{$uparray['_v']}'");
 		if(!$db->Execute())
 		{

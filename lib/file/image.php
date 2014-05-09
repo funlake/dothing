@@ -1,8 +1,9 @@
 <?php
-class DOFileImage
+namespace Dothing\Lib\File;
+class Image
 {
 
-	function DOImage()
+	function __construct()
 	{
 /*		$this->sorceFile = $sorceFile;
 		$this->targetFile= $targetFile;

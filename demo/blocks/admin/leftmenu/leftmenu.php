@@ -1,6 +1,8 @@
 <?php 
 !defined('DO_ACCESS') AND DIE("Go Away!");
-class DOBlocksAdminLeftmenu extends DOBlocksItem
+use \Dothing\Lib\Router;
+use \Dothing\Lib\Factory;
+class DOBlocksAdminLeftmenu extends \Dothing\Lib\BlocksItem
 {
 	public function GetBackMenu()
 	{
@@ -66,7 +68,7 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 					   ,'link'  => "admin/user/index"
 					   ,'iconClass' => 'glyphicon glyphicon-user glyphicon-white'
 					   ,'class' => in_array(
-					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					Router::GetController()."/".Router::GetAction(),
 					   					array('user/index','user/edit')
 					   				) ? 'item-active' : ''
 					),
@@ -75,25 +77,25 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		  	   		   ,'link'  => 'admin/user/group'
 		  	   		    ,'iconClass' => 'glyphicon glyphicon-grid glyphicon-white'
 					   ,'class' => in_array(
-					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					Router::GetController()."/".Router::GetAction(),
 					   					array('user/group','user/editgroup')
-					   				) ? 'item-active' : ''		  	   		
+					   				) ? 'item-active' : ''	  	   		
 					),
 					array(
 		  	   			'title' => L('Roles')
 		  	   		   ,'link'  => 'admin/user/role'
 		  	   		   ,'iconClass' => ''
 					   ,'class' => in_array(
-					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					Router::GetController()."/".Router::GetAction(),
 					   					array('user/role','user/editrole','user/rolepermission')
-					   				) ? 'item-active' : ''		  	   		
+					   				) ? 'item-active' : ''
 					),
 					array(
 		  	   			'title' => L('Permissions')
 		  	   		   ,'link'  => 'admin/user/permission'
 		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
-					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					Router::GetController()."/".Router::GetAction(),
 					   					array('user/permission','user/editpermission')
 					   				) ? 'item-active' : ''		  	   		
 					),
@@ -102,15 +104,15 @@ class DOBlocksAdminLeftmenu extends DOBlocksItem
 		  	   		   ,'link'  => 'admin/user/operation'
 		  	   		    ,'iconClass' => ''
 					   ,'class' => in_array(
-					   					DORouter::GetController()."/".DORouter::GetAction(),
+					   					Router::GetController()."/".Router::GetAction(),
 					   					array('user/operate','user/editoperate')
 					   				) ? 'item-active' : ''		  	   		
 					)
 			   )
 		   )
 		);
-		$curIndex = DORouter::GetPageIndex();
-		$sess = DOFactory::GetSession();
+		$curIndex = Router::GetPageIndex();
+		$sess = Factory::GetSession();
 		$permissions = $sess->Get("permissions");
 	//	print_r($permissions);
 		foreach((array)$menus as $key=>$menu)

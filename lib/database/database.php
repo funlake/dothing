@@ -1,5 +1,6 @@
 <?php
-DOLoader::Import('lib.database.record');
+use \Dothing\Lib\Loader;
+Loader::Import('lib.database.record');
 /** 
  * PDO database interface
  * @author lake
@@ -17,7 +18,7 @@ class DODatabase implements DORecord
 	public $sqlQuerys = array();
 	public $sqlQuery  = '';
 	public $opt;
-	function DODatabase($host,$user,$pwd,$dbname)	
+	function __construct($host,$user,$pwd,$dbname)	
 	{
 		//set dsn
 	//	call_user_func_array(array($this,'SetDsn'),array($host,$dbname));
@@ -95,7 +96,7 @@ class DODatabase implements DORecord
 	 */
     function GetSyntax( )
    	{
-        return DODatabaseWS::GetSyntax($this->driver);
+        return \Dothing\Lib\Database\Workshop::GetSyntax($this->driver);
     }
 	/**
 	 * makeSql
@@ -120,7 +121,7 @@ class DODatabase implements DORecord
 	{
 		$syntax         	= $this->GetSyntax();
 		$this->sqlQuerys[]  = $this->sqlQuery = $syntax->formatSql( $sql );
-		DOHook::HangPlugin('prepareSql',array($this,$syntax,$params));
+		\Dothing\Lib\Hook::HangPlugin('prepareSql',array($this,$syntax,$params));
 		$statement 			= $this->connFlag->prepare( $this->sqlQuery ,
 			array(PDO::MYSQL_ATTR_FOUND_ROWS => true)
 		);
@@ -152,7 +153,7 @@ class DODatabase implements DORecord
 		$R->affect_row  		= $this->affect_row = $statement->rowCount();
 		$errors			= $statement->errorInfo();
 		//log the query
-		DOError::CustomHandler("sqlquery", $this->sqlQuery,implode(',',$params), __FILE__, __LINE__);
+		\Dothing\Lib\Error::CustomHandler("sqlquery", $this->sqlQuery,implode(',',$params), __FILE__, __LINE__);
 		if($this->IsError($errors))
 		{
 			//throw new DODatabaseException($sql."//detail:".$errors[2],301);

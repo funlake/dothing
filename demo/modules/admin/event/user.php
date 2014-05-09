@@ -1,6 +1,7 @@
 <?php
+namespace Application\Modules\Admin\Event;
 !defined('DO_ACCESS') and DIE("Go Away!");
-class DOEventUser extends DOEvent
+class User extends \Dothing\Lib\Event
 {
 	public function onBeforeRequest($params = array())
 	{

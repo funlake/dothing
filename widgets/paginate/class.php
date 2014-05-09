@@ -1,11 +1,14 @@
 <?php
+use \Dothing\Lib\Uri;
+use \Dothing\Lib\Http\Request;
+use \Dothing\Lib\Factory;
 class DOWidgetPaginate
 {
 	public function DOWidgetPaginate( $totalRow , $rowPerPage = 20)
 	{
 		$this->totalRow 	= (int)$totalRow;
 		$this->rowPerPage	= (int)$rowPerPage;
-		$this->curPageNo	= (int)DOHelper::GetCurPage();
+		$this->curPageNo	= (int)\Dothing\Lib\Helper::GetCurPage();
 		$this->SetPageState();
 	}
 	public function SetPageState()
@@ -19,9 +22,9 @@ class DOWidgetPaginate
 		{
 			$pageindex = "page";
 		}
-		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
-		$params = DORequest::Get();
-		$session = DOFactory::GetSession();
+		$page   = Uri::GetModule()."/".Uri::GetController()."/".Uri::GetAction();
+		$params = Request::Get();
+		$session = Factory::GetSession();
 		//if people search something,then page will rewind to 1.
 		if(isset($_REQUEST['DO']['search']))
 		{

@@ -1,5 +1,6 @@
 <?php
-class DOBase
+namespace Dothing\Lib;
+class Base
 {
 	public static $_mark = array();
 	public static $_vars = array();
@@ -20,7 +21,7 @@ class DOBase
 	public static function SetToken()
 	{
 		$tokens = self::GenToken();
-		$sess   = DOFactory::GetSession();
+		$sess   = Factory::GetSession();
 		$sess->Set('__token',$tokens);
 		//setcookie('__token',$tokens,time()+60);
 		return $tokens;
@@ -30,7 +31,7 @@ class DOBase
 	 */
 	public static function GetToken()
 	{
-		$sess   = DOFactory::GetSession();
+		$sess   = Factory::GetSession();
 		return $sess->Get('__token');
 		//return $_COOKIE['__token'];
 	}

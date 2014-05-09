@@ -1,5 +1,5 @@
 <?php
-DOLoader::Import('widgets.tree.class');
+\Dothing\Lib\Loader::Import('widgets.tree.class');
 class DOWidgetTreeDefault extends DOWidgetTree
 {
 	public $idName 		 = 'id';

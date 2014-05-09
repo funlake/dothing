@@ -1,10 +1,12 @@
 <?php
+namespace Dothing\Lib;
 /**
  * Classes Factory 
  * @author lake
  *
  */
-class DOFactory
+use \Dothing\Lib\Loader as Loader;
+class Factory
 {
 	
 	public static $crateEveryTime = array('time'=>true);
@@ -20,12 +22,12 @@ class DOFactory
 	 */
 	public static function GetTable( $table , $key = '' , $db= '')
 	{
-		DOLoader::Import('lib.database.database');
-		DOLoader::Import('lib.database.table');
+		Loader::Import('lib.database.database');
+		Loader::Import('lib.database.table');
 		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		if( !isset(self::$_load['tables'][$table] ) )
 		{
-			if(DOLoader::Import('lib.database.tables.'.DO_DBDRIVE.'_table'))
+			if(Loader::Import('lib.database.tables.'.DO_DBDRIVE.'_table'))
 			{
 				$class = 'DO'.ucwords(DO_DBDRIVE).'Table';
 				self::$_load['tables'][$table]  = new $class( $table,$key,$db);
@@ -51,7 +53,7 @@ class DOFactory
 		}
 		$wigClass = "DOWidget".ucwords(strtolower($widget)).ucwords(strtolower($type));
 		return call_user_func_array(
-				array(new ReflectionClass( $wigClass ),'newInstance'),  array_slice($params, 2)
+				array(new \ReflectionClass( $wigClass ),'newInstance'),  array_slice($params, 2)
 		);
 
 	}
@@ -64,13 +66,13 @@ class DOFactory
 		$table = preg_replace('~^#__~i', DO_TABLEPRE, $table);
 		if(!isset(self::$_load['models'][$table]))
 		{
-			if(!file_exists(MODELBASE.DS.$table.'.php'))
-			{
-				throw new DOException("Unkonw model:".$table, 121);
-				return false;
-			} 
-			include MODELBASE.DS.$table.'.php';
-			$modelClass = 'DOModel'.ucwords(strtolower($table));
+			// if(!file_exists(MODELBASE.DS.$table.'.php'))
+			// {
+			// 	throw new DOException("Unkonw model:".$table, 121);
+			// 	return false;
+			// } 
+			// include_once MODELBASE.DS.$table.'.php';
+			$modelClass = '\Application\Models\\'.$table;
 			self::$_load['models'][$table] = new $modelClass();
 		}
 		return self::$_load['models'][$table];
@@ -81,7 +83,7 @@ class DOFactory
 	public static function GetPaginate( )
 	{
 		$params = func_get_args();
-		DOLoader::Import('lib.paginate.workshop');
+		Loader::Import('lib.paginate.workshop');
 		if(!self::$_load['page'])
 		{
 			self::$_load['page'] = new DOPaginateWS( $params[0] );
@@ -96,7 +98,7 @@ class DOFactory
 	 */
 	public static function GetDatabase($driver = null)
 	{
-		DOLoader::Import('lib.database.workshop');
+		//Loader::Import('lib.database.workshop');
 		if(!$driver)
 		{
 			$driver = DO_DBDRIVE;
@@ -108,7 +110,7 @@ class DOFactory
 		$key = 'pdo'.serialize( $params );
 		if(!isset(self::$_load[$key]))
 		{
-			self::$_load[$key] = new DODatabaseWS( $driver ,$params);
+			self::$_load[$key] = new \Dothing\Lib\Database\Workshop( $driver ,$params);
 		}
 		return self::$_load[$key]->GetEngine();
 	}
@@ -120,10 +122,10 @@ class DOFactory
 	 */
 	public static function GetSession( )
 	{
-		DOLoader::Import('lib.session.workshop');
+		Loader::Import('lib.session.workshop');
 		if(!isset(self::$_load['session']))
 		{
-			self::$_load['session'] = new DOSessionWS();
+			self::$_load['session'] = new \Dothing\Lib\Session\Workshop();
 		}
 		return self::$_load['session']->GetEngine();
 	}
@@ -140,10 +142,10 @@ class DOFactory
 	 */
 	public static function GetCache()
 	{
-		DOLoader::Import('lib.cache.workshop');
+		Loader::Import('lib.cache.workshop');
 		if(!isset(self::$_load['cache']))
 		{
-			self::$_load['cache'] = new DOCacheWS();
+			self::$_load['cache'] = new \Dothing\Lib\Cache\Workshop();
 		}
 		return self::$_load['cache']->GetEngine();
 	}
@@ -152,7 +154,7 @@ class DOFactory
 	{
 		if(!self::$_load['json'])
 		{
-			self::$_load['json'] = new DOJson();
+			self::$_load['json'] = new \Dothing\Lib\Json();
 		}
 		return self::$_load['json'];		
 	}
@@ -174,7 +176,7 @@ class DOFactory
 	{
 		if(!isset(self::$_load['filter']))
 		{
-			self::$_load['filter'] = new DOFilter();
+			self::$_load['filter'] = new \Dothing\Lib\Filter();
 		}
 		return self::$_load['filter'];
 	}
@@ -183,7 +185,7 @@ class DOFactory
 	{
 		if(!isset(self::$_load['filehd']))
 		{
-			self::$_load['filehd'] = self::GetTool('file.basic');
+			self::$_load['filehd'] = new \Dothing\Lib\File\Basic();
 		}
 		return self::$_load['filehd'];		
 	}
@@ -202,7 +204,7 @@ class DOFactory
 		{
 			$cn 		= explode('.',$class,2);
 			if(!isset($cn[1])) $cn[1] = $cn[0];
-			DOLoader::Import('lib.'.$cn[0].'.'.$cn[1] );
+			\Dothing\Lib\Loader::Import('lib.'.$cn[0].'.'.$cn[1] );
 			@array_shift( $args );
 			$component 		= 'DO'.ucwords($cn[0]).ucwords($cn[1]);
 			if(!class_exists($component))
@@ -211,7 +213,7 @@ class DOFactory
 			}
  			/** Create instace with arguments **/
 			$tools[$class] 	= call_user_func_array(
-					array(new ReflectionClass( $component ),'newInstance')
+					array(new \ReflectionClass( $component ),'newInstance')
 				   ,$args
 			); 
 		}

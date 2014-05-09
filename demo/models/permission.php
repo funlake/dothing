@@ -1,11 +1,12 @@
 <?php
+namespace Application\Models;
 /**
 **@project:/var/www/dothing
 **@whytodo:
 **@author:Lake
 **/
 
-class DOModelPermission extends DOModel
+class Permission extends \Dothing\Lib\Model
 {
 	// public $connection = array(
 	// 	"#_role" => "id:role_id"

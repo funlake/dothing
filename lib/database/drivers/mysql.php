@@ -1,5 +1,6 @@
 <?php
-DOLoader::Import('lib.database.database');
+use \Dothing\Lib\Loader;
+Loader::Import('lib.database.database');
 class DODatabaseMysql extends DODatabase
 {
 	public $driver = 'mysql';

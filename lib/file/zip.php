@@ -1,5 +1,6 @@
 <?php
-class DOFileZip
+namespace Dothing\Lib\File;
+class Zip
 {
 	public static $_ctrlDirHeader 	= "\x50\x4b\x01\x02";
 	public static $_fileHeader 		= "\x50\x4b\x03\x04";

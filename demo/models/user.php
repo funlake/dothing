@@ -1,6 +1,9 @@
 <?php
-class DOModelUser extends DOModel
+namespace Application\Models;
+class User extends \Dothing\Lib\Model
 {
+	public $name = "#__user";
+	public $pk = "id";
 	public $fields = array(
 		'@id'  		=> true,
 		'user_name'		=> 'VARCHAR(100)',
@@ -34,7 +37,7 @@ class DOModelUser extends DOModel
 	);
 	public function UserGroupList($id='')
 	{
-		$db = DOFactory::GetDatabase();
+		$db = \Dothing\Lib\Factory::GetDatabase();
 		$db->Clean();
 		$where = array();
 		if(!empty($id))
@@ -96,25 +99,25 @@ class DOModelUser extends DOModel
 		$R = parent::Update($upArray);
 		if($R->success)
 		{
-			DOFactory::GetTable('#__user_group')->Delete(array(
+			\Dothing\Lib\Factory::GetTable('#__user_group')->Delete(array(
 				"user_id" => "=?"
 			),$upArray['id']);
 			foreach($upArray['group_id'] as $gid)
 			{
-				DOFactory::GetTable('#__user_group')->Insert(
+				\Dothing\Lib\Factory::GetTable('#__user_group')->Insert(
 					array(
 						'group_id' => $gid,
 						'user_id'  => $upArray['id']
 					)
 				);				
 			}
-			DOFactory::GetTable('#__user_role')->Delete(array(
+			\Dothing\Lib\Factory::GetTable('#__user_role')->Delete(array(
 				"user_id" => "=?"
 			),$upArray['id']);
 
 			foreach($upArray['role_id'] as $rid)
 			{
-				DOFactory::GetTable('#__user_role')->Insert(
+				\Dothing\Lib\Factory::GetTable('#__user_role')->Insert(
 					array(
 						'user_id' => $upArray['id'],
 						'role_id' => $rid

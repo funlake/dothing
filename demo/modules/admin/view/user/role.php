@@ -1,6 +1,6 @@
 <?php 
 !defined('DO_ACCESS') AND DIE("Go Away!"); 
-$searchIndex = "DOSearch/".DORouter::GetPageIndex();
+$searchIndex = "DOSearch/".\Dothing\Lib\Router::GetPageIndex();
 $searchs     = SG($searchIndex);
 ?>
 <div class="row well">

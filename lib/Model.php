@@ -1,5 +1,11 @@
 <?php
-class DOModel
+namespace Dothing\Lib;
+use \Dothing\Lib\Http\Request as Request;
+use \Dothing\Lib\Factory as Factory;
+use \Dothing\Lib\Uri as Uri;
+use \Dothing\Lib\Lang as Lang;
+use \Dothing\Lib\Router;
+class Model
 {
 	public static  $_tbl 		= array();
 	public static  $_mod 		= array();
@@ -15,9 +21,9 @@ class DOModel
 	public function __construct()
 	{
 		if(empty($this->name)) $this->name = $this->GetName();
-		$get 		= DORequest::Get();
-		$session 	= DOFactory::GetSession();
-		$page   = DOUri::GetModule()."/".DOUri::GetController()."/".DOUri::GetAction();
+		$get 		= Request::Get();
+		$session 	= Factory::GetSession();
+		$page   = Uri::GetModule()."/".Uri::GetController()."/".Uri::GetAction();
 
 		$start = $session->Get($page."_p");
 		if(empty($start) or $start < 0) 
@@ -26,12 +32,12 @@ class DOModel
 		}
 		$this->defaultLimit = array(($start-1)*DO_LIST_ROWS,DO_LIST_ROWS);
 
-		$this->addMsgSuccess 	= DOLang::Get('You have successfully add an item');
-		$this->addMsgFail 	= DOLang::Get('You fail to add an item');
-		$this->updateMsgSuccess = DOLang::Get('You have successfully modify it');
-		$this->updateMsgFail	= DOLang::Get('You failed to modify it');
-		$this->deleteMsgSuccess = L('You have successfully deleted the item');
-		$this->deleteMsgFail       	= L('Fail to delete');
+		$this->addMsgSuccess 	= Lang::Get('You have successfully add an item');
+		$this->addMsgFail 	= Lang::Get('You fail to add an item');
+		$this->updateMsgSuccess = Lang::Get('You have successfully modify it');
+		$this->updateMsgFail	= Lang::Get('You failed to modify it');
+		$this->deleteMsgSuccess = Lang::Get('You have successfully deleted the item');
+		$this->deleteMsgFail       	= Lang::Get('Fail to delete');
 	}
 
 
@@ -46,7 +52,7 @@ class DOModel
 			{
 				if(!self::$_tbl[$v[0]])
 				{
-					self::$_tbl[$v[0]] = DOFactory::GetTable($v[0],$v[1],$v[2]);
+					self::$_tbl[$v[0]] = Factory::GetTable($v[0],$v[1],$v[2]);
 				}
 			}
 		}
@@ -62,18 +68,25 @@ class DOModel
 	/** Go directly to table handler **/
 	public function __call($name,array $args = null)
 	{
+		$myDb	= Factory::GetTable($this->GetName(),$this->pk);
+		if(preg_match('#GetRowBy(\w+)#',$name,$m))
+		{
+			return $myDb->GetRow(array(
+				strtolower($m[1]) => '=?'
+			),$args[0]);
+		}
 		//echo $this->GetName();exit;
-		$myDb	= DOFactory::GetTable($this->GetName(),$this->pk);
+		
 		return call_user_func_array(array($myDb,$name),$args);
 	}
 
 	public function Count()
 	{
-		return DOFactory::GetTable($this->GetName())->Count();
+		return Factory::GetTable($this->GetName())->Count();
 	}
 	public static function LastTotal()
 	{
-		$db = DOFactory::GetDatabase();
+		$db = Factory::GetDatabase();
 		return $db->GetFoundRows();
 	}
 	public static function SetTotal($total = 0)
@@ -90,14 +103,14 @@ class DOModel
 	 */
 	public function Load( $model )
 	{
-		return DOFactory::GetModel( $model );
+		return Factory::GetModel( $model );
 	}
 	/**
 	 * A method basically use in table list page
 	 */
 	public function Data($limit = null)
 	{
-		$searchs = (array)SG(DORouter::GetSearchIndex());
+		$searchs = (array)SG(Router::GetSearchIndex());
 		/** People is searching something in specific page? **/
 		if(!!(array_filter($searchs)))
 		{
@@ -109,18 +122,18 @@ class DOModel
 	}
 	public function Find($where = null)
 	{
-		//$session = DOFactory::GetSession();//session_start would happen here
+		//$session = Factory::GetSession();//session_start would happen here
 		if(!empty($where) and !is_array($where))
 		{
 			$where = array($this->pk => $where);
 		}
-		$searchs = (array)SG(DORouter::GetSearchIndex());
+		$searchs = (array)SG(Router::GetSearchIndex());
 		/** People is searching something in specific page? **/
 		if(!!(array_filter($searchs)))
 		{
 			$where   = array_merge((array)$where,$searchs);
 		}
-		$rorder = DORequest::Get('_doorder');
+		$rorder = \Dothing\Lib\Http\Request::Get('_doorder');
 		if(!empty($rorder)){
 			$this->defaultOrderby = array(
 				DORequest::Get('_doorder') => DORequest::Get('_dosort')
@@ -173,7 +186,7 @@ class DOModel
 				}
 				//array_unshift($params,$condition);
 			}
-			$caller = DOFactory::GetTable($this->name);
+			$caller = Factory::GetTable($this->name);
 			//$R      = call_user_func_array(array($caller,'GetAll'),array($condition,$params,$orderby,$groupby,$limit));
 			$R      = $caller->GetAll($condition,$params,$orderby,$groupby,$limit);
 			$this->SetFieldsValue($R,$R[0],$this->action);
@@ -202,7 +215,7 @@ class DOModel
 			unset($this->binds[$this->pk]);
 			if(!!$this->binds)
 			{
-				$R =  DOFactory::GetTable($this->name)->Insert( $this->binds );
+				$R =  Factory::GetTable($this->name)->Insert( $this->binds );
 				$this->SetFieldsValue($R,$insArray,$this->action);
 				$this->AffectChainAction($insArray);
 				return $R;
@@ -229,7 +242,7 @@ class DOModel
 			{
 				$params[] = $this->binds[$dk];
 			}
-			$caller = DOFactory::GetTable($this->name);
+			$caller = Factory::GetTable($this->name);
 			$R      = call_user_func_array(array($caller,__FUNCTION__), $params);
 			$this->SetFieldsValue($R,$cdtarray,$this->action);
 			$this->AffectChainAction($cdtarray);
@@ -265,7 +278,7 @@ class DOModel
 			{
 				$params[] = $p;
 			}
-			$caller = DOFactory::GetTable($this->name);
+			$caller = Factory::GetTable($this->name);
 			$R      = call_user_func_array(array($caller,__FUNCTION__), $params);
 			$this->SetFieldsValue($R,$uparray,$this->action);
 			$this->AffectChainAction($uparray);
@@ -281,7 +294,7 @@ class DOModel
 	{
 		if(!$posts)
 		{
-			$request = DOFactory::GetTool('http.request');
+			$request = new \Dothing\Lib\Http\Request();
 			$posts = $request->Get(null,'post');
 		}
 		$this->binds = $this->cdts = null;
@@ -305,7 +318,7 @@ class DOModel
 		/** Log each field's status **/
 		$falseFlag = array(1);
 		/** Filter **/
-		$filter    = DOFactory::GetFilter();
+		$filter    = Factory::GetFilter();
 		foreach( $posts as $field=>$value)
 		{
 			if(strpos($field,'__editor') === 0)
@@ -443,7 +456,7 @@ class DOModel
 		// 		$posts[$field]  = $this->last['fields'][$field];
 		// 	}
 		// 	call_user_func(array(
-		// 		DOFactory::GetModel($tb),$this->action
+		// 		Factory::GetModel($tb),$this->action
 		// 	),$posts);
 		// }
 
@@ -455,7 +468,7 @@ class DOModel
 		// 		$posts[$field]  = $this->last['fields'][$field];
 		// 	}
 		// 	call_user_func(array(
-		// 		DOFactory::GetModel($tb),$this->action
+		// 		Factory::GetModel($tb),$this->action
 		// 	),$posts);
 		// }
 	}

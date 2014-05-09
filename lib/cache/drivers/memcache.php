@@ -1,7 +1,7 @@
 <?php 
 /**Cache handler**/
-DOLoader::Import('lib.cache.cache');
-class DOCacheMemcache extends DOCache
+namespace Dothing\Lib\Cache\Drives;
+class Memcache extends \Dothing\Lib\Cache\Cache
 {
 	/** Instance of memcache class**/
 	public static $MI;

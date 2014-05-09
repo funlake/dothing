@@ -1,10 +1,11 @@
-<?php 
+<?php
+namespace Dothing\Lib;
 /**
  * Exception handler,basically copied from ZendFrameWork.
  * @ajusted by lake
  *
  */
-class DOException extends Exception
+class Exception extends Exception
 {
 	/** All message we want to display finally**/
 	public static $msg  = array();

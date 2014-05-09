@@ -1,5 +1,7 @@
 <?php 
-class DOLang 
+namespace Dothing\Lib;
+use \Dothing\Lib\Router as Router;
+class Lang 
 {
 	private static $loadGlobal 	= false;
 	private static $moudleLang 	= array();
@@ -23,7 +25,7 @@ class DOLang
 		/** Load global language file **/
 		if(!self::$moudleLang)
 		{
-			$globalLangFile = SYSTEM_ROOT.DS.'languages'.DS.self::GetLangCode().DS.DORouter::$module.'.ini';
+			$globalLangFile = SYSTEM_ROOT.DS.'languages'.DS.self::GetLangCode().DS.Router::$module.'.ini';
 
 			if(file_exists($globalLangFile))
 			{
@@ -39,21 +41,21 @@ class DOLang
 	{
 		$lang = array();
 		/** Load global language file **/
-		if(!isset(self::$ctrLang[DORouter::$controller]))
+		if(!isset(self::$ctrLang[Router::$controller]))
 		{
 			$ctrLangFile = SYSTEM_ROOT.DS.'languages'
 							  .DS.self::GetLangCode().DS
-							  .DORouter::$module.'.'.DORouter::$controller.'.ini';
+							  .Router::$module.'.'.Router::$controller.'.ini';
 			if(file_exists($ctrLangFile))
 			{
-				self::$ctrLang[DORouter::$controller] = parse_ini_file($ctrLangFile,true);
+				self::$ctrLang[Router::$controller] = parse_ini_file($ctrLangFile,true);
 			}
 			else
 			{
-				self::$ctrLang[DORouter::$controller] = null;
+				self::$ctrLang[Router::$controller] = null;
 			}
 		}
-		return self::$ctrLang[DORouter::$controller];
+		return self::$ctrLang[Router::$controller];
 	}
 	/** Get language code **/
 	public static function GetLangCode()

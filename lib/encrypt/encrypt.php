@@ -1,4 +1,5 @@
 <?php
+namespace Dothing\Lib\Encrypt;
 /**
 ** Encrypt/Decrypt handler
 **@author lake
@@ -8,11 +9,11 @@
 ** $encoded = $crypt->Encrypt("balabla");
 ** echo $crypt->Decrypt($encoded);
 **/
-class DOEncrypt
+class Encrypt
 {
 	public $cipher;
 	
-	function DOEncrypt()
+	function __construct()
 	{
 		$this->cipher = md5(md5(DO_SITECIPHER));
 	}

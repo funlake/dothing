@@ -18,13 +18,13 @@ class DOControllerIndex extends DOController
 		);
 		$pdo 		= class_exists('PDO');
 		$envs[]	= array(
-			'item'		=> L("Pdo library installation"),
+			'item'	=> L("Pdo library installation"),
 			'value'	=>  $pdo ? 'Yes' : 'No',
 			'class'	=>  $pdo ? "success" : "fail"
 		);
 		$gpc = get_magic_quotes_gpc();
 		$envs[]	= array(
-			'item'		=> L("Gpc quote turn off"),
+			'item'	=> L("Gpc quote turn off"),
 			'value'	=> !$gpc ? 'Yes' : 'No',
 			'class'	=> !$gpc ? "success" : "fail"
 		);
@@ -36,7 +36,7 @@ class DOControllerIndex extends DOController
 		$envs 	= array();
 		$pathinfo   = array_key_exists('PATH_INFO', $_SERVER);
 		$envs[]	= array(
-			'item'		=> L("Path info supported"),
+			'item'	=> L("Path info supported"),
 			'value'	=>  $pathinfo ? 'Yes' : 'No',
 			'class'	=>  $pathinfo ? "success" : "fail"
 		);

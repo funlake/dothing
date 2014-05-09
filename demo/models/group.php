@@ -1,7 +1,10 @@
 <?php
+namespace Application\Models;
+use \Dothing\Lib\Factory;
 //view model
-class DOModelGroup extends DOModel
+class Group extends \Dothing\Lib\Model
 {
+	public $name = "#__group";
 	public $fields = array(
 		'@id'  => true,
 		'pid'   => true,
@@ -42,7 +45,7 @@ class DOModelGroup extends DOModel
 	}	
 	public function GroupRoleList($id='')
 	{
-		$db = DOFactory::GetDatabase();
+		$db = Factory::GetDatabase();
 		$db->Clean();
 		$where = array();
 		if(!empty($id))
@@ -72,7 +75,7 @@ class DOModelGroup extends DOModel
 	{
 		$this->defaultLimit = array(0,10000);
 		$data = $this->GroupRoleList();
-		$tree   = DOFactory::GetWidget('tree','default',array($data));
+		$tree   = Factory::GetWidget('tree','default',array($data));
 		$tpl     = <<<EOD
 		[prefix]{#name}
 EOD;
@@ -102,13 +105,13 @@ EOD;
 		$R = parent::Update($upArray);
 		if($R->success)
 		{
-			DOFactory::GetTable('#__group_role')->Delete(array(
+			Factory::GetTable('#__group_role')->Delete(array(
 				"group_id" => "=?"
 			),$upArray['id']);
 
 			foreach($upArray['role_id'] as $rid)
 			{
-				DOFactory::GetTable('#__group_role')->Insert(
+				Factory::GetTable('#__group_role')->Insert(
 					array(
 						'group_id' => $upArray['id'],
 						'role_id'  => $rid

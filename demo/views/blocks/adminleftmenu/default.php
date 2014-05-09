@@ -3,7 +3,7 @@
   <div class="col-lg-8">
     <div class="slidebar">
       <ul class="nav nav-pills nav-stacked">				
-<?php foreach((array)DOBlocks::GetBlock('admin.leftmenu')->GetBackMenu() as $key_0=>$item_0) : ?>
+<?php foreach((array)\Dothing\Lib\Blocks::GetBlock('admin.leftmenu')->GetBackMenu() as $key_0=>$item_0) : ?>
 <?php $item_0=(array)$item_0; ?>
 
       <li class="<?php echo $item_0['class']?>"><a href="<?php echo $item_0['link']?>"><i class="<?php echo $item_0['iconClass']?>"></i><?php echo $item_0['title']?></a></li>

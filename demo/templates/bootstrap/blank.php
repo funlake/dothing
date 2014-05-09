@@ -1,3 +1,8 @@
+<?php
+use \Dothing\Lib\Template;
+use \Dothing\Lib\Uri;
+use \Dothing\Lib\Router;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,11 +35,11 @@
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-72-precomposed.png">
       <link rel="apple-touch-icon-precomposed" href="<?php echo DO_THEME_BASE;?>/docs/assets/ico/apple-touch-icon-57-precomposed.png"> 
         <link href="<?php echo DO_THEME_BASE;?>/docs/assets/css/main.css" rel="stylesheet">
-      <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo DOUri::GetBase();?>/assets/js/require.js"></script>
+      <script data-main="<?php echo DO_THEME_BASE;?>/js/main.js" src="<?php echo Uri::GetBase();?>/assets/js/require.js"></script>
         <script type="text/javascript">
-      var DOJsBase = '<?php echo DOUri::GetBase();?>/assets/js';
-      var DOJsModule = '<?php echo DORouter::GetModule();?>';
-      var DOJsMod = '<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>';
+      var DOJsBase = '<?php echo Uri::GetBase();?>/assets/js';
+      var DOJsModule = '<?php echo Router::GetModule();?>';
+      var DOJsMod = '<?php echo Router::GetController();?>_<?php echo Router::GetAction();?>';
     </script>
     </head>
 
@@ -61,7 +66,6 @@
     
     require([DOJsBase+'/'+DOJsModule+'.js'],function(m){
       m.run(DOJsMod);
-       //console.log('.<?php echo DORouter::GetController();?>_<?php echo DORouter::GetAction();?>');
     })
     </script>
   </body>

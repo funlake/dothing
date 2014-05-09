@@ -1,16 +1,16 @@
 <?php 
-class DOCacheWS
+namespace Dothing\Lib\Cache;
+class Workshop
 {	
 	/** Cache handler,default by 'file' **/
 	public static $cacheHandler;
 	/** Instance of cache handler **/
 	public static $engine;
 	
-	function DOCacheWS( )
+	function __construct()
 	{
 		$drive		  		= DO_CACHEHANDLER ;
-		self::$cacheHandler = 'DOCache'.ucwords(strtolower($drive));
-	
+		self::$cacheHandler = '\Dothing\Lib\Cache\Drivers\\'.ucwords(strtolower($drive));
 		if( self::CheckEngine( $drive ))
 		{
 			self::LoadEngine();
@@ -19,8 +19,7 @@ class DOCacheWS
 	
 	function CheckEngine( $drive )
 	{
-		DOLoader::Import('lib.cache.drivers.'.$drive); 
-		
+		//\Dothing\Lib\Loader::Import('lib.cache.drivers.'.$drive); 
 		if( class_exists(self::$cacheHandler) )
 		{
 			return true;

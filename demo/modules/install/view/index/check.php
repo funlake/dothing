@@ -19,5 +19,5 @@
 </div>
 <div class="row span12 top20">
 	<div class="span4"></div>
-	<div class="span4"><a class="btn btn-medium btn-primary" href="<?php echo Url('install/index/database');?>"><?php echo L('Next');?></a></span>
+	<div class="span4"><a id="next-btn" class="btn btn-medium btn-primary" href="<?php echo Url('install/index/database');?>"><?php echo L('Next');?></a></span>
 </div>

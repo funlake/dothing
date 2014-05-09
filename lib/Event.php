@@ -1,5 +1,8 @@
 <?php
-class DOEvent
+namespace Dothing\Lib;
+use \Dothing\Lib\Factory;
+use \Dothing\Lib\Template;
+class Event
 {
 /*	private static $events = array();
 	public static function AddEvent($event,$listener)
@@ -15,7 +18,7 @@ class DOEvent
 			list($mod,$ipm) = explode('.',$lst);
 			$ipm            = 'Event_'.strtolower($ipm);
 			call_user_func_array(array(
-				DOFactory::GetModel('#__'.$mod),$ipm
+				Factory::GetModel('#__'.$mod),$ipm
 			),$params);
 		}
 		return true;
@@ -24,15 +27,15 @@ class DOEvent
 	public function OnBeforeRequest( $params = array())
 	{//Get controller cache if it has
 		$mca = $params[0];
-		$cache = DOFactory::GetCache();
-		//echo class_exists('DOTemplate');
-		DOTemplate::SetModule($cache->GetControllerCache($mca));
+		$cache = Factory::GetCache();
+		//echo class_exists('Template');
+		Template::SetModule($cache->GetControllerCache($mca));
 	}
 
 	public function OnAfterRequest($params = array())
 	{//Generate controller cache if needed[see modules/cache/cache.config.php]
 		list($mca,$content) = $params;
-		$cache = DOFactory::GetCache();
+		$cache = Factory::GetCache();
 		$cache->SetControllerCache($mca,$content);
 	}
 

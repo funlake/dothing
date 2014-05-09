@@ -1,11 +1,12 @@
 <?php
+namespace Dothing\Lib\Cache;
 define('DOCACHE_NOTSET'		 , null);
 define('DOCACHE_EXPIRED'	 , null);
 /**
 *
 *Curd cache class
 */
-class DOCache
+class Cache
 {
 	#create cache
 	public function Create($hashkey){}

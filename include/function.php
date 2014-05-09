@@ -130,17 +130,23 @@ function GetMessageType($type)
 
 function M($mod)
 {
-	return DOFactory::GetModel($mod);
+	static $m = array();
+	if(!array_key_exists($mod, $m))
+	{
+		$class = '\Application\Models\\'.ucwords(strtolower($mod));
+		$m[$mod] = new $class();
+	}
+	return $m[$mod];
 }
 
 function T($type,$pos)
 {
-	return DOTemplate::_($type,$pos);
+	return \Dothing\Lib\Template::_($type,$pos);
 }
 
 function L($langVar)
 {
-	return DOLang::Get($langVar);
+	return \Dothing\Lib\Lang::Get($langVar);
 }
 
 function Url($dir,$params ='')
@@ -160,12 +166,12 @@ function Url($dir,$params ='')
 	
 	$args 	= explode('/',$dir);
 	$args[] = $query;
-	return call_user_func_array(array('DOUri',"BuildQuery"),$args);
+	return call_user_func_array(array('\Dothing\Lib\Uri',"BuildQuery"),$args);
 }
 //Session Set
 function SS($var,$val)
 {
-	$session = DOFactory::GetSession();
+	$session = \Dothing\Lib\Factory::GetSession();
 	if($val === null)
 	{
 		$session->Clean($var);
@@ -175,7 +181,7 @@ function SS($var,$val)
 //Session Get
 function SG($var)
 {
-	$session = DOFactory::GetSession();
+	$session = \Dothing\Lib\Factory::GetSession();
 	return $session->Get($var);
 }
 ?>

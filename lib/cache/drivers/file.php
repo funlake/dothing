@@ -1,9 +1,7 @@
 <?php
-/**Cache handler**/
-DOLoader::Import('lib.cache.cache');
 /**File handler **/
-DOLoader::Import('lib.file.file');
-class DOCacheFileEntity
+namespace Dothing\Lib\Cache\Drivers;
+class CacheFileEntity
 {
 	public $obj;
 	public function __construct( $obj )
@@ -46,7 +44,7 @@ class DOCacheFileEntity
 		return $this->obj = null;
 	}
 }
-class DOCacheFile extends DOCache
+class File extends \Dothing\Lib\Cache\Cache
 {
 	private static $entity;
 	private static $expire = 3600;
@@ -66,7 +64,7 @@ class DOCacheFile extends DOCache
 			$vars = file_get_contents( $file );
 			if(!empty( $vars )) $obj  = json_decode( $vars );
 			else $obj = array();
-			self::$entity[$type] = new DOCacheFileEntity($obj);	
+			self::$entity[$type] = new CacheFileEntity($obj);	
 		}
 		return self::$entity[$type];
 	}

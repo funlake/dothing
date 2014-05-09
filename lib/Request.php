@@ -1,11 +1,12 @@
 <?php
-class DORequest
+namespace Dothing\Lib;
+class Request
 {
 	public static $serverVars = array('_get','_post','_request','_env','_server','_files','_cookie','_session');
 	public static $requestVar = array('_post','_get','_cookie');
 	public static $params;
 	
-	function DORequest(){}
+	function __construct(){}
 	#
 	#[Warning] Do not call twice in a same process(page)!!!
 	#

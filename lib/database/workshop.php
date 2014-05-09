@@ -1,14 +1,15 @@
 <?php
+namespace Dothing\Lib\Database;
 /**
 * Database Work Shop
 */
-class DODatabaseWS
+class Workshop
 {
 	private static $engine = array();
     private static $syntax;	
     private static $loader;
     private $handlerKey = '';
-	function DODatabaseWS( $driver ,$params=array())
+	function __construct( $driver ,$params=array())
 	{
 		/** Build a key for handler **/
 		$this->handlerKey = $driver."_".serialize($params);
@@ -36,7 +37,7 @@ class DODatabaseWS
 		return false;
 	}
 	/** Load and initial **/
-	public function LoadEngine( $driver,$parmas=array() )
+	public function LoadEngine( $driver,$params=array() )
 	{
 		$driver = "DODatabase".ucwords(strtolower($driver));
 		/** If we dont pass any params,then use default driver && params **/
@@ -46,7 +47,7 @@ class DODatabaseWS
 		}
 		/** Database initial **/
 		self::$engine[$this->handlerKey] =  call_user_func_array(
-			array(new ReflectionClass( $driver ),'newInstance')
+			array(new \ReflectionClass( $driver ),'newInstance')
 		   ,$params
 		);
 	}
@@ -60,8 +61,8 @@ class DODatabaseWS
 	{
 		if(!self::$syntax)
 		{	
-			DOLoader::import('lib.database.syntax');
-			DOLoader::import('lib.database.syntax.'.$driver);
+			\Dothing\Lib\Loader::import('lib.database.syntax');
+			\Dothing\Lib\Loader::import('lib.database.syntax.'.$driver);
 			$eg = ucwords( $driver ) . "Syntax";
 			self::$syntax = new $eg();
 		}			

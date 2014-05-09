@@ -1,4 +1,5 @@
 <?php
+namespace Dothing\Lib;
 defined('DO_ACCESS') OR exit('Get Away!');
 /**
  * @class: InputFilter (PHP4 & PHP5, with comments)
@@ -15,7 +16,7 @@ defined('DO_ACCESS') OR exit('Get Away!');
  * @email: dan@rootcube.com
  * @license: GNU General Public License (GPL)
  */
-class DOFilter
+class Filter
 {
 	var $tagsArray; // default = empty array
 	var $attrArray; // default = empty array

@@ -5,39 +5,45 @@ include '../bootstrap.php';
 include 'define.php';
 /** System config **/
 include 'config.php';
+
 include 'includes/function.php';
+
 /**
  * User custom error handler 
  * We should close this function in live enviroment
  **/
+use \Dothing\Lib\Router as Router;
+use \Dothing\Lib\Uri as Uri;
+use \Dothing\Lib\Factory as Factory;
 if(DO_DEBUG)
 {
-	 error_reporting(E_ALL);
+	error_reporting(E_ALL);
 	if(error_reporting() AND ini_get('display_errors'))
 	{
-		$errorRef = new DOError();
+		$errorRef = new \Dothing\Lib\Error();
 		set_error_handler(array($errorRef,'Capture'));
 	}
 } 
 /** Capture request **/
 try
 {
-	$request 	= DOFactory::GetTool('http.request');
+	$request 	= new \Dothing\Lib\Http\Request();
+
 	/** Clean dangrous params **/
 	$request->Clean();
 	/** Parse Uri then dispatch **/
 	//$uri = DOUri::Parse()
-	DORouter::Dispatch( DOUri::Parse() );
+	Router::Dispatch( Uri::Parse() );
 	/** Generate response **/
-	$response	= DOFactory::GetTool('http.response');
+	$response	= new \Dothing\Lib\Http\Response();
 	/** Http response **/
 	$response->Response();
 }
 catch(DOException $e)
 {
-	$request 	= DOFactory::GetTool('http.request');
+	$request 	= Factory::GetTool('http.request');
 	/** Capture request **/
-	$session 	= DOFactory::GetSession();
+	$session 	= Factory::GetSession();
 	$msg 		= array();
 	foreach($e->_getMessage() as $i=>$message)
 	{
@@ -55,13 +61,12 @@ catch(DOException $e)
 	 $session->Set("Error_Msg",$msg);
 	if(!$request->Get('__ajax','request'))
 	{
-		DOUri::Redirect(
+		Uri::Redirect(
 			Url(
 				'debug/index/index',
 				array(
 					//'source' 	=> base64_encode(Url(DOUri::GetPageIndex(),DORouter::GetParams())),
 					'mca'		=> base64_encode(DORouter::GetPageIndex())
-
 				)
 			)
 		);

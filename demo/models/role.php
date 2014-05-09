@@ -4,11 +4,15 @@
 **@whytodo:
 **@author:Lake
 **/
-class DOModelRole extends DOModel
+namespace Application\Models;
+use \Dothing\Lib\Factory;
+class Role extends \Dothing\Lib\Model
 {
 	// public $connection = array(
 	// 	"#_role" => "id:role_id"
 	// );
+	public $name = "#__role";
+	public $pk = "id";
 	public $updateKey = array(
 		'id'	=> '=?'		
 	);
@@ -35,7 +39,7 @@ class DOModelRole extends DOModel
 	{
 		$this->defaultLimit = array(0,10000);
 		$data = $this->Find();
-		$tree   = DOFactory::GetWidget('tree','default',array($data));
+		$tree   = Factory::GetWidget('tree','default',array($data));
 		$tpl     = <<<EOD
 		[prefix]{#name}
 EOD;

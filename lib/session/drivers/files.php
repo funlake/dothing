@@ -1,5 +1,6 @@
 <?php
-class DOSessionFile
+namespace Dothing\Lib\Session\Drivers;
+class Files
 {
 	public function __construct(){}
 	

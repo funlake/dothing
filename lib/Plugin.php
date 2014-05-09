@@ -1,9 +1,10 @@
 <?php
+namespace Dothing\Lib;
 /**
 ** Plugin class
 ** @author lake
 **/
-class DOPlugin 
+class Plugin 
 {
 	public $params;
 	public $behavior;

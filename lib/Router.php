@@ -1,5 +1,11 @@
 <?php
-class DORouter
+namespace Dothing\Lib;
+use \Dothing\Lib\Uri;
+use \Dothing\Lib\Hook;
+use \Dothing\Lib\Template;
+use \Dothing\Lib\Factory;
+use \Dothing\Lib\Profiler;
+class Router
 {
 	static $sep 		= ':';
 	static $maps 		= array();
@@ -22,12 +28,12 @@ class DORouter
 	public static function Dispatch(array $mca = null)
 	{
 		self::Prepare();
-		#self::hasMap(DOUri::GetPathInfo());
+		#self::hasMap(Uri::GetPathInfo());
 		/** Trigger plugin before all module route**/
-		DOHook::HangPlugin('prepareRoute',array(self::GetMca()));
-		if( ! ($CTR = DOController::GetController()) )
+		Hook::HangPlugin('prepareRoute',array(self::GetMca()));
+		if( ! ($CTR = \Dothing\Lib\Controller::GetController()) )
 		{
-			throw new DORouterException("Unknown page://detail:".DOUri::GetPageIndex(), 404);
+			throw new \Dothing\Lib\Exception("Unknown page://detail:".Uri::GetPageIndex(), 404);
 		}
 		//Whether controller class exist
 		$method = self::$action.'Action';
@@ -35,19 +41,19 @@ class DORouter
 		//Action exist
 		if( method_exists($CTR,$method) )
 		{
- 			DOHook::TriggerEvent(
+ 			Hook::TriggerEvent(
 				array(
 				    'beforeRequest' => array(self::GetMca())
 				)
 			);
-			DOProfiler::MarkStartTime("Controller:".self::GetPageIndex());
+			Profiler::MarkStartTime("Controller:".self::GetPageIndex());
 			/** Set some constants for template usage**/
-			DOTemplate::SetTemplateUriPath(DOTemplate::GetTemplate());
+			Template::SetTemplateUriPath(Template::GetTemplate());
 			/** No cache then update cache **/
-			if(!DOTemplate::GetModule() )
+			if(!Template::GetModule() )
 			{
 				ob_start();
-				$cache = DOFactory::GetCache();
+				$cache = Factory::GetCache();
 				if(false !== ($cacheContent = $cache->GetControllerCache($mca)))
 				{
 					echo $cacheContent;
@@ -61,20 +67,20 @@ class DORouter
 					   ,'session'	=> $_SESSION
 					));
 				}
-				DOTemplate::SetModule(ob_get_clean());
+				Template::SetModule(ob_get_clean());
 			}
-			DOProfiler::MarkEndTime("Controller:".self::GetPageIndex(),__FILE__);
- 			DOHook::TriggerEvent(
+			Profiler::MarkEndTime("Controller:".self::GetPageIndex(),__FILE__);
+ 			Hook::TriggerEvent(
 				array(
-				    'afterRequest' => array(self::GetMca(),DOTemplate::GetModule())
+				    'afterRequest' => array(self::GetMca(),Template::GetModule())
 				)
 			);
 		}
 		else 
 		{
-			throw new DORouterException("Unknown page://detail:".DOUri::GetPageIndex(), 404);
+			throw new \Dothing\Lib\Exception("Unknown page://detail:".Uri::GetPageIndex(), 404);
 		}
-		DOHook::HangPlugin('afterRoute',array(self::GetMca()));
+		Hook::HangPlugin('afterRoute',array(self::GetMca()));
 	}
 
 	public static function Map()
@@ -128,12 +134,12 @@ class DORouter
 	 */
 	public static function Prepare(array $mca = null)
 	{
-		$pathinfo			= DOUri::GetPathInfo();
+		$pathinfo			= Uri::GetPathInfo();
 
-		self::$module	  	= DOUri::GetModule();
-		self::$controller 	= DOUri::GetController();
-		self::$action     	= DOUri::GetAction();
-		self::$params	 	= DOUri::GetParams();
+		self::$module	  	= Uri::GetModule();
+		self::$controller 	= Uri::GetController();
+		self::$action     	= Uri::GetAction();
+		self::$params	 	= Uri::GetParams();
 		
 		//Wanna hide the admin interface?
 		// if(DO_ADMIN_INTERFACE)
@@ -197,7 +203,7 @@ class DORouter
 						//set $_GET
 						if(!is_numeric($mk))
 						{
-							//DOUri::SetParams($mk,$mv);
+							//Uri::SetParams($mk,$mv);
 							//self::$params[$mk] = $mv;
 							$pas[$mk] = $mv;
  						}
@@ -231,7 +237,7 @@ class DORouter
 	
 	public static function GetPageIndex()
 	{
-		return DORouter::$module.'/'.self::$controller.'/'.self::$action;
+		return Router::$module.'/'.self::$controller.'/'.self::$action;
 	}
 
 	public static function GetSearchIndex()

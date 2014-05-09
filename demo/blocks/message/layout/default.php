@@ -1,6 +1,6 @@
 <?php 
 !defined('DO_ACCESS') AND DIE("Go Away!");
-$flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
+$flashMsg 	= \Dothing\Lib\Blocks::GetBlock('message')->GetMessage();
 ?>
 <?php if(isset($flashMsg['type'])):?>
 	<div class="col-lg-12" id="msg-row">
@@ -17,6 +17,6 @@ $flashMsg 	= DOBlocks::GetBlock('message')->GetMessage();
 		});
 	</script>
 	<?php 
-		DOBlocks::GetBlock('message')->CleanMessage();
+		\Dothing\Lib\Blocks::GetBlock('message')->CleanMessage();
 	?>
 <?php endif;?>

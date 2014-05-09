@@ -1,5 +1,6 @@
 <?php
-class DOBlocksProfiler extends DOBlocksItem
+use \Dothing\Lib\Router;
+class DOBlocksProfiler extends \Dothing\Lib\BlocksItem
 {
 	public function __construct()
 	{
@@ -44,7 +45,7 @@ class DOBlocksProfiler extends DOBlocksItem
 	{
 		$timer = array();
 		
-		foreach(DOProfiler::GetTimer() as $event=>$t):
+		foreach(\Dothing\Lib\Profiler::GetTimer() as $event=>$t):
 			if($event == "Block:debug")  continue; 
 			$class = '';
 			list($type,$tag) = explode(':',$event,2);
@@ -73,7 +74,7 @@ class DOBlocksProfiler extends DOBlocksItem
 	}
 	public function GetErrors($specific='',$ignore='')
 	{
-		$errors 	= DOError::$_errorMsg;
+		$errors 	= \Dothing\Lib\Error::$_errorMsg;
 		$errs 		= array();  
 		foreach((array)$errors as $key => $value)
 		{
@@ -111,7 +112,7 @@ class DOBlocksProfiler extends DOBlocksItem
 
 	public function GetTests()
 	{
-		$testFile 		= SYSTEM_ROOT.'/tests/'.DORouter::GetModule().'/'.DORouter::GetController().'_'.DORouter::GetAction().'.php';
+		$testFile 		= SYSTEM_ROOT.'/tests/'.Router::GetModule().'/'.Router::GetController().'_'.Router::GetAction().'.php';
 		$testsContent 	= '';
 		$tests 		= array();
 		if(file_exists($testFile))
