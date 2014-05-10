@@ -15,9 +15,10 @@ class Loader
 		//echo $class."<br/>";
 		// echo "<pre/>";
 		// print_r(debug_backtrace());
+		$class = strtolower($class);
 		if(!array_key_exists($class,self::$loaded))
 		{
-			if(strpos($class,'Dothing') === 0 )
+			if(strpos($class,'dothing') === 0 )
 			{
 				$path = str_replace(array('\\','dothing/'),array('/',FRAMEWORK_ROOT.'/'),strtolower($class)).".php";
 
@@ -25,7 +26,7 @@ class Loader
 
 				//$class = array_pop($class);
 			}
-			if(strpos($class,'Application') === 0)
+			if(strpos($class,'application') === 0)
 			{
 				$path = str_replace(array('\\','application/'),array('/',SYSTEM_ROOT.'/'),strtolower($class)).".php";				
 			}

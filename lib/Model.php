@@ -1,10 +1,10 @@
 <?php
 namespace Dothing\Lib;
-use \Dothing\Lib\Http\Request as Request;
-use \Dothing\Lib\Factory as Factory;
-use \Dothing\Lib\Uri as Uri;
-use \Dothing\Lib\Lang as Lang;
-use \Dothing\Lib\Router;
+use \Dothing\Lib\Http\Request;
+// use \Dothing\Lib\Factory;
+// use \Dothing\Lib\Uri;
+// use \Dothing\Lib\Lang;
+// use \Dothing\Lib\Router;
 class Model
 {
 	public static  $_tbl 		= array();
@@ -32,12 +32,12 @@ class Model
 		}
 		$this->defaultLimit = array(($start-1)*DO_LIST_ROWS,DO_LIST_ROWS);
 
-		$this->addMsgSuccess 	= Lang::Get('You have successfully add an item');
-		$this->addMsgFail 	= Lang::Get('You fail to add an item');
-		$this->updateMsgSuccess = Lang::Get('You have successfully modify it');
-		$this->updateMsgFail	= Lang::Get('You failed to modify it');
-		$this->deleteMsgSuccess = Lang::Get('You have successfully deleted the item');
-		$this->deleteMsgFail       	= Lang::Get('Fail to delete');
+		$this->addMsgSuccess 	= L('You have successfully add an item');
+		$this->addMsgFail 	= L('You fail to add an item');
+		$this->updateMsgSuccess = L('You have successfully modify it');
+		$this->updateMsgFail	= L('You failed to modify it');
+		$this->deleteMsgSuccess = L('You have successfully deleted the item');
+		$this->deleteMsgFail       	= L('Fail to delete');
 	}
 
 

@@ -15,6 +15,8 @@ include 'includes/function.php';
 use \Dothing\Lib\Router as Router;
 use \Dothing\Lib\Uri as Uri;
 use \Dothing\Lib\Factory as Factory;
+use \Dothing\Lib\Http\Request;
+use \Dothing\Lib\Http\Response;
 if(DO_DEBUG)
 {
 	error_reporting(E_ALL);
@@ -27,7 +29,7 @@ if(DO_DEBUG)
 /** Capture request **/
 try
 {
-	$request 	= new \Dothing\Lib\Http\Request();
+	$request 	= new Request();
 
 	/** Clean dangrous params **/
 	$request->Clean();
@@ -35,7 +37,7 @@ try
 	//$uri = DOUri::Parse()
 	Router::Dispatch( Uri::Parse() );
 	/** Generate response **/
-	$response	= new \Dothing\Lib\Http\Response();
+	$response	= new Response();
 	/** Http response **/
 	$response->Response();
 }

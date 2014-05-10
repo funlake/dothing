@@ -121,7 +121,7 @@ class DOPlgSystemPrepareroute extends \Dothing\Lib\Plugin
 			$pageindex = "page";
 		}
 		$page   = Uri::GetModule()."/".Uri::GetController()."/".Uri::GetAction();
-		$params = \Dothing\Lib\Request::Get();
+		$params = \Dothing\Lib\Http\Request::Get();
 		$session = Factory::GetSession();
 		//if people search something,then page will rewind to 1.
 		if(isset($_REQUEST['DO']['search']))
