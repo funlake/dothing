@@ -40,7 +40,7 @@ class Permission extends \Dothing\Lib\Model
 
 	public function Update(array $data = null)
 	{
-		DOFactory::GetDatabase()->Query("truncate #__permission");
+		\Dothing\Lib\Factory::GetDatabase()->Query("truncate #__permission");
 		$final = array();
 		foreach($data['action'] as $mk=>$mo) :
 			list($mid,$oid) = explode("_",$mo);
@@ -55,13 +55,13 @@ class Permission extends \Dothing\Lib\Model
 		foreach($final as $item):
 			self::Add($item);
 		endforeach;
-		DOUri::Redirect(Url('admin/user/permission'),DOLang::Get('Permissions were successfully saved'),1);
+		\Dothing\Lib\Uri::Redirect(Url('admin/user/permission'),L('Permissions were successfully saved'),1);
 		return true;
 	}
 
 	public function GetOperationPermissionSetting($moduleId)
 	{
-		$db = DOFactory::GetDatabase();
+		$db = \Dothing\Lib\Factory::GetDatabase();
 		$db->Clean();
 		$db->From("#__operation","o","o.id as oid,o.name as oname")
 		->Where("o.state=1")

@@ -167,7 +167,7 @@ class User extends \Dothing\Lib\Controller
 
 	public function editoperationAction($request = null)
 	{
-		$var['data']	= M('operation')->GetRow($request->get['id']);
+		$var['data']	= M('operation')->GetRowById($request->get['id']);
 		$var['action'] 	= 'Update';
 		$var['request']	= $request;
 		$this->Display(null,$var);
@@ -175,7 +175,7 @@ class User extends \Dothing\Lib\Controller
 
 	public function rolepermissionAction($request = null)
 	{
-		$var['data']		= M('role')->GetRow($request->get['id']);
+		$var['data']		= M('role')->GetRowById($request->get['id']);
 		$var['request']	= $request;
 		$this->Display(null,$var);
 	}

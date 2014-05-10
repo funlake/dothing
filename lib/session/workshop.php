@@ -52,7 +52,7 @@ class Workshop
 		if(!self::$engine)
 		{
 			//$handler = '\Dothing\Lib\Session\Drivers\\'.ucwords(self::$drive);
-			self::$engine = new \Dothing\Lib\Session\Session();
+			self::$engine = new \Dothing\Lib\Session\Session(self::$drive);
 		}
 		return self::$engine;
 	}

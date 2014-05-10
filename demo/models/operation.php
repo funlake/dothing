@@ -1,14 +1,16 @@
 <?php
+namespace Application\Models;
 /**
 **@project:/var/www/dothing
 **@whytodo:
 **@author:Lake
 **/
-class DOModelOperation extends DOModel
+class Operation extends \Dothing\Lib\Model
 {
 	// public $connection = array(
 	// 	"#_role" => "id:role_id"
 	// );
+	public $name = "operation";
 	public $defaultOrderby = array(
 		'ordering' => 'DESC'
 	);

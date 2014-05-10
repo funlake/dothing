@@ -1,10 +1,11 @@
 <?php
+namespace Application\Models;
 /**
 **@project:/var/www/dothing
 **@whytodo:
 **@author:Lake
 **/
-class DOModelModule extends DOModel
+class Module extends \Dothing\Lib\Model
 {
 	public function __construct()
 	{

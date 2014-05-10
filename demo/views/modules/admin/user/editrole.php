@@ -14,18 +14,18 @@
 			<label class="control-label col-lg-2" for="name">
 				名称			</label>
 			<div class="col-lg-4">
-				<input type="text" id="name" name="name" class="form-control" value="Project manager" required/>
+				<input type="text" id="name" name="name" class="form-control" value="Super admin" required/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-lg-2" for="group_id">
 				Parent			</label>
 			<div class="col-lg-4">
-				<select id="group" data-placeholder="=======No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="5" disable="7">
+				<select id="group" data-placeholder="=======No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="0" disable="8">
 					<option value="0"></option>
 									
-<?php $tree_940d106d672622def9ff5d125cc5e266=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_940d106d672622def9ff5d125cc5e266->Render("
+<?php $tree_6784f793a7f1ce86dbecce01c1966eef=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_6784f793a7f1ce86dbecce01c1966eef->Render("
 						<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 					"); ?>
 
@@ -46,6 +46,6 @@
 			</div>
 		</div>
 		<input type="hidden" id="__redirect" name="__redirect" value="http://localhost/dothing/demo/index.php/ads007/user/role"/>
-		<input type="hidden" id="role_id" name="id" value="7"/>
-		<input type="hidden" id="__token" name="__token" value="6c0244deff96dad08c89c38ae03a0c7c"/>
+		<input type="hidden" id="role_id" name="id" value="8"/>
+		<input type="hidden" id="__token" name="__token" value="00e6c1585652ee7a640826af8e93bb54"/>
 	</form>
