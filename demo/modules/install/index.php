@@ -1,5 +1,6 @@
 <?php
-class DOControllerIndex extends DOController
+namespace Application\Modules\Install;
+class Index extends \Dothing\Lib\Controller
 {
 	public function checkAction($request=null)
 	{

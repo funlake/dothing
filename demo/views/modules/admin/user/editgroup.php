@@ -14,25 +14,25 @@
 		<label class="control-label col-lg-2" for="name">
 			名称		</label>
 		<div class="col-lg-4">
-			<input type="text" id="name" name="name" class="form-control" value="Author" required/>
+			<input type="text" id="name" name="name" class="form-control" value="超级管理员组" required/>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="ordering">
-			Ordering		</label>
+			排序		</label>
 		<div class="col-lg-4">
-			<input type="text" id="ordering" name="ordering" class="form-control" value="2" />
+			<input type="text" id="ordering" name="ordering" class="form-control" value="30" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="group_id">
-			Parent		</label>
+			父级		</label>
 		<div class="col-lg-4">
-			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="5" disable="6">
+			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="0" disable="1">
 				<option value="0"></option>
 								
-<?php $tree_e643e057bd08194c105398722f10e2a1=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Select())) ?>
-<?php echo $tree_e643e057bd08194c105398722f10e2a1->Render("
+<?php $tree_e740eace94020c43900981714d6a54b4=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Select())) ?>
+<?php echo $tree_e740eace94020c43900981714d6a54b4->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -43,11 +43,11 @@
 		<label class="control-label col-lg-2" for="role_id">
 			角色		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="3">
+			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="8">
 				<option value="0"></option>
 								
-<?php $tree_168164faa34355942fa2c2a42113b7f8=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_168164faa34355942fa2c2a42113b7f8->Render("
+<?php $tree_9559551607375aeb51962381ab1c23ad=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_9559551607375aeb51962381ab1c23ad->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -68,6 +68,6 @@
 		</div>
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/manage/group"/>
-	<input type="hidden" id="group_id" name="id" value="6"/>
-	<input type="hidden" id="__token" name="__token" value="6ac1c798bbdde394391e58910a91fe78"/>
+	<input type="hidden" id="group_id" name="id" value="1"/>
+	<input type="hidden" id="__token" name="__token" value="1956583fec3c0bd0c838869a4273f185"/>
 </form>

@@ -4,8 +4,8 @@
 **@whytodo:
 **@author:Lake
 **/
-
-class DOModelRolepermission extends DOModel
+namespace Application\Models;
+class Rolepermission extends \Dothing\Lib\Model
 {
 	// public $connection = array(
 	// 	"#_role" => "id:role_id"
@@ -37,7 +37,7 @@ class DOModelRolepermission extends DOModel
 
 	public function Add(array $data = null)
 	{
-		$db = DOFactory::GetDatabase();
+		$db = \Dothing\Lib\Factory::GetDatabase();
 		$db->Query("delete from #__role_permission where role_id=".(int)$data['role_id']);
 		$values = array();
 		foreach($data['action'] as $mk=>$mo) :
@@ -48,13 +48,13 @@ class DOModelRolepermission extends DOModel
 		if(!empty($values)):
 			$db->Query("insert into #__role_permission (role_id,module_id,operation_id) values ".implode(",",$values));
 		endif;
-		DOUri::Redirect(Url('admin/user/rolepermission','id='.$data['role_id']),DOLang::Get('Permissions were assinged successfully'),1);
+		\Dothing\Lib\Uri::Redirect(Url('admin/user/rolepermission','id='.$data['role_id']),L('Permissions were assinged successfully'),1);
 		return true;
 	}
 	public function GetOperationPermission($moduleId,$roleId)
 	{
 		$final = array();
-		$db = DOFactory::GetDatabase();
+		$db = \Dothing\Lib\Factory::GetDatabase();
 		$db->Clean();
 		//get parent role
 		$role = M('role')->GetRow(array('id'=>$roleId));

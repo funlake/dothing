@@ -1,13 +1,15 @@
-<?php 
-class DOControllerIndex extends DOController
+<?php
+namespace Application\Modules\Debug;
+use \Dothing\Lib\Factory;
+use \Dothing\Lib\Uri;
+class Index extends \Dothing\Lib\Controller
 {
 	public function indexAction($request = null)
 	{
-		$sess = DOFactory::GetSession();
+		$sess = Factory::GetSession();
 		$variables['source'] 	= base64_decode($request->get['source']);
 		$variables['mca']		= base64_decode($request->get['mca']);
-		$session = DOFactory::GetSession();
-		$pageSession = preg_grep('#'.$request->get['mca'].'#',array_keys($session->get()));
+		$pageSession = preg_grep('#'.$request->get['mca'].'#',array_keys($sess->get()));
 		array_map(array($session,'Clean'),$pageSession);
 		$variables['errors'] 	= $sess->Get('Error_Msg');
 		$this->Display(null,$variables);
@@ -15,18 +17,18 @@ class DOControllerIndex extends DOController
 
 	public function clearsessionAction($request = null)
 	{
-		$session = DOFactory::GetSession();
+		$session = Factory::GetSession();
 		$pageSession = preg_grep('#'.$request->post['mca'].'#',array_keys($session->get()));
 		array_map(array($session,'Clean'),$pageSession);
 		//print_r($session->Get());
 		//print_r($request->post['source_link']);exit;
 		if(strpos($request->post['mca'],"autocrud") === 0)
 		{
-			DOUri::Redirect(Url('debug/index/index'),L('Session variables of page have been cleared'),'error');
+			Uri::Redirect(Url('debug/index/index'),L('Session variables of page have been cleared'),'error');
 		}
 		else
 		{ 
-			DOUri::Redirect($request->post['source_link'],L('Session variables of page have been cleared'),'warning');
+			Uri::Redirect($request->post['source_link'],L('Session variables of page have been cleared'),'warning');
 		}
 	}
 

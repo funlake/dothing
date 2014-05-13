@@ -1,9 +1,9 @@
 <?php
-class DOBlocksWizard extends DOBlocksItem
+class DOBlocksWizard extends \Dothing\Lib\BlocksItem
 {
 	public function GetInstallWizard()
 	{
-		$action = DORouter::GetAction();
+		$action = \Dothing\Lib\Router::GetAction();
 		return array(
 			1=>array(
 				'link'		=> '',

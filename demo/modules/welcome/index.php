@@ -178,6 +178,14 @@ class Index extends \Dothing\Lib\Controller
 html;
 		echo preg_replace('#(?=[^>]*(?=<(?!/a>)|$))茶叶#','<a href="新加的链接.html">\0</a>',$html);
 	}
+
+	public function comAction()
+	{
+		$color = "blue";
+		define('GRASS_COLOR','green');
+		$foo = 'The sky is $color and</br> the grass is GRASS_COLOR';
+		echo strtr(preg_replace('#\$\w+#e','\0',$foo),get_defined_constants());
+	}
 }
 
 

@@ -18,7 +18,7 @@
 			<span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> 操作</span>
 			<a class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost/dothing/demo/index.php/ads007/user/addgroup'"><i class="glyphicon glyphicon-plus"></i> 添加</a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/addgroup'"><i class="glyphicon glyphicon-plus"></i> 添加</a></li>
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
 			</ul>
@@ -30,9 +30,9 @@
 		<thead>
 			<tr>
 				<th width="5%" >Id</th>
-				<th width="30%"><a data-toggle='post' data-link='http://localhost/dothing/demo/index.php/manage/group' class='sorter' data-key='order,sort' data-value='g.name,desc' href='javascript:void(0);'>名称</a></th>
+				<th width="30%"><a data-toggle='post' data-link='http://localhost:81/dothing/demo/index.php/manage/group' class='sorter' data-key='order,sort' data-value='g.name,desc' href='javascript:void(0);'>名称</a></th>
 				<th width="25%">角色</th>
-				<th width="10%"><a data-toggle='post' data-link='http://localhost/dothing/demo/index.php/manage/group' class='sorter' data-key='order,sort' data-value='g.ordering,desc' href='javascript:void(0);'>Ordering</a></th>
+				<th width="10%"><a data-toggle='post' data-link='http://localhost:81/dothing/demo/index.php/manage/group' class='sorter' data-key='order,sort' data-value='g.ordering,desc' href='javascript:void(0);'>排序</a></th>
 				<th width="10%">状态</th>
 				<th>操作</th>
 			</tr>
@@ -43,7 +43,7 @@
 
 		<tr>
 			<td><?php echo $item_0['id']?></td>
-			<td><a href="http://localhost/dothing/demo/index.php/manage/group-<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
+			<td><a href="http://localhost:81/dothing/demo/index.php/manage/group-<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
 			<td><?php echo cutStr($item_0['role'],20)?></td>
 			<td><?php echo $item_0['ordering']?></td>
 			<td><?php echo showStatus($item_0['state'],'group',$item_0['id'])?></td>

@@ -75,7 +75,7 @@ class File extends \Dothing\Lib\Cache\Cache
 	{
 		$file = CACHEROOT.DS.$type.".cache";
 		$fp   = fopen($file,"w+");
-		if(flock($fp,LOCK_EX))
+		if(flock($fp,LOCK_EX | LOCK_NB))
 		{
 			fwrite($fp,json_encode(self::$entity[$type]->obj));
 			flock($fp,LOCK_UN);

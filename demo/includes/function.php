@@ -87,11 +87,11 @@ if(!function_exists('showCfm'))
 							<p>{$q}</p>
 						</div>
 						<div class="modal-footer">
-							<a href="javascript:void(0);" onclick="jQuery('#form{$id}').submit()" class="btn btn-sm btn-sm btn btn-sm btn-sm-success">
+							<a href="javascript:void(0);" onclick="jQuery('#form{$id}').submit()" class="btn  btn-sm btn-success">
 								<i class="glyphicon glyphicon-ok glyphicon-white"></i>
 								{$yes}
 							</a>
-							<a data-dismiss="modal" class="btn btn-sm btn-sm btn btn-sm btn-sm-warning">
+							<a data-dismiss="modal" class="btn btn-sm btn-warning">
 								<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 								{$cancel}
 							</a>

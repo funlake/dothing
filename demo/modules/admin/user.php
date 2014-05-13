@@ -77,7 +77,7 @@ class User extends \Dothing\Lib\Controller
 	}
 	public function logoutAction($request = null)
 	{
-		$session = DOFactory::GetSession();
+		$session = Factory::GetSession();
 		$session->Clean();
 		Uri::Redirect(Url("admin/user/login"),"",1);
 		exit();

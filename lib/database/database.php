@@ -129,8 +129,10 @@ class DODatabase implements DORecord
 		{
 			$this->BindValue($params, $statement);
 		}
+		\Dothing\Lib\Util::TimeStart();
 		/** Prepare statement execute **/
 		$statement->execute();
+
 
 		/** Return dataset**/
 		$rs					= array();
@@ -142,6 +144,7 @@ class DODatabase implements DORecord
 		{
 			$rs					= $statement->fetchAll(PDO::FETCH_OBJ);
 		}
+		$spent = \Dothing\Lib\Util::TimeEnd();
 		/** 
 		** Generate return record set
 		** Bind latest recordset for $PDO object
@@ -153,7 +156,7 @@ class DODatabase implements DORecord
 		$R->affect_row  		= $this->affect_row = $statement->rowCount();
 		$errors			= $statement->errorInfo();
 		//log the query
-		\Dothing\Lib\Error::CustomHandler("sqlquery", $this->sqlQuery,implode(',',$params), __FILE__, __LINE__);
+		\Dothing\Lib\Error::CustomHandler("sqlquery", $this->sqlQuery." (spent:{$spent} s)",implode(',',$params), __FILE__, __LINE__);
 		if($this->IsError($errors))
 		{
 			//throw new DODatabaseException($sql."//detail:".$errors[2],301);

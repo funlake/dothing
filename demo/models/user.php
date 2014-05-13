@@ -74,7 +74,7 @@ class User extends \Dothing\Lib\Model
 		{
 			foreach($insArray['group_id'] as $gid)
 			{
-				DOFactory::GetTable('#__user_group')->Insert(
+				\Dothing\Lib\Factory::GetTable('#__user_group')->Insert(
 					array(
 						'user_id' => $R->insert_id,
 						'group_id' => $gid
@@ -83,7 +83,7 @@ class User extends \Dothing\Lib\Model
 			}
 			foreach($insArray['role_id'] as $rid)
 			{
-				DOFactory::GetTable('#__user_role')->Insert(
+				\Dothing\Lib\Factory::GetTable('#__user_role')->Insert(
 					array(
 						'user_id' => $R->insert_id,
 						'role_id' => $rid

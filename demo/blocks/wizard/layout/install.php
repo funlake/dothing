@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?php echo DOUri::GetBase();?>/assets/css/install.css"/>
+<link rel="stylesheet" href="<?php echo \Dothing\Lib\Uri::GetBase();?>/assets/css/install.css"/>
 <div class="row">
 	<h3>Install wizard</h3>
 	<div:loop=Block|Wizard.GetInstallWizard class="wizard">

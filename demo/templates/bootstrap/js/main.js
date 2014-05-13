@@ -2,6 +2,7 @@ require.config({
 	catchError : true
           ,paths : {
 	         // 'jq'		: ['jquery']
+            'raptor' : ['plugin/raptor']
 	}
 	//depends config
     ,shim : {

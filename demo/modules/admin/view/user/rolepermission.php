@@ -1,6 +1,6 @@
 <?php 
 !defined('DO_ACCESS') AND DIE("Go Away!"); 
-$searchIndex = "DOSearch/".DORouter::GetPageIndex();
+$searchIndex = "DOSearch/".\Dothing\Lib\Router::GetPageIndex();
 $searchs     = SG($searchIndex);
 ?>
 <form action="<?php echo Url('autocrud/Add/rolepermission');?>" method="post" id="Afm" name="Afm" class="form-horizontal">
@@ -48,6 +48,6 @@ $searchs     = SG($searchIndex);
     </div:loop>
      <div:paginate=Model|Module.GetTotal class="pull-right"/>
  </div>
- <input type="hidden" id="__token" name="__token" value="<?php echo DOBase::SetToken()?>"/>
+ <input type="hidden" id="__token" name="__token" value="<?php echo \Dothing\Lib\Base::SetToken()?>"/>
  <input type="hidden" name="role_id" value="<?php echo $request->get['id'];?>"/>
 </form>
