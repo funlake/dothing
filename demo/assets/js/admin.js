@@ -104,7 +104,6 @@ define(['jquery'],function($){
 		},
 		'user' : function(){
 			mod.__construct();
-
 		},
 		'user_login' : function(){
 			//alert($)

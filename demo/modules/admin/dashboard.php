@@ -1,5 +1,6 @@
 <?php
-class DOControllerDashboard extends DOController
+namespace Application\Modules\Admin;
+class Dashboard extends \Dothing\Lib\Controller
 {
 	public function indexAction()
 	{
@@ -8,7 +9,7 @@ class DOControllerDashboard extends DOController
 
 	public function settingAction($request = null)
 	{
-		$M 		= DOFactory::GetModel("#__setting");
+		$M 		= \Dothing\Lib\Factory::GetModel("#__setting");
 		$data	= $M->Select(array(
 				'status' => array('0','>')
 			)
@@ -25,7 +26,7 @@ class DOControllerDashboard extends DOController
 		$post = $request->post;
 		if(!!$post)
 		{
-			$db = DOFactory::GetDatabase();
+			$db = \Dothing\Lib\Factory::GetDatabase();
 			foreach((array)$post as $key=>$value)
 			{
 				if(strpos($key,"S_") === 0)
@@ -38,7 +39,7 @@ class DOControllerDashboard extends DOController
 						 ."VALUES"
 						 .implode(',',$vals) 
 			);
-			$model = $msg = DOFactory::GetModel('#__setting');
+			$model = $msg = \Dothing\Lib\Factory::GetModel('#__setting');
 			if($db->Execute())
 			{
 				$msg 	= $model->updateMsgSuccess;
@@ -50,7 +51,7 @@ class DOControllerDashboard extends DOController
 				$flag	= 0;
 			}
 			$db->Clean();
-			DOUri::Redirect(
+			\Dothing\Lib\Uri::Redirect(
 				Url('admin/dashboard/setting')
 			   ,$msg
 			   ,$flag

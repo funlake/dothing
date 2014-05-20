@@ -31,8 +31,8 @@
 			<select id="group" data-placeholder="=====No Parent======" class="chzn-select form-control"  tabindex="2" name="pid" default="0" disable="1">
 				<option value="0"></option>
 								
-<?php $tree_e740eace94020c43900981714d6a54b4=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Select())) ?>
-<?php echo $tree_e740eace94020c43900981714d6a54b4->Render("
+<?php $tree_a62f40d8d7022e229848ebabcc729cbd=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Select())) ?>
+<?php echo $tree_a62f40d8d7022e229848ebabcc729cbd->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -46,8 +46,8 @@
 			<select multiple data-placeholder="=======Choose roles======" class="chzn-select form-control"  tabindex="2" name="role_id[]" default="8">
 				<option value="0"></option>
 								
-<?php $tree_9559551607375aeb51962381ab1c23ad=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_9559551607375aeb51962381ab1c23ad->Render("
+<?php $tree_efb80c991978cbab5abd957fb7f82ca1=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_efb80c991978cbab5abd957fb7f82ca1->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -69,5 +69,5 @@
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/manage/group"/>
 	<input type="hidden" id="group_id" name="id" value="1"/>
-	<input type="hidden" id="__token" name="__token" value="1956583fec3c0bd0c838869a4273f185"/>
+	<input type="hidden" id="__token" name="__token" value="7bc57b7b51545af8d82f0e7846c439f3"/>
 </form>

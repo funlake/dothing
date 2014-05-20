@@ -50,5 +50,5 @@
 		 echo $pager->Render();
 		 ?></div>
  </div>
- <input type="hidden" id="__token" name="__token" value="2597c161352ada13bcb790ef03305fa5"/>
+ <input type="hidden" id="__token" name="__token" value="380161efe164bfd19493df59d39baa8d"/>
 </form>
