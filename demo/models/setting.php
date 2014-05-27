@@ -10,13 +10,13 @@ class Setting extends \Dothing\Lib\Model
 	public function __construct()
 	{
 		$this->fields = array(
-			'id'		=> true
-		   ,'label'	    => true
-		   ,'constant'  => true
-		   ,'type'		=> true
-		   ,'value'		=> true
-		   ,'description'=> true
-		   ,'status'    => 1
+			'id'			=> true
+		   ,'label'	    	=> true
+		   ,'constant'  	=> true
+		   ,'type'			=> true
+		   ,'value'			=> true
+		   ,'description'	=> true
+		   ,'status'    	=> 1
 		);
 		$this->updateKey = array(
 			'id' => '=?'

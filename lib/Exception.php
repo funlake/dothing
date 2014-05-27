@@ -5,7 +5,7 @@ namespace Dothing\Lib;
  * @ajusted by lake
  *
  */
-class Exception extends Exception
+class Exception extends \Exception
 {
 	/** All message we want to display finally**/
 	public static $msg  = array();

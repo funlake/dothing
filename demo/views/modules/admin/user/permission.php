@@ -1,4 +1,4 @@
-<form action="http://localhost:81/dothing/demo/index.php/autocrud/Update/permission" method="post" id="Afm" name="Afm" class="form-horizontal">
+<form action="http://192.168.1.14:8888/dothing/demo/index.php/autocrud/Update/permission" method="post" id="Afm" name="Afm" class="form-horizontal">
 <div class="row well">
 	<div class="col-lg-8">
           
@@ -50,5 +50,5 @@
 		 echo $pager->Render();
 		 ?></div>
  </div>
- <input type="hidden" id="__token" name="__token" value="380161efe164bfd19493df59d39baa8d"/>
+ <input type="hidden" id="__token" name="__token" value="6fde86f0d55b12d7dedf887ce7a16bb0"/>
 </form>

@@ -21,11 +21,11 @@
 		<label class="control-label col-lg-2" for="group_id">
 			用户组		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="5">
+			<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="5,6">
 				<option value="0"></option>
 								
-<?php $tree_996239bcc44d5b7697176d5c08a7fb65=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_996239bcc44d5b7697176d5c08a7fb65->Render("
+<?php $tree_0012c2da9721ae1dbf2a46405d6a15e9=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_0012c2da9721ae1dbf2a46405d6a15e9->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -39,8 +39,8 @@
 			<select multiple data-placeholder=" " class="chzn-select form-control"  tabindex="2" name="role_id[]" default="">
 				<option value="0"></option>
 								
-<?php $tree_11424e6b7fdf539d6ec93781a088aa45=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_11424e6b7fdf539d6ec93781a088aa45->Render("
+<?php $tree_be3b0cea283fb3702f37124688bdb038=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_be3b0cea283fb3702f37124688bdb038->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -63,5 +63,5 @@
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/manage/user"/>
 	<input type="hidden" id="user_id" name="id" value="15"/>
-	<input type="hidden" id="__token" name="__token" value="f892a70a66a40fbb0fb356aed9fa47f8"/>
+	<input type="hidden" id="__token" name="__token" value="b01280f3561e8401615eece70fd81e57"/>
 </form>

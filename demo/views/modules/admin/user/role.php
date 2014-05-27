@@ -18,8 +18,8 @@
 			<span class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-wrench glyphicon-white"></i> 操作</span>
 			<a class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/ads007/user/addrole'"><i class="glyphicon glyphicon-plus"></i> 添加</a></li>
-				<li><a href='javascript:void(0)' onclick="location.href='http://localhost:81/dothing/demo/index.php/assign/permission-'"><i class="glyphicon glyphicon-user"></i> Assign permission</a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='http://192.168.1.14:8888/dothing/demo/index.php/ads007/user/addrole'"><i class="glyphicon glyphicon-plus"></i> 添加</a></li>
+				<li><a href='javascript:void(0)' onclick="location.href='http://192.168.1.14:8888/dothing/demo/index.php/assign/permission-'"><i class="glyphicon glyphicon-user"></i> Assign permission</a></li>
 
 				<!-- 	    <li class="divider"></li> -->
 				<!-- 	    <li><a href="#"><i class="i"></i> Make admin</a></li> -->
@@ -43,15 +43,15 @@
 
 		<tr>
 			<td><?php echo $item_0['id']?></td>
-			<td><a href="http://localhost:81/dothing/demo/index.php/ads007/user/editrole@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
+			<td><a href="http://192.168.1.14:8888/dothing/demo/index.php/ads007/user/editrole@id=<?php echo $item_0['id']?>"><?php echo $item_0['name']?></a></td>
 			<td><?php echo showStatus($item_0['state'],'role',$item_0['id'])?></td>
 			<td>
-				<a class="glyphicon glyphicon-edit" href="http://localhost:81/dothing/demo/index.php/ads007/user/editrole@id=<?php echo $item_0['id']?>"></a>
+				<a class="glyphicon glyphicon-edit" href="http://192.168.1.14:8888/dothing/demo/index.php/ads007/user/editrole@id=<?php echo $item_0['id']?>"></a>
 				<a class="glyphicon glyphicon-trash" href="#" data-toggle="modal" data-target="#DOModal_<?php echo $item_0['id']?>"></a>
 				<div class="modal fade" id="DOModal_<?php echo $item_0['id']?>">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<form id="form<?php echo $item_0['id']?>" action="http://localhost:81/dothing/demo/index.php/autocrud/Delete/role" method="post">
+							<form id="form<?php echo $item_0['id']?>" action="http://192.168.1.14:8888/dothing/demo/index.php/autocrud/Delete/role" method="post">
 								<div class="modal-header">
 									<a class="close" data-dismiss="modal">×</a>
 									<h3>Warning</h3>
@@ -66,14 +66,14 @@
 									<a data-dismiss="modal" class="btn btn-sm btn-warning">
 										<i class="glyphicon glyphicon-remove glyphicon-white"></i>
 										取消									</a>
-									<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/ads007/user/role"/>
+									<input type="hidden" id="__redirect" name="__redirect" value="http://192.168.1.14:8888/dothing/demo/index.php/ads007/user/role"/>
 									<input type="hidden" id="id" name="id" value="<?php echo $item_0['id']?>"/>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-				<a class="glyphicon glyphicon-user" href="http://localhost:81/dothing/demo/index.php/assign/permission-<?php echo $item_0['id']?>"></a>
+				<a class="glyphicon glyphicon-user" href="http://192.168.1.14:8888/dothing/demo/index.php/assign/permission-<?php echo $item_0['id']?>"></a>
 			</td>
 		</tr>
 		

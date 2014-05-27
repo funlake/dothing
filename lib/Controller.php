@@ -28,7 +28,7 @@ class Controller
 			{//curd automate
 				self::AutoCrud(Router::$controller
 							  ,Router::$action
-							  ,array_merge($_REQUEST,$_FILES)
+							  ,array_merge($_GET,$_POST,$_FILES)
 				);
 				exit();
 			}
