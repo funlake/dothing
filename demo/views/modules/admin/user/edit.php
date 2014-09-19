@@ -14,18 +14,18 @@
 		<label class="control-label col-lg-2" for="user_name">
 			名称		</label>
 		<div class="col-lg-4">
-			<input type="text" id="user_name" name="user_name" class="form-control" value="Emual" required/>
+			<input type="text" id="user_name" name="user_name" class="form-control" value="Admin" required/>
 		</div>
 		</div>
 	<div class="form-group">
 		<label class="control-label col-lg-2" for="group_id">
 			用户组		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="5,6">
+			<select multiple data-placeholder="=======No group======" class="chzn-select form-control"  tabindex="2" name="group_id[]" default="1">
 				<option value="0"></option>
 								
-<?php $tree_0012c2da9721ae1dbf2a46405d6a15e9=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Find())) ?>
-<?php echo $tree_0012c2da9721ae1dbf2a46405d6a15e9->Render("
+<?php $tree_b8cc2b387997838ee087e1dd16fc90e0=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Group'))->Find())) ?>
+<?php echo $tree_b8cc2b387997838ee087e1dd16fc90e0->Render("
 					<option value=\"{#id}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -36,11 +36,11 @@
 		<label class="control-label col-lg-2" for="role_id">
 			角色		</label>
 		<div class="col-lg-4">
-			<select multiple data-placeholder=" " class="chzn-select form-control"  tabindex="2" name="role_id[]" default="">
+			<select multiple data-placeholder=" " class="chzn-select form-control"  tabindex="2" name="role_id[]" default="8">
 				<option value="0"></option>
 								
-<?php $tree_be3b0cea283fb3702f37124688bdb038=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
-<?php echo $tree_be3b0cea283fb3702f37124688bdb038->Render("
+<?php $tree_e95aafd994b880d70fdab13e6cb3c36f=\Dothing\Lib\Factory::GetWidget("tree","default",array(\Dothing\Lib\Factory::GetModel(strtolower('Role'))->Select())) ?>
+<?php echo $tree_e95aafd994b880d70fdab13e6cb3c36f->Render("
 					<option value=\"{#id}\" parent=\"{#pid}\">[prefix]{#name}</option>
 				"); ?>
 
@@ -62,6 +62,6 @@
 		</div>
 	</div>
 	<input type="hidden" id="__redirect" name="__redirect" value="http://localhost:81/dothing/demo/index.php/manage/user"/>
-	<input type="hidden" id="user_id" name="id" value="15"/>
-	<input type="hidden" id="__token" name="__token" value="b01280f3561e8401615eece70fd81e57"/>
+	<input type="hidden" id="user_id" name="id" value="21"/>
+	<input type="hidden" id="__token" name="__token" value="d3161149326d9b64d996ea821ad71f2c"/>
 </form>
